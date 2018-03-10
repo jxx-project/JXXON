@@ -99,7 +99,7 @@ JXXON container          | Base class
 
 These JXXON container derivates are adding only behaviour, but no data. They should therefore be safe to destroy via base class pointers or references, despite lacking virtual destructors, as their base classes do.
 
-JXXON containers can be used as member types of objects, or directly as top level serializable data types. Type `T` can be any from [supported scalar data types](#Supported-scalar-data-types), as well as serializable types like objects or other JXXON containers.
+JXXON containers can be used as member types of objects, or directly as top level serializable data types. Type `T` can be any from [supported basic data types](#Supported-basic-data-types), as well as serializable types like objects or other JXXON containers.
 
 ### How to use `JXXON::Json` objects
 
