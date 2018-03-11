@@ -113,7 +113,7 @@ JXXON containers can be used as member types of objects, or directly as top leve
 
 JXXON code is focussing on object mapping. Processing of JSON documents is delegated to either [JsonCpp](https://github.com/open-source-parsers/jsoncpp) or [Poco](https://pocoproject.org), depending on your choice when building the JXXON library:
 
- * **either ** Poco >= 1.6.0
+ * **either** Poco >= 1.6.0
  * **or** JsonCpp >= 1.7.4
 
 ## How to build
