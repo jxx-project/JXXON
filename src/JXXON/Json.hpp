@@ -12,6 +12,7 @@
 #include <memory>
 #include <string>
 
+/// JXXON root namespace.
 namespace JXXON {
 namespace Accessor {
 	
@@ -36,11 +37,42 @@ struct SetMapElements;
 } // namespace Accessor
 
 struct Json
+/// Main object mapper class.
+///
+/// Produced as output of toJson() on serialization.
+/// Consumed as constructor parameter for serializable classes on deserilization.
+///
+/// Example:
+///
+/// \code
+/// struct Sample : public JXXON::Serializable
+/// {
+///     Sample()
+///     {
+///     }
+///
+///     Sample(const JXXON::Json &json) : value(json.get<std::string>("sampleProperty"))
+///     {
+///     }
+///
+///     virtual JXXON::Json toJson() const override
+///     {
+///         JXXON::Json json;
+///         json.set("sampleProperty", value);
+///         return json;
+///     }
+///
+///     std::string value;
+/// };
+/// \endcode
 {
 	struct Serializable
+	/// Interface implemented by (de)serializable classes using JXXON::Json. Refer to JXXON::Serializable for implementations.
 	{
 		virtual Json toJson() const = 0;
-		virtual ~Serializable() {}
+		virtual ~Serializable()
+		{
+		}
 	};
 
 	template < typename T, template<typename...> class Base >
@@ -48,6 +80,7 @@ struct Json
 
 	template< typename T, template<typename...> class Base >
 	struct Array : public ArrayBase<T, Base>, public Serializable
+		/// Extension of Base<T> implementing JXXON::Serializable. Refer to JXXON::Vector and JXXON::List for actual instantiations.
 	{
 		Array()
 		{
@@ -73,6 +106,7 @@ struct Json
 
 	template <typename T, template<typename...> class Base >
 	struct Map : public MapBase<T, Base>, public Serializable
+		/// Extension of Base<std::string, T> implementing JXXON::Serializable. Refer to JXXON::Map and JXXON::UnorderedMap for actual instantiations.
 	{
 		Map()
 		{
@@ -93,24 +127,38 @@ struct Json
 		}
 	};
   
+	/// Default constructor. Creates a Json object representing the null value.
 	Json();
+	
 	Json(const Json& other) = delete;
-	Json(Json&& other);
-	Json(const std::string& document);
 	Json& operator=(const Json& other) = delete;
+	
+	/// Move constructor.
+	Json(Json&& other);
+	
+	/// Constructor parsing Json value from string document.
+	Json(const std::string& document);
+	
+	/// Move assignment operator.
 	Json& operator=(Json&& other);
+	
 	~Json();
 	
+	/// Return true if object is representing a null value.
 	bool isNull() const;
+	
+	/// Return Json value as string.
 	std::string toString() const;
 
 	template<typename T>
 	T get(const std::string& name) const
+	/// Return property of type T with name from Json object.
 	{
 		return Accessor::GetProperty<T>(*this, name)();
 	}
 
 	template<typename T>
+	/// Set property of type T with name in Json object.
 	void set(const std::string& name, const T& value)
 	{
 		Accessor::SetProperty<T>(*this, name)(value);
@@ -250,6 +298,7 @@ private:
 
 template<typename T>
 struct SetProperty<T, typename std::enable_if<!std::is_base_of<Json::Serializable, T>::value && !std::is_convertible< T, std::shared_ptr<Json::Serializable> >::value>::type>
+/// Fuctor writing basic type properties to Json objects.
 {
 	SetProperty(Json& json, const std::string& name);
 	void operator()(const T& value);

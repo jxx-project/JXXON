@@ -1,0 +1,85 @@
+@startuml
+
+namespace std {
+	class "vector or\nlist<T>" as ArrayBase
+	class "map or\nunordered_map<std::string, T>" as MapBase
+}
+
+namespace JXXON {
+	class Json {
+		+get<T>(name) : T
+		+set(name, value)
+	}
+	
+	interface "Json::Serializable" as Json_Serializable {
+		+toJson() : Json
+	}
+	Json_Serializable --+ Json
+	
+	interface Serializable {
+		+toJson() : Json
+	}
+	Serializable ..> Json_Serializable
+	
+	class "Json::Array" as Json_Array<T, Base> {
+		+Json::Array::Array(json)
+		+toJson() : Json
+	}
+	Json_Array --+ Json
+	Json_Array -right-|> Json_Serializable
+	Json_Array --|> std.ArrayBase
+	
+	class Vector<T>
+	Vector ..> Json_Array : <T, std::vector>
+	
+	class List<T>
+	List ..> Json_Array : <T, std::list>
+	
+	class "Json::Map" as Json_Map<T, Base> {
+		+Json::Map::Map(json)
+		+toJson() : Json
+	}
+	Json_Map --+ Json
+	Json_Map -left-|> Json_Serializable
+	Json_Map --|> std.MapBase
+	
+	class Map<T>
+	Map ..> Json_Map : <T, std::map>
+	
+	class UnorderedMap<T>
+	UnorderedMap ..> Json_Map : <T, std::unordered_map>
+	
+	namespace Accessor {
+		class GetProperty<T> {
+			+operator()() :T
+		}
+		JXXON.Json --> GetProperty
+		
+		class SetProperty<T> {
+			+operator()(value)
+		}
+		JXXON.Json --> SetProperty
+		
+		class GetArrayElements<T, Base> {
+			+operator()(array)
+		}
+		JXXON.Json_Array --> GetArrayElements
+		
+		class SetArrayElements<T, Base> {
+			+operator()(array)
+		}
+		JXXON.Json_Array --> SetArrayElements
+
+		class GetMapElements<T, Base> {
+			+operator()(map)
+		}
+		JXXON.Json_Map --> GetMapElements
+		
+		class SetMapElements<T, Base> {
+			+operator()(map)
+		}
+		JXXON.Json_Map --> SetMapElements
+	}
+}
+
+@enduml

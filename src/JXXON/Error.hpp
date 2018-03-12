@@ -13,6 +13,7 @@
 namespace JXXON {
   
 struct Error : public std::runtime_error
+/// JXXON exception.
 {
 	Error(const std::string what);
 	  

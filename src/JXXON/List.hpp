@@ -15,6 +15,7 @@ namespace JXXON {
   
 template <class T>
 using List = Json::Array<T, std::list>;
+/// Extension of std::list<T> implementing JXXON::Serializable.
 
 } // namespace JXXON
 

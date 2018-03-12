@@ -15,6 +15,7 @@ namespace JXXON {
   
 template <class T>
 using Map = Json::Map<T, std::map>;
+/// Extension of std::map<std::string, T> implementing JXXON::Serializable.
 
 } // namespace JXXON
 
