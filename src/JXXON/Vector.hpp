@@ -12,10 +12,10 @@
 #include <vector>
 
 namespace JXXON {
-  
+
+/// Alias template extending std::vector<T> and implementing JXXON::Serializable.
 template <class T>
 using Vector = Json::Array<T, std::vector>;
-/// Extension of std::vector<T> implementing JXXON::Serializable.
 
 } // namespace JXXON
 

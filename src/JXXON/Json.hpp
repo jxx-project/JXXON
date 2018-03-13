@@ -15,28 +15,27 @@
 /// JXXON root namespace.
 namespace JXXON {
 namespace Accessor {
-	
+
 template<typename T, typename Enable = void>
 struct GetProperty;
-  
+
 template<typename T, typename Enable = void>
 struct SetProperty;
 
 template<typename T, template<typename...> class Base, typename Enable = void>
 struct GetArrayElements;
-  
+
 template<typename T, template<typename...> class Base, typename Enable = void>
 struct SetArrayElements;
 
 template<typename T, template<typename...> class Base, typename Enable = void>
 struct GetMapElements;
-  
+
 template<typename T, template<typename...> class Base, typename Enable = void>
 struct SetMapElements;
-	
+
 } // namespace Accessor
 
-struct Json
 /// Main object mapper class.
 ///
 /// Produced as output of toJson() on serialization.
@@ -65,10 +64,12 @@ struct Json
 ///     std::string value;
 /// };
 /// \endcode
+struct Json
 {
+	/// Interface implemented by (de)serializable classes. Preferrably use the type alias JXXON::Serializable for implementations.
 	struct Serializable
-	/// Interface implemented by (de)serializable classes using JXXON::Json. Refer to JXXON::Serializable for implementations.
 	{
+		/// Return Json object.
 		virtual Json toJson() const = 0;
 		virtual ~Serializable()
 		{
@@ -78,14 +79,15 @@ struct Json
 	template < typename T, template<typename...> class Base >
 	using ArrayBase = Base<T>;
 
+	/// Extension of Base<T> implementing JXXON::Serializable. Use alias templates JXXON::Vector and JXXON::List for referring actual instantiations.
 	template< typename T, template<typename...> class Base >
 	struct Array : public ArrayBase<T, Base>, public Serializable
-		/// Extension of Base<T> implementing JXXON::Serializable. Refer to JXXON::Vector and JXXON::List for actual instantiations.
 	{
 		Array()
 		{
 		}
 
+		/// Construct array from Json object.
 		Array(const Json& json)
 		{
 			Accessor::GetArrayElements<T, Base> get(json);
@@ -100,18 +102,19 @@ struct Json
 			return json;
 		}
 	};
-  
+
 	template <typename T, template<typename...> class Base >
 	using MapBase = Base<std::string, T>;
 
+	/// Extension of Base<std::string, T> implementing JXXON::Serializable. Use alias templates JXXON::Map and JXXON::UnorderedMap for referring actual instantiations.
 	template <typename T, template<typename...> class Base >
 	struct Map : public MapBase<T, Base>, public Serializable
-		/// Extension of Base<std::string, T> implementing JXXON::Serializable. Refer to JXXON::Map and JXXON::UnorderedMap for actual instantiations.
 	{
 		Map()
 		{
 		}
 
+		/// Construct map from Json object.
 		Map(const Json& json)
 		{
 			Accessor::GetMapElements<T, Base> get(json);
@@ -126,39 +129,39 @@ struct Json
 			return json;
 		}
 	};
-  
+
 	/// Default constructor. Creates a Json object representing the null value.
 	Json();
-	
+
 	Json(const Json& other) = delete;
 	Json& operator=(const Json& other) = delete;
-	
+
 	/// Move constructor.
 	Json(Json&& other);
-	
+
 	/// Constructor parsing Json value from string document.
 	Json(const std::string& document);
-	
+
 	/// Move assignment operator.
 	Json& operator=(Json&& other);
-	
+
 	~Json();
-	
+
 	/// Return true if object is representing a null value.
 	bool isNull() const;
-	
+
 	/// Return Json value as string.
 	std::string toString() const;
 
+	/// Return property of type T with name from Json object.
 	template<typename T>
 	T get(const std::string& name) const
-	/// Return property of type T with name from Json object.
 	{
 		return Accessor::GetProperty<T>(*this, name)();
 	}
 
-	template<typename T>
 	/// Set property of type T with name in Json object.
+	template<typename T>
 	void set(const std::string& name, const T& value)
 	{
 		Accessor::SetProperty<T>(*this, name)(value);
@@ -166,30 +169,33 @@ struct Json
 
 	template<typename T, typename Enable>
 	friend struct Accessor::GetProperty;
-	
+
 	template<typename T, typename Enable>
 	friend struct Accessor::SetProperty;
-	
+
 	template<typename T, template<typename...> class Base, typename Enable>
 	friend struct Accessor::GetArrayElements;
-	
+
 	template<typename T, template<typename...> class Base, typename Enable>
 	friend struct Accessor::SetArrayElements;
-	
+
 	template<typename T, template<typename...> class Base, typename Enable>
 	friend struct Accessor::GetMapElements;
-	
+
 	template<typename T, template<typename...> class Base, typename Enable>
 	friend struct Accessor::SetMapElements;
-	
+
+	/// Stream operator overload reading Json objects.
 	friend std::istream& operator>>(std::istream& in, Json& json);
+
+	/// Stream operator overload writing Json objects.
 	friend std::ostream& operator<<(std::ostream& out, const Json& json);
 
 private:
-	
+
 	struct Impl;
 	std::unique_ptr<Impl> pimpl;
-	
+
 	Json(std::unique_ptr<Impl>&& pimpl);
 
 	void setTypeObject();
@@ -201,16 +207,16 @@ private:
 	void insert(const std::string& key, const Json& element);
 	void insert(const std::function<void(const std::string& key, const Json& element)>& insert) const;
 };
-  
+
 namespace Accessor {
-	
+
 template<typename T>
 struct GetProperty<T, typename std::enable_if<std::is_base_of<Json::Serializable, T>::value>::type>
 {
 	GetProperty(const Json& json, const std::string& name) : json(json), name(name)
 	{
 	}
-	
+
 	T operator()() const
 	{
 		auto child(json.getChild(name));
@@ -218,7 +224,7 @@ struct GetProperty<T, typename std::enable_if<std::is_base_of<Json::Serializable
 	}
 
 private:
-		
+
 	const Json& json;
 	const std::string& name;
 };
@@ -229,7 +235,7 @@ struct GetProperty<T, typename std::enable_if<std::is_convertible< T, std::share
 	GetProperty(const Json& json, const std::string& name) : json(json), name(name)
 	{
 	}
-	
+
 	T operator()() const
 	{
 		auto child(json.getChild(name));
@@ -237,7 +243,7 @@ struct GetProperty<T, typename std::enable_if<std::is_convertible< T, std::share
 	}
 
 private:
-		
+
 	const Json& json;
 	const std::string& name;
 };
@@ -249,14 +255,14 @@ struct SetProperty<T, typename std::enable_if<std::is_base_of<Json::Serializable
 	{
 		json.setTypeObject();
 	}
-	
+
 	void operator()(const T& value)
 	{
 		json.setChild(name, value.toJson());
 	}
 
 private:
-	  
+
 	Json& json;
 	const std::string& name;
 };
@@ -268,7 +274,7 @@ struct SetProperty<T, typename std::enable_if<std::is_convertible< T, std::share
 	{
 		json.setTypeObject();
 	}
-	
+
 	void operator()(const T& value)
 	{
 		if (value) {
@@ -277,7 +283,7 @@ struct SetProperty<T, typename std::enable_if<std::is_convertible< T, std::share
 	}
 
 private:
-	  
+
 	Json& json;
 	const std::string& name;
 };
@@ -285,12 +291,12 @@ private:
 template<typename T>
 struct GetProperty<T, typename std::enable_if<!std::is_base_of<Json::Serializable, T>::value && !std::is_convertible< T, std::shared_ptr<Json::Serializable> >::value>::type>
 {
-		
+
 	GetProperty(const Json& json, const std::string& name);
 	T operator()() const;
 
 private:
-	  
+
 	const Json& json;
 	const std::string& name;
 
@@ -298,17 +304,16 @@ private:
 
 template<typename T>
 struct SetProperty<T, typename std::enable_if<!std::is_base_of<Json::Serializable, T>::value && !std::is_convertible< T, std::shared_ptr<Json::Serializable> >::value>::type>
-/// Fuctor writing basic type properties to Json objects.
 {
 	SetProperty(Json& json, const std::string& name);
 	void operator()(const T& value);
 
 private:
-	  
+
 	Json& json;
 	const std::string& name;
 };
-		
+
 template<typename T, template<typename...> class Base>
 struct GetArrayElements<T, Base, typename std::enable_if<std::is_base_of<Json::Serializable, T>::value>::type>
 {
@@ -323,7 +328,7 @@ struct GetArrayElements<T, Base, typename std::enable_if<std::is_base_of<Json::S
 	}
 
 private:
-	  
+
 	const Json& json;
 };
 
@@ -341,7 +346,7 @@ struct GetArrayElements<T, Base, typename std::enable_if<std::is_convertible< T,
 	}
 
 private:
-	  
+
 	const Json& json;
 };
 
@@ -361,7 +366,7 @@ struct SetArrayElements<T, Base, typename std::enable_if<std::is_base_of<Json::S
 	}
 
 private:
-		
+
 	Json& json;
 };
 
@@ -381,7 +386,7 @@ struct SetArrayElements<T, Base, typename std::enable_if<std::is_convertible< T,
 	}
 
 private:
-		
+
 	Json& json;
 };
 
@@ -392,7 +397,7 @@ struct GetArrayElements<T, Base, typename std::enable_if<!std::is_base_of<Json::
 	void operator()(Json::ArrayBase<T, Base>& array) const;
 
 private:
-	  
+
 	const Json& json;
 };
 
@@ -403,7 +408,7 @@ struct SetArrayElements<T, Base, typename std::enable_if<!std::is_base_of<Json::
 	void operator()(const Json::ArrayBase<T, Base>& array);
 
 private:
-	  
+
 	Json& json;
 };
 
@@ -421,7 +426,7 @@ struct GetMapElements<T, Base, typename std::enable_if<std::is_base_of<Json::Ser
 	}
 
 private:
-	  
+
 	const Json& json;
 };
 
@@ -439,7 +444,7 @@ struct GetMapElements<T, Base, typename std::enable_if<std::is_convertible< T, s
 	}
 
 private:
-	  
+
 	const Json& json;
 };
 
@@ -459,7 +464,7 @@ struct SetMapElements<T, Base, typename std::enable_if<std::is_base_of<Json::Ser
 	}
 
 private:
-		
+
 	Json& json;
 };
 
@@ -479,7 +484,7 @@ struct SetMapElements<T, Base, typename std::enable_if<std::is_convertible< T, s
 	}
 
 private:
-		
+
 	Json& json;
 };
 
@@ -490,7 +495,7 @@ struct GetMapElements<T, Base, typename std::enable_if<!std::is_base_of<Json::Se
 	void operator()(Json::MapBase<T, Base>& map) const;
 
 private:
-	  
+
 	const Json& json;
 };
 
@@ -501,7 +506,7 @@ struct SetMapElements<T, Base, typename std::enable_if<!std::is_base_of<Json::Se
 	void operator()(const Json::MapBase<T, Base>& map);
 
 private:
-	  
+
 	Json& json;
 };
 

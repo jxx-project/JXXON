@@ -12,8 +12,8 @@
 
 namespace JXXON {
 
+/// Interface type alias implemented by (de)serializable classes.
 using Serializable = Json::Serializable;
-/// Interface implemented by (de)serializable classes using JXXON::Json.
 
 } // namespace JXXON
 

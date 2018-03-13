@@ -12,10 +12,10 @@
 #include <map>
 
 namespace JXXON {
-  
+
+/// Alias template extending std::map<std::string, T> and implementing JXXON::Serializable.
 template <class T>
 using Map = Json::Map<T, std::map>;
-/// Extension of std::map<std::string, T> implementing JXXON::Serializable.
 
 } // namespace JXXON
 

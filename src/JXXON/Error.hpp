@@ -11,12 +11,13 @@
 #include <stdexcept>
 
 namespace JXXON {
-  
-struct Error : public std::runtime_error
+
 /// JXXON exception.
+struct Error : public std::runtime_error
 {
-	Error(const std::string what);
-	  
+	/// Construct exception for error described by what.
+	Error(const std::string& what);
+
 	virtual ~Error();
 };
 
