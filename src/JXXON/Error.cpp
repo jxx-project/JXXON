@@ -9,7 +9,7 @@
 
 namespace JXXON {
 
-Error::Error(const std::string what) : std::runtime_error(what)
+Error::Error(const std::string& what) : std::runtime_error(what)
 {
 }
 
