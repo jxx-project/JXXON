@@ -110,13 +110,11 @@ std::istream& operator>>(std::istream& in, Json& json)
 	std::string document(std::istreambuf_iterator<char>(in), {});
 	std::string errors;
 	std::unique_ptr<Json::Impl> pimpl(new Json::Impl);
-	if (!CharReader::getInstance().parse(document.c_str(), document.c_str() + document.size(), &pimpl->value, &errors)) {
-		throw Error(errors);
+	if (CharReader::getInstance().parse(document.c_str(), document.c_str() + document.size(), &pimpl->value, &errors) && !pimpl->value.isNull()) {
+		json.pimpl = std::move(pimpl);
+	} else {
+		in.setstate(std::ios::failbit);
 	}
-	if (pimpl->value.isNull()) {
-		throw Error("Null value");
-	}
-	json.pimpl = std::move(pimpl);
 	return in;
 }
 
