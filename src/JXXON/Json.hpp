@@ -83,7 +83,39 @@ struct Json
 	template< typename T, template<typename...> class Base >
 	struct Array : public ArrayBase<T, Base>, public Serializable
 	{
+		/// Construct empty array.
 		Array()
+		{
+		}
+
+		/// Construct array of size n of default constructed elements.
+		explicit Array(typename ArrayBase<T, Base>::size_type n) : ArrayBase<T, Base>(n)
+		{
+		}
+
+		/// Construct array of size n of copy of value constructed elements.
+		Array(typename ArrayBase<T, Base>::size_type n, const T& value) : ArrayBase<T, Base>(n, value)
+		{
+		}
+
+		/// Construct array with emplace constructed elements of range [first, last).
+		template<typename InputIterator>
+		Array(InputIterator first, InputIterator last) : ArrayBase<T, Base>(first, last)
+		{
+		}
+
+		/// Copy constructor.
+		Array(const ArrayBase<T, Base>& other) : ArrayBase<T, Base>(other)
+		{
+		}
+
+		/// Move constructor.
+		Array(ArrayBase<T, Base>&& other) : ArrayBase<T, Base>(std::move(other))
+		{
+		}
+
+		/// Initializer list constructor.
+		Array(std::initializer_list<T> initializerList) : ArrayBase<T, Base>(initializerList)
 		{
 		}
 
@@ -110,7 +142,29 @@ struct Json
 	template <typename T, template<typename...> class Base >
 	struct Map : public MapBase<T, Base>, public Serializable
 	{
+		/// Construct empty map
 		Map()
+		{
+		}
+
+		/// Construct map with emplace constructed elements of range [first, last).
+		template<typename InputIterator>
+		Map(InputIterator first, InputIterator last) : MapBase<T, Base>(first, last)
+		{
+		}
+
+		/// Copy constructor.
+		Map(const MapBase<T, Base>& other) : MapBase<T, Base>(other)
+		{
+		}
+
+		/// Move constructor.
+		Map(MapBase<T, Base>&& other) : MapBase<T, Base>(std::move(other))
+		{
+		}
+
+		/// Initializer list constructor.
+		Map(std::initializer_list< std::pair<const std::string, T> > initializerList) : MapBase<T, Base>(initializerList)
 		{
 		}
 
