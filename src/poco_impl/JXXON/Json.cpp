@@ -70,7 +70,7 @@ std::istream& operator>>(std::istream& in, Json& json)
 		} catch (Poco::BadCastException) {
 			json.pimpl = std::unique_ptr<Json::Impl>(new Json::Impl::Array(var.extract<Poco::JSON::Array::Ptr>()));
 		}
-	} catch (Poco::Exception& e) {
+	} catch (Poco::Exception&) {
 		in.setstate(std::ios::failbit);
 	}
 	return in;
