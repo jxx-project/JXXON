@@ -5,6 +5,7 @@
 //
 
 #include "JXXON/Accessor/GetProperty_shared_ptr.hpp"
+#include <cstdint>
 
 namespace JXXON {
 namespace Accessor {

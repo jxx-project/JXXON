@@ -5,6 +5,7 @@
 //
 
 #include "JXXON/Accessor/SetProperty.hpp"
+#include <cstdint>
 
 namespace JXXON {
 namespace Accessor {

@@ -11,7 +11,6 @@
 #include "JXXON/Json.hpp"
 #include "JXXON/Error.hpp"
 #include "JXXON/Json/Impl.hpp"
-#include <cstdint>
 
 namespace JXXON {
 namespace Accessor {

@@ -5,6 +5,7 @@
 //
 
 #include "JXXON/Accessor/GetArrayElements.hpp"
+#include <cstdint>
 #include <vector>
 
 namespace JXXON {

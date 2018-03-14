@@ -5,6 +5,7 @@
 //
 
 #include "JXXON/Accessor/SetArrayElements.hpp"
+#include <cstdint>
 #include <list>
 
 namespace JXXON {

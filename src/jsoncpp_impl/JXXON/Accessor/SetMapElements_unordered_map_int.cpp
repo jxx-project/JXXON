@@ -5,6 +5,7 @@
 //
 
 #include "JXXON/Accessor/SetMapElements.hpp"
+#include <cstdint>
 #include <unordered_map>
 
 namespace JXXON {

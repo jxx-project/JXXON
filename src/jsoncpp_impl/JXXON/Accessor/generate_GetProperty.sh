@@ -15,7 +15,6 @@ cat << EOF
 #include "JXXON/Json.hpp"
 #include "JXXON/Error.hpp"
 #include "JXXON/Json/Impl.hpp"
-#include <cstdint>
 
 namespace JXXON {
 namespace Accessor {
@@ -60,7 +59,6 @@ cat << EOF
 #include "JXXON/Json.hpp"
 #include "JXXON/Error.hpp"
 #include "JXXON/Json/Impl.hpp"
-#include <cstdint>
 
 namespace JXXON {
 namespace Accessor {
@@ -99,6 +97,7 @@ cat << EOF | sed "s/{{INCLUDE}}/$1/g"
 //
 
 #include "JXXON/Accessor/{{INCLUDE}}"
+#include <cstdint>
 
 namespace JXXON {
 namespace Accessor {

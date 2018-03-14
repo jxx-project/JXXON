@@ -5,6 +5,7 @@
 //
 
 #include "JXXON/Accessor/GetMapElements.hpp"
+#include <cstdint>
 #include <map>
 
 namespace JXXON {
