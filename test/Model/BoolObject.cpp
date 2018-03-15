@@ -5,7 +5,7 @@
 //
 
 
-#include "Model/BoolObject.hpp"
+#include "Model/BoolObject.h"
 
 namespace Model {
 

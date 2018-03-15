@@ -5,7 +5,7 @@
 //
 
 
-#include "Model/NullableIntMaxObject.hpp"
+#include "Model/NullableIntMaxObject.h"
 
 namespace Model {
 

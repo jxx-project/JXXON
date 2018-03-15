@@ -23,7 +23,7 @@ add_definitions(-D_SIZEOF_UINTMAX_T=${SIZEOF_UINTMAX_T})
 
 add_library(jxxon ${SRCS_G} ${IMPL_SRCS_G})
 
-set_target_properties(jxxon PROPERTIES PUBLIC_HEADER "JXXON/Error.hpp;JXXON/Json.hpp;JXXON/List.hpp;JXXON/Map.hpp;JXXON/Serializable.hpp;JXXON/UnorderedMap.hpp;JXXON/Vector.hpp")
+set_target_properties(jxxon PROPERTIES PUBLIC_HEADER "JXXON/Error.h;JXXON/Json.h;JXXON/List.h;JXXON/Map.h;JXXON/Serializable.h;JXXON/UnorderedMap.h;JXXON/Vector.h")
 
 install(TARGETS jxxon
 	ARCHIVE DESTINATION lib COMPONENT lib

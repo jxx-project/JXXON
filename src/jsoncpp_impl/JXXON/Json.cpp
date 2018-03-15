@@ -5,16 +5,17 @@
 //
 
 
-#include "JXXON/Json.hpp"
-#include "JXXON/Error.hpp"
-#include "JXXON/Json/Impl.hpp"
+#include "JXXON/Json.h"
+#include "JXXON/Error.h"
+#include "JXXON/Json/Impl.h"
 #include <sstream>
 
 namespace JXXON {
 namespace {
 
-struct CharReader
+class CharReader
 {
+public:
 	static ::Json::CharReader& getInstance()
 	{
 		static CharReader instance;
@@ -25,7 +26,6 @@ struct CharReader
 	void operator=(const CharReader&) = delete;
 
 private:
-
 	CharReader()
 	{
 		::Json::CharReaderBuilder builder;
@@ -36,8 +36,9 @@ private:
 	std::unique_ptr<::Json::CharReader> reader;
 };
 
-struct StreamWriter
+class StreamWriter
 {
+public:
 	static ::Json::StreamWriter& getInstance()
 	{
 		static StreamWriter instance;
@@ -48,7 +49,6 @@ struct StreamWriter
 	void operator=(const StreamWriter&) = delete;
 
 private:
-
 	StreamWriter()
 	{
 		::Json::StreamWriterBuilder builder;

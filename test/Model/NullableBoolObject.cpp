@@ -5,7 +5,7 @@
 //
 
 
-#include "Model/NullableBoolObject.hpp"
+#include "Model/NullableBoolObject.h"
 
 namespace Model {
 

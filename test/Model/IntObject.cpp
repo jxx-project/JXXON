@@ -5,7 +5,7 @@
 //
 
 
-#include "Model/IntObject.hpp"
+#include "Model/IntObject.h"
 
 namespace Model {
 

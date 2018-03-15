@@ -5,9 +5,9 @@
 //
 
 
-#include "JXXON/Json.hpp"
-#include "JXXON/Error.hpp"
-#include "JXXON/Json/Impl.hpp"
+#include "JXXON/Json.h"
+#include "JXXON/Error.h"
+#include "JXXON/Json/Impl.h"
 #include <Poco/Dynamic/Var.h>
 #include <Poco/JSON/Parser.h>
 

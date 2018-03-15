@@ -5,7 +5,7 @@
 //
 
 
-#include "JXXON/Error.hpp"
+#include "JXXON/Error.h"
 
 namespace JXXON {
 

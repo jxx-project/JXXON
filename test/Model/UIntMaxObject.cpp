@@ -5,7 +5,7 @@
 //
 
 
-#include "Model/UIntMaxObject.hpp"
+#include "Model/UIntMaxObject.h"
 
 namespace Model {
 

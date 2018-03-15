@@ -5,7 +5,7 @@
 //
 
 
-#include "Model/StringObject.hpp"
+#include "Model/StringObject.h"
 
 namespace Model {
 

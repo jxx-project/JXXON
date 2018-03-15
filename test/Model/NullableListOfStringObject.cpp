@@ -5,7 +5,7 @@
 //
 
 
-#include "Model/NullableListOfStringObject.hpp"
+#include "Model/NullableListOfStringObject.h"
 
 namespace Model {
 
