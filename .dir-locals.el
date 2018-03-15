@@ -1,7 +1,8 @@
 ;;; Directory Local Variables
 ;;; For more information see (info "(emacs) Directory Variables")
 
-((nil
+((c-mode
+  (mode . c++)
   (c-file-offsets
    (innamespace . 0)
    (arglist-intro . +)
