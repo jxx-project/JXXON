@@ -10,9 +10,10 @@
 
 namespace JXXON {
 namespace Accessor {
+namespace {
 
 template<class T, template<typename...> class Base>
-static void populateArray(Json::ArrayBase<T, Base>& array, const ::Json::Value& value, const std::function<T(const ::Json::Value::const_iterator&)>& valueAsT)
+void populateArray(Json::ArrayBase<T, Base>& array, const ::Json::Value& value, const std::function<T(const ::Json::Value::const_iterator&)>& valueAsT)
 {
 	array.clear();
 	if (!value.isNull()) {
@@ -30,6 +31,7 @@ static void populateArray(Json::ArrayBase<T, Base>& array, const ::Json::Value& 
 	}
 }
 
+} // namespace
 } // namespace Accessor
 } // namespace JXXON
 

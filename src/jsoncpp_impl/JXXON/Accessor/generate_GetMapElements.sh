@@ -14,9 +14,10 @@ cat << EOF
 
 namespace JXXON {
 namespace Accessor {
+namespace {
 
 template<typename T, template<typename...> class Base>
-static void populateMap(Json::MapBase<T, Base>& map, const ::Json::Value& value, const std::function<T(const ::Json::Value::const_iterator&)>& valueAsT)
+void populateMap(Json::MapBase<T, Base>& map, const ::Json::Value& value, const std::function<T(const ::Json::Value::const_iterator&)>& valueAsT)
 {
 	map.clear();
 	if (!value.isNull()) {
@@ -34,6 +35,7 @@ static void populateMap(Json::MapBase<T, Base>& map, const ::Json::Value& value,
 	}
 }
 
+} // namespace
 } // namespace Accessor
 } // namespace JXXON
 
@@ -57,9 +59,10 @@ cat << EOF
 
 namespace JXXON {
 namespace Accessor {
+namespace {
 
 template<typename T, template<typename...> class Base>
-static void populateMap(Json::MapBase<T, Base>& map, const ::Json::Value& value, const std::function<typename T::element_type(const ::Json::Value::const_iterator&)>& valueAsT)
+void populateMap(Json::MapBase<T, Base>& map, const ::Json::Value& value, const std::function<typename T::element_type(const ::Json::Value::const_iterator&)>& valueAsT)
 {
 	map.clear();
 	if (!value.isNull()) {
@@ -77,6 +80,7 @@ static void populateMap(Json::MapBase<T, Base>& map, const ::Json::Value& value,
 	}
 }
 
+} // namespace
 } // namespace Accessor
 } // namespace JXXON
 

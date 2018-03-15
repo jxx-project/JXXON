@@ -10,9 +10,10 @@
 
 namespace JXXON {
 namespace Accessor {
+namespace {
 
 template<typename T>
-static T getChild(const ::Json::Value& value, const std::string& name, const std::function<T(const ::Json::Value&)>& valueAsT)
+T getChild(const ::Json::Value& value, const std::string& name, const std::function<T(const ::Json::Value&)>& valueAsT)
 {
 	if (!value.isNull()) {
 		try {
@@ -27,6 +28,7 @@ static T getChild(const ::Json::Value& value, const std::string& name, const std
 	return T();
 }
 
+} // namespace
 } // namespace Accessor
 } // namespace JXXON
 

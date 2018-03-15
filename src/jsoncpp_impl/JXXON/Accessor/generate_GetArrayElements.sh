@@ -14,9 +14,10 @@ cat << EOF
 
 namespace JXXON {
 namespace Accessor {
+namespace {
 
 template<class T, template<typename...> class Base>
-static void populateArray(Json::ArrayBase<T, Base>& array, const ::Json::Value& value, const std::function<T(const ::Json::Value::const_iterator&)>& valueAsT)
+void populateArray(Json::ArrayBase<T, Base>& array, const ::Json::Value& value, const std::function<T(const ::Json::Value::const_iterator&)>& valueAsT)
 {
 	array.clear();
 	if (!value.isNull()) {
@@ -34,6 +35,7 @@ static void populateArray(Json::ArrayBase<T, Base>& array, const ::Json::Value& 
 	}
 }
 
+} // namespace
 } // namespace Accessor
 } // namespace JXXON
 
@@ -44,8 +46,10 @@ EOF
 function GetArrayElements_SPECIALIZATION {
 # Use push_pack instead of emplace_back
 cat << EOF | sed "s/{{BASE}}/$1/g" | sed "s/{{ELEMENT_TYPE}}/$2/g"
+namespace {
+
 template<>
-static void populateArray<{{ELEMENT_TYPE}}, std::{{BASE}}>(Json::ArrayBase<{{ELEMENT_TYPE}}, {{BASE}}>& array, const ::Json::Value& value, const std::function<{{ELEMENT_TYPE}}(const ::Json::Value::const_iterator&)>& valueAsT)
+void populateArray<{{ELEMENT_TYPE}}, std::{{BASE}}>(Json::ArrayBase<{{ELEMENT_TYPE}}, std::{{BASE}}>& array, const ::Json::Value& value, const std::function<{{ELEMENT_TYPE}}(const ::Json::Value::const_iterator&)>& valueAsT)
 {
 	array.clear();
 	if (!value.isNull()) {
@@ -62,6 +66,8 @@ static void populateArray<{{ELEMENT_TYPE}}, std::{{BASE}}>(Json::ArrayBase<{{ELE
 		}
 	}
 }
+
+} // namespace
 
 EOF
 }
@@ -81,9 +87,10 @@ cat << EOF
 
 namespace JXXON {
 namespace Accessor {
+namespace {
 
 template<class T, template<typename...> class Base>
-static void populateArray(Json::ArrayBase<T, Base>& array, const ::Json::Value& value, const std::function<typename T::element_type(const ::Json::Value::const_iterator&)>& valueAsT)
+void populateArray(Json::ArrayBase<T, Base>& array, const ::Json::Value& value, const std::function<typename T::element_type(const ::Json::Value::const_iterator&)>& valueAsT)
 {
 	array.clear();
 	if (!value.isNull()) {
@@ -101,6 +108,7 @@ static void populateArray(Json::ArrayBase<T, Base>& array, const ::Json::Value& 
 	}
 }
 
+} // namespace
 } // namespace Accessor
 } // namespace JXXON
 

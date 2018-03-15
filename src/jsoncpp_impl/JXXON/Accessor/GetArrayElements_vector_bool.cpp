@@ -14,8 +14,10 @@
 namespace JXXON {
 namespace Accessor {
 
+namespace {
+
 template<>
-static void populateArray<bool, std::vector>(Json::ArrayBase<bool, vector>& array, const ::Json::Value& value, const std::function<bool(const ::Json::Value::const_iterator&)>& valueAsT)
+void populateArray<bool, std::vector>(Json::ArrayBase<bool, std::vector>& array, const ::Json::Value& value, const std::function<bool(const ::Json::Value::const_iterator&)>& valueAsT)
 {
 	array.clear();
 	if (!value.isNull()) {
@@ -32,6 +34,8 @@ static void populateArray<bool, std::vector>(Json::ArrayBase<bool, vector>& arra
 		}
 	}
 }
+
+} // namespace
 
 template<>
 GetArrayElements<bool, std::vector>::GetArrayElements(const Json& json) : json(json)
