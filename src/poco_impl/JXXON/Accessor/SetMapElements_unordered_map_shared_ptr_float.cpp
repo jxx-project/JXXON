@@ -4,7 +4,10 @@
 // SPDX-License-Identifier:		BSL-1.0
 //
 
-#include "JXXON/Accessor/SetMapElements_shared_ptr.hpp"
+#include "JXXON/Json.hpp"
+#include "JXXON/Error.hpp"
+#include "JXXON/Json/Impl.hpp"
+#include "JXXON/Accessor/SetMapElements_shared_ptr.tcc"
 #include <cstdint>
 #include <unordered_map>
 

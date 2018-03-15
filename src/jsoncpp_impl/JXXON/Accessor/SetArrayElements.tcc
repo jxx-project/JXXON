@@ -8,10 +8,6 @@
 #ifndef JXXON_Accessor_SetArrayElements_INCLUDED
 #define JXXON_Accessor_SetArrayElements_INCLUDED
 
-#include "JXXON/Json.hpp"
-#include "JXXON/Error.hpp"
-#include "JXXON/Json/Impl.hpp"
-
 namespace JXXON {
 namespace Accessor {
 
@@ -24,9 +20,8 @@ SetArrayElements<T, Base, typename std::enable_if<!std::is_base_of<Json::Seriali
 template<typename T, template<typename...> class Base>
 void SetArrayElements<T, Base, typename std::enable_if<!std::is_base_of<Json::Serializable, T>::value && !std::is_convertible< T, std::shared_ptr<Json::Serializable> >::value>::type>::operator()(const Json::ArrayBase<T, Base>& array)
 {
-	auto impl = json.pimpl->getArray();
-	for (typename Json::ArrayBase<T, Base>::const_iterator i = array.begin(); i != array.end(); ++i) {
-		impl->add(Poco::Dynamic::Var(*i));
+	for (auto i = array.begin(); i != array.end(); ++i) {
+		json.pimpl->value.append(::Json::Value((T)*i));
 	}
 }
 

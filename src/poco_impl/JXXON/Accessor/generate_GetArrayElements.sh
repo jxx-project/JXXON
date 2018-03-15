@@ -1,6 +1,6 @@
-#!/bin/sh
+#!/bin/bash
 
-function GetArrayElements_HPP {
+function GetArrayElements_TCC {
 cat << EOF
 //
 // Copyright (C) 2018 Dr. Michael Steffens
@@ -11,10 +11,6 @@ cat << EOF
 
 #ifndef JXXON_Accessor_GetArrayElements_INCLUDED
 #define JXXON_Accessor_GetArrayElements_INCLUDED
-
-#include "JXXON/Json.hpp"
-#include "JXXON/Error.hpp"
-#include "JXXON/Json/Impl.hpp"
 
 namespace JXXON {
 namespace Accessor {
@@ -47,9 +43,9 @@ void GetArrayElements<T, Base, typename std::enable_if<!std::is_base_of<Json::Se
 EOF
 }
 
-GetArrayElements_HPP > GetArrayElements.hpp
+GetArrayElements_TCC > GetArrayElements.tcc
 
-function GetArrayElements_shared_ptr_HPP {
+function GetArrayElements_shared_ptr_TCC {
 cat << EOF
 //
 // Copyright (C) 2018 Dr. Michael Steffens
@@ -60,10 +56,6 @@ cat << EOF
 
 #ifndef JXXON_Accessor_GetArrayElements_shared_ptr_INCLUDED
 #define JXXON_Accessor_GetArrayElements_shared_ptr_INCLUDED
-
-#include "JXXON/Json.hpp"
-#include "JXXON/Error.hpp"
-#include "JXXON/Json/Impl.hpp"
 
 namespace JXXON {
 namespace Accessor {
@@ -96,10 +88,11 @@ void GetArrayElements<T, Base, typename std::enable_if<!std::is_base_of<Json::Se
 EOF
 }
 
-GetArrayElements_shared_ptr_HPP > GetArrayElements_shared_ptr.hpp
+GetArrayElements_shared_ptr_TCC > GetArrayElements_shared_ptr.tcc
 
 function GetArrayElements_SPECIALIZATION {
-cat << EOF | sed "s/{{BASE}}/$1/g" | sed "s/{{ELEMENT_TYPE}}/$2/g"
+# C++11 is not required to provide std::vector<bool>::emplace_back
+cat << EOF | sed "s/{{BASE}}/$1/g" | sed "s/{{ELEMENT_TYPE}}/$2/g" | sed "s/{{APPEND}}/$([[ $1 = vector && $2 = bool ]] && echo push_back || echo emplace_back)/g"
 template<>
 void GetArrayElements<{{ELEMENT_TYPE}}, std::{{BASE}}>::operator()(Json::ArrayBase<{{ELEMENT_TYPE}}, std::{{BASE}}>& array) const
 {
@@ -108,7 +101,7 @@ void GetArrayElements<{{ELEMENT_TYPE}}, std::{{BASE}}>::operator()(Json::ArrayBa
 		auto impl = json.pimpl->getArray();
 		try {
 			for (int i = 0; i != impl->size(); ++i) {
-				array.emplace_back(impl->isNull(i) ? {{ELEMENT_TYPE}}() : impl->get(i).extract<{{ELEMENT_TYPE}}>());
+				array.{{APPEND}}(impl->isNull(i) ? {{ELEMENT_TYPE}}() : impl->get(i).extract<{{ELEMENT_TYPE}}>());
 			}
 		} catch (Poco::Exception& e) {
 			throw Error(e.message());
@@ -148,6 +141,9 @@ cat << EOF | sed "s/{{INCLUDE}}/$1/g"| sed "s/{{BASE}}/$2/g"
 // SPDX-License-Identifier:		BSL-1.0
 //
 
+#include "JXXON/Json.hpp"
+#include "JXXON/Error.hpp"
+#include "JXXON/Json/Impl.hpp"
 #include "JXXON/Accessor/{{INCLUDE}}"
 #include <cstdint>
 #include <{{BASE}}>
@@ -186,21 +182,21 @@ function GetArrayElements_BASE_CPP {
 	BASE=$1
 	    
 	FILENAME=GetArrayElements_${BASE}_string.cpp
-	Header GetArrayElements.hpp ${BASE} > ${FILENAME}
+	Header GetArrayElements.tcc ${BASE} > ${FILENAME}
 	GetArrayElements_SPECIALIZATION ${BASE} std::string >> ${FILENAME}
 	GetArrayElements_CPP ${BASE} std::string >> ${FILENAME}
 	Footer >> ${FILENAME}
 
 
 	FILENAME=GetArrayElements_${BASE}_shared_ptr_string.cpp
-	Header GetArrayElements_shared_ptr.hpp ${BASE} > ${FILENAME}
+	Header GetArrayElements_shared_ptr.tcc ${BASE} > ${FILENAME}
 	GetArrayElements_shared_ptr_SPECIALIZATION ${BASE} std::string >> ${FILENAME}
 	GetArrayElements_shared_ptr_CPP ${BASE} std::string >> ${FILENAME}
 	Footer >> ${FILENAME}
 
 
 	FILENAME=GetArrayElements_${BASE}_int.cpp
-	Header GetArrayElements.hpp ${BASE} > ${FILENAME}
+	Header GetArrayElements.tcc ${BASE} > ${FILENAME}
 	GetArrayElements_CPP ${BASE} int >> ${FILENAME}
 cat << EOF >> ${FILENAME}
 
@@ -220,7 +216,7 @@ EOF
 
 
 	FILENAME=GetArrayElements_${BASE}_shared_ptr_int.cpp
-	Header GetArrayElements_shared_ptr.hpp ${BASE} > ${FILENAME}
+	Header GetArrayElements_shared_ptr.tcc ${BASE} > ${FILENAME}
 	GetArrayElements_shared_ptr_CPP ${BASE} int >> ${FILENAME}
 cat << EOF >> ${FILENAME}
 
@@ -240,7 +236,7 @@ EOF
 
 
 	FILENAME=GetArrayElements_${BASE}_unsigned_int.cpp
-	Header GetArrayElements.hpp ${BASE} > ${FILENAME}
+	Header GetArrayElements.tcc ${BASE} > ${FILENAME}
 	GetArrayElements_CPP ${BASE} 'unsigned int' >> ${FILENAME}
 cat << EOF >> ${FILENAME}
 
@@ -260,7 +256,7 @@ EOF
 
 
 	FILENAME=GetArrayElements_${BASE}_shared_ptr_unsigned_int.cpp
-	Header GetArrayElements_shared_ptr.hpp ${BASE} > ${FILENAME}
+	Header GetArrayElements_shared_ptr.tcc ${BASE} > ${FILENAME}
 	GetArrayElements_shared_ptr_CPP ${BASE} 'unsigned int' >> ${FILENAME}
 cat << EOF >> ${FILENAME}
 
@@ -280,7 +276,7 @@ EOF
 
 
 	FILENAME=GetArrayElements_${BASE}_float.cpp
-	Header GetArrayElements.hpp ${BASE} > ${FILENAME}
+	Header GetArrayElements.tcc ${BASE} > ${FILENAME}
 	GetArrayElements_CPP ${BASE} float >> ${FILENAME}
 cat << EOF >> ${FILENAME}
 
@@ -290,7 +286,7 @@ EOF
 
 
 	FILENAME=GetArrayElements_${BASE}_shared_ptr_float.cpp
-	Header GetArrayElements_shared_ptr.hpp ${BASE} > ${FILENAME}
+	Header GetArrayElements_shared_ptr.tcc ${BASE} > ${FILENAME}
 	GetArrayElements_shared_ptr_CPP ${BASE} float >> ${FILENAME}
 cat << EOF >> ${FILENAME}
 
@@ -300,14 +296,14 @@ EOF
 
 
 	FILENAME=GetArrayElements_${BASE}_bool.cpp
-	Header GetArrayElements.hpp ${BASE} > ${FILENAME}
+	Header GetArrayElements.tcc ${BASE} > ${FILENAME}
 	GetArrayElements_SPECIALIZATION ${BASE} bool >> ${FILENAME}
 	GetArrayElements_CPP ${BASE} bool >> ${FILENAME}
 	Footer >> ${FILENAME}
 
 
 	FILENAME=GetArrayElements_${BASE}_shared_ptr_bool.cpp
-	Header GetArrayElements_shared_ptr.hpp ${BASE} > ${FILENAME}
+	Header GetArrayElements_shared_ptr.tcc ${BASE} > ${FILENAME}
 	GetArrayElements_shared_ptr_SPECIALIZATION ${BASE} bool >> ${FILENAME}
 	GetArrayElements_shared_ptr_CPP ${BASE} bool >> ${FILENAME}
 	Footer >> ${FILENAME}

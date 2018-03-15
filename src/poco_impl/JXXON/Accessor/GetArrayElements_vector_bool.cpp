@@ -4,7 +4,10 @@
 // SPDX-License-Identifier:		BSL-1.0
 //
 
-#include "JXXON/Accessor/GetArrayElements.hpp"
+#include "JXXON/Json.hpp"
+#include "JXXON/Error.hpp"
+#include "JXXON/Json/Impl.hpp"
+#include "JXXON/Accessor/GetArrayElements.tcc"
 #include <cstdint>
 #include <vector>
 
@@ -19,7 +22,7 @@ void GetArrayElements<bool, std::vector>::operator()(Json::ArrayBase<bool, std::
 		auto impl = json.pimpl->getArray();
 		try {
 			for (int i = 0; i != impl->size(); ++i) {
-				array.emplace_back(impl->isNull(i) ? bool() : impl->get(i).extract<bool>());
+				array.push_back(impl->isNull(i) ? bool() : impl->get(i).extract<bool>());
 			}
 		} catch (Poco::Exception& e) {
 			throw Error(e.message());

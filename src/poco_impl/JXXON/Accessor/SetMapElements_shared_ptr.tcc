@@ -8,10 +8,6 @@
 #ifndef JXXON_Accessor_SetMapElements_shared_ptr_INCLUDED
 #define JXXON_Accessor_SetMapElements_shared_ptr_INCLUDED
 
-#include "JXXON/Json.hpp"
-#include "JXXON/Error.hpp"
-#include "JXXON/Json/Impl.hpp"
-
 namespace JXXON {
 namespace Accessor {
 
@@ -24,8 +20,9 @@ SetMapElements<T, Base, typename std::enable_if<!std::is_base_of<Json::Serializa
 template<typename T, template<typename...> class Base>
 void SetMapElements<T, Base, typename std::enable_if<!std::is_base_of<Json::Serializable, T>::value && !std::is_convertible< T, std::shared_ptr<Json::Serializable> >::value>::type>::operator()(const Json::MapBase<T, Base>& map)
 {
-	for (auto i = map.begin(); i != map.end(); ++i) {
-		json.pimpl->value[i->first] = i->second ? *i->second : ::Json::Value::null;
+	auto impl = json.pimpl->getObject();
+	for (typename Json::MapBase<T, Base>::const_iterator i = map.begin(); i != map.end(); ++i) {
+		impl->set(i->first, i->second ? Poco::Dynamic::Var(*i->second) : Poco::Dynamic::Var());
 	}
 }
 

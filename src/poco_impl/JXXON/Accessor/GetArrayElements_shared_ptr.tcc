@@ -5,12 +5,8 @@
 //
 
 
-#ifndef JXXON_Accessor_GetArrayElements_INCLUDED
-#define JXXON_Accessor_GetArrayElements_INCLUDED
-
-#include "JXXON/Json.hpp"
-#include "JXXON/Error.hpp"
-#include "JXXON/Json/Impl.hpp"
+#ifndef JXXON_Accessor_GetArrayElements_shared_ptr_INCLUDED
+#define JXXON_Accessor_GetArrayElements_shared_ptr_INCLUDED
 
 namespace JXXON {
 namespace Accessor {
@@ -28,7 +24,7 @@ void GetArrayElements<T, Base, typename std::enable_if<!std::is_base_of<Json::Se
 		auto impl = json.pimpl->getArray();
 		try {
 			for (int i = 0; i != impl->size(); ++i) {
-				array.emplace_back(impl->isNull(i) ? T() : impl->get(i).convert<T>());
+				array.emplace_back(impl->isNull(i) ? nullptr : std::make_shared<typename T::element_type>(impl->get(i).convert<typename T::element_type>()));
 			}
 		} catch (Poco::Exception& e) {
 			throw Error(e.message());
@@ -39,4 +35,4 @@ void GetArrayElements<T, Base, typename std::enable_if<!std::is_base_of<Json::Se
 } // namespace Accessor
 } // namespace JXXON
 
-#endif // JXXON_Accessor_GetArrayElements_INCLUDED
+#endif // JXXON_Accessor_GetArrayElements_shared_ptr_INCLUDED

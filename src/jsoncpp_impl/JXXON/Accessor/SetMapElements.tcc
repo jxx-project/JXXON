@@ -8,10 +8,6 @@
 #ifndef JXXON_Accessor_SetMapElements_INCLUDED
 #define JXXON_Accessor_SetMapElements_INCLUDED
 
-#include "JXXON/Json.hpp"
-#include "JXXON/Error.hpp"
-#include "JXXON/Json/Impl.hpp"
-
 namespace JXXON {
 namespace Accessor {
 

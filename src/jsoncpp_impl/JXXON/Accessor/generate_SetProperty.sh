@@ -1,6 +1,6 @@
-#!/bin/sh
+#!/bin/bash
 
-function SetProperty_HPP {
+function SetProperty_TCC {
 cat << EOF
 //
 // Copyright (C) 2018 Dr. Michael Steffens
@@ -11,10 +11,6 @@ cat << EOF
 
 #ifndef JXXON_Accessor_SetProperty_INCLUDED
 #define JXXON_Accessor_SetProperty_INCLUDED
-
-#include "JXXON/Json.hpp"
-#include "JXXON/Error.hpp"
-#include "JXXON/Json/Impl.hpp"
 
 namespace JXXON {
 namespace Accessor {
@@ -38,9 +34,9 @@ void SetProperty<T, typename std::enable_if<!std::is_base_of<Json::Serializable,
 EOF
 }
 
-SetProperty_HPP > SetProperty.hpp
+SetProperty_TCC > SetProperty.tcc
 
-function SetProperty_shared_ptr_HPP {
+function SetProperty_shared_ptr_TCC {
 cat << EOF
 //
 // Copyright (C) 2018 Dr. Michael Steffens
@@ -51,10 +47,6 @@ cat << EOF
 
 #ifndef JXXON_Accessor_SetProperty_shared_ptr_INCLUDED
 #define JXXON_Accessor_SetProperty_shared_ptr_INCLUDED
-
-#include "JXXON/Json.hpp"
-#include "JXXON/Error.hpp"
-#include "JXXON/Json/Impl.hpp"
 
 namespace JXXON {
 namespace Accessor {
@@ -80,7 +72,7 @@ void SetProperty<T, typename std::enable_if<!std::is_base_of<Json::Serializable,
 EOF
 }
 
-SetProperty_shared_ptr_HPP > SetProperty_shared_ptr.hpp
+SetProperty_shared_ptr_TCC > SetProperty_shared_ptr.tcc
 
 function Header {
 cat << EOF | sed "s/{{INCLUDE}}/$1/g"
@@ -90,6 +82,9 @@ cat << EOF | sed "s/{{INCLUDE}}/$1/g"
 // SPDX-License-Identifier:		BSL-1.0
 //
 
+#include "JXXON/Json.hpp"
+#include "JXXON/Error.hpp"
+#include "JXXON/Json/Impl.hpp"
 #include "JXXON/Accessor/{{INCLUDE}}"
 #include <cstdint>
 
@@ -122,19 +117,19 @@ EOF
 }
 
 FILENAME=SetProperty_string.cpp
-Header SetProperty.hpp > ${FILENAME}
+Header SetProperty.tcc > ${FILENAME}
 SetProperty_CPP std::string >> ${FILENAME}
 Footer >> ${FILENAME}
 
 
 FILENAME=SetProperty_shared_ptr_string.cpp
-Header SetProperty_shared_ptr.hpp > ${FILENAME}
+Header SetProperty_shared_ptr.tcc > ${FILENAME}
 SetProperty_shared_ptr_CPP std::string >> ${FILENAME}
 Footer >> ${FILENAME}
 
 
 FILENAME=SetProperty_int.cpp
-Header SetProperty.hpp > ${FILENAME}
+Header SetProperty.tcc > ${FILENAME}
 SetProperty_CPP int >> ${FILENAME}
 cat << EOF >> ${FILENAME}
 
@@ -154,7 +149,7 @@ Footer >> ${FILENAME}
 
 
 FILENAME=SetProperty_shared_ptr_int.cpp
-Header SetProperty_shared_ptr.hpp > ${FILENAME}
+Header SetProperty_shared_ptr.tcc > ${FILENAME}
 SetProperty_shared_ptr_CPP int >> ${FILENAME}
 cat << EOF >> ${FILENAME}
 
@@ -174,7 +169,7 @@ Footer >> ${FILENAME}
 
 
 FILENAME=SetProperty_unsigned_int.cpp
-Header SetProperty.hpp > ${FILENAME}
+Header SetProperty.tcc > ${FILENAME}
 SetProperty_CPP 'unsigned int' >> ${FILENAME}
 cat << EOF >> ${FILENAME}
 
@@ -194,7 +189,7 @@ Footer >> ${FILENAME}
 
 
 FILENAME=SetProperty_shared_ptr_unsigned_int.cpp
-Header SetProperty_shared_ptr.hpp > ${FILENAME}
+Header SetProperty_shared_ptr.tcc > ${FILENAME}
 SetProperty_shared_ptr_CPP 'unsigned int' >> ${FILENAME}
 cat << EOF >> ${FILENAME}
 
@@ -214,7 +209,7 @@ Footer >> ${FILENAME}
 
 
 FILENAME=SetProperty_float.cpp
-Header SetProperty.hpp > ${FILENAME}
+Header SetProperty.tcc > ${FILENAME}
 SetProperty_CPP float >> ${FILENAME}
 cat << EOF >> ${FILENAME}
 
@@ -224,7 +219,7 @@ Footer >> ${FILENAME}
 
 
 FILENAME=SetProperty_shared_ptr_float.cpp
-Header SetProperty_shared_ptr.hpp > ${FILENAME}
+Header SetProperty_shared_ptr.tcc > ${FILENAME}
 SetProperty_shared_ptr_CPP float >> ${FILENAME}
 cat << EOF >> ${FILENAME}
 
@@ -234,12 +229,12 @@ Footer >> ${FILENAME}
 
 
 FILENAME=SetProperty_bool.cpp
-Header SetProperty.hpp > ${FILENAME}
+Header SetProperty.tcc > ${FILENAME}
 SetProperty_CPP bool >> ${FILENAME}
 Footer >> ${FILENAME}
 
 
 FILENAME=SetProperty_shared_ptr_bool.cpp
-Header SetProperty_shared_ptr.hpp > ${FILENAME}
+Header SetProperty_shared_ptr.tcc > ${FILENAME}
 SetProperty_shared_ptr_CPP bool >> ${FILENAME}
 Footer >> ${FILENAME}

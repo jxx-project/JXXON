@@ -1,6 +1,6 @@
-#!/bin/sh
+#!/bin/bash
 
-function GetProperty_HPP {
+function GetProperty_TCC {
 cat << EOF
 //
 // Copyright (C) 2018 Dr. Michael Steffens
@@ -11,10 +11,6 @@ cat << EOF
 
 #ifndef JXXON_Accessor_GetProperty_INCLUDED
 #define JXXON_Accessor_GetProperty_INCLUDED
-
-#include "JXXON/Json.hpp"
-#include "JXXON/Error.hpp"
-#include "JXXON/Json/Impl.hpp"
 
 namespace JXXON {
 namespace Accessor {
@@ -42,9 +38,9 @@ static T getChild(const ::Json::Value& value, const std::string& name, const std
 EOF
 }
 
-GetProperty_HPP > GetProperty.hpp
+GetProperty_TCC > GetProperty.tcc
 
-function GetProperty_shared_ptr_HPP {
+function GetProperty_shared_ptr_TCC {
 cat << EOF
 //
 // Copyright (C) 2018 Dr. Michael Steffens
@@ -55,10 +51,6 @@ cat << EOF
 
 #ifndef JXXON_Accessor_GetProperty_shared_ptr_INCLUDED
 #define JXXON_Accessor_GetProperty_shared_ptr_INCLUDED
-
-#include "JXXON/Json.hpp"
-#include "JXXON/Error.hpp"
-#include "JXXON/Json/Impl.hpp"
 
 namespace JXXON {
 namespace Accessor {
@@ -86,7 +78,7 @@ static T getChild(const ::Json::Value& value, const std::string& name, const std
 EOF
 }
 
-GetProperty_shared_ptr_HPP > GetProperty_shared_ptr.hpp
+GetProperty_shared_ptr_TCC > GetProperty_shared_ptr.tcc
 
 function Header {
 cat << EOF | sed "s/{{INCLUDE}}/$1/g"
@@ -96,6 +88,9 @@ cat << EOF | sed "s/{{INCLUDE}}/$1/g"
 // SPDX-License-Identifier:		BSL-1.0
 //
 
+#include "JXXON/Json.hpp"
+#include "JXXON/Error.hpp"
+#include "JXXON/Json/Impl.hpp"
 #include "JXXON/Accessor/{{INCLUDE}}"
 #include <cstdint>
 
@@ -150,19 +145,19 @@ EOF
 }
 
 FILENAME=GetProperty_string.cpp
-Header GetProperty.hpp > ${FILENAME}
+Header GetProperty.tcc > ${FILENAME}
 GetProperty_CPP std::string asString >> ${FILENAME}
 Footer >> ${FILENAME}
 
 
 FILENAME=GetProperty_shared_ptr_string.cpp
-Header GetProperty_shared_ptr.hpp > ${FILENAME}
+Header GetProperty_shared_ptr.tcc > ${FILENAME}
 GetProperty_shared_ptr_CPP std::string asString >> ${FILENAME}
 Footer >> ${FILENAME}
 
 
 FILENAME=GetProperty_int.cpp
-Header GetProperty.hpp > ${FILENAME}
+Header GetProperty.tcc > ${FILENAME}
 GetProperty_CPP int asInt >> ${FILENAME}
 cat << EOF >> ${FILENAME}
 
@@ -182,7 +177,7 @@ Footer >> ${FILENAME}
 
 
 FILENAME=GetProperty_shared_ptr_int.cpp
-Header GetProperty_shared_ptr.hpp > ${FILENAME}
+Header GetProperty_shared_ptr.tcc > ${FILENAME}
 GetProperty_shared_ptr_CPP int asInt >> ${FILENAME}
 cat << EOF >> ${FILENAME}
 
@@ -202,7 +197,7 @@ Footer >> ${FILENAME}
 
 
 FILENAME=GetProperty_unsigned_int.cpp
-Header GetProperty.hpp > ${FILENAME}
+Header GetProperty.tcc > ${FILENAME}
 GetProperty_CPP 'unsigned int' asUInt >> ${FILENAME}
 cat << EOF >> ${FILENAME}
 
@@ -222,7 +217,7 @@ Footer >> ${FILENAME}
 
 
 FILENAME=GetProperty_shared_ptr_unsigned_int.cpp
-Header GetProperty_shared_ptr.hpp > ${FILENAME}
+Header GetProperty_shared_ptr.tcc > ${FILENAME}
 GetProperty_shared_ptr_CPP 'unsigned int' asUInt >> ${FILENAME}
 cat << EOF >> ${FILENAME}
 
@@ -242,7 +237,7 @@ Footer >> ${FILENAME}
 
 
 FILENAME=GetProperty_float.cpp
-Header GetProperty.hpp > ${FILENAME}
+Header GetProperty.tcc > ${FILENAME}
 GetProperty_CPP float asFloat >> ${FILENAME}
 cat << EOF >> ${FILENAME}
 
@@ -252,7 +247,7 @@ Footer >> ${FILENAME}
 
 
 FILENAME=GetProperty_shared_ptr_float.cpp
-Header GetProperty_shared_ptr.hpp > ${FILENAME}
+Header GetProperty_shared_ptr.tcc > ${FILENAME}
 GetProperty_shared_ptr_CPP float asFloat >> ${FILENAME}
 cat << EOF >> ${FILENAME}
 
@@ -262,12 +257,12 @@ Footer >> ${FILENAME}
 
 
 FILENAME=GetProperty_bool.cpp
-Header GetProperty.hpp > ${FILENAME}
+Header GetProperty.tcc > ${FILENAME}
 GetProperty_CPP bool asBool >> ${FILENAME}
 Footer >> ${FILENAME}
 
 
 FILENAME=GetProperty_shared_ptr_bool.cpp
-Header GetProperty_shared_ptr.hpp > ${FILENAME}
+Header GetProperty_shared_ptr.tcc > ${FILENAME}
 GetProperty_shared_ptr_CPP bool asBool >> ${FILENAME}
 Footer >> ${FILENAME}

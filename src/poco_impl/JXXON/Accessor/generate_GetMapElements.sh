@@ -1,6 +1,6 @@
-#!/bin/sh
+#!/bin/bash
 
-function GetMapElements_HPP {
+function GetMapElements_TCC {
 cat << EOF
 //
 // Copyright (C) 2018 Dr. Michael Steffens
@@ -11,10 +11,6 @@ cat << EOF
 
 #ifndef JXXON_Accessor_GetMapElements_INCLUDED
 #define JXXON_Accessor_GetMapElements_INCLUDED
-
-#include "JXXON/Json.hpp"
-#include "JXXON/Error.hpp"
-#include "JXXON/Json/Impl.hpp"
 
 namespace JXXON {
 namespace Accessor {
@@ -47,9 +43,9 @@ void GetMapElements<T, Base, typename std::enable_if<!std::is_base_of<Json::Seri
 EOF
 }
 
-GetMapElements_HPP > GetMapElements.hpp
+GetMapElements_TCC > GetMapElements.tcc
 
-function GetMapElements_shared_ptr_HPP {
+function GetMapElements_shared_ptr_TCC {
 cat << EOF
 //
 // Copyright (C) 2018 Dr. Michael Steffens
@@ -60,10 +56,6 @@ cat << EOF
 
 #ifndef JXXON_Accessor_GetMapElements_shared_ptr_INCLUDED
 #define JXXON_Accessor_GetMapElements_shared_ptr_INCLUDED
-
-#include "JXXON/Json.hpp"
-#include "JXXON/Error.hpp"
-#include "JXXON/Json/Impl.hpp"
 
 namespace JXXON {
 namespace Accessor {
@@ -96,7 +88,7 @@ void GetMapElements<T, Base, typename std::enable_if<!std::is_base_of<Json::Seri
 EOF
 }
 
-GetMapElements_shared_ptr_HPP > GetMapElements_shared_ptr.hpp
+GetMapElements_shared_ptr_TCC > GetMapElements_shared_ptr.tcc
 
 function GetMapElements_SPECIALIZATION {
 cat << EOF | sed "s/{{BASE}}/$1/g" | sed "s/{{ELEMENT_TYPE}}/$2/g"
@@ -148,6 +140,9 @@ cat << EOF | sed "s/{{INCLUDE}}/$1/g"| sed "s/{{BASE}}/$2/g"
 // SPDX-License-Identifier:		BSL-1.0
 //
 
+#include "JXXON/Json.hpp"
+#include "JXXON/Error.hpp"
+#include "JXXON/Json/Impl.hpp"
 #include "JXXON/Accessor/{{INCLUDE}}"
 #include <cstdint>
 #include <{{BASE}}>
@@ -186,21 +181,21 @@ function GetMapElements_BASE_CPP {
 	BASE=$1
 	    
 	FILENAME=GetMapElements_${BASE}_string.cpp
-	Header GetMapElements.hpp ${BASE} > ${FILENAME}
+	Header GetMapElements.tcc ${BASE} > ${FILENAME}
 	GetMapElements_SPECIALIZATION ${BASE} std::string >> ${FILENAME}
 	GetMapElements_CPP ${BASE} std::string >> ${FILENAME}
 	Footer >> ${FILENAME}
 
 
 	FILENAME=GetMapElements_${BASE}_shared_ptr_string.cpp
-	Header GetMapElements_shared_ptr.hpp ${BASE} > ${FILENAME}
+	Header GetMapElements_shared_ptr.tcc ${BASE} > ${FILENAME}
 	GetMapElements_shared_ptr_SPECIALIZATION ${BASE} std::string >> ${FILENAME}
 	GetMapElements_shared_ptr_CPP ${BASE} std::string >> ${FILENAME}
 	Footer >> ${FILENAME}
 
 
 	FILENAME=GetMapElements_${BASE}_int.cpp
-	Header GetMapElements.hpp ${BASE} > ${FILENAME}
+	Header GetMapElements.tcc ${BASE} > ${FILENAME}
 	GetMapElements_CPP ${BASE} int >> ${FILENAME}
 cat << EOF >> ${FILENAME}
 
@@ -220,7 +215,7 @@ EOF
 
 
 	FILENAME=GetMapElements_${BASE}_shared_ptr_int.cpp
-	Header GetMapElements_shared_ptr.hpp ${BASE} > ${FILENAME}
+	Header GetMapElements_shared_ptr.tcc ${BASE} > ${FILENAME}
 	GetMapElements_shared_ptr_CPP ${BASE} int >> ${FILENAME}
 cat << EOF >> ${FILENAME}
 
@@ -240,7 +235,7 @@ EOF
 
 
 	FILENAME=GetMapElements_${BASE}_unsigned_int.cpp
-	Header GetMapElements.hpp ${BASE} > ${FILENAME}
+	Header GetMapElements.tcc ${BASE} > ${FILENAME}
 	GetMapElements_CPP ${BASE} 'unsigned int' >> ${FILENAME}
 cat << EOF >> ${FILENAME}
 
@@ -260,7 +255,7 @@ EOF
 
 
 	FILENAME=GetMapElements_${BASE}_shared_ptr_unsigned_int.cpp
-	Header GetMapElements_shared_ptr.hpp ${BASE} > ${FILENAME}
+	Header GetMapElements_shared_ptr.tcc ${BASE} > ${FILENAME}
 	GetMapElements_shared_ptr_CPP ${BASE} 'unsigned int' >> ${FILENAME}
 cat << EOF >> ${FILENAME}
 
@@ -280,7 +275,7 @@ EOF
 
 
 	FILENAME=GetMapElements_${BASE}_float.cpp
-	Header GetMapElements.hpp ${BASE} > ${FILENAME}
+	Header GetMapElements.tcc ${BASE} > ${FILENAME}
 	GetMapElements_CPP ${BASE} float >> ${FILENAME}
 cat << EOF >> ${FILENAME}
 
@@ -290,7 +285,7 @@ EOF
 
 
 	FILENAME=GetMapElements_${BASE}_shared_ptr_float.cpp
-	Header GetMapElements_shared_ptr.hpp ${BASE} > ${FILENAME}
+	Header GetMapElements_shared_ptr.tcc ${BASE} > ${FILENAME}
 	GetMapElements_shared_ptr_CPP ${BASE} float >> ${FILENAME}
 cat << EOF >> ${FILENAME}
 
@@ -300,14 +295,14 @@ EOF
 
 
 	FILENAME=GetMapElements_${BASE}_bool.cpp
-	Header GetMapElements.hpp ${BASE} > ${FILENAME}
+	Header GetMapElements.tcc ${BASE} > ${FILENAME}
 	GetMapElements_SPECIALIZATION ${BASE} bool >> ${FILENAME}
 	GetMapElements_CPP ${BASE} bool >> ${FILENAME}
 	Footer >> ${FILENAME}
 
 
 	FILENAME=GetMapElements_${BASE}_shared_ptr_bool.cpp
-	Header GetMapElements_shared_ptr.hpp ${BASE} > ${FILENAME}
+	Header GetMapElements_shared_ptr.tcc ${BASE} > ${FILENAME}
 	GetMapElements_shared_ptr_SPECIALIZATION ${BASE} bool >> ${FILENAME}
 	GetMapElements_shared_ptr_CPP ${BASE} bool >> ${FILENAME}
 	Footer >> ${FILENAME}

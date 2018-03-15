@@ -4,12 +4,34 @@
 // SPDX-License-Identifier:		BSL-1.0
 //
 
-#include "JXXON/Accessor/GetArrayElements.hpp"
+#include "JXXON/Json.hpp"
+#include "JXXON/Error.hpp"
+#include "JXXON/Json/Impl.hpp"
+#include "JXXON/Accessor/GetArrayElements.tcc"
 #include <cstdint>
 #include <vector>
 
 namespace JXXON {
 namespace Accessor {
+
+template<>
+static void populateArray<bool, std::vector>(Json::ArrayBase<bool, vector>& array, const ::Json::Value& value, const std::function<bool(const ::Json::Value::const_iterator&)>& valueAsT)
+{
+	array.clear();
+	if (!value.isNull()) {
+		if (value.isArray()) {
+			try {
+				for (auto i = value.begin(); i != value.end(); ++i) {
+					array.push_back(i->isNull() ?  bool() : bool(valueAsT(i)));
+				}
+			} catch (std::exception& e) {
+				throw Error(e.what());
+			}
+		} else {
+			throw Error("Not an array");
+		}
+	}
+}
 
 template<>
 GetArrayElements<bool, std::vector>::GetArrayElements(const Json& json) : json(json)

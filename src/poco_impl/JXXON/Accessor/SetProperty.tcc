@@ -5,12 +5,8 @@
 //
 
 
-#ifndef JXXON_Accessor_SetProperty_shared_ptr_INCLUDED
-#define JXXON_Accessor_SetProperty_shared_ptr_INCLUDED
-
-#include "JXXON/Json.hpp"
-#include "JXXON/Error.hpp"
-#include "JXXON/Json/Impl.hpp"
+#ifndef JXXON_Accessor_SetProperty_INCLUDED
+#define JXXON_Accessor_SetProperty_INCLUDED
 
 namespace JXXON {
 namespace Accessor {
@@ -24,13 +20,11 @@ SetProperty<T, typename std::enable_if<!std::is_base_of<Json::Serializable, T>::
 template<typename T>
 void SetProperty<T, typename std::enable_if<!std::is_base_of<Json::Serializable, T>::value && !std::is_convertible< T, std::shared_ptr<Json::Serializable> >::value>::type>::operator()(const T& value)
 {
-	if (value) {
-		Poco::Dynamic::Var child(*value);
-		json.pimpl->getObject()->set(name, child);
-	}
+	Poco::Dynamic::Var child(value);
+	json.pimpl->getObject()->set(name, child);
 }
 
 } // namespace Accessor
 } // namespace JXXON
 
-#endif // JXXON_Accessor_SetProperty_shared_ptr_INCLUDED
+#endif // JXXON_Accessor_SetProperty_INCLUDED

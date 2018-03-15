@@ -1,6 +1,6 @@
-#!/bin/sh
+#!/bin/bash
 
-function SetMapElements_HPP {
+function SetMapElements_TCC {
 cat << EOF
 //
 // Copyright (C) 2018 Dr. Michael Steffens
@@ -11,10 +11,6 @@ cat << EOF
 
 #ifndef JXXON_Accessor_SetMapElements_INCLUDED
 #define JXXON_Accessor_SetMapElements_INCLUDED
-
-#include "JXXON/Json.hpp"
-#include "JXXON/Error.hpp"
-#include "JXXON/Json/Impl.hpp"
 
 namespace JXXON {
 namespace Accessor {
@@ -41,9 +37,9 @@ void SetMapElements<T, Base, typename std::enable_if<!std::is_base_of<Json::Seri
 EOF
 }
 
-SetMapElements_HPP > SetMapElements.hpp
+SetMapElements_TCC > SetMapElements.tcc
 
-function SetMapElements_shared_ptr_HPP {
+function SetMapElements_shared_ptr_TCC {
 cat << EOF
 //
 // Copyright (C) 2018 Dr. Michael Steffens
@@ -54,10 +50,6 @@ cat << EOF
 
 #ifndef JXXON_Accessor_SetMapElements_shared_ptr_INCLUDED
 #define JXXON_Accessor_SetMapElements_shared_ptr_INCLUDED
-
-#include "JXXON/Json.hpp"
-#include "JXXON/Error.hpp"
-#include "JXXON/Json/Impl.hpp"
 
 namespace JXXON {
 namespace Accessor {
@@ -84,7 +76,7 @@ void SetMapElements<T, Base, typename std::enable_if<!std::is_base_of<Json::Seri
 EOF
 }
 
-SetMapElements_shared_ptr_HPP > SetMapElements_shared_ptr.hpp
+SetMapElements_shared_ptr_TCC > SetMapElements_shared_ptr.tcc
 
 function Header {
 cat << EOF | sed "s/{{INCLUDE}}/$1/g"| sed "s/{{BASE}}/$2/g"
@@ -94,6 +86,9 @@ cat << EOF | sed "s/{{INCLUDE}}/$1/g"| sed "s/{{BASE}}/$2/g"
 // SPDX-License-Identifier:		BSL-1.0
 //
 
+#include "JXXON/Json.hpp"
+#include "JXXON/Error.hpp"
+#include "JXXON/Json/Impl.hpp"
 #include "JXXON/Accessor/{{INCLUDE}}"
 #include <cstdint>
 #include <{{BASE}}>
@@ -132,19 +127,19 @@ function SetMapElements_BASE_CPP {
 	BASE=$1
 	    
 	FILENAME=SetMapElements_${BASE}_string.cpp
-	Header SetMapElements.hpp ${BASE} > ${FILENAME}
+	Header SetMapElements.tcc ${BASE} > ${FILENAME}
 	SetMapElements_CPP ${BASE} std::string >> ${FILENAME}
 	Footer >> ${FILENAME}
 
 
 	FILENAME=SetMapElements_${BASE}_shared_ptr_string.cpp
-	Header SetMapElements_shared_ptr.hpp ${BASE} > ${FILENAME}
+	Header SetMapElements_shared_ptr.tcc ${BASE} > ${FILENAME}
 	SetMapElements_shared_ptr_CPP ${BASE} std::string >> ${FILENAME}
 	Footer >> ${FILENAME}
 
 
 	FILENAME=SetMapElements_${BASE}_int.cpp
-	Header SetMapElements.hpp ${BASE} > ${FILENAME}
+	Header SetMapElements.tcc ${BASE} > ${FILENAME}
 	SetMapElements_CPP ${BASE} int >> ${FILENAME}
 cat << EOF >> ${FILENAME}
 
@@ -164,7 +159,7 @@ EOF
 
 
 	FILENAME=SetMapElements_${BASE}_shared_ptr_int.cpp
-	Header SetMapElements_shared_ptr.hpp ${BASE} > ${FILENAME}
+	Header SetMapElements_shared_ptr.tcc ${BASE} > ${FILENAME}
 	SetMapElements_shared_ptr_CPP ${BASE} int >> ${FILENAME}
 cat << EOF >> ${FILENAME}
 
@@ -184,7 +179,7 @@ EOF
 
 
 	FILENAME=SetMapElements_${BASE}_unsigned_int.cpp
-	Header SetMapElements.hpp ${BASE} > ${FILENAME}
+	Header SetMapElements.tcc ${BASE} > ${FILENAME}
 	SetMapElements_CPP ${BASE} 'unsigned int' >> ${FILENAME}
 cat << EOF >> ${FILENAME}
 
@@ -204,7 +199,7 @@ EOF
 
 
 	FILENAME=SetMapElements_${BASE}_shared_ptr_unsigned_int.cpp
-	Header SetMapElements_shared_ptr.hpp ${BASE} > ${FILENAME}
+	Header SetMapElements_shared_ptr.tcc ${BASE} > ${FILENAME}
 	SetMapElements_shared_ptr_CPP ${BASE} 'unsigned int' >> ${FILENAME}
 cat << EOF >> ${FILENAME}
 
@@ -224,7 +219,7 @@ EOF
 
 
 	FILENAME=SetMapElements_${BASE}_float.cpp
-	Header SetMapElements.hpp ${BASE} > ${FILENAME}
+	Header SetMapElements.tcc ${BASE} > ${FILENAME}
 	SetMapElements_CPP ${BASE} float >> ${FILENAME}
 cat << EOF >> ${FILENAME}
 
@@ -234,7 +229,7 @@ EOF
 
 
 	FILENAME=SetMapElements_${BASE}_shared_ptr_float.cpp
-	Header SetMapElements_shared_ptr.hpp ${BASE} > ${FILENAME}
+	Header SetMapElements_shared_ptr.tcc ${BASE} > ${FILENAME}
 	SetMapElements_shared_ptr_CPP ${BASE} float >> ${FILENAME}
 cat << EOF >> ${FILENAME}
 
@@ -244,13 +239,13 @@ EOF
 
 
 	FILENAME=SetMapElements_${BASE}_bool.cpp
-	Header SetMapElements.hpp ${BASE} > ${FILENAME}
+	Header SetMapElements.tcc ${BASE} > ${FILENAME}
 	SetMapElements_CPP ${BASE} bool >> ${FILENAME}
 	Footer >> ${FILENAME}
 
 
 	FILENAME=SetMapElements_${BASE}_shared_ptr_bool.cpp
-	Header SetMapElements_shared_ptr.hpp ${BASE} > ${FILENAME}
+	Header SetMapElements_shared_ptr.tcc ${BASE} > ${FILENAME}
 	SetMapElements_shared_ptr_CPP ${BASE} bool >> ${FILENAME}
 	Footer >> ${FILENAME}
 
