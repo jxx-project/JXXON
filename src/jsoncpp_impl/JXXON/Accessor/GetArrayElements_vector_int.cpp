@@ -22,7 +22,7 @@ GetArrayElements<int, std::vector>::GetArrayElements(const Json& json) : json(js
 template<>
 void GetArrayElements<int, std::vector>::operator()(Json::ArrayBase<int, std::vector>& array) const
 {
-	populateArray<int, std::vector>(array, json.pimpl->value, [](const ::Json::Value::const_iterator& i){return i->asInt();});
+	populateArray<int, std::vector>(array, json.pimpl->value, [](const ::Json::Value& value){return value.asInt();});
 }
 
 template GetArrayElements<int, std::vector>::GetArrayElements(const Json& json);
@@ -37,7 +37,7 @@ GetArrayElements<std::int64_t, std::vector>::GetArrayElements(const Json& json) 
 template<>
 void GetArrayElements<std::int64_t, std::vector>::operator()(Json::ArrayBase<std::int64_t, std::vector>& array) const
 {
-	populateArray<std::int64_t, std::vector>(array, json.pimpl->value, [](const ::Json::Value::const_iterator& i){return i->asInt64();});
+	populateArray<std::int64_t, std::vector>(array, json.pimpl->value, [](const ::Json::Value& value){return value.asInt64();});
 }
 
 template GetArrayElements<std::int64_t, std::vector>::GetArrayElements(const Json& json);
@@ -53,7 +53,7 @@ GetArrayElements<std::intmax_t, std::vector>::GetArrayElements(const Json& json)
 template<>
 void GetArrayElements<std::intmax_t, std::vector>::operator()(Json::ArrayBase<std::intmax_t, std::vector>& array) const
 {
-	populateArray<std::intmax_t, std::vector>(array, json.pimpl->value, [](const ::Json::Value::const_iterator& i){return i->asLargestInt();});
+	populateArray<std::intmax_t, std::vector>(array, json.pimpl->value, [](const ::Json::Value& value){return value.asLargestInt();});
 }
 
 template GetArrayElements<std::intmax_t, std::vector>::GetArrayElements(const Json& json);

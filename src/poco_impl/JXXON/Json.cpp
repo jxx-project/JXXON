@@ -90,24 +90,24 @@ Json::Impl::Object::Object(const Poco::JSON::Object::Ptr object) : object(object
 {
 }
 
-Poco::JSON::Object::Ptr Json::Impl::Object::getObject()
+Poco::JSON::Object& Json::Impl::Object::getObject()
 {
-	return object;
+	return *object;
 }
 
-Poco::JSON::Array::Ptr Json::Impl::Object::getArray()
+Poco::JSON::Array& Json::Impl::Object::getArray()
 {
 	throw Error("Not an array");
 }
 
-void Json::Impl::Object::joinParent(Poco::JSON::Object::Ptr parent, const std::string& childName) const
+void Json::Impl::Object::joinParent(Poco::JSON::Object& parent, const std::string& childName) const
 {
-	parent->set(childName, object);
+	parent.set(childName, object);
 }
 
-void Json::Impl::Object::appendTo(Poco::JSON::Array::Ptr array) const
+void Json::Impl::Object::appendTo(Poco::JSON::Array& array) const
 {
-	array->add(this->object);
+	array.add(this->object);
 }
 
 void Json::Impl::Object::stringify(std::ostream& out) const
@@ -128,24 +128,24 @@ Json::Impl::Array::Array(const Poco::JSON::Array::Ptr array) : array(array)
 {
 }
 
-Poco::JSON::Object::Ptr Json::Impl::Array::getObject()
+Poco::JSON::Object& Json::Impl::Array::getObject()
 {
 	throw Error("Not an object");
 }
 
-Poco::JSON::Array::Ptr Json::Impl::Array::getArray()
+Poco::JSON::Array& Json::Impl::Array::getArray()
 {
-	return array;
+	return *array;
 }
 
-void Json::Impl::Array::joinParent(Poco::JSON::Object::Ptr parent, const std::string& childName) const
+void Json::Impl::Array::joinParent(Poco::JSON::Object& parent, const std::string& childName) const
 {
-	parent->set(childName, array);
+	parent.set(childName, array);
 }
 
-void Json::Impl::Array::appendTo(Poco::JSON::Array::Ptr array) const
+void Json::Impl::Array::appendTo(Poco::JSON::Array& array) const
 {
-	array->add(this->array);
+	array.add(this->array);
 }
 
 void Json::Impl::Array::stringify(std::ostream& out) const
@@ -171,12 +171,12 @@ void Json::setTypeObject()
 
 Json Json::getChild(const std::string& name) const
 {
-	auto impl = pimpl->getObject();
-	if (impl->has(name)) {
-		if (impl->isObject(name)) {
-			return Json(std::unique_ptr<Impl>(new Impl::Object(impl->getObject(name))));
-		} else if (impl->isArray(name)) {
-			return Json(std::unique_ptr<Impl>(new Impl::Array(impl->getArray(name))));
+	auto& impl = pimpl->getObject();
+	if (impl.has(name)) {
+		if (impl.isObject(name)) {
+			return Json(std::unique_ptr<Impl>(new Impl::Object(impl.getObject(name))));
+		} else if (impl.isArray(name)) {
+			return Json(std::unique_ptr<Impl>(new Impl::Array(impl.getArray(name))));
 		} else {
 			throw Error("Property is not object or array");
 		}
@@ -199,9 +199,9 @@ void Json::setTypeArray()
 
 void Json::append(const Json& element)
 {
-	auto impl = pimpl->getArray();
+	auto& impl = pimpl->getArray();
 	if (element.isNull()) {
-		impl->add(Poco::Dynamic::Var());
+		impl.add(Poco::Dynamic::Var());
 	} else {
 		element.pimpl->appendTo(impl);
 	}
@@ -209,15 +209,15 @@ void Json::append(const Json& element)
 
 void Json::append(const std::function<void(const Json& element)>& append) const
 {
-	auto impl = pimpl->getArray();
-	for (int i = 0; i != impl->size(); ++i) {
-		if (impl->isNull(i)) {
+	auto& impl = pimpl->getArray();
+	for (int i = 0; i != impl.size(); ++i) {
+		if (impl.isNull(i)) {
 			append(Json());
 		} else {
-			auto element = impl->get(i);
-			if (impl->isObject(i)) {
+			auto element = impl.get(i);
+			if (impl.isObject(i)) {
 				append(Json(std::unique_ptr<Impl>(new Impl::Object(element.extract<Poco::JSON::Object::Ptr>()))));
-			} else if (impl->isArray(i)) {
+			} else if (impl.isArray(i)) {
 				append(Json(std::unique_ptr<Impl>(new Impl::Array(element.extract<Poco::JSON::Array::Ptr>()))));
 			} else {
 				throw Error("Element is not object or array");
@@ -228,9 +228,9 @@ void Json::append(const std::function<void(const Json& element)>& append) const
 
 void Json::insert(const std::string& key, const Json& element)
 {
-	auto impl = pimpl->getObject();
+	auto& impl = pimpl->getObject();
 	if (element.isNull()) {
-		impl->set(key, Poco::Dynamic::Var());
+		impl.set(key, Poco::Dynamic::Var());
 	} else {
 		element.pimpl->joinParent(impl, key);
 	}
@@ -238,16 +238,15 @@ void Json::insert(const std::string& key, const Json& element)
 
 void Json::insert(const std::function<void(const std::string& key, const Json& element)>& insert) const
 {
-	auto impl = pimpl->getObject();
-	for (auto i = impl->begin(); i != impl->end(); ++i) {
-		if (i->second.isEmpty()) {
-			insert(i->first, Json());
+	for (const auto& i : pimpl->getObject()) {
+		if (i.second.isEmpty()) {
+			insert(i.first, Json());
 		} else {
 			try {
 				try {
-					insert(i->first, Json(std::unique_ptr<Impl>(new Impl::Object(i->second.extract<Poco::JSON::Object::Ptr>()))));
+					insert(i.first, Json(std::unique_ptr<Impl>(new Impl::Object(i.second.extract<Poco::JSON::Object::Ptr>()))));
 				} catch (Poco::BadCastException) {
-					insert(i->first, Json(std::unique_ptr<Impl>(new Impl::Array(i->second.extract<Poco::JSON::Array::Ptr>()))));
+					insert(i.first, Json(std::unique_ptr<Impl>(new Impl::Array(i.second.extract<Poco::JSON::Array::Ptr>()))));
 				}
 			} catch (Poco::Exception& e) {
 				throw Error(e.message());

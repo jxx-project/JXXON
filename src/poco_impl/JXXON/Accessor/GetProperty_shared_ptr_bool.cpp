@@ -18,7 +18,7 @@ std::shared_ptr<bool> GetProperty< std::shared_ptr<bool> >::operator()() const
 {
 	if (json.pimpl) {
 		try {
-			auto child = json.pimpl->getObject()->get(name);
+			auto child = json.pimpl->getObject().get(name);
 			if (!child.isEmpty()) {
 				return std::make_shared<bool>(child.extract<bool>());
 			}

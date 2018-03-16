@@ -24,8 +24,7 @@ SetProperty<T, typename std::enable_if<!std::is_base_of<Json::Serializable, T>::
 template<typename T>
 void SetProperty<T, typename std::enable_if<!std::is_base_of<Json::Serializable, T>::value && !std::is_convertible< T, std::shared_ptr<Json::Serializable> >::value>::type>::operator()(const T& value)
 {
-	Poco::Dynamic::Var child(value);
-	json.pimpl->getObject()->set(name, child);
+	json.pimpl->getObject().set(name, Poco::Dynamic::Var(value));
 }
 
 } // namespace Accessor
@@ -62,8 +61,7 @@ template<typename T>
 void SetProperty<T, typename std::enable_if<!std::is_base_of<Json::Serializable, T>::value && !std::is_convertible< T, std::shared_ptr<Json::Serializable> >::value>::type>::operator()(const T& value)
 {
 	if (value) {
-		Poco::Dynamic::Var child(*value);
-		json.pimpl->getObject()->set(name, child);
+		json.pimpl->getObject().set(name, Poco::Dynamic::Var(*value));
 	}
 }
 

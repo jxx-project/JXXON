@@ -24,8 +24,8 @@ SetArrayElements<T, Base, typename std::enable_if<!std::is_base_of<Json::Seriali
 template<typename T, template<typename...> class Base>
 void SetArrayElements<T, Base, typename std::enable_if<!std::is_base_of<Json::Serializable, T>::value && !std::is_convertible< T, std::shared_ptr<Json::Serializable> >::value>::type>::operator()(const Json::ArrayBase<T, Base>& array)
 {
-	for (auto i = array.begin(); i != array.end(); ++i) {
-		json.pimpl->value.append(::Json::Value((T)*i));
+	for (const auto& i : array) {
+		json.pimpl->value.append(::Json::Value(i));
 	}
 }
 
@@ -62,8 +62,8 @@ SetArrayElements<T, Base, typename std::enable_if<!std::is_base_of<Json::Seriali
 template<typename T, template<typename...> class Base>
 void SetArrayElements<T, Base, typename std::enable_if<!std::is_base_of<Json::Serializable, T>::value && !std::is_convertible< T, std::shared_ptr<Json::Serializable> >::value>::type>::operator()(const Json::ArrayBase<T, Base>& array)
 {
-	for (auto i = array.begin(); i != array.end(); ++i) {
-		json.pimpl->value.append(*i ? ::Json::Value((typename T::element_type)**i) : ::Json::Value::null);
+	for (const auto& i : array) {
+		json.pimpl->value.append(i ? ::Json::Value(*i) : ::Json::Value::null);
 	}
 }
 

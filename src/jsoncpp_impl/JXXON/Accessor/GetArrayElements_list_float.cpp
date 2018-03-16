@@ -22,7 +22,7 @@ GetArrayElements<float, std::list>::GetArrayElements(const Json& json) : json(js
 template<>
 void GetArrayElements<float, std::list>::operator()(Json::ArrayBase<float, std::list>& array) const
 {
-	populateArray<float, std::list>(array, json.pimpl->value, [](const ::Json::Value::const_iterator& i){return i->asFloat();});
+	populateArray<float, std::list>(array, json.pimpl->value, [](const ::Json::Value& value){return value.asFloat();});
 }
 
 template GetArrayElements<float, std::list>::GetArrayElements(const Json& json);
@@ -36,7 +36,7 @@ GetArrayElements<double, std::list>::GetArrayElements(const Json& json) : json(j
 template<>
 void GetArrayElements<double, std::list>::operator()(Json::ArrayBase<double, std::list>& array) const
 {
-	populateArray<double, std::list>(array, json.pimpl->value, [](const ::Json::Value::const_iterator& i){return i->asDouble();});
+	populateArray<double, std::list>(array, json.pimpl->value, [](const ::Json::Value& value){return value.asDouble();});
 }
 
 template GetArrayElements<double, std::list>::GetArrayElements(const Json& json);

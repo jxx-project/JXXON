@@ -22,7 +22,7 @@ GetArrayElements<std::string, std::list>::GetArrayElements(const Json& json) : j
 template<>
 void GetArrayElements<std::string, std::list>::operator()(Json::ArrayBase<std::string, std::list>& array) const
 {
-	populateArray<std::string, std::list>(array, json.pimpl->value, [](const ::Json::Value::const_iterator& i){return i->asString();});
+	populateArray<std::string, std::list>(array, json.pimpl->value, [](const ::Json::Value& value){return value.asString();});
 }
 
 template GetArrayElements<std::string, std::list>::GetArrayElements(const Json& json);

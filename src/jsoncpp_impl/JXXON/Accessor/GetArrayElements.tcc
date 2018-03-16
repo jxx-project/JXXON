@@ -13,14 +13,14 @@ namespace Accessor {
 namespace {
 
 template<class T, template<typename...> class Base>
-void populateArray(Json::ArrayBase<T, Base>& array, const ::Json::Value& value, const std::function<T(const ::Json::Value::const_iterator&)>& valueAsT)
+void populateArray(Json::ArrayBase<T, Base>& array, const ::Json::Value& value, const std::function<T(const ::Json::Value&)>& valueAsT)
 {
 	array.clear();
 	if (!value.isNull()) {
 		if (value.isArray()) {
 			try {
-				for (auto i = value.begin(); i != value.end(); ++i) {
-					array.emplace_back(i->isNull() ?  T() : T(valueAsT(i)));
+				for (const auto& i : value) {
+					array.emplace_back(i.isNull() ?  T() : T(valueAsT(i)));
 				}
 			} catch (std::exception& e) {
 				throw Error(e.what());

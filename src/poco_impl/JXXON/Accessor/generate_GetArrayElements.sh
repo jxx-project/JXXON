@@ -25,10 +25,9 @@ void GetArrayElements<T, Base, typename std::enable_if<!std::is_base_of<Json::Se
 {
 	array.clear();
 	if (json.pimpl) {
-		auto impl = json.pimpl->getArray();
 		try {
-			for (int i = 0; i != impl->size(); ++i) {
-				array.emplace_back(impl->isNull(i) ? T() : impl->get(i).convert<T>());
+			for (const auto& i : json.pimpl->getArray()) {
+				array.emplace_back(i.isEmpty() ? T() : i.convert<T>());
 			}
 		} catch (Poco::Exception& e) {
 			throw Error(e.message());
@@ -70,10 +69,9 @@ void GetArrayElements<T, Base, typename std::enable_if<!std::is_base_of<Json::Se
 {
 	array.clear();
 	if (json.pimpl) {
-		auto impl = json.pimpl->getArray();
 		try {
-			for (int i = 0; i != impl->size(); ++i) {
-				array.emplace_back(impl->isNull(i) ? nullptr : std::make_shared<typename T::element_type>(impl->get(i).convert<typename T::element_type>()));
+			for (const auto& i : json.pimpl->getArray()) {
+				array.emplace_back(i.isEmpty() ? nullptr : std::make_shared<typename T::element_type>(i.convert<typename T::element_type>()));
 			}
 		} catch (Poco::Exception& e) {
 			throw Error(e.message());
@@ -98,10 +96,9 @@ void GetArrayElements<{{ELEMENT_TYPE}}, std::{{BASE}}>::operator()(Json::ArrayBa
 {
 	array.clear();
 	if (json.pimpl) {
-		auto impl = json.pimpl->getArray();
 		try {
-			for (int i = 0; i != impl->size(); ++i) {
-				array.{{APPEND}}(impl->isNull(i) ? {{ELEMENT_TYPE}}() : impl->get(i).extract<{{ELEMENT_TYPE}}>());
+			for (const auto& i : json.pimpl->getArray()) {
+				array.{{APPEND}}(i.isEmpty() ? {{ELEMENT_TYPE}}() : i.extract<{{ELEMENT_TYPE}}>());
 			}
 		} catch (Poco::Exception& e) {
 			throw Error(e.message());
@@ -119,10 +116,9 @@ void GetArrayElements<std::shared_ptr<{{ELEMENT_TYPE}}>, std::{{BASE}}>::operato
 {
 	array.clear();
 	if (json.pimpl) {
-		auto impl = json.pimpl->getArray();
 		try {
-			for (int i = 0; i != impl->size(); ++i) {
-				array.emplace_back(impl->isNull(i) ? nullptr : std::make_shared<{{ELEMENT_TYPE}}>(impl->get(i).extract<{{ELEMENT_TYPE}}>()));
+			for (const auto& i : json.pimpl->getArray()) {
+				array.emplace_back(i.isEmpty() ? nullptr : std::make_shared<{{ELEMENT_TYPE}}>(i.extract<{{ELEMENT_TYPE}}>()));
 			}
 		} catch (Poco::Exception& e) {
 			throw Error(e.message());

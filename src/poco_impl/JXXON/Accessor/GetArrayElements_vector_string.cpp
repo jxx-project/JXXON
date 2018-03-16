@@ -19,10 +19,9 @@ void GetArrayElements<std::string, std::vector>::operator()(Json::ArrayBase<std:
 {
 	array.clear();
 	if (json.pimpl) {
-		auto impl = json.pimpl->getArray();
 		try {
-			for (int i = 0; i != impl->size(); ++i) {
-				array.emplace_back(impl->isNull(i) ? std::string() : impl->get(i).extract<std::string>());
+			for (const auto& i : json.pimpl->getArray()) {
+				array.emplace_back(i.isEmpty() ? std::string() : i.extract<std::string>());
 			}
 		} catch (Poco::Exception& e) {
 			throw Error(e.message());

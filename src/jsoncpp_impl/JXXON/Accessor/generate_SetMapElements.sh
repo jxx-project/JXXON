@@ -24,8 +24,8 @@ SetMapElements<T, Base, typename std::enable_if<!std::is_base_of<Json::Serializa
 template<typename T, template<typename...> class Base>
 void SetMapElements<T, Base, typename std::enable_if<!std::is_base_of<Json::Serializable, T>::value && !std::is_convertible< T, std::shared_ptr<Json::Serializable> >::value>::type>::operator()(const Json::MapBase<T, Base>& map)
 {
-	for (auto i = map.begin(); i != map.end(); ++i) {
-		json.pimpl->value[i->first] = i->second;
+	for (const auto& i : map) {
+		json.pimpl->value[i.first] = i.second;
 	}
 }
 
@@ -62,8 +62,8 @@ SetMapElements<T, Base, typename std::enable_if<!std::is_base_of<Json::Serializa
 template<typename T, template<typename...> class Base>
 void SetMapElements<T, Base, typename std::enable_if<!std::is_base_of<Json::Serializable, T>::value && !std::is_convertible< T, std::shared_ptr<Json::Serializable> >::value>::type>::operator()(const Json::MapBase<T, Base>& map)
 {
-	for (auto i = map.begin(); i != map.end(); ++i) {
-		json.pimpl->value[i->first] = i->second ? *i->second : ::Json::Value::null;
+	for (const auto& i : map) {
+		json.pimpl->value[i.first] = i.second ? *i.second : ::Json::Value::null;
 	}
 }
 

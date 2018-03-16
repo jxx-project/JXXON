@@ -18,7 +18,7 @@ bool GetProperty<bool>::operator()() const
 {
 	if (json.pimpl) {
 		try {
-			auto child = json.pimpl->getObject()->get(name);
+			auto child = json.pimpl->getObject().get(name);
 			if (!child.isEmpty()) {
 				return child.extract<bool>();
 			}

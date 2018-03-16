@@ -19,10 +19,9 @@ void GetArrayElements<std::shared_ptr<bool>, std::list>::operator()(Json::ArrayB
 {
 	array.clear();
 	if (json.pimpl) {
-		auto impl = json.pimpl->getArray();
 		try {
-			for (int i = 0; i != impl->size(); ++i) {
-				array.emplace_back(impl->isNull(i) ? nullptr : std::make_shared<bool>(impl->get(i).extract<bool>()));
+			for (const auto& i : json.pimpl->getArray()) {
+				array.emplace_back(i.isEmpty() ? nullptr : std::make_shared<bool>(i.extract<bool>()));
 			}
 		} catch (Poco::Exception& e) {
 			throw Error(e.message());

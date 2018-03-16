@@ -21,10 +21,9 @@ void GetMapElements<T, Base, typename std::enable_if<!std::is_base_of<Json::Seri
 {
 	map.clear();
 	if (json.pimpl) {
-		auto impl = json.pimpl->getObject();
 		try {
-			for (auto i = impl->begin(); i != impl->end(); ++i) {
-				map.emplace(i->first, i->second.isEmpty() ? T() : i->second.convert<T>());
+			for (const auto& i : json.pimpl->getObject()) {
+				map.emplace(i.first, i.second.isEmpty() ? T() : i.second.convert<T>());
 			}
 		} catch (Poco::Exception& e) {
 			throw Error(e.message());

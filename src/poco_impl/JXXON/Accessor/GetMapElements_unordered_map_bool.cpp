@@ -19,10 +19,9 @@ void GetMapElements<bool, std::unordered_map>::operator()(Json::MapBase<bool, st
 {
 	map.clear();
 	if (json.pimpl) {
-		auto impl = json.pimpl->getObject();
 		try {
-			for (auto i = impl->begin(); i != impl->end(); ++i) {
-				map.emplace(i->first, i->second.isEmpty() ? bool() : i->second.extract<bool>());
+			for (const auto& i : json.pimpl->getObject()) {
+				map.emplace(i.first, i.second.isEmpty() ? bool() : i.second.extract<bool>());
 			}
 		} catch (Poco::Exception& e) {
 			throw Error(e.message());

@@ -25,7 +25,7 @@ T GetProperty<T,  typename std::enable_if<!std::is_base_of<Json::Serializable, T
 {
 	if (json.pimpl) {
 		try {
-			auto child = json.pimpl->getObject()->get(name);
+			auto child = json.pimpl->getObject().get(name);
 			if (!child.isEmpty()) {
 				return child.convert<T>();
 			}
@@ -70,7 +70,7 @@ T GetProperty<T,  typename std::enable_if<!std::is_base_of<Json::Serializable, T
 {
 	if (json.pimpl) {
 		try {
-			auto child = json.pimpl->getObject()->get(name);
+			auto child = json.pimpl->getObject().get(name);
 			if (!child.isEmpty()) {
 				return std::make_shared<typename T::element_type>(child.convert<typename T::element_type>());
 			}
@@ -97,7 +97,7 @@ template<>
 {
 	if (json.pimpl) {
 		try {
-			auto child = json.pimpl->getObject()->get(name);
+			auto child = json.pimpl->getObject().get(name);
 			if (!child.isEmpty()) {
 				return child.extract<{{ELEMENT_TYPE}}>();
 			}
@@ -118,7 +118,7 @@ std::shared_ptr<{{ELEMENT_TYPE}}> GetProperty< std::shared_ptr<{{ELEMENT_TYPE}}>
 {
 	if (json.pimpl) {
 		try {
-			auto child = json.pimpl->getObject()->get(name);
+			auto child = json.pimpl->getObject().get(name);
 			if (!child.isEmpty()) {
 				return std::make_shared<{{ELEMENT_TYPE}}>(child.extract<{{ELEMENT_TYPE}}>());
 			}

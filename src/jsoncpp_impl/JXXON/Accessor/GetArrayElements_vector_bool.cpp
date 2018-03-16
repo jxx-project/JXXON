@@ -17,14 +17,14 @@ namespace Accessor {
 namespace {
 
 template<>
-void populateArray<bool, std::vector>(Json::ArrayBase<bool, std::vector>& array, const ::Json::Value& value, const std::function<bool(const ::Json::Value::const_iterator&)>& valueAsT)
+void populateArray<bool, std::vector>(Json::ArrayBase<bool, std::vector>& array, const ::Json::Value& value, const std::function<bool(const ::Json::Value&)>& valueAsT)
 {
 	array.clear();
 	if (!value.isNull()) {
 		if (value.isArray()) {
 			try {
-				for (auto i = value.begin(); i != value.end(); ++i) {
-					array.push_back(i->isNull() ?  bool() : bool(valueAsT(i)));
+				for (const auto& i : value) {
+					array.push_back(i.isNull() ? bool() : bool(valueAsT(i)));
 				}
 			} catch (std::exception& e) {
 				throw Error(e.what());
@@ -45,7 +45,7 @@ GetArrayElements<bool, std::vector>::GetArrayElements(const Json& json) : json(j
 template<>
 void GetArrayElements<bool, std::vector>::operator()(Json::ArrayBase<bool, std::vector>& array) const
 {
-	populateArray<bool, std::vector>(array, json.pimpl->value, [](const ::Json::Value::const_iterator& i){return i->asBool();});
+	populateArray<bool, std::vector>(array, json.pimpl->value, [](const ::Json::Value& value){return value.asBool();});
 }
 
 template GetArrayElements<bool, std::vector>::GetArrayElements(const Json& json);

@@ -21,7 +21,7 @@ T GetProperty<T,  typename std::enable_if<!std::is_base_of<Json::Serializable, T
 {
 	if (json.pimpl) {
 		try {
-			auto child = json.pimpl->getObject()->get(name);
+			auto child = json.pimpl->getObject().get(name);
 			if (!child.isEmpty()) {
 				return std::make_shared<typename T::element_type>(child.convert<typename T::element_type>());
 			}

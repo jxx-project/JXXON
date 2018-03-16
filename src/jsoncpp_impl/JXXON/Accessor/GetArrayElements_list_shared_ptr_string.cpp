@@ -22,7 +22,7 @@ GetArrayElements<std::shared_ptr<std::string>, std::list>::GetArrayElements(cons
 template<>
 void GetArrayElements<std::shared_ptr<std::string>, std::list>::operator()(Json::ArrayBase<std::shared_ptr<std::string>, std::list>& array) const
 {
-	populateArray<std::shared_ptr<std::string>, std::list>(array, json.pimpl->value, [](const ::Json::Value::const_iterator& i){return i->asString();});
+	populateArray<std::shared_ptr<std::string>, std::list>(array, json.pimpl->value, [](const ::Json::Value& value){return value.asString();});
 }
 
 template GetArrayElements<std::shared_ptr<std::string>, std::list>::GetArrayElements(const Json& json);

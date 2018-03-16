@@ -22,7 +22,7 @@ GetArrayElements<std::shared_ptr<float>, std::vector>::GetArrayElements(const Js
 template<>
 void GetArrayElements<std::shared_ptr<float>, std::vector>::operator()(Json::ArrayBase<std::shared_ptr<float>, std::vector>& array) const
 {
-	populateArray<std::shared_ptr<float>, std::vector>(array, json.pimpl->value, [](const ::Json::Value::const_iterator& i){return i->asFloat();});
+	populateArray<std::shared_ptr<float>, std::vector>(array, json.pimpl->value, [](const ::Json::Value& value){return value.asFloat();});
 }
 
 template GetArrayElements<std::shared_ptr<float>, std::vector>::GetArrayElements(const Json& json);
@@ -36,7 +36,7 @@ GetArrayElements<std::shared_ptr<double>, std::vector>::GetArrayElements(const J
 template<>
 void GetArrayElements<std::shared_ptr<double>, std::vector>::operator()(Json::ArrayBase<std::shared_ptr<double>, std::vector>& array) const
 {
-	populateArray<std::shared_ptr<double>, std::vector>(array, json.pimpl->value, [](const ::Json::Value::const_iterator& i){return i->asDouble();});
+	populateArray<std::shared_ptr<double>, std::vector>(array, json.pimpl->value, [](const ::Json::Value& value){return value.asDouble();});
 }
 
 template GetArrayElements<std::shared_ptr<double>, std::vector>::GetArrayElements(const Json& json);

@@ -19,10 +19,9 @@ void GetArrayElements<std::shared_ptr<std::string>, std::vector>::operator()(Jso
 {
 	array.clear();
 	if (json.pimpl) {
-		auto impl = json.pimpl->getArray();
 		try {
-			for (int i = 0; i != impl->size(); ++i) {
-				array.emplace_back(impl->isNull(i) ? nullptr : std::make_shared<std::string>(impl->get(i).extract<std::string>()));
+			for (const auto& i : json.pimpl->getArray()) {
+				array.emplace_back(i.isEmpty() ? nullptr : std::make_shared<std::string>(i.extract<std::string>()));
 			}
 		} catch (Poco::Exception& e) {
 			throw Error(e.message());

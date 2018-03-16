@@ -21,10 +21,9 @@ void GetArrayElements<T, Base, typename std::enable_if<!std::is_base_of<Json::Se
 {
 	array.clear();
 	if (json.pimpl) {
-		auto impl = json.pimpl->getArray();
 		try {
-			for (int i = 0; i != impl->size(); ++i) {
-				array.emplace_back(impl->isNull(i) ? T() : impl->get(i).convert<T>());
+			for (const auto& i : json.pimpl->getArray()) {
+				array.emplace_back(i.isEmpty() ? T() : i.convert<T>());
 			}
 		} catch (Poco::Exception& e) {
 			throw Error(e.message());

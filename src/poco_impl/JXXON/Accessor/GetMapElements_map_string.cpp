@@ -19,10 +19,9 @@ void GetMapElements<std::string, std::map>::operator()(Json::MapBase<std::string
 {
 	map.clear();
 	if (json.pimpl) {
-		auto impl = json.pimpl->getObject();
 		try {
-			for (auto i = impl->begin(); i != impl->end(); ++i) {
-				map.emplace(i->first, i->second.isEmpty() ? std::string() : i->second.extract<std::string>());
+			for (const auto& i : json.pimpl->getObject()) {
+				map.emplace(i.first, i.second.isEmpty() ? std::string() : i.second.extract<std::string>());
 			}
 		} catch (Poco::Exception& e) {
 			throw Error(e.message());

@@ -22,7 +22,7 @@ GetArrayElements<std::shared_ptr<unsigned int>, std::vector>::GetArrayElements(c
 template<>
 void GetArrayElements<std::shared_ptr<unsigned int>, std::vector>::operator()(Json::ArrayBase<std::shared_ptr<unsigned int>, std::vector>& array) const
 {
-	populateArray<std::shared_ptr<unsigned int>, std::vector>(array, json.pimpl->value, [](const ::Json::Value::const_iterator& i){return i->asUInt();});
+	populateArray<std::shared_ptr<unsigned int>, std::vector>(array, json.pimpl->value, [](const ::Json::Value& value){return value.asUInt();});
 }
 
 template GetArrayElements<std::shared_ptr<unsigned int>, std::vector>::GetArrayElements(const Json& json);
@@ -37,7 +37,7 @@ GetArrayElements<std::shared_ptr<std::uint64_t>, std::vector>::GetArrayElements(
 template<>
 void GetArrayElements<std::shared_ptr<std::uint64_t>, std::vector>::operator()(Json::ArrayBase<std::shared_ptr<std::uint64_t>, std::vector>& array) const
 {
-	populateArray<std::shared_ptr<std::uint64_t>, std::vector>(array, json.pimpl->value, [](const ::Json::Value::const_iterator& i){return i->asUInt64();});
+	populateArray<std::shared_ptr<std::uint64_t>, std::vector>(array, json.pimpl->value, [](const ::Json::Value& value){return value.asUInt64();});
 }
 
 template GetArrayElements<std::shared_ptr<std::uint64_t>, std::vector>::GetArrayElements(const Json& json);
@@ -53,7 +53,7 @@ GetArrayElements<std::shared_ptr<std::uintmax_t>, std::vector>::GetArrayElements
 template<>
 void GetArrayElements<std::shared_ptr<std::uintmax_t>, std::vector>::operator()(Json::ArrayBase<std::shared_ptr<std::uintmax_t>, std::vector>& array) const
 {
-	populateArray<std::shared_ptr<std::uintmax_t>, std::vector>(array, json.pimpl->value, [](const ::Json::Value::const_iterator& i){return i->asLargestUInt();});
+	populateArray<std::shared_ptr<std::uintmax_t>, std::vector>(array, json.pimpl->value, [](const ::Json::Value& value){return value.asLargestUInt();});
 }
 
 template GetArrayElements<std::shared_ptr<std::uintmax_t>, std::vector>::GetArrayElements(const Json& json);

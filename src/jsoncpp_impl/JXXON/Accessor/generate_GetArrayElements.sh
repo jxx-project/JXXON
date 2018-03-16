@@ -17,14 +17,14 @@ namespace Accessor {
 namespace {
 
 template<class T, template<typename...> class Base>
-void populateArray(Json::ArrayBase<T, Base>& array, const ::Json::Value& value, const std::function<T(const ::Json::Value::const_iterator&)>& valueAsT)
+void populateArray(Json::ArrayBase<T, Base>& array, const ::Json::Value& value, const std::function<T(const ::Json::Value&)>& valueAsT)
 {
 	array.clear();
 	if (!value.isNull()) {
 		if (value.isArray()) {
 			try {
-				for (auto i = value.begin(); i != value.end(); ++i) {
-					array.emplace_back(i->isNull() ?  T() : T(valueAsT(i)));
+				for (const auto& i : value) {
+					array.emplace_back(i.isNull() ?  T() : T(valueAsT(i)));
 				}
 			} catch (std::exception& e) {
 				throw Error(e.what());
@@ -49,14 +49,14 @@ cat << EOF | sed "s/{{BASE}}/$1/g" | sed "s/{{ELEMENT_TYPE}}/$2/g"
 namespace {
 
 template<>
-void populateArray<{{ELEMENT_TYPE}}, std::{{BASE}}>(Json::ArrayBase<{{ELEMENT_TYPE}}, std::{{BASE}}>& array, const ::Json::Value& value, const std::function<{{ELEMENT_TYPE}}(const ::Json::Value::const_iterator&)>& valueAsT)
+void populateArray<{{ELEMENT_TYPE}}, std::{{BASE}}>(Json::ArrayBase<{{ELEMENT_TYPE}}, std::{{BASE}}>& array, const ::Json::Value& value, const std::function<{{ELEMENT_TYPE}}(const ::Json::Value&)>& valueAsT)
 {
 	array.clear();
 	if (!value.isNull()) {
 		if (value.isArray()) {
 			try {
-				for (auto i = value.begin(); i != value.end(); ++i) {
-					array.push_back(i->isNull() ?  {{ELEMENT_TYPE}}() : {{ELEMENT_TYPE}}(valueAsT(i)));
+				for (const auto& i : value) {
+					array.push_back(i.isNull() ? {{ELEMENT_TYPE}}() : {{ELEMENT_TYPE}}(valueAsT(i)));
 				}
 			} catch (std::exception& e) {
 				throw Error(e.what());
@@ -90,14 +90,14 @@ namespace Accessor {
 namespace {
 
 template<class T, template<typename...> class Base>
-void populateArray(Json::ArrayBase<T, Base>& array, const ::Json::Value& value, const std::function<typename T::element_type(const ::Json::Value::const_iterator&)>& valueAsT)
+void populateArray(Json::ArrayBase<T, Base>& array, const ::Json::Value& value, const std::function<typename T::element_type(const ::Json::Value&)>& valueAsT)
 {
 	array.clear();
 	if (!value.isNull()) {
 		if (value.isArray()) {
 			try {
-				for (auto i = value.begin(); i != value.end(); ++i) {
-					array.emplace_back(i->isNull() ? T() : std::make_shared<typename T::element_type>(valueAsT(i)));
+				for (const auto& i : value) {
+					array.emplace_back(i.isNull() ? T() : std::make_shared<typename T::element_type>(valueAsT(i)));
 				}
 			} catch (std::exception& e) {
 				throw Error(e.what());
@@ -149,7 +149,7 @@ GetArrayElements<{{ELEMENT_TYPE}}, std::{{BASE}}>::GetArrayElements(const Json& 
 template<>
 void GetArrayElements<{{ELEMENT_TYPE}}, std::{{BASE}}>::operator()(Json::ArrayBase<{{ELEMENT_TYPE}}, std::{{BASE}}>& array) const
 {
-	populateArray<{{ELEMENT_TYPE}}, std::{{BASE}}>(array, json.pimpl->value, [](const ::Json::Value::const_iterator& i){return i->{{AS_TYPE}}();});
+	populateArray<{{ELEMENT_TYPE}}, std::{{BASE}}>(array, json.pimpl->value, [](const ::Json::Value& value){return value.{{AS_TYPE}}();});
 }
 
 template GetArrayElements<{{ELEMENT_TYPE}}, std::{{BASE}}>::GetArrayElements(const Json& json);
@@ -167,7 +167,7 @@ GetArrayElements<std::shared_ptr<{{ELEMENT_TYPE}}>, std::{{BASE}}>::GetArrayElem
 template<>
 void GetArrayElements<std::shared_ptr<{{ELEMENT_TYPE}}>, std::{{BASE}}>::operator()(Json::ArrayBase<std::shared_ptr<{{ELEMENT_TYPE}}>, std::{{BASE}}>& array) const
 {
-	populateArray<std::shared_ptr<{{ELEMENT_TYPE}}>, std::{{BASE}}>(array, json.pimpl->value, [](const ::Json::Value::const_iterator& i){return i->{{AS_TYPE}}();});
+	populateArray<std::shared_ptr<{{ELEMENT_TYPE}}>, std::{{BASE}}>(array, json.pimpl->value, [](const ::Json::Value& value){return value.{{AS_TYPE}}();});
 }
 
 template GetArrayElements<std::shared_ptr<{{ELEMENT_TYPE}}>, std::{{BASE}}>::GetArrayElements(const Json& json);

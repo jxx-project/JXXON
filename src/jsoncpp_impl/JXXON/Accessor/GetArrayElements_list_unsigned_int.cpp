@@ -22,7 +22,7 @@ GetArrayElements<unsigned int, std::list>::GetArrayElements(const Json& json) : 
 template<>
 void GetArrayElements<unsigned int, std::list>::operator()(Json::ArrayBase<unsigned int, std::list>& array) const
 {
-	populateArray<unsigned int, std::list>(array, json.pimpl->value, [](const ::Json::Value::const_iterator& i){return i->asUInt();});
+	populateArray<unsigned int, std::list>(array, json.pimpl->value, [](const ::Json::Value& value){return value.asUInt();});
 }
 
 template GetArrayElements<unsigned int, std::list>::GetArrayElements(const Json& json);
@@ -37,7 +37,7 @@ GetArrayElements<std::uint64_t, std::list>::GetArrayElements(const Json& json) :
 template<>
 void GetArrayElements<std::uint64_t, std::list>::operator()(Json::ArrayBase<std::uint64_t, std::list>& array) const
 {
-	populateArray<std::uint64_t, std::list>(array, json.pimpl->value, [](const ::Json::Value::const_iterator& i){return i->asUInt64();});
+	populateArray<std::uint64_t, std::list>(array, json.pimpl->value, [](const ::Json::Value& value){return value.asUInt64();});
 }
 
 template GetArrayElements<std::uint64_t, std::list>::GetArrayElements(const Json& json);
@@ -53,7 +53,7 @@ GetArrayElements<std::uintmax_t, std::list>::GetArrayElements(const Json& json) 
 template<>
 void GetArrayElements<std::uintmax_t, std::list>::operator()(Json::ArrayBase<std::uintmax_t, std::list>& array) const
 {
-	populateArray<std::uintmax_t, std::list>(array, json.pimpl->value, [](const ::Json::Value::const_iterator& i){return i->asLargestUInt();});
+	populateArray<std::uintmax_t, std::list>(array, json.pimpl->value, [](const ::Json::Value& value){return value.asLargestUInt();});
 }
 
 template GetArrayElements<std::uintmax_t, std::list>::GetArrayElements(const Json& json);

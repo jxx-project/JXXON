@@ -18,17 +18,17 @@ namespace JXXON {
 class Json::Impl
 {
 public:
-	struct Object;
-	struct Array;
+	class Object;
+	class Array;
 
 	virtual ~Impl()
 	{
 	}
 
-	virtual Poco::JSON::Object::Ptr getObject() = 0;
-	virtual Poco::JSON::Array::Ptr getArray() = 0;
-	virtual void joinParent(Poco::JSON::Object::Ptr parent, const std::string& childName) const = 0;
-	virtual void appendTo(Poco::JSON::Array::Ptr array) const = 0;
+	virtual Poco::JSON::Object& getObject() = 0;
+	virtual Poco::JSON::Array& getArray() = 0;
+	virtual void joinParent(Poco::JSON::Object& parent, const std::string& childName) const = 0;
+	virtual void appendTo(Poco::JSON::Array& array) const = 0;
 	virtual void stringify(std::ostream& out) const = 0;
 	virtual std::unique_ptr<Impl> clone() const = 0;
 };
@@ -45,10 +45,10 @@ public:
 	{
 	}
 
-	virtual Poco::JSON::Object::Ptr getObject() override;
-	virtual Poco::JSON::Array::Ptr getArray() override;
-	virtual void joinParent(Poco::JSON::Object::Ptr parent, const std::string& childName) const override;
-	virtual void appendTo(Poco::JSON::Array::Ptr array) const override;
+	virtual Poco::JSON::Object& getObject() override;
+	virtual Poco::JSON::Array& getArray() override;
+	virtual void joinParent(Poco::JSON::Object& parent, const std::string& childName) const override;
+	virtual void appendTo(Poco::JSON::Array& array) const override;
 	virtual void stringify(std::ostream& out) const override;
 	virtual std::unique_ptr<Json::Impl> clone() const override;
 
@@ -68,10 +68,10 @@ public:
 	{
 	}
 
-	virtual Poco::JSON::Object::Ptr getObject() override;
-	virtual Poco::JSON::Array::Ptr getArray() override;
-	virtual void joinParent(Poco::JSON::Object::Ptr parent, const std::string& childName) const override;
-	virtual void appendTo(Poco::JSON::Array::Ptr array) const override;
+	virtual Poco::JSON::Object& getObject() override;
+	virtual Poco::JSON::Array& getArray() override;
+	virtual void joinParent(Poco::JSON::Object& parent, const std::string& childName) const override;
+	virtual void appendTo(Poco::JSON::Array& array) const override;
 	virtual void stringify(std::ostream& out) const override;
 	virtual std::unique_ptr<Json::Impl> clone() const override;
 

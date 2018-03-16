@@ -18,7 +18,7 @@ std::shared_ptr<std::string> GetProperty< std::shared_ptr<std::string> >::operat
 {
 	if (json.pimpl) {
 		try {
-			auto child = json.pimpl->getObject()->get(name);
+			auto child = json.pimpl->getObject().get(name);
 			if (!child.isEmpty()) {
 				return std::make_shared<std::string>(child.extract<std::string>());
 			}

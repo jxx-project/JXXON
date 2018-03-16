@@ -22,7 +22,7 @@ GetArrayElements<std::shared_ptr<unsigned int>, std::list>::GetArrayElements(con
 template<>
 void GetArrayElements<std::shared_ptr<unsigned int>, std::list>::operator()(Json::ArrayBase<std::shared_ptr<unsigned int>, std::list>& array) const
 {
-	populateArray<std::shared_ptr<unsigned int>, std::list>(array, json.pimpl->value, [](const ::Json::Value::const_iterator& i){return i->asUInt();});
+	populateArray<std::shared_ptr<unsigned int>, std::list>(array, json.pimpl->value, [](const ::Json::Value& value){return value.asUInt();});
 }
 
 template GetArrayElements<std::shared_ptr<unsigned int>, std::list>::GetArrayElements(const Json& json);
@@ -37,7 +37,7 @@ GetArrayElements<std::shared_ptr<std::uint64_t>, std::list>::GetArrayElements(co
 template<>
 void GetArrayElements<std::shared_ptr<std::uint64_t>, std::list>::operator()(Json::ArrayBase<std::shared_ptr<std::uint64_t>, std::list>& array) const
 {
-	populateArray<std::shared_ptr<std::uint64_t>, std::list>(array, json.pimpl->value, [](const ::Json::Value::const_iterator& i){return i->asUInt64();});
+	populateArray<std::shared_ptr<std::uint64_t>, std::list>(array, json.pimpl->value, [](const ::Json::Value& value){return value.asUInt64();});
 }
 
 template GetArrayElements<std::shared_ptr<std::uint64_t>, std::list>::GetArrayElements(const Json& json);
@@ -53,7 +53,7 @@ GetArrayElements<std::shared_ptr<std::uintmax_t>, std::list>::GetArrayElements(c
 template<>
 void GetArrayElements<std::shared_ptr<std::uintmax_t>, std::list>::operator()(Json::ArrayBase<std::shared_ptr<std::uintmax_t>, std::list>& array) const
 {
-	populateArray<std::shared_ptr<std::uintmax_t>, std::list>(array, json.pimpl->value, [](const ::Json::Value::const_iterator& i){return i->asLargestUInt();});
+	populateArray<std::shared_ptr<std::uintmax_t>, std::list>(array, json.pimpl->value, [](const ::Json::Value& value){return value.asLargestUInt();});
 }
 
 template GetArrayElements<std::shared_ptr<std::uintmax_t>, std::list>::GetArrayElements(const Json& json);

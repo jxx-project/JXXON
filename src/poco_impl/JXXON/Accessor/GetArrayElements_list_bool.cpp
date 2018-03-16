@@ -19,10 +19,9 @@ void GetArrayElements<bool, std::list>::operator()(Json::ArrayBase<bool, std::li
 {
 	array.clear();
 	if (json.pimpl) {
-		auto impl = json.pimpl->getArray();
 		try {
-			for (int i = 0; i != impl->size(); ++i) {
-				array.emplace_back(impl->isNull(i) ? bool() : impl->get(i).extract<bool>());
+			for (const auto& i : json.pimpl->getArray()) {
+				array.emplace_back(i.isEmpty() ? bool() : i.extract<bool>());
 			}
 		} catch (Poco::Exception& e) {
 			throw Error(e.message());
