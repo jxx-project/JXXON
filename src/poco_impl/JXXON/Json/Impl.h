@@ -18,8 +18,8 @@ namespace JXXON {
 class Json::Impl
 {
 public:
-	struct Object;
-	struct Array;
+	class Object;
+	class Array;
 
 	virtual ~Impl()
 	{
