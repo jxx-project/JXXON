@@ -107,7 +107,8 @@ std::string Json::toString() const
 
 std::istream& operator>>(std::istream& in, Json& json)
 {
-	std::string document(std::istreambuf_iterator<char>(in), {});
+	std::istreambuf_iterator<char> eos;
+	std::string document(std::istreambuf_iterator<char>(in), eos);
 	std::string errors;
 	std::unique_ptr<Json::Impl> pimpl(new Json::Impl);
 	if (CharReader::getInstance().parse(document.c_str(), document.c_str() + document.size(), &pimpl->value, &errors) && !pimpl->value.isNull()) {
