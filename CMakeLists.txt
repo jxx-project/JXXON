@@ -4,7 +4,7 @@
 # SPDX-License-Identifier:     BSL-1.0
 #
 
-project(libJXXON CXX)
+project(JXXON CXX)
 cmake_minimum_required(VERSION 3.0)
 
 set(JXXON_MAJOR_VERSION 0)
@@ -15,10 +15,14 @@ set(JXXON_VERSION ${JXXON_MAJOR_VERSION}.${JXXON_MINOR_VERSION}.${JXXON_PATCH_VE
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/Modules/")
 
 if(JXXON_IMPL STREQUAL "poco")
-	find_package(Poco COMPONENTS JSON REQUIRED)
+	if(NOT Poco_INCLUDE_DIRS OR NOT Poco_LIBRARIES)
+		find_package(Poco COMPONENTS JSON REQUIRED)
+	endif()
 	include_directories(${Poco_INCLUDE_DIRS})
 elseif(JXXON_IMPL STREQUAL "jsoncpp")
-	find_package(JsonCpp REQUIRED)
+	if(NOT JSONCPP_INCLUDE_DIRS OR NOT JSONCPP_LIBRARY)
+		find_package(JsonCpp REQUIRED)
+	endif()
 	include_directories(${JSONCPP_INCLUDE_DIRS})
 else()
 	message(FATAL_ERROR "JXXON_IMPL invalid or not specified. Must be \"poco\" or \"jsoncpp\".")
