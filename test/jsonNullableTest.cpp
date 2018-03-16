@@ -1189,8 +1189,8 @@ BOOST_AUTO_TEST_CASE( FloatNullableMap )
 BOOST_AUTO_TEST_CASE( FloatNullableMapWithNull )
 {
 	JXXON::Map< std::shared_ptr<float> > in;
-	in.emplace("value1", std::shared_ptr<float>(new float(3.25)));
-	in.emplace("value2", std::shared_ptr<float>(new float(3.75)));
+	in.emplace("value1", std::shared_ptr<float>(new float(3.25F)));
+	in.emplace("value2", std::shared_ptr<float>(new float(3.75F)));
 	in.emplace("value3", std::shared_ptr<float>(nullptr));
 	JXXON::Map< std::shared_ptr<float> > out( in.toJson() );
 
@@ -1616,8 +1616,8 @@ BOOST_AUTO_TEST_CASE( FloatNullableUnorderedMap )
 BOOST_AUTO_TEST_CASE( FloatNullableUnorderedMapWithNull )
 {
 	JXXON::UnorderedMap< std::shared_ptr<float> > in;
-	in.emplace("value1", std::shared_ptr<float>(new float(3.25)));
-	in.emplace("value2", std::shared_ptr<float>(new float(3.75)));
+	in.emplace("value1", std::shared_ptr<float>(new float(3.25F)));
+	in.emplace("value2", std::shared_ptr<float>(new float(3.75F)));
 	in.emplace("value3", std::shared_ptr<float>(nullptr));
 	JXXON::UnorderedMap< std::shared_ptr<float> > out( in.toJson() );
 
