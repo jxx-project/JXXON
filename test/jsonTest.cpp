@@ -1215,9 +1215,9 @@ BOOST_AUTO_TEST_CASE( FloatMap )
 BOOST_AUTO_TEST_CASE( FloatMapWithNull )
 {
 	JXXON::Map< float > in;
-	in.emplace("value1", 3.25);
-	in.emplace("value2", 3.75);
-	in.emplace("value3", 0);
+	in.emplace("value1", 3.25F);
+	in.emplace("value2", 3.75F);
+	in.emplace("value3", 0.0F);
 	JXXON::Map< float > out( in.toJson() );
 
 	BOOST_CHECK_EQUAL( out.size(), in.size() );
@@ -1248,7 +1248,7 @@ BOOST_AUTO_TEST_CASE( DoubleMapWithNull )
 	JXXON::Map< double > in;
 	in.emplace("value1", 3.25);
 	in.emplace("value2", 3.75);
-	in.emplace("value3", 0);
+	in.emplace("value3", 0.0);
 	JXXON::Map< double > out( in.toJson() );
 
 	BOOST_CHECK_EQUAL( out.size(), in.size() );
@@ -1640,9 +1640,9 @@ BOOST_AUTO_TEST_CASE( FloatUnorderedMap )
 BOOST_AUTO_TEST_CASE( FloatUnorderedMapWithNull )
 {
 	JXXON::UnorderedMap< float > in;
-	in.emplace("value1", 3.25);
-	in.emplace("value2", 3.75);
-	in.emplace("value3", 0);
+	in.emplace("value1", 3.25F);
+	in.emplace("value2", 3.75F);
+	in.emplace("value3", 0.0F);
 	JXXON::UnorderedMap< float > out( in.toJson() );
 
 	BOOST_CHECK_EQUAL( out.size(), in.size() );
@@ -1673,7 +1673,7 @@ BOOST_AUTO_TEST_CASE( DoubleUnorderedMapWithNull )
 	JXXON::UnorderedMap< double > in;
 	in.emplace("value1", 3.25);
 	in.emplace("value2", 3.75);
-	in.emplace("value3", 0);
+	in.emplace("value3", 0.0);
 	JXXON::UnorderedMap< double > out( in.toJson() );
 
 	BOOST_CHECK_EQUAL( out.size(), in.size() );
