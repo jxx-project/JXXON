@@ -5,6 +5,15 @@ namespace std {
 	class "map or\nunordered_map<std::string, T>" as MapBase
 }
 
+namespace Polymorphic {
+	class "Vector or\nList<T>" as ArrayBase
+	class "Map or\nUnorderedMap<std::string, T>" as MapBase
+	ArrayBase *-> std.ArrayBase
+	MapBase *-> std.MapBase
+}
+
+Polymorphic -[hidden]down- std
+
 namespace JXXON {
 	class Json {
 		+get<T>(name) : T
@@ -27,13 +36,13 @@ namespace JXXON {
 	}
 	Json_Array --+ Json
 	Json_Array -right-|> Json_Serializable
-	Json_Array --|> std.ArrayBase
+	Json_Array --|> Polymorphic.ArrayBase
 	
 	class Vector<T>
-	Vector ..> Json_Array : <T, std::vector>
+	Vector ..> Json_Array : <T, Polymorphic::Vector>
 	
 	class List<T>
-	List ..> Json_Array : <T, std::list>
+	List ..> Json_Array : <T, Polymorphic::List>
 	
 	class "Json::Map" as Json_Map<T, Base> {
 		+Json::Map::Map(json)
@@ -41,13 +50,13 @@ namespace JXXON {
 	}
 	Json_Map --+ Json
 	Json_Map -left-|> Json_Serializable
-	Json_Map --|> std.MapBase
+	Json_Map --|> Polymorphic.MapBase
 	
 	class Map<T>
-	Map ..> Json_Map : <T, std::map>
+	Map ..> Json_Map : <T, Polymorphic::Map>
 	
 	class UnorderedMap<T>
-	UnorderedMap ..> Json_Map : <T, std::unordered_map>
+	UnorderedMap ..> Json_Map : <T, Polymorphic::UnorderedMap>
 	
 	namespace Accessor {
 		class GetProperty<T> {
