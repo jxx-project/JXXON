@@ -9,13 +9,13 @@
 #define JXXON_Map_INCLUDED
 
 #include "JXXON/Json.h"
-#include <map>
+#include <Polymorphic/Map.h>
 
 namespace JXXON {
 
 /// Alias template extending std::map<std::string, T> and implementing JXXON::Serializable.
 template <class T>
-using Map = Json::Map<T, std::map>;
+using Map = Json::Map<T, Polymorphic::Map>;
 
 } // namespace JXXON
 

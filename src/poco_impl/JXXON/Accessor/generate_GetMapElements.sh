@@ -91,7 +91,7 @@ GetMapElements_shared_ptr_TCC > GetMapElements_shared_ptr.tcc
 function GetMapElements_SPECIALIZATION {
 cat << EOF | sed "s/{{BASE}}/$1/g" | sed "s/{{ELEMENT_TYPE}}/$2/g"
 template<>
-void GetMapElements<{{ELEMENT_TYPE}}, std::{{BASE}}>::operator()(Json::MapBase<{{ELEMENT_TYPE}}, std::{{BASE}}>& map) const
+void GetMapElements<{{ELEMENT_TYPE}}, Polymorphic::{{BASE}}>::operator()(Json::MapBase<{{ELEMENT_TYPE}}, Polymorphic::{{BASE}}>& map) const
 {
 	map.clear();
 	if (json.pimpl) {
@@ -111,7 +111,7 @@ EOF
 function GetMapElements_shared_ptr_SPECIALIZATION {
 cat << EOF | sed "s/{{BASE}}/$1/g" | sed "s/{{ELEMENT_TYPE}}/$2/g"
 template<>
-void GetMapElements<std::shared_ptr<{{ELEMENT_TYPE}}>, std::{{BASE}}>::operator()(Json::MapBase<std::shared_ptr<{{ELEMENT_TYPE}}>, std::{{BASE}}>& map) const
+void GetMapElements<std::shared_ptr<{{ELEMENT_TYPE}}>, Polymorphic::{{BASE}}>::operator()(Json::MapBase<std::shared_ptr<{{ELEMENT_TYPE}}>, Polymorphic::{{BASE}}>& map) const
 {
 	map.clear();
 	if (json.pimpl) {
@@ -141,7 +141,7 @@ cat << EOF | sed "s/{{INCLUDE}}/$1/g"| sed "s/{{BASE}}/$2/g"
 #include "JXXON/Json/Impl.h"
 #include "JXXON/Accessor/{{INCLUDE}}"
 #include <cstdint>
-#include <{{BASE}}>
+#include <Polymorphic/{{BASE}}.h>
 
 namespace JXXON {
 namespace Accessor {
@@ -151,15 +151,15 @@ EOF
 
 function GetMapElements_CPP {
 cat << EOF | sed "s/{{BASE}}/$1/g" | sed "s/{{ELEMENT_TYPE}}/$2/g"
-template GetMapElements<{{ELEMENT_TYPE}}, std::{{BASE}}>::GetMapElements(const Json& json);
-template void GetMapElements<{{ELEMENT_TYPE}}, std::{{BASE}}>::operator()(Json::MapBase<{{ELEMENT_TYPE}}, std::{{BASE}}>& map) const;
+template GetMapElements<{{ELEMENT_TYPE}}, Polymorphic::{{BASE}}>::GetMapElements(const Json& json);
+template void GetMapElements<{{ELEMENT_TYPE}}, Polymorphic::{{BASE}}>::operator()(Json::MapBase<{{ELEMENT_TYPE}}, Polymorphic::{{BASE}}>& map) const;
 EOF
 }
 
 function GetMapElements_shared_ptr_CPP {
 cat << EOF | sed "s/{{BASE}}/$1/g" | sed "s/{{ELEMENT_TYPE}}/$2/g"
-template GetMapElements<std::shared_ptr<{{ELEMENT_TYPE}}>, std::{{BASE}}>::GetMapElements(const Json& json);
-template void GetMapElements<std::shared_ptr<{{ELEMENT_TYPE}}>, std::{{BASE}}>::operator()(Json::MapBase<std::shared_ptr<{{ELEMENT_TYPE}}>, std::{{BASE}}>& map) const;
+template GetMapElements<std::shared_ptr<{{ELEMENT_TYPE}}>, Polymorphic::{{BASE}}>::GetMapElements(const Json& json);
+template void GetMapElements<std::shared_ptr<{{ELEMENT_TYPE}}>, Polymorphic::{{BASE}}>::operator()(Json::MapBase<std::shared_ptr<{{ELEMENT_TYPE}}>, Polymorphic::{{BASE}}>& map) const;
 EOF
 }
 
@@ -305,5 +305,5 @@ EOF
 
 }
 
-GetMapElements_BASE_CPP map
-GetMapElements_BASE_CPP unordered_map
+GetMapElements_BASE_CPP Map
+GetMapElements_BASE_CPP UnorderedMap

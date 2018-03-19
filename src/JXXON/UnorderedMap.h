@@ -9,13 +9,13 @@
 #define JXXON_UnorderedMap_INCLUDED
 
 #include "JXXON/Json.h"
-#include <unordered_map>
+#include <Polymorphic/UnorderedMap.h>
 
 namespace JXXON {
 
 /// Alias template extending std::unordered_map<std::string, T> and implementing JXXON::Serializable.
 template <class T>
-using UnorderedMap = Json::Map<T, std::unordered_map>;
+using UnorderedMap = Json::Map<T, Polymorphic::UnorderedMap>;
 
 } // namespace JXXON
 

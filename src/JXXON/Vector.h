@@ -9,13 +9,13 @@
 #define JXXON_Vector_INCLUDED
 
 #include "JXXON/Json.h"
-#include <vector>
+#include <Polymorphic/Vector.h>
 
 namespace JXXON {
 
 /// Alias template extending std::vector<T> and implementing JXXON::Serializable.
 template <class T>
-using Vector = Json::Array<T, std::vector>;
+using Vector = Json::Array<T, Polymorphic::Vector>;
 
 } // namespace JXXON
 

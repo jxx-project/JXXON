@@ -9,13 +9,13 @@
 #define JXXON_List_INCLUDED
 
 #include "JXXON/Json.h"
-#include <list>
+#include <Polymorphic/List.h>
 
 namespace JXXON {
 
 /// Alias template extending std::list<T> and implementing JXXON::Serializable.
 template <class T>
-using List = Json::Array<T, std::list>;
+using List = Json::Array<T, Polymorphic::List>;
 
 } // namespace JXXON
 

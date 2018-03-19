@@ -43,34 +43,6 @@ void populateArray(Json::ArrayBase<T, Base>& array, const ::Json::Value& value, 
 EOF
 }
 
-function GetArrayElements_SPECIALIZATION {
-# Use push_pack instead of emplace_back
-cat << EOF | sed "s/{{BASE}}/$1/g" | sed "s/{{ELEMENT_TYPE}}/$2/g"
-namespace {
-
-template<>
-void populateArray<{{ELEMENT_TYPE}}, std::{{BASE}}>(Json::ArrayBase<{{ELEMENT_TYPE}}, std::{{BASE}}>& array, const ::Json::Value& value, const std::function<{{ELEMENT_TYPE}}(const ::Json::Value&)>& valueAsT)
-{
-	array.clear();
-	if (!value.isNull()) {
-		if (value.isArray()) {
-			try {
-				for (const auto& i : value) {
-					array.push_back(i.isNull() ? {{ELEMENT_TYPE}}() : {{ELEMENT_TYPE}}(valueAsT(i)));
-				}
-			} catch (std::exception& e) {
-				throw Error(e.what());
-			}
-		} else {
-			throw Error("Not an array");
-		}
-	}
-}
-
-} // namespace
-
-EOF
-}
 GetArrayElements_TCC > GetArrayElements.tcc
 
 function GetArrayElements_shared_ptr_TCC {
@@ -131,7 +103,7 @@ cat << EOF | sed "s/{{INCLUDE}}/$1/g"| sed "s/{{BASE}}/$2/g"
 #include "JXXON/Json/Impl.h"
 #include "JXXON/Accessor/{{INCLUDE}}"
 #include <cstdint>
-#include <{{BASE}}>
+#include <Polymorphic/{{BASE}}.h>
 
 namespace JXXON {
 namespace Accessor {
@@ -142,36 +114,36 @@ EOF
 function GetArrayElements_CPP {
 cat << EOF | sed "s/{{BASE}}/$1/g" | sed "s/{{ELEMENT_TYPE}}/$2/g" | sed "s/{{AS_TYPE}}/$3/g" 
 template<>
-GetArrayElements<{{ELEMENT_TYPE}}, std::{{BASE}}>::GetArrayElements(const Json& json) : json(json)
+GetArrayElements<{{ELEMENT_TYPE}}, Polymorphic::{{BASE}}>::GetArrayElements(const Json& json) : json(json)
 {
 }
 
 template<>
-void GetArrayElements<{{ELEMENT_TYPE}}, std::{{BASE}}>::operator()(Json::ArrayBase<{{ELEMENT_TYPE}}, std::{{BASE}}>& array) const
+void GetArrayElements<{{ELEMENT_TYPE}}, Polymorphic::{{BASE}}>::operator()(Json::ArrayBase<{{ELEMENT_TYPE}}, Polymorphic::{{BASE}}>& array) const
 {
-	populateArray<{{ELEMENT_TYPE}}, std::{{BASE}}>(array, json.pimpl->value, [](const ::Json::Value& value){return value.{{AS_TYPE}}();});
+	populateArray<{{ELEMENT_TYPE}}, Polymorphic::{{BASE}}>(array, json.pimpl->value, [](const ::Json::Value& value){return value.{{AS_TYPE}}();});
 }
 
-template GetArrayElements<{{ELEMENT_TYPE}}, std::{{BASE}}>::GetArrayElements(const Json& json);
-template void GetArrayElements<{{ELEMENT_TYPE}}, std::{{BASE}}>::operator()(Json::ArrayBase<{{ELEMENT_TYPE}}, std::{{BASE}}>& array) const;
+template GetArrayElements<{{ELEMENT_TYPE}}, Polymorphic::{{BASE}}>::GetArrayElements(const Json& json);
+template void GetArrayElements<{{ELEMENT_TYPE}}, Polymorphic::{{BASE}}>::operator()(Json::ArrayBase<{{ELEMENT_TYPE}}, Polymorphic::{{BASE}}>& array) const;
 EOF
 }
 
 function GetArrayElements_shared_ptr_CPP {
 cat << EOF | sed "s/{{BASE}}/$1/g" | sed "s/{{ELEMENT_TYPE}}/$2/g" | sed "s/{{AS_TYPE}}/$3/g" 
 template<>
-GetArrayElements<std::shared_ptr<{{ELEMENT_TYPE}}>, std::{{BASE}}>::GetArrayElements(const Json& json) : json(json)
+GetArrayElements<std::shared_ptr<{{ELEMENT_TYPE}}>, Polymorphic::{{BASE}}>::GetArrayElements(const Json& json) : json(json)
 {
 }
 
 template<>
-void GetArrayElements<std::shared_ptr<{{ELEMENT_TYPE}}>, std::{{BASE}}>::operator()(Json::ArrayBase<std::shared_ptr<{{ELEMENT_TYPE}}>, std::{{BASE}}>& array) const
+void GetArrayElements<std::shared_ptr<{{ELEMENT_TYPE}}>, Polymorphic::{{BASE}}>::operator()(Json::ArrayBase<std::shared_ptr<{{ELEMENT_TYPE}}>, Polymorphic::{{BASE}}>& array) const
 {
-	populateArray<std::shared_ptr<{{ELEMENT_TYPE}}>, std::{{BASE}}>(array, json.pimpl->value, [](const ::Json::Value& value){return value.{{AS_TYPE}}();});
+	populateArray<std::shared_ptr<{{ELEMENT_TYPE}}>, Polymorphic::{{BASE}}>(array, json.pimpl->value, [](const ::Json::Value& value){return value.{{AS_TYPE}}();});
 }
 
-template GetArrayElements<std::shared_ptr<{{ELEMENT_TYPE}}>, std::{{BASE}}>::GetArrayElements(const Json& json);
-template void GetArrayElements<std::shared_ptr<{{ELEMENT_TYPE}}>, std::{{BASE}}>::operator()(Json::ArrayBase<std::shared_ptr<{{ELEMENT_TYPE}}>, std::{{BASE}}>& array) const;
+template GetArrayElements<std::shared_ptr<{{ELEMENT_TYPE}}>, Polymorphic::{{BASE}}>::GetArrayElements(const Json& json);
+template void GetArrayElements<std::shared_ptr<{{ELEMENT_TYPE}}>, Polymorphic::{{BASE}}>::operator()(Json::ArrayBase<std::shared_ptr<{{ELEMENT_TYPE}}>, Polymorphic::{{BASE}}>& array) const;
 EOF
 }
 
@@ -302,8 +274,6 @@ EOF
 
 	FILENAME=GetArrayElements_${BASE}_bool.cpp
 	Header GetArrayElements.tcc ${BASE} > ${FILENAME}
-	# C++11 is not required to provide std::vector<bool>::emplace_back
-	[[ ${BASE} = vector ]] && GetArrayElements_SPECIALIZATION ${BASE} bool >> ${FILENAME}
 	GetArrayElements_CPP ${BASE} bool asBool >> ${FILENAME}
 	Footer >> ${FILENAME}
 
@@ -315,5 +285,5 @@ EOF
 
 }
 
-GetArrayElements_BASE_CPP vector
-GetArrayElements_BASE_CPP list
+GetArrayElements_BASE_CPP Vector
+GetArrayElements_BASE_CPP List

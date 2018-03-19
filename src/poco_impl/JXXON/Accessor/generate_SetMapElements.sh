@@ -89,7 +89,7 @@ cat << EOF | sed "s/{{INCLUDE}}/$1/g"| sed "s/{{BASE}}/$2/g"
 #include "JXXON/Json/Impl.h"
 #include "JXXON/Accessor/{{INCLUDE}}"
 #include <cstdint>
-#include <{{BASE}}>
+#include <Polymorphic/{{BASE}}.h>
 
 namespace JXXON {
 namespace Accessor {
@@ -99,15 +99,15 @@ EOF
 
 function SetMapElements_CPP {
 cat << EOF | sed "s/{{BASE}}/$1/g" | sed "s/{{ELEMENT_TYPE}}/$2/g"
-template SetMapElements<{{ELEMENT_TYPE}}, std::{{BASE}}>::SetMapElements(Json& json);
-template void SetMapElements<{{ELEMENT_TYPE}}, std::{{BASE}}>::operator()(const Json::MapBase<{{ELEMENT_TYPE}}, std::{{BASE}}>& map);
+template SetMapElements<{{ELEMENT_TYPE}}, Polymorphic::{{BASE}}>::SetMapElements(Json& json);
+template void SetMapElements<{{ELEMENT_TYPE}}, Polymorphic::{{BASE}}>::operator()(const Json::MapBase<{{ELEMENT_TYPE}}, Polymorphic::{{BASE}}>& map);
 EOF
 }
 
 function SetMapElements_shared_ptr_CPP {
 cat << EOF | sed "s/{{BASE}}/$1/g" | sed "s/{{ELEMENT_TYPE}}/$2/g"
-template SetMapElements<std::shared_ptr<{{ELEMENT_TYPE}}>, std::{{BASE}}>::SetMapElements(Json& json);
-template void SetMapElements<std::shared_ptr<{{ELEMENT_TYPE}}>, std::{{BASE}}>::operator()(const Json::MapBase<std::shared_ptr<{{ELEMENT_TYPE}}>, std::{{BASE}}>& map);
+template SetMapElements<std::shared_ptr<{{ELEMENT_TYPE}}>, Polymorphic::{{BASE}}>::SetMapElements(Json& json);
+template void SetMapElements<std::shared_ptr<{{ELEMENT_TYPE}}>, Polymorphic::{{BASE}}>::operator()(const Json::MapBase<std::shared_ptr<{{ELEMENT_TYPE}}>, Polymorphic::{{BASE}}>& map);
 EOF
 }
 
@@ -249,5 +249,5 @@ EOF
 
 }
 
-SetMapElements_BASE_CPP map
-SetMapElements_BASE_CPP unordered_map
+SetMapElements_BASE_CPP Map
+SetMapElements_BASE_CPP UnorderedMap

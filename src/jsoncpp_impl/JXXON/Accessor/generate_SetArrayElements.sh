@@ -89,7 +89,7 @@ cat << EOF | sed "s/{{INCLUDE}}/$1/g"| sed "s/{{BASE}}/$2/g"
 #include "JXXON/Json/Impl.h"
 #include "JXXON/Accessor/{{INCLUDE}}"
 #include <cstdint>
-#include <{{BASE}}>
+#include <Polymorphic/{{BASE}}.h>
 
 namespace JXXON {
 namespace Accessor {
@@ -99,15 +99,15 @@ EOF
 
 function SetArrayElements_CPP {
 cat << EOF | sed "s/{{BASE}}/$1/g" | sed "s/{{ELEMENT_TYPE}}/$2/g"
-template SetArrayElements<{{ELEMENT_TYPE}}, std::{{BASE}}>::SetArrayElements(Json& json);
-template void SetArrayElements<{{ELEMENT_TYPE}}, std::{{BASE}}>::operator()(const Json::ArrayBase<{{ELEMENT_TYPE}}, std::{{BASE}}>& array);
+template SetArrayElements<{{ELEMENT_TYPE}}, Polymorphic::{{BASE}}>::SetArrayElements(Json& json);
+template void SetArrayElements<{{ELEMENT_TYPE}}, Polymorphic::{{BASE}}>::operator()(const Json::ArrayBase<{{ELEMENT_TYPE}}, Polymorphic::{{BASE}}>& array);
 EOF
 }
 
 function SetArrayElements_shared_ptr_CPP {
 cat << EOF | sed "s/{{BASE}}/$1/g" | sed "s/{{ELEMENT_TYPE}}/$2/g"
-template SetArrayElements<std::shared_ptr<{{ELEMENT_TYPE}}>, std::{{BASE}}>::SetArrayElements(Json& json);
-template void SetArrayElements<std::shared_ptr<{{ELEMENT_TYPE}}>, std::{{BASE}}>::operator()(const Json::ArrayBase<std::shared_ptr<{{ELEMENT_TYPE}}>, std::{{BASE}}>& array);
+template SetArrayElements<std::shared_ptr<{{ELEMENT_TYPE}}>, Polymorphic::{{BASE}}>::SetArrayElements(Json& json);
+template void SetArrayElements<std::shared_ptr<{{ELEMENT_TYPE}}>, Polymorphic::{{BASE}}>::operator()(const Json::ArrayBase<std::shared_ptr<{{ELEMENT_TYPE}}>, Polymorphic::{{BASE}}>& array);
 EOF
 }
 
@@ -249,5 +249,5 @@ EOF
 
 }
 
-SetArrayElements_BASE_CPP vector
-SetArrayElements_BASE_CPP list
+SetArrayElements_BASE_CPP Vector
+SetArrayElements_BASE_CPP List

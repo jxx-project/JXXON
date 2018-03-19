@@ -89,16 +89,15 @@ EOF
 GetArrayElements_shared_ptr_TCC > GetArrayElements_shared_ptr.tcc
 
 function GetArrayElements_SPECIALIZATION {
-# C++11 is not required to provide std::vector<bool>::emplace_back
-cat << EOF | sed "s/{{BASE}}/$1/g" | sed "s/{{ELEMENT_TYPE}}/$2/g" | sed "s/{{APPEND}}/$([[ $1 = vector && $2 = bool ]] && echo push_back || echo emplace_back)/g"
+cat << EOF | sed "s/{{BASE}}/$1/g" | sed "s/{{ELEMENT_TYPE}}/$2/g"
 template<>
-void GetArrayElements<{{ELEMENT_TYPE}}, std::{{BASE}}>::operator()(Json::ArrayBase<{{ELEMENT_TYPE}}, std::{{BASE}}>& array) const
+void GetArrayElements<{{ELEMENT_TYPE}}, Polymorphic::{{BASE}}>::operator()(Json::ArrayBase<{{ELEMENT_TYPE}}, Polymorphic::{{BASE}}>& array) const
 {
 	array.clear();
 	if (json.pimpl) {
 		try {
 			for (const auto& i : json.pimpl->getArray()) {
-				array.{{APPEND}}(i.isEmpty() ? {{ELEMENT_TYPE}}() : i.extract<{{ELEMENT_TYPE}}>());
+				array.emplace_back(i.isEmpty() ? {{ELEMENT_TYPE}}() : i.extract<{{ELEMENT_TYPE}}>());
 			}
 		} catch (Poco::Exception& e) {
 			throw Error(e.message());
@@ -112,7 +111,7 @@ EOF
 function GetArrayElements_shared_ptr_SPECIALIZATION {
 cat << EOF | sed "s/{{BASE}}/$1/g" | sed "s/{{ELEMENT_TYPE}}/$2/g"
 template<>
-void GetArrayElements<std::shared_ptr<{{ELEMENT_TYPE}}>, std::{{BASE}}>::operator()(Json::ArrayBase<std::shared_ptr<{{ELEMENT_TYPE}}>, std::{{BASE}}>& array) const
+void GetArrayElements<std::shared_ptr<{{ELEMENT_TYPE}}>, Polymorphic::{{BASE}}>::operator()(Json::ArrayBase<std::shared_ptr<{{ELEMENT_TYPE}}>, Polymorphic::{{BASE}}>& array) const
 {
 	array.clear();
 	if (json.pimpl) {
@@ -142,7 +141,7 @@ cat << EOF | sed "s/{{INCLUDE}}/$1/g"| sed "s/{{BASE}}/$2/g"
 #include "JXXON/Json/Impl.h"
 #include "JXXON/Accessor/{{INCLUDE}}"
 #include <cstdint>
-#include <{{BASE}}>
+#include <Polymorphic/{{BASE}}.h>
 
 namespace JXXON {
 namespace Accessor {
@@ -152,15 +151,15 @@ EOF
 
 function GetArrayElements_CPP {
 cat << EOF | sed "s/{{BASE}}/$1/g" | sed "s/{{ELEMENT_TYPE}}/$2/g"
-template GetArrayElements<{{ELEMENT_TYPE}}, std::{{BASE}}>::GetArrayElements(const Json& json);
-template void GetArrayElements<{{ELEMENT_TYPE}}, std::{{BASE}}>::operator()(Json::ArrayBase<{{ELEMENT_TYPE}}, std::{{BASE}}>& array) const;
+template GetArrayElements<{{ELEMENT_TYPE}}, Polymorphic::{{BASE}}>::GetArrayElements(const Json& json);
+template void GetArrayElements<{{ELEMENT_TYPE}}, Polymorphic::{{BASE}}>::operator()(Json::ArrayBase<{{ELEMENT_TYPE}}, Polymorphic::{{BASE}}>& array) const;
 EOF
 }
 
 function GetArrayElements_shared_ptr_CPP {
 cat << EOF | sed "s/{{BASE}}/$1/g" | sed "s/{{ELEMENT_TYPE}}/$2/g"
-template GetArrayElements<std::shared_ptr<{{ELEMENT_TYPE}}>, std::{{BASE}}>::GetArrayElements(const Json& json);
-template void GetArrayElements<std::shared_ptr<{{ELEMENT_TYPE}}>, std::{{BASE}}>::operator()(Json::ArrayBase<std::shared_ptr<{{ELEMENT_TYPE}}>, std::{{BASE}}>& array) const;
+template GetArrayElements<std::shared_ptr<{{ELEMENT_TYPE}}>, Polymorphic::{{BASE}}>::GetArrayElements(const Json& json);
+template void GetArrayElements<std::shared_ptr<{{ELEMENT_TYPE}}>, Polymorphic::{{BASE}}>::operator()(Json::ArrayBase<std::shared_ptr<{{ELEMENT_TYPE}}>, Polymorphic::{{BASE}}>& array) const;
 EOF
 }
 
@@ -306,5 +305,5 @@ EOF
 
 }
 
-GetArrayElements_BASE_CPP vector
-GetArrayElements_BASE_CPP list
+GetArrayElements_BASE_CPP Vector
+GetArrayElements_BASE_CPP List
