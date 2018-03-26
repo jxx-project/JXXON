@@ -8,36 +8,32 @@ if(NOT Boost_INCLUDE_DIRS OR NOT Boost_UNIT_TEST_FRAMEWORK_LIBRARY)
 	find_package(Boost COMPONENTS unit_test_framework REQUIRED)
 endif()
 
-include_directories(${CMAKE_CURRENT_SOURCE_DIR} ${Boost_INCLUDE_DIRS})
-
-if(JXXON_IMPL STREQUAL "poco")
-	set(JXXON_EXTRA_LIBRARIES ${Poco_LIBRARIES})
-elseif(JXXON_IMPL STREQUAL "jsoncpp")
-	set(JXXON_EXTRA_LIBRARIES ${JSONCPP_LIBRARY})
-endif()
-
 find_package(Threads)
 
-file(GLOB SRCS_G Model/*.cpp)
-add_library(Model ${SRCS_G})
+file(GLOB TEST_MODEL_SRCS_G Model/*.cpp)
+add_library(model ${TEST_MODEL_SRCS_G})
+target_include_directories(model PUBLIC
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>)
+target_link_libraries(model jxxon)
 
-add_executable (jsonTest jsonTest.cpp)
-
-target_link_libraries (jsonTest
-	Model
+add_executable(jsonTest jsonTest.cpp)
+target_include_directories(jsonTest PRIVATE
+	$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
+	$<BUILD_INTERFACE:${Boost_INCLUDE_DIRS}>)
+target_link_libraries(jsonTest
 	jxxon
-	${JXXON_EXTRA_LIBRARIES}
+	model
+	${jxxon_impl_LIBRARIES}
 	${Boost_UNIT_TEST_FRAMEWORK_LIBRARY}
-	${CMAKE_THREAD_LIBS_INIT}
-)
+	${CMAKE_THREAD_LIBS_INIT})
 
-add_executable (jsonNullableTest jsonNullableTest.cpp)
-
-target_link_libraries (jsonNullableTest
-	Model
+add_executable(jsonNullableTest jsonNullableTest.cpp)
+target_include_directories(jsonNullableTest PRIVATE
+	$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
+	$<BUILD_INTERFACE:${Boost_INCLUDE_DIRS}>)
+target_link_libraries(jsonNullableTest
 	jxxon
-	${JXXON_EXTRA_LIBRARIES}
+	model
+	${jxxon_impl_LIBRARIES}
 	${Boost_UNIT_TEST_FRAMEWORK_LIBRARY}
-	${CMAKE_THREAD_LIBS_INIT}
-)
-
+	${CMAKE_THREAD_LIBS_INIT})

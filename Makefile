@@ -1,8 +1,6 @@
-.PHONY: all build test install clean
+.PHONY: all test install clean
 
-all: build test
-
-build:
+all:
 	$(MAKE) -C build all
 
 test:

@@ -4,13 +4,13 @@
 # SPDX-License-Identifier:     BSL-1.0
 #
 
-project(JXXON CXX)
 cmake_minimum_required(VERSION 3.0)
+project(JXXON VERSION 0.1.0 LANGUAGES CXX)
+include(GNUInstallDirs)
 
-set(JXXON_MAJOR_VERSION 0)
-set(JXXON_MINOR_VERSION 1)
-set(JXXON_PATCH_VERSION 0)
-set(JXXON_VERSION ${JXXON_MAJOR_VERSION}.${JXXON_MINOR_VERSION}.${JXXON_PATCH_VERSION})
+set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS NO)
 
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/Modules/")
 
@@ -18,24 +18,54 @@ if(JXXON_IMPL STREQUAL "poco")
 	if(NOT Poco_INCLUDE_DIRS OR NOT Poco_LIBRARIES)
 		find_package(Poco COMPONENTS JSON REQUIRED)
 	endif()
-	include_directories(${Poco_INCLUDE_DIRS})
+	set(jxxon_impl_INCLUDE_DIRS ${Poco_INCLUDE_DIRS})
+	set(jxxon_impl_LIBRARIES ${Poco_LIBRARIES})
 elseif(JXXON_IMPL STREQUAL "jsoncpp")
 	if(NOT JSONCPP_INCLUDE_DIRS OR NOT JSONCPP_LIBRARY)
 		find_package(JsonCpp REQUIRED)
 	endif()
-	include_directories(${JSONCPP_INCLUDE_DIRS})
+	set(jxxon_impl_INCLUDE_DIRS ${Poco_INCLUDE_DIRS})
+	set(jxxon_impl_LIBRARIES ${Poco_LIBRARIES})
 else()
 	message(FATAL_ERROR "JXXON_IMPL invalid or not specified. Must be \"poco\" or \"jsoncpp\".")
 endif()
-include_directories(src)
 
-if(CMAKE_COMPILER_IS_GNUCXX)
-	set(CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS} -std=c++11)
-endif()
+find_package(Polymorphic REQUIRED)
 
-add_subdirectory (src)
-add_subdirectory (test)
+include(CheckTypeSize)
+check_type_size("int" SIZEOF_INT LANGUAGE CXX)
+add_definitions(-D_SIZEOF_INT=${SIZEOF_INT})
+check_type_size("unsigned int" SIZEOF_UNSIGNED_INT LANGUAGE CXX)
+add_definitions(-D_SIZEOF_UNSIGNED_INT=${SIZEOF_UNSIGNED_INT})
+check_type_size("int64_t" SIZEOF_INT64_T LANGUAGE CXX)
+add_definitions(-D_SIZEOF_INT64_T=${SIZEOF_INT64_T})
+check_type_size("uint64_t" SIZEOF_UINT64_T LANGUAGE CXX)
+add_definitions(-D_SIZEOF_UINT64_T=${SIZEOF_UINT64_T})
+check_type_size("intmax_t" SIZEOF_INTMAX_T LANGUAGE CXX)
+add_definitions(-D_SIZEOF_INTMAX_T=${SIZEOF_INTMAX_T})
+check_type_size("uintmax_t" SIZEOF_UINTMAX_T LANGUAGE CXX)
+add_definitions(-D_SIZEOF_UINTMAX_T=${SIZEOF_UINTMAX_T})
 
-enable_testing ()
-add_test (NAME JsonTest COMMAND jsonTest)
-add_test (NAME JsonNullableTest COMMAND jsonNullableTest)
+file(GLOB JXXON_SRCS_G src/JXXON/*.cpp src/${JXXON_IMPL}_impl/JXXON/*.cpp src/${JXXON_IMPL}_impl/JXXON/Accessor/*.cpp)
+add_library(jxxon ${JXXON_SRCS_G})
+
+target_include_directories(jxxon PUBLIC
+        $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>
+        $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/src>
+        $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/src/${JXXON_IMPL}_impl>
+	$<BUILD_INTERFACE:${jxxon_impl_INCLUDE_DIRS}>
+        $<INSTALL_INTERFACE:include>)
+target_link_libraries(jxxon polymorphic)
+
+install(TARGETS jxxon EXPORT JXXONConfig
+	ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR})
+install(DIRECTORY include/ DESTINATION ${CMAKE_INSTALL_INCLUDEDIR} FILES_MATCHING PATTERN "*.h")
+install(EXPORT JXXONConfig DESTINATION share/JXXON/cmake)
+export(TARGETS jxxon FILE JXXONConfig.cmake)
+
+
+add_subdirectory(test)
+
+enable_testing()
+add_test(NAME JsonTest COMMAND jsonTest)
+add_test(NAME JsonNullableTest COMMAND jsonNullableTest)
