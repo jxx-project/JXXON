@@ -67,5 +67,4 @@ export(TARGETS jxxon FILE JXXONConfig.cmake)
 add_subdirectory(test)
 
 enable_testing()
-add_test(NAME JsonTest COMMAND jsonTest)
-add_test(NAME JsonNullableTest COMMAND jsonNullableTest)
+add_test(NAME ObjectTest COMMAND objectTest)
