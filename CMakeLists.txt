@@ -63,8 +63,16 @@ install(DIRECTORY include/ DESTINATION ${CMAKE_INSTALL_INCLUDEDIR} FILES_MATCHIN
 install(EXPORT JXXONConfig DESTINATION share/JXXON/cmake)
 export(TARGETS jxxon FILE JXXONConfig.cmake)
 
-
-add_subdirectory(test)
-
 enable_testing()
+
+# On demand build of tests. See https://cmake.org/Wiki/CMakeEmulateMakeCheck
+if(NOT "${CMAKE_GENERATOR}" MATCHES "Visual Studio")
+	add_custom_target(check COMMAND ${CMAKE_CTEST_COMMAND} --force-new-ctest-process)
+else()
+	add_custom_target(check COMMAND ${CMAKE_CTEST_COMMAND} --force-new-ctest-process -C $(Configuration))
+endif()
+
+add_subdirectory(test EXCLUDE_FROM_ALL)
+
 add_test(NAME ObjectTest COMMAND objectTest)
+add_dependencies(check objectTest)
