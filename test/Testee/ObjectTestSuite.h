@@ -14,14 +14,13 @@
 
 namespace Testee {
 
-/// Test Objects of T.
+/// Test Objects of type T.
 template<typename T>
 class ObjectTestSuite : public TestSuite
 {
 public:
 
-	ObjectTestSuite(const std::string& type, const std::string& validJSON, const std::string& invalidJSON, const std::string& expectEmptyJSON = "{}", const std::string& altExpectEmptyJSON = "") :
-			type(type), validJSON(validJSON), invalidJSON(invalidJSON), expectEmptyJSON(expectEmptyJSON), TestSuite(type + " objects", {
+	ObjectTestSuite(const std::string& type, const std::string& validJSON, const std::string& invalidJSON, const std::string& expectEmptyJSON = "{}", const std::string& altExpectEmptyJSON = "") : TestSuite(type + " objects", {
 
 			TestCase("Valid " + type + " object", [&]
 					 {
@@ -49,12 +48,6 @@ public:
 		})
 	{
 	}
-
-private:
-	const std::string type;
-	const std::string validJSON;
-	const std::string invalidJSON;
-	const std::string expectEmptyJSON;
 };
 
 } // namespace Testee
