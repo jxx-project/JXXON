@@ -56,3 +56,12 @@ target_link_libraries(unorderedMapTest
 	model
 	${jxxon_impl_LIBRARIES}
 	${CMAKE_THREAD_LIBS_INIT})
+
+add_executable(miscellaneousTest miscellaneousTest.cpp)
+target_include_directories(miscellaneousTest PRIVATE
+	$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>)
+target_link_libraries(miscellaneousTest
+	jxxon
+	model
+	${jxxon_impl_LIBRARIES}
+	${CMAKE_THREAD_LIBS_INIT})
