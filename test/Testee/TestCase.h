@@ -17,9 +17,9 @@ namespace Testee {
 class TestCase
 {
 	template<typename T>
-	std::string toString(const T& value)
+	static std::string toString(const T& value)
 	{
-		ostringstream out;
+		std::ostringstream out;
 		out << value;
 		return out.str();
 	}
@@ -51,15 +51,15 @@ public:
 	{
 		if (lhs != rhs) {
 			throw std::runtime_error(toString(lhs) + " != " + toString(rhs));
-		}	
+		}
 	}
-	
+
 	template<typename T>
 	static void assert_equal(const T& lhs, const T& rhs, const T& altRhs)
 	{
 		if (lhs != rhs && lhs != altRhs) {
 			throw std::runtime_error(toString(lhs) + " != " + toString(rhs) + " && " + toString(lhs) + " != " + toString(altRhs));
-		}	
+		}
 	}
 
 	template<typename Exception>
@@ -71,11 +71,11 @@ public:
 			return;
 		} catch (std::exception& e) {
 			std::string what(e.what());
-			throw std::runtime_error("Unexpected exception" + (what.empty() ? "." : ": what=\"" + what + "\"."));			 
+			throw std::runtime_error("Unexpected exception" + (what.empty() ? "." : ": what=\"" + what + "\"."));
 		} catch (...) {
-			throw std::runtime_error("Unexpected exception.");			  
+			throw std::runtime_error("Unexpected exception.");
 		}
-		throw std::runtime_error("No exception.");			  
+		throw std::runtime_error("No exception.");
 	}
 
 private:

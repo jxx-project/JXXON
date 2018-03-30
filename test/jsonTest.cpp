@@ -516,7 +516,7 @@ BOOST_AUTO_TEST_CASE( VectorOfFloatWithNull )
 	JXXON::Json json(JSON_IN);
 	JXXON::Vector< float > vector( json );
 	std::string out(vector.toJson().toString());
-	
+
 	BOOST_CHECK( out == "[3.25,6.75,0.0]" || out == "[3.25,6.75,0]" );
 }
 
@@ -543,7 +543,7 @@ BOOST_AUTO_TEST_CASE( VectorOfDoubleWithNull )
 	JXXON::Json json(JSON_IN);
 	JXXON::Vector< double > vector( json );
 	std::string out(vector.toJson().toString());
-	
+
 	BOOST_CHECK( out == "[3.25,6.75,0.0]" || out == "[3.25,6.75,0]" );
 }
 
@@ -883,7 +883,7 @@ BOOST_AUTO_TEST_CASE( ListOfFloatWithNull )
 	JXXON::Json json(JSON_IN);
 	JXXON::List< float > list( json );
 	std::string out(list.toJson().toString());
-	
+
 	BOOST_CHECK( out == "[3.25,6.75,0.0]" || out == "[3.25,6.75,0]" );
 }
 
@@ -910,7 +910,7 @@ BOOST_AUTO_TEST_CASE( ListOfDoubleWithNull )
 	JXXON::Json json(JSON_IN);
 	JXXON::List< double > list( json );
 	std::string out(list.toJson().toString());
-	
+
 	BOOST_CHECK( out == "[3.25,6.75,0.0]" || out == "[3.25,6.75,0]" );
 }
 

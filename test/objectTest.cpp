@@ -10,13 +10,13 @@
 int main(int argc, char* argv[])
 {
 	bool failed = false;
-	
+
 	failed = failed || !Testee::ObjectTestSuite<std::string>(
 		"std::string",
 		"{\"value\":\"dummy\"}",
 		"{\"value\":{\"inner\":\"dummy\"}}",
 		"{\"value\":\"\"}").run();
-	
+
 	failed = failed || !Testee::ObjectTestSuite< std::shared_ptr<std::string> >(
 		"std::shared_ptr<std::string>",
 		"{\"value\":\"dummy\"}",
@@ -27,7 +27,7 @@ int main(int argc, char* argv[])
 		"{\"value\":-4711}",
 		"{\"value\":\"invalid\"}",
 		"{\"value\":0}").run();
-	
+
 	failed = failed || !Testee::ObjectTestSuite< std::shared_ptr<int> >(
 		"std::shared_ptr<int>",
 		"{\"value\":-4711}",
@@ -38,7 +38,7 @@ int main(int argc, char* argv[])
 		"{\"value\":4711}",
 		"{\"value\":\"invalid\"}",
 		"{\"value\":0}").run();
-	
+
 	failed = failed || !Testee::ObjectTestSuite< std::shared_ptr<unsigned int> >(
 		"std::shared_ptr<unsigned int>",
 		"{\"value\":4711}",
@@ -49,7 +49,7 @@ int main(int argc, char* argv[])
 		"{\"value\":-4711471147114711}",
 		"{\"value\":\"invalid\"}",
 		"{\"value\":0}").run();
-	
+
 	failed = failed || !Testee::ObjectTestSuite< std::shared_ptr<std::int64_t> >(
 		"std::shared_ptr<std::int64_t>",
 		"{\"value\":-4711471147114711}",
@@ -60,7 +60,7 @@ int main(int argc, char* argv[])
 		"{\"value\":4711471147114711}",
 		"{\"value\":\"invalid\"}",
 		"{\"value\":0}").run();
-	
+
 	failed = failed || !Testee::ObjectTestSuite< std::shared_ptr<std::uint64_t> >(
 		"std::shared_ptr<std::uint64_t>",
 		"{\"value\":4711471147114711}",
@@ -71,7 +71,7 @@ int main(int argc, char* argv[])
 		"{\"value\":-4711471147114711}",
 		"{\"value\":\"invalid\"}",
 		"{\"value\":0}").run();
-	
+
 	failed = failed || !Testee::ObjectTestSuite< std::shared_ptr<std::intmax_t> >(
 		"std::shared_ptr<std::intmax_t>",
 		"{\"value\":-4711471147114711}",
@@ -82,7 +82,7 @@ int main(int argc, char* argv[])
 		"{\"value\":4711471147114711}",
 		"{\"value\":\"invalid\"}",
 		"{\"value\":0}").run();
-	
+
 	failed = failed || !Testee::ObjectTestSuite< std::shared_ptr<std::uintmax_t> >(
 		"std::shared_ptr<std::uintmax_t>",
 		"{\"value\":4711471147114711}",
@@ -93,7 +93,7 @@ int main(int argc, char* argv[])
 		"{\"value\":\"invalid\"}",
 		"{\"value\":0.0}",
 		"{\"value\":0}").run();
-	
+
 	failed = failed || !Testee::ObjectTestSuite< std::shared_ptr<float> >(
 		"std::shared_ptr<float>",
 		"{\"value\":3.25}",
@@ -105,7 +105,7 @@ int main(int argc, char* argv[])
 		"{\"value\":\"invalid\"}",
 		"{\"value\":0.0}",
 		"{\"value\":0}").run();
-	
+
 	failed = failed || !Testee::ObjectTestSuite< std::shared_ptr<double> >(
 		"std::shared_ptr<double>",
 		"{\"value\":3.25}",
@@ -116,7 +116,7 @@ int main(int argc, char* argv[])
 		"{\"value\":true}",
 		"{\"value\":\"invalid\"}",
 		"{\"value\":false}").run();
-	
+
 	failed = failed || !Testee::ObjectTestSuite< std::shared_ptr<bool> >(
 		"std::shared_ptr<bool>",
 		"{\"value\":true}",
@@ -127,7 +127,7 @@ int main(int argc, char* argv[])
 		"{\"value\":{\"value\":\"dummy\"}}",
 		"{\"value\":\"invalid\"}",
 		"{\"value\":{\"value\":\"\"}}").run();
-	
+
 	failed = failed || !Testee::ObjectTestSuite< std::shared_ptr< Model::Object<std::string> > >(
 		"std::shared_ptr< Model::Object<std::string> >",
 		"{\"value\":{\"value\":\"dummy\"}}",
@@ -138,7 +138,7 @@ int main(int argc, char* argv[])
 		"{\"value\":[\"a\",\"b\",\"c\"]}",
 		"{\"value\":{\"key\":\"value\"}}",
 		"{\"value\":[]}").run();
-	
+
 	failed = failed || !Testee::ObjectTestSuite< std::shared_ptr< JXXON::Vector<std::string> > >(
 		"std::shared_ptr< JXXON::Vector<std::string> >",
 		"{\"value\":[\"a\",\"b\",\"c\"]}",
@@ -149,7 +149,7 @@ int main(int argc, char* argv[])
 		"{\"value\":[\"a\",\"b\",\"c\"]}",
 		"{\"value\":{\"key\":\"value\"}}",
 		"{\"value\":[]}").run();
-	
+
 	failed = failed || !Testee::ObjectTestSuite< std::shared_ptr< JXXON::List<std::string> > >(
 		"std::shared_ptr< JXXON::List<std::string> >",
 		"{\"value\":[\"a\",\"b\",\"c\"]}",
