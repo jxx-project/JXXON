@@ -208,6 +208,96 @@ int arrayTest(const std::string& arrayType)
 		"{\"a\":true,\"b\":false}",
 		"[true,false,null]").run() || failed;
 
+	failed = !Testee::ArrayTestSuite< ArrayType, Model::Object<std::string> >(
+		arrayType,
+		"Model::Object<std::string>",
+		"[{\"value\":\"a\"},{\"value\":\"b\"}]",
+		"[{\"value\":\"a\"},{\"value\":\"b\"},null]",
+		"[\"a\",\"b\"]",
+		"{\"a\":\"dummy\",\"b\":\"dummy\"}",
+		"[{\"value\":\"a\"},{\"value\":\"b\"},{\"value\":\"\"}]").run() || failed;
+
+	failed = !Testee::ArrayTestSuite< ArrayType, std::shared_ptr< Model::Object<std::string> > >(
+		arrayType,
+		"std::shared_ptr<Model::Object<std::string>>",
+		"[{\"value\":\"a\"},{\"value\":\"b\"}]",
+		"[{\"value\":\"a\"},{\"value\":\"b\"},null]",
+		"[\"a\",\"b\"]",
+		"{\"a\":\"dummy\",\"b\":\"dummy\"}",
+		"[{\"value\":\"a\"},{\"value\":\"b\"},null]").run() || failed;
+
+	failed = !Testee::ArrayTestSuite< ArrayType, JXXON::Vector<std::string> >(
+		arrayType,
+		"JXXON::Vector<std::string>",
+		"[[\"a\",\"b\"],[\"c\",\"d\"]]",
+		"[[\"a\",\"b\"],[\"c\",\"d\"],null]",
+		"[\"a\",\"b\"]",
+		"{\"a\":\"dummy\",\"b\":\"dummy\"}",
+		"[[\"a\",\"b\"],[\"c\",\"d\"],[]]").run() || failed;
+
+	failed = !Testee::ArrayTestSuite< ArrayType, std::shared_ptr< JXXON::Vector<std::string> > >(
+		arrayType,
+		"std::shared_ptr<JXXON::Vector<std::string>>",
+		"[[\"a\",\"b\"],[\"c\",\"d\"]]",
+		"[[\"a\",\"b\"],[\"c\",\"d\"],null]",
+		"[\"a\",\"b\"]",
+		"{\"a\":\"dummy\",\"b\":\"dummy\"}",
+		"[[\"a\",\"b\"],[\"c\",\"d\"],null]").run() || failed;
+
+	failed = !Testee::ArrayTestSuite< ArrayType, JXXON::List<std::string> >(
+		arrayType,
+		"JXXON::List<std::string>",
+		"[[\"a\",\"b\"],[\"c\",\"d\"]]",
+		"[[\"a\",\"b\"],[\"c\",\"d\"],null]",
+		"[\"a\",\"b\"]",
+		"{\"a\":\"dummy\",\"b\":\"dummy\"}",
+		"[[\"a\",\"b\"],[\"c\",\"d\"],[]]").run() || failed;
+
+	failed = !Testee::ArrayTestSuite< ArrayType, std::shared_ptr< JXXON::List<std::string> > >(
+		arrayType,
+		"std::shared_ptr<JXXON::List<std::string>>",
+		"[[\"a\",\"b\"],[\"c\",\"d\"]]",
+		"[[\"a\",\"b\"],[\"c\",\"d\"],null]",
+		"[\"a\",\"b\"]",
+		"{\"a\":\"dummy\",\"b\":\"dummy\"}",
+		"[[\"a\",\"b\"],[\"c\",\"d\"],null]").run() || failed;
+
+	failed = !Testee::ArrayTestSuite< ArrayType, JXXON::Map<std::string> >(
+		arrayType,
+		"JXXON::Map<std::string>",
+		"[{\"value\":\"a\"},{\"value\":\"b\"}]",
+		"[{\"value\":\"a\"},{\"value\":\"b\"},null]",
+		"[\"a\",\"b\"]",
+		"{\"a\":\"dummy\",\"b\":\"dummy\"}",
+		"[{\"value\":\"a\"},{\"value\":\"b\"},{}]").run() || failed;
+
+	failed = !Testee::ArrayTestSuite< ArrayType, std::shared_ptr< JXXON::Map<std::string> > >(
+		arrayType,
+		"std::shared_ptr<JXXON::Map<std::string>>",
+		"[{\"value\":\"a\"},{\"value\":\"b\"}]",
+		"[{\"value\":\"a\"},{\"value\":\"b\"},null]",
+		"[\"a\",\"b\"]",
+		"{\"a\":\"dummy\",\"b\":\"dummy\"}",
+		"[{\"value\":\"a\"},{\"value\":\"b\"},null]").run() || failed;
+
+	failed = !Testee::ArrayTestSuite< ArrayType, JXXON::UnorderedMap<std::string> >(
+		arrayType,
+		"JXXON::UnorderedMap<std::string>",
+		"[{\"value\":\"a\"},{\"value\":\"b\"}]",
+		"[{\"value\":\"a\"},{\"value\":\"b\"},null]",
+		"[\"a\",\"b\"]",
+		"{\"a\":\"dummy\",\"b\":\"dummy\"}",
+		"[{\"value\":\"a\"},{\"value\":\"b\"},{}]").run() || failed;
+
+	failed = !Testee::ArrayTestSuite< ArrayType, std::shared_ptr< JXXON::UnorderedMap<std::string> > >(
+		arrayType,
+		"std::shared_ptr<JXXON::UnorderedMap<std::string>>",
+		"[{\"value\":\"a\"},{\"value\":\"b\"}]",
+		"[{\"value\":\"a\"},{\"value\":\"b\"},null]",
+		"[\"a\",\"b\"]",
+		"{\"a\":\"dummy\",\"b\":\"dummy\"}",
+		"[{\"value\":\"a\"},{\"value\":\"b\"},null]").run() || failed;
+
 	return failed ? 1 : 0;
 }
 
