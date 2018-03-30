@@ -44,7 +44,7 @@ public:
 						 TestCase::assert_equal(array.toJson().toString(), emptyJSON);
 					 }),
 
-			TestCase("Valid " + arrayType + " of " + type + "with null", [&]
+			TestCase("Valid " + arrayType + " of " + type + " with null", [&]
 					 {
 						 JXXON::Json json(validJSONWithNull);
 						 ArrayType<T> array(json);
