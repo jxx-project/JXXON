@@ -82,3 +82,9 @@ add_dependencies(check vectorTest)
 
 add_test(NAME ListTest COMMAND listTest)
 add_dependencies(check listTest)
+
+add_test(NAME MapTest COMMAND mapTest)
+add_dependencies(check mapTest)
+
+add_test(NAME UnorderedMapTest COMMAND unorderedMapTest)
+add_dependencies(check unorderedMapTest)

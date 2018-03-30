@@ -38,3 +38,21 @@ target_link_libraries(listTest
 	model
 	${jxxon_impl_LIBRARIES}
 	${CMAKE_THREAD_LIBS_INIT})
+
+add_executable(mapTest mapTest.cpp)
+target_include_directories(mapTest PRIVATE
+	$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>)
+target_link_libraries(mapTest
+	jxxon
+	model
+	${jxxon_impl_LIBRARIES}
+	${CMAKE_THREAD_LIBS_INIT})
+
+add_executable(unorderedMapTest unorderedMapTest.cpp)
+target_include_directories(unorderedMapTest PRIVATE
+	$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>)
+target_link_libraries(unorderedMapTest
+	jxxon
+	model
+	${jxxon_impl_LIBRARIES}
+	${CMAKE_THREAD_LIBS_INIT})
