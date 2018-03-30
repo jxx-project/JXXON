@@ -1,11 +1,19 @@
+//
+// Copyright (C) 2018 Dr. Michael Steffens
+//
+// SPDX-License-Identifier:		BSL-1.0
+//
+
+
 #include "Testee/ObjectTestSuite.h"
-#include "Model/Object.h"
 #include "JXXON/Vector.h"
 #include "JXXON/List.h"
 #include "JXXON/Map.h"
 #include "JXXON/UnorderedMap.h"
-#include <iostream>
+#include "Model/Object.h"
+#include <cstdint>
 #include <memory>
+#include <string>
 
 int main(int argc, char* argv[])
 {

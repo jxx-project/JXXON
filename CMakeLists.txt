@@ -76,3 +76,9 @@ add_subdirectory(test EXCLUDE_FROM_ALL)
 
 add_test(NAME ObjectTest COMMAND objectTest)
 add_dependencies(check objectTest)
+
+add_test(NAME VectorTest COMMAND vectorTest)
+add_dependencies(check vectorTest)
+
+add_test(NAME ListTest COMMAND listTest)
+add_dependencies(check listTest)

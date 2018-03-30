@@ -20,7 +20,12 @@ class ObjectTestSuite : public TestSuite
 {
 public:
 
-	ObjectTestSuite(const std::string& type, const std::string& validJSON, const std::string& invalidJSON, const std::string& expectEmptyJSON = "{}", const std::string& altExpectEmptyJSON = "") : TestSuite(type + " objects", {
+	ObjectTestSuite(
+		const std::string& type,
+		const std::string& validJSON,
+		const std::string& invalidJSON,
+		const std::string& expectEmptyJSON = "{}",
+		const std::string& altExpectEmptyJSON = "") : TestSuite(type + " objects", {
 
 			TestCase("Valid " + type + " object", [&]
 					 {

@@ -20,3 +20,21 @@ target_link_libraries(objectTest
 	model
 	${jxxon_impl_LIBRARIES}
 	${CMAKE_THREAD_LIBS_INIT})
+
+add_executable(vectorTest vectorTest.cpp)
+target_include_directories(vectorTest PRIVATE
+	$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>)
+target_link_libraries(vectorTest
+	jxxon
+	model
+	${jxxon_impl_LIBRARIES}
+	${CMAKE_THREAD_LIBS_INIT})
+
+add_executable(listTest listTest.cpp)
+target_include_directories(listTest PRIVATE
+	$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>)
+target_link_libraries(listTest
+	jxxon
+	model
+	${jxxon_impl_LIBRARIES}
+	${CMAKE_THREAD_LIBS_INIT})
