@@ -1,4 +1,4 @@
-# JXXON - A C++ JSON object mapper library
+# JXXON — A C++ JSON object mapper library
 
 Serialize C++ object hierarchies into JSON documents and vice versa almost as conveniently as Java objects using [Jackson](https://github.com/FasterXML/jackson-databind).
 
