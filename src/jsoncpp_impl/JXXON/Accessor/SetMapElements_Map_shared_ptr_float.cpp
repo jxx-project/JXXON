@@ -15,10 +15,10 @@ namespace JXXON {
 namespace Accessor {
 
 template SetMapElements<std::shared_ptr<float>, Polymorphic::Map>::SetMapElements(Json& json);
-template void SetMapElements<std::shared_ptr<float>, Polymorphic::Map>::operator()(const Json::MapBase<std::shared_ptr<float>, Polymorphic::Map>& map);
+template void SetMapElements<std::shared_ptr<float>, Polymorphic::Map>::operator()(const Polymorphic::Map< std::string, std::shared_ptr<float> >& map);
 
 template SetMapElements<std::shared_ptr<double>, Polymorphic::Map>::SetMapElements(Json& json);
-template void SetMapElements<std::shared_ptr<double>, Polymorphic::Map>::operator()(const Json::MapBase<std::shared_ptr<double>, Polymorphic::Map>& map);
+template void SetMapElements<std::shared_ptr<double>, Polymorphic::Map>::operator()(const Polymorphic::Map< std::string, std::shared_ptr<double> >& map);
 
 } // namespace Accessor
 } // namespace JXXON

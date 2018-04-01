@@ -22,7 +22,7 @@ SetArrayElements<T, Base, typename std::enable_if<!std::is_base_of<Json::Seriali
 }
 
 template<typename T, template<typename...> class Base>
-void SetArrayElements<T, Base, typename std::enable_if<!std::is_base_of<Json::Serializable, T>::value && !std::is_convertible< T, std::shared_ptr<Json::Serializable> >::value>::type>::operator()(const Json::ArrayBase<T, Base>& array)
+void SetArrayElements<T, Base, typename std::enable_if<!std::is_base_of<Json::Serializable, T>::value && !std::is_convertible< T, std::shared_ptr<Json::Serializable> >::value>::type>::operator()(const Base<T>& array)
 {
 	for (const auto& i : array) {
 		json.pimpl->value.append(::Json::Value(i));
@@ -60,7 +60,7 @@ SetArrayElements<T, Base, typename std::enable_if<!std::is_base_of<Json::Seriali
 }
 
 template<typename T, template<typename...> class Base>
-void SetArrayElements<T, Base, typename std::enable_if<!std::is_base_of<Json::Serializable, T>::value && !std::is_convertible< T, std::shared_ptr<Json::Serializable> >::value>::type>::operator()(const Json::ArrayBase<T, Base>& array)
+void SetArrayElements<T, Base, typename std::enable_if<!std::is_base_of<Json::Serializable, T>::value && !std::is_convertible< T, std::shared_ptr<Json::Serializable> >::value>::type>::operator()(const Base<T>& array)
 {
 	for (const auto& i : array) {
 		json.pimpl->value.append(i ? ::Json::Value(*i) : ::Json::Value::null);
@@ -100,14 +100,14 @@ EOF
 function SetArrayElements_CPP {
 cat << EOF | sed "s/{{BASE}}/$1/g" | sed "s/{{ELEMENT_TYPE}}/$2/g"
 template SetArrayElements<{{ELEMENT_TYPE}}, Polymorphic::{{BASE}}>::SetArrayElements(Json& json);
-template void SetArrayElements<{{ELEMENT_TYPE}}, Polymorphic::{{BASE}}>::operator()(const Json::ArrayBase<{{ELEMENT_TYPE}}, Polymorphic::{{BASE}}>& array);
+template void SetArrayElements<{{ELEMENT_TYPE}}, Polymorphic::{{BASE}}>::operator()(const Polymorphic::{{BASE}}<{{ELEMENT_TYPE}}>& array);
 EOF
 }
 
 function SetArrayElements_shared_ptr_CPP {
 cat << EOF | sed "s/{{BASE}}/$1/g" | sed "s/{{ELEMENT_TYPE}}/$2/g"
 template SetArrayElements<std::shared_ptr<{{ELEMENT_TYPE}}>, Polymorphic::{{BASE}}>::SetArrayElements(Json& json);
-template void SetArrayElements<std::shared_ptr<{{ELEMENT_TYPE}}>, Polymorphic::{{BASE}}>::operator()(const Json::ArrayBase<std::shared_ptr<{{ELEMENT_TYPE}}>, Polymorphic::{{BASE}}>& array);
+template void SetArrayElements<std::shared_ptr<{{ELEMENT_TYPE}}>, Polymorphic::{{BASE}}>::operator()(const Polymorphic::{{BASE}}< std::shared_ptr<{{ELEMENT_TYPE}}> >& array);
 EOF
 }
 
@@ -123,7 +123,7 @@ EOF
 function SetArrayElements_BASE_CPP {
 
 	BASE=$1
-	    
+
 	FILENAME=SetArrayElements_${BASE}_string.cpp
 	Header SetArrayElements.tcc ${BASE} > ${FILENAME}
 	SetArrayElements_CPP ${BASE} std::string >> ${FILENAME}

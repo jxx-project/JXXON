@@ -20,13 +20,13 @@ GetMapElements<bool, Polymorphic::UnorderedMap>::GetMapElements(const Json& json
 }
 
 template<>
-void GetMapElements<bool, Polymorphic::UnorderedMap>::operator()(Json::MapBase<bool, Polymorphic::UnorderedMap>& map) const
+void GetMapElements<bool, Polymorphic::UnorderedMap>::operator()(Polymorphic::UnorderedMap<std::string, bool>& map) const
 {
 	populateMap<bool, Polymorphic::UnorderedMap>(map, json.pimpl->value, [](const ::Json::Value::const_iterator& i){return i->asBool();});
 }
 
 template GetMapElements<bool, Polymorphic::UnorderedMap>::GetMapElements(const Json& json);
-template void GetMapElements<bool, Polymorphic::UnorderedMap>::operator()(Json::MapBase<bool, Polymorphic::UnorderedMap>& map) const;
+template void GetMapElements<bool, Polymorphic::UnorderedMap>::operator()(Polymorphic::UnorderedMap<std::string, bool>& map) const;
 
 } // namespace Accessor
 } // namespace JXXON

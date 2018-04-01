@@ -17,7 +17,7 @@ namespace Accessor {
 namespace {
 
 template<typename T, template<typename...> class Base>
-void populateMap(Json::MapBase<T, Base>& map, const ::Json::Value& value, const std::function<T(const ::Json::Value::const_iterator&)>& valueAsT)
+void populateMap(Base<std::string, T>& map, const ::Json::Value& value, const std::function<T(const ::Json::Value::const_iterator&)>& valueAsT)
 {
 	map.clear();
 	if (!value.isNull()) {
@@ -62,7 +62,7 @@ namespace Accessor {
 namespace {
 
 template<typename T, template<typename...> class Base>
-void populateMap(Json::MapBase<T, Base>& map, const ::Json::Value& value, const std::function<typename T::element_type(const ::Json::Value::const_iterator&)>& valueAsT)
+void populateMap(Base<std::string, T>& map, const ::Json::Value& value, const std::function<typename T::element_type(const ::Json::Value::const_iterator&)>& valueAsT)
 {
 	map.clear();
 	if (!value.isNull()) {
@@ -112,38 +112,38 @@ EOF
 }
 
 function GetMapElements_CPP {
-cat << EOF | sed "s/{{BASE}}/$1/g" | sed "s/{{ELEMENT_TYPE}}/$2/g" | sed "s/{{AS_TYPE}}/$3/g" 
+cat << EOF | sed "s/{{BASE}}/$1/g" | sed "s/{{ELEMENT_TYPE}}/$2/g" | sed "s/{{AS_TYPE}}/$3/g"
 template<>
 GetMapElements<{{ELEMENT_TYPE}}, Polymorphic::{{BASE}}>::GetMapElements(const Json& json) : json(json)
 {
 }
 
 template<>
-void GetMapElements<{{ELEMENT_TYPE}}, Polymorphic::{{BASE}}>::operator()(Json::MapBase<{{ELEMENT_TYPE}}, Polymorphic::{{BASE}}>& map) const
+void GetMapElements<{{ELEMENT_TYPE}}, Polymorphic::{{BASE}}>::operator()(Polymorphic::{{BASE}}<std::string, {{ELEMENT_TYPE}}>& map) const
 {
 	populateMap<{{ELEMENT_TYPE}}, Polymorphic::{{BASE}}>(map, json.pimpl->value, [](const ::Json::Value::const_iterator& i){return i->{{AS_TYPE}}();});
 }
 
 template GetMapElements<{{ELEMENT_TYPE}}, Polymorphic::{{BASE}}>::GetMapElements(const Json& json);
-template void GetMapElements<{{ELEMENT_TYPE}}, Polymorphic::{{BASE}}>::operator()(Json::MapBase<{{ELEMENT_TYPE}}, Polymorphic::{{BASE}}>& map) const;
+template void GetMapElements<{{ELEMENT_TYPE}}, Polymorphic::{{BASE}}>::operator()(Polymorphic::{{BASE}}<std::string, {{ELEMENT_TYPE}}>& map) const;
 EOF
 }
 
 function GetMapElements_shared_ptr_CPP {
-cat << EOF | sed "s/{{BASE}}/$1/g" | sed "s/{{ELEMENT_TYPE}}/$2/g" | sed "s/{{AS_TYPE}}/$3/g" 
+cat << EOF | sed "s/{{BASE}}/$1/g" | sed "s/{{ELEMENT_TYPE}}/$2/g" | sed "s/{{AS_TYPE}}/$3/g"
 template<>
 GetMapElements<std::shared_ptr<{{ELEMENT_TYPE}}>, Polymorphic::{{BASE}}>::GetMapElements(const Json& json) : json(json)
 {
 }
 
 template<>
-void GetMapElements<std::shared_ptr<{{ELEMENT_TYPE}}>, Polymorphic::{{BASE}}>::operator()(Json::MapBase<std::shared_ptr<{{ELEMENT_TYPE}}>, Polymorphic::{{BASE}}>& map) const
+void GetMapElements<std::shared_ptr<{{ELEMENT_TYPE}}>, Polymorphic::{{BASE}}>::operator()(Polymorphic::{{BASE}}< std::string, std::shared_ptr<{{ELEMENT_TYPE}}> >& map) const
 {
 	populateMap<std::shared_ptr<{{ELEMENT_TYPE}}>, Polymorphic::{{BASE}}>(map, json.pimpl->value, [](const ::Json::Value::const_iterator& i){return i->{{AS_TYPE}}();});
 }
 
 template GetMapElements<std::shared_ptr<{{ELEMENT_TYPE}}>, Polymorphic::{{BASE}}>::GetMapElements(const Json& json);
-template void GetMapElements<std::shared_ptr<{{ELEMENT_TYPE}}>, Polymorphic::{{BASE}}>::operator()(Json::MapBase<std::shared_ptr<{{ELEMENT_TYPE}}>, Polymorphic::{{BASE}}>& map) const;
+template void GetMapElements<std::shared_ptr<{{ELEMENT_TYPE}}>, Polymorphic::{{BASE}}>::operator()(Polymorphic::{{BASE}}< std::string, std::shared_ptr<{{ELEMENT_TYPE}}> >& map) const;
 EOF
 }
 
@@ -159,7 +159,7 @@ EOF
 function GetMapElements_BASE_CPP {
 
 	BASE=$1
-	    
+
 	FILENAME=GetMapElements_${BASE}_string.cpp
 	Header GetMapElements.tcc ${BASE} > ${FILENAME}
 	GetMapElements_CPP ${BASE} std::string asString >> ${FILENAME}

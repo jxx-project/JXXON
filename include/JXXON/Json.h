@@ -78,12 +78,9 @@ public:
 		}
 	};
 
-	template < typename T, template<typename...> class Base >
-	using ArrayBase = Base<T>;
-
 	/// Extension of Base<T> implementing JXXON::Serializable. Use alias templates JXXON::Vector and JXXON::List for referring actual instantiations.
 	template< typename T, template<typename...> class Base >
-	class Array : public ArrayBase<T, Base>, public Serializable
+	class Array : public Base<T>, public Serializable
 	{
     public:
 		/// Construct empty array.
@@ -92,33 +89,33 @@ public:
 		}
 
 		/// Construct array of size n of default constructed elements.
-		explicit Array(typename ArrayBase<T, Base>::size_type n) : ArrayBase<T, Base>(n)
+		explicit Array(typename Base<T>::size_type n) : Base<T>(n)
 		{
 		}
 
 		/// Construct array of size n of copy of value constructed elements.
-		Array(typename ArrayBase<T, Base>::size_type n, const T& value) : ArrayBase<T, Base>(n, value)
+		Array(typename Base<T>::size_type n, const T& value) : Base<T>(n, value)
 		{
 		}
 
 		/// Construct array with emplace constructed elements of range [first, last).
 		template<typename InputIterator>
-		Array(InputIterator first, InputIterator last) : ArrayBase<T, Base>(first, last)
+		Array(InputIterator first, InputIterator last) : Base<T>(first, last)
 		{
 		}
 
 		/// Copy constructor.
-		Array(const ArrayBase<T, Base>& other) : ArrayBase<T, Base>(other)
+		Array(const Base<T>& other) : Base<T>(other)
 		{
 		}
 
 		/// Move constructor.
-		Array(ArrayBase<T, Base>&& other) : ArrayBase<T, Base>(std::move(other))
+		Array(Base<T>&& other) : Base<T>(std::move(other))
 		{
 		}
 
 		/// Initializer list constructor.
-		Array(std::initializer_list<T> initializerList) : ArrayBase<T, Base>(initializerList)
+		Array(std::initializer_list<T> initializerList) : Base<T>(initializerList)
 		{
 		}
 
@@ -127,6 +124,11 @@ public:
 		{
 			Accessor::GetArrayElements<T, Base> get(json);
 			get(*this);
+		}
+
+		/// Virtual destructor .
+		~Array()
+		{
 		}
 
 		virtual Json toJson() const override
@@ -138,12 +140,9 @@ public:
 		}
 	};
 
-	template <typename T, template<typename...> class Base >
-	using MapBase = Base<std::string, T>;
-
 	/// Extension of Base<std::string, T> implementing JXXON::Serializable. Use alias templates JXXON::Map and JXXON::UnorderedMap for referring actual instantiations.
 	template <typename T, template<typename...> class Base >
-	class Map : public MapBase<T, Base>, public Serializable
+	class Map : public Base<std::string, T>, public Serializable
 	{
 	public:
 		/// Construct empty map
@@ -153,22 +152,22 @@ public:
 
 		/// Construct map with emplace constructed elements of range [first, last).
 		template<typename InputIterator>
-		Map(InputIterator first, InputIterator last) : MapBase<T, Base>(first, last)
+		Map(InputIterator first, InputIterator last) : Base<std::string, T>(first, last)
 		{
 		}
 
 		/// Copy constructor.
-		Map(const MapBase<T, Base>& other) : MapBase<T, Base>(other)
+		Map(const Base<std::string, T>& other) : Base<std::string, T>(other)
 		{
 		}
 
 		/// Move constructor.
-		Map(MapBase<T, Base>&& other) : MapBase<T, Base>(std::move(other))
+		Map(Base<std::string, T>&& other) : Base<std::string, T>(std::move(other))
 		{
 		}
 
 		/// Initializer list constructor.
-		Map(std::initializer_list< std::pair<const std::string, T> > initializerList) : MapBase<T, Base>(initializerList)
+		Map(std::initializer_list< std::pair<const std::string, T> > initializerList) : Base<std::string, T>(initializerList)
 		{
 		}
 
@@ -177,6 +176,11 @@ public:
 		{
 			Accessor::GetMapElements<T, Base> get(json);
 			get(*this);
+		}
+
+		/// Virtual destructor .
+		~Map()
+		{
 		}
 
 		virtual Json toJson() const override
@@ -378,7 +382,7 @@ public:
 	{
 	}
 
-	void operator()(Json::ArrayBase<T, Base>& array) const
+	void operator()(Base<T>& array) const
 	{
 		array.clear();
 		json.append([&array](const Json& element){array.emplace_back(element.isNull() ? T() : T(element));});
@@ -396,7 +400,7 @@ public:
 	{
 	}
 
-	void operator()(Json::ArrayBase<T, Base>& array) const
+	void operator()(Base<T>& array) const
 	{
 		array.clear();
 		json.append([&array](const Json& element){array.emplace_back(element.isNull() ? T() : std::make_shared<typename T::element_type>(element));});
@@ -415,8 +419,8 @@ public:
 		json.setTypeArray();
 	}
 
-	void operator()(const Json::ArrayBase<T, Base>& array) {
-		for (typename Json::ArrayBase<T, Base>::const_iterator i = array.begin(); i != array.end(); i++)
+	void operator()(const Base<T>& array) {
+		for (typename Base<T>::const_iterator i = array.begin(); i != array.end(); i++)
 			{
 			json.append(i->toJson());
 		}
@@ -435,8 +439,8 @@ public:
 		json.setTypeArray();
 	}
 
-	void operator()(const Json::ArrayBase<T, Base>& array) {
-		for (typename Json::ArrayBase<T, Base>::const_iterator i = array.begin(); i != array.end(); i++)
+	void operator()(const Base<T>& array) {
+		for (typename Base<T>::const_iterator i = array.begin(); i != array.end(); i++)
 			{
 			json.append(*i ? (*i)->toJson() : Json());
 		}
@@ -451,7 +455,7 @@ class GetArrayElements<T, Base, typename std::enable_if<!std::is_base_of<Json::S
 {
 public:
 	GetArrayElements(const Json& json);
-	void operator()(Json::ArrayBase<T, Base>& array) const;
+	void operator()(Base<T>& array) const;
 
 private:
 	const Json& json;
@@ -462,7 +466,7 @@ class SetArrayElements<T, Base, typename std::enable_if<!std::is_base_of<Json::S
 {
 public:
 	SetArrayElements(Json& json);
-	void operator()(const Json::ArrayBase<T, Base>& array);
+	void operator()(const Base<T>& array);
 
 private:
 	Json& json;
@@ -476,7 +480,7 @@ public:
 	{
 	}
 
-	void operator()(Json::MapBase<T, Base>& map) const
+	void operator()(Base<std::string, T>& map) const
 	{
 		map.clear();
 		json.insert([&map](const std::string& key, const Json& element){map.emplace(key, element.isNull() ? T() : T(element));});
@@ -494,7 +498,7 @@ public:
 	{
 	}
 
-	void operator()(Json::MapBase<T, Base>& map) const
+	void operator()(Base<std::string, T>& map) const
 	{
 		map.clear();
 		json.insert([&map](const std::string& key, const Json& element){map.emplace(key, element.isNull() ? T() : std::make_shared<typename T::element_type>(element));});
@@ -513,9 +517,9 @@ public:
 		json.setTypeObject();
 	}
 
-	void operator()(const Json::MapBase<T, Base>& map)
+	void operator()(const Base<std::string, T>& map)
 	{
-		for (typename Json::MapBase<T, Base>::const_iterator i = map.begin(); i != map.end(); i++) {
+		for (typename Base<std::string, T>::const_iterator i = map.begin(); i != map.end(); i++) {
 			json.insert(i->first, i->second.toJson());
 		}
 	}
@@ -533,9 +537,9 @@ public:
 		json.setTypeObject();
 	}
 
-	void operator()(const Json::MapBase<T, Base>& map)
+	void operator()(const Base<std::string, T>& map)
 	{
-		for (typename Json::MapBase<T, Base>::const_iterator i = map.begin(); i != map.end(); i++) {
+		for (typename Base<std::string, T>::const_iterator i = map.begin(); i != map.end(); i++) {
 			json.insert(i->first, i->second ? i->second->toJson() : Json());
 		}
 	}
@@ -549,7 +553,7 @@ class GetMapElements<T, Base, typename std::enable_if<!std::is_base_of<Json::Ser
 {
 public:
 	GetMapElements(const Json& json);
-	void operator()(Json::MapBase<T, Base>& map) const;
+	void operator()(Base<std::string, T>& map) const;
 
 private:
 	const Json& json;
@@ -560,7 +564,7 @@ class SetMapElements<T, Base, typename std::enable_if<!std::is_base_of<Json::Ser
 {
 public:
 	SetMapElements(Json& json);
-	void operator()(const Json::MapBase<T, Base>& map);
+	void operator()(const Base<std::string, T>& map);
 
 private:
 	Json& json;

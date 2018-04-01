@@ -20,13 +20,13 @@ GetMapElements<std::shared_ptr<bool>, Polymorphic::UnorderedMap>::GetMapElements
 }
 
 template<>
-void GetMapElements<std::shared_ptr<bool>, Polymorphic::UnorderedMap>::operator()(Json::MapBase<std::shared_ptr<bool>, Polymorphic::UnorderedMap>& map) const
+void GetMapElements<std::shared_ptr<bool>, Polymorphic::UnorderedMap>::operator()(Polymorphic::UnorderedMap< std::string, std::shared_ptr<bool> >& map) const
 {
 	populateMap<std::shared_ptr<bool>, Polymorphic::UnorderedMap>(map, json.pimpl->value, [](const ::Json::Value::const_iterator& i){return i->asBool();});
 }
 
 template GetMapElements<std::shared_ptr<bool>, Polymorphic::UnorderedMap>::GetMapElements(const Json& json);
-template void GetMapElements<std::shared_ptr<bool>, Polymorphic::UnorderedMap>::operator()(Json::MapBase<std::shared_ptr<bool>, Polymorphic::UnorderedMap>& map) const;
+template void GetMapElements<std::shared_ptr<bool>, Polymorphic::UnorderedMap>::operator()(Polymorphic::UnorderedMap< std::string, std::shared_ptr<bool> >& map) const;
 
 } // namespace Accessor
 } // namespace JXXON

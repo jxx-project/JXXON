@@ -15,7 +15,7 @@ namespace JXXON {
 namespace Accessor {
 
 template SetArrayElements<std::string, Polymorphic::List>::SetArrayElements(Json& json);
-template void SetArrayElements<std::string, Polymorphic::List>::operator()(const Json::ArrayBase<std::string, Polymorphic::List>& array);
+template void SetArrayElements<std::string, Polymorphic::List>::operator()(const Polymorphic::List<std::string>& array);
 
 } // namespace Accessor
 } // namespace JXXON

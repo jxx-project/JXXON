@@ -20,13 +20,13 @@ GetArrayElements<float, Polymorphic::List>::GetArrayElements(const Json& json) :
 }
 
 template<>
-void GetArrayElements<float, Polymorphic::List>::operator()(Json::ArrayBase<float, Polymorphic::List>& array) const
+void GetArrayElements<float, Polymorphic::List>::operator()(Polymorphic::List<float>& array) const
 {
 	populateArray<float, Polymorphic::List>(array, json.pimpl->value, [](const ::Json::Value& value){return value.asFloat();});
 }
 
 template GetArrayElements<float, Polymorphic::List>::GetArrayElements(const Json& json);
-template void GetArrayElements<float, Polymorphic::List>::operator()(Json::ArrayBase<float, Polymorphic::List>& array) const;
+template void GetArrayElements<float, Polymorphic::List>::operator()(Polymorphic::List<float>& array) const;
 
 template<>
 GetArrayElements<double, Polymorphic::List>::GetArrayElements(const Json& json) : json(json)
@@ -34,13 +34,13 @@ GetArrayElements<double, Polymorphic::List>::GetArrayElements(const Json& json) 
 }
 
 template<>
-void GetArrayElements<double, Polymorphic::List>::operator()(Json::ArrayBase<double, Polymorphic::List>& array) const
+void GetArrayElements<double, Polymorphic::List>::operator()(Polymorphic::List<double>& array) const
 {
 	populateArray<double, Polymorphic::List>(array, json.pimpl->value, [](const ::Json::Value& value){return value.asDouble();});
 }
 
 template GetArrayElements<double, Polymorphic::List>::GetArrayElements(const Json& json);
-template void GetArrayElements<double, Polymorphic::List>::operator()(Json::ArrayBase<double, Polymorphic::List>& array) const;
+template void GetArrayElements<double, Polymorphic::List>::operator()(Polymorphic::List<double>& array) const;
 
 } // namespace Accessor
 } // namespace JXXON

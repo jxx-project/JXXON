@@ -20,13 +20,13 @@ GetArrayElements<std::string, Polymorphic::List>::GetArrayElements(const Json& j
 }
 
 template<>
-void GetArrayElements<std::string, Polymorphic::List>::operator()(Json::ArrayBase<std::string, Polymorphic::List>& array) const
+void GetArrayElements<std::string, Polymorphic::List>::operator()(Polymorphic::List<std::string>& array) const
 {
 	populateArray<std::string, Polymorphic::List>(array, json.pimpl->value, [](const ::Json::Value& value){return value.asString();});
 }
 
 template GetArrayElements<std::string, Polymorphic::List>::GetArrayElements(const Json& json);
-template void GetArrayElements<std::string, Polymorphic::List>::operator()(Json::ArrayBase<std::string, Polymorphic::List>& array) const;
+template void GetArrayElements<std::string, Polymorphic::List>::operator()(Polymorphic::List<std::string>& array) const;
 
 } // namespace Accessor
 } // namespace JXXON

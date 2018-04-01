@@ -15,10 +15,10 @@ namespace JXXON {
 namespace Accessor {
 
 template GetArrayElements<float, Polymorphic::Vector>::GetArrayElements(const Json& json);
-template void GetArrayElements<float, Polymorphic::Vector>::operator()(Json::ArrayBase<float, Polymorphic::Vector>& array) const;
+template void GetArrayElements<float, Polymorphic::Vector>::operator()(Polymorphic::Vector<float>& array) const;
 
 template GetArrayElements<double, Polymorphic::Vector>::GetArrayElements(const Json& json);
-template void GetArrayElements<double, Polymorphic::Vector>::operator()(Json::ArrayBase<double, Polymorphic::Vector>& array) const;
+template void GetArrayElements<double, Polymorphic::Vector>::operator()(Polymorphic::Vector<double>& array) const;
 
 } // namespace Accessor
 } // namespace JXXON

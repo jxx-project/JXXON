@@ -20,13 +20,13 @@ GetArrayElements<std::shared_ptr<float>, Polymorphic::List>::GetArrayElements(co
 }
 
 template<>
-void GetArrayElements<std::shared_ptr<float>, Polymorphic::List>::operator()(Json::ArrayBase<std::shared_ptr<float>, Polymorphic::List>& array) const
+void GetArrayElements<std::shared_ptr<float>, Polymorphic::List>::operator()(Polymorphic::List< std::shared_ptr<float> >& array) const
 {
 	populateArray<std::shared_ptr<float>, Polymorphic::List>(array, json.pimpl->value, [](const ::Json::Value& value){return value.asFloat();});
 }
 
 template GetArrayElements<std::shared_ptr<float>, Polymorphic::List>::GetArrayElements(const Json& json);
-template void GetArrayElements<std::shared_ptr<float>, Polymorphic::List>::operator()(Json::ArrayBase<std::shared_ptr<float>, Polymorphic::List>& array) const;
+template void GetArrayElements<std::shared_ptr<float>, Polymorphic::List>::operator()(Polymorphic::List< std::shared_ptr<float> >& array) const;
 
 template<>
 GetArrayElements<std::shared_ptr<double>, Polymorphic::List>::GetArrayElements(const Json& json) : json(json)
@@ -34,13 +34,13 @@ GetArrayElements<std::shared_ptr<double>, Polymorphic::List>::GetArrayElements(c
 }
 
 template<>
-void GetArrayElements<std::shared_ptr<double>, Polymorphic::List>::operator()(Json::ArrayBase<std::shared_ptr<double>, Polymorphic::List>& array) const
+void GetArrayElements<std::shared_ptr<double>, Polymorphic::List>::operator()(Polymorphic::List< std::shared_ptr<double> >& array) const
 {
 	populateArray<std::shared_ptr<double>, Polymorphic::List>(array, json.pimpl->value, [](const ::Json::Value& value){return value.asDouble();});
 }
 
 template GetArrayElements<std::shared_ptr<double>, Polymorphic::List>::GetArrayElements(const Json& json);
-template void GetArrayElements<std::shared_ptr<double>, Polymorphic::List>::operator()(Json::ArrayBase<std::shared_ptr<double>, Polymorphic::List>& array) const;
+template void GetArrayElements<std::shared_ptr<double>, Polymorphic::List>::operator()(Polymorphic::List< std::shared_ptr<double> >& array) const;
 
 } // namespace Accessor
 } // namespace JXXON

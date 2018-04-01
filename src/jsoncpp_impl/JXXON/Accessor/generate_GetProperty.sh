@@ -105,7 +105,7 @@ EOF
 }
 
 function GetProperty_CPP {
-cat << EOF | sed "s/{{ELEMENT_TYPE}}/$1/g" | sed "s/{{AS_TYPE}}/$2/g" 
+cat << EOF | sed "s/{{ELEMENT_TYPE}}/$1/g" | sed "s/{{AS_TYPE}}/$2/g"
 template<>
 GetProperty<{{ELEMENT_TYPE}}>::GetProperty(const Json& json, const std::string& name) : json(json), name(name)
 {
@@ -123,7 +123,7 @@ EOF
 }
 
 function GetProperty_shared_ptr_CPP {
-cat << EOF | sed "s/{{ELEMENT_TYPE}}/$1/g" | sed "s/{{AS_TYPE}}/$2/g" 
+cat << EOF | sed "s/{{ELEMENT_TYPE}}/$1/g" | sed "s/{{AS_TYPE}}/$2/g"
 template<>
 GetProperty< std::shared_ptr<{{ELEMENT_TYPE}}> >::GetProperty(const Json& json, const std::string& name) : json(json), name(name)
 {

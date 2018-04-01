@@ -20,13 +20,13 @@ GetArrayElements<int, Polymorphic::List>::GetArrayElements(const Json& json) : j
 }
 
 template<>
-void GetArrayElements<int, Polymorphic::List>::operator()(Json::ArrayBase<int, Polymorphic::List>& array) const
+void GetArrayElements<int, Polymorphic::List>::operator()(Polymorphic::List<int>& array) const
 {
 	populateArray<int, Polymorphic::List>(array, json.pimpl->value, [](const ::Json::Value& value){return value.asInt();});
 }
 
 template GetArrayElements<int, Polymorphic::List>::GetArrayElements(const Json& json);
-template void GetArrayElements<int, Polymorphic::List>::operator()(Json::ArrayBase<int, Polymorphic::List>& array) const;
+template void GetArrayElements<int, Polymorphic::List>::operator()(Polymorphic::List<int>& array) const;
 
 #if _SIZEOF_INT64_T != _SIZEOF_INT
 template<>
@@ -35,13 +35,13 @@ GetArrayElements<std::int64_t, Polymorphic::List>::GetArrayElements(const Json& 
 }
 
 template<>
-void GetArrayElements<std::int64_t, Polymorphic::List>::operator()(Json::ArrayBase<std::int64_t, Polymorphic::List>& array) const
+void GetArrayElements<std::int64_t, Polymorphic::List>::operator()(Polymorphic::List<std::int64_t>& array) const
 {
 	populateArray<std::int64_t, Polymorphic::List>(array, json.pimpl->value, [](const ::Json::Value& value){return value.asInt64();});
 }
 
 template GetArrayElements<std::int64_t, Polymorphic::List>::GetArrayElements(const Json& json);
-template void GetArrayElements<std::int64_t, Polymorphic::List>::operator()(Json::ArrayBase<std::int64_t, Polymorphic::List>& array) const;
+template void GetArrayElements<std::int64_t, Polymorphic::List>::operator()(Polymorphic::List<std::int64_t>& array) const;
 #endif
 
 #if _SIZEOF_INTMAX_T != _SIZEOF_INT && _SIZEOF_INTMAX_T != _SIZEOF_INT64_T
@@ -51,13 +51,13 @@ GetArrayElements<std::intmax_t, Polymorphic::List>::GetArrayElements(const Json&
 }
 
 template<>
-void GetArrayElements<std::intmax_t, Polymorphic::List>::operator()(Json::ArrayBase<std::intmax_t, Polymorphic::List>& array) const
+void GetArrayElements<std::intmax_t, Polymorphic::List>::operator()(Polymorphic::List<std::intmax_t>& array) const
 {
 	populateArray<std::intmax_t, Polymorphic::List>(array, json.pimpl->value, [](const ::Json::Value& value){return value.asLargestInt();});
 }
 
 template GetArrayElements<std::intmax_t, Polymorphic::List>::GetArrayElements(const Json& json);
-template void GetArrayElements<std::intmax_t, Polymorphic::List>::operator()(Json::ArrayBase<std::intmax_t, Polymorphic::List>& array) const;
+template void GetArrayElements<std::intmax_t, Polymorphic::List>::operator()(Polymorphic::List<std::intmax_t>& array) const;
 #endif
 
 } // namespace Accessor

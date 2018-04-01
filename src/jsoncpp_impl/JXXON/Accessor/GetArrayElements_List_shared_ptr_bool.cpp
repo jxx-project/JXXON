@@ -20,13 +20,13 @@ GetArrayElements<std::shared_ptr<bool>, Polymorphic::List>::GetArrayElements(con
 }
 
 template<>
-void GetArrayElements<std::shared_ptr<bool>, Polymorphic::List>::operator()(Json::ArrayBase<std::shared_ptr<bool>, Polymorphic::List>& array) const
+void GetArrayElements<std::shared_ptr<bool>, Polymorphic::List>::operator()(Polymorphic::List< std::shared_ptr<bool> >& array) const
 {
 	populateArray<std::shared_ptr<bool>, Polymorphic::List>(array, json.pimpl->value, [](const ::Json::Value& value){return value.asBool();});
 }
 
 template GetArrayElements<std::shared_ptr<bool>, Polymorphic::List>::GetArrayElements(const Json& json);
-template void GetArrayElements<std::shared_ptr<bool>, Polymorphic::List>::operator()(Json::ArrayBase<std::shared_ptr<bool>, Polymorphic::List>& array) const;
+template void GetArrayElements<std::shared_ptr<bool>, Polymorphic::List>::operator()(Polymorphic::List< std::shared_ptr<bool> >& array) const;
 
 } // namespace Accessor
 } // namespace JXXON

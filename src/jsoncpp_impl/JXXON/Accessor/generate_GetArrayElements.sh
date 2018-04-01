@@ -17,7 +17,7 @@ namespace Accessor {
 namespace {
 
 template<class T, template<typename...> class Base>
-void populateArray(Json::ArrayBase<T, Base>& array, const ::Json::Value& value, const std::function<T(const ::Json::Value&)>& valueAsT)
+void populateArray(Base<T>& array, const ::Json::Value& value, const std::function<T(const ::Json::Value&)>& valueAsT)
 {
 	array.clear();
 	if (!value.isNull()) {
@@ -62,7 +62,7 @@ namespace Accessor {
 namespace {
 
 template<class T, template<typename...> class Base>
-void populateArray(Json::ArrayBase<T, Base>& array, const ::Json::Value& value, const std::function<typename T::element_type(const ::Json::Value&)>& valueAsT)
+void populateArray(Base<T>& array, const ::Json::Value& value, const std::function<typename T::element_type(const ::Json::Value&)>& valueAsT)
 {
 	array.clear();
 	if (!value.isNull()) {
@@ -112,38 +112,38 @@ EOF
 }
 
 function GetArrayElements_CPP {
-cat << EOF | sed "s/{{BASE}}/$1/g" | sed "s/{{ELEMENT_TYPE}}/$2/g" | sed "s/{{AS_TYPE}}/$3/g" 
+cat << EOF | sed "s/{{BASE}}/$1/g" | sed "s/{{ELEMENT_TYPE}}/$2/g" | sed "s/{{AS_TYPE}}/$3/g"
 template<>
 GetArrayElements<{{ELEMENT_TYPE}}, Polymorphic::{{BASE}}>::GetArrayElements(const Json& json) : json(json)
 {
 }
 
 template<>
-void GetArrayElements<{{ELEMENT_TYPE}}, Polymorphic::{{BASE}}>::operator()(Json::ArrayBase<{{ELEMENT_TYPE}}, Polymorphic::{{BASE}}>& array) const
+void GetArrayElements<{{ELEMENT_TYPE}}, Polymorphic::{{BASE}}>::operator()(Polymorphic::{{BASE}}<{{ELEMENT_TYPE}}>& array) const
 {
 	populateArray<{{ELEMENT_TYPE}}, Polymorphic::{{BASE}}>(array, json.pimpl->value, [](const ::Json::Value& value){return value.{{AS_TYPE}}();});
 }
 
 template GetArrayElements<{{ELEMENT_TYPE}}, Polymorphic::{{BASE}}>::GetArrayElements(const Json& json);
-template void GetArrayElements<{{ELEMENT_TYPE}}, Polymorphic::{{BASE}}>::operator()(Json::ArrayBase<{{ELEMENT_TYPE}}, Polymorphic::{{BASE}}>& array) const;
+template void GetArrayElements<{{ELEMENT_TYPE}}, Polymorphic::{{BASE}}>::operator()(Polymorphic::{{BASE}}<{{ELEMENT_TYPE}}>& array) const;
 EOF
 }
 
 function GetArrayElements_shared_ptr_CPP {
-cat << EOF | sed "s/{{BASE}}/$1/g" | sed "s/{{ELEMENT_TYPE}}/$2/g" | sed "s/{{AS_TYPE}}/$3/g" 
+cat << EOF | sed "s/{{BASE}}/$1/g" | sed "s/{{ELEMENT_TYPE}}/$2/g" | sed "s/{{AS_TYPE}}/$3/g"
 template<>
 GetArrayElements<std::shared_ptr<{{ELEMENT_TYPE}}>, Polymorphic::{{BASE}}>::GetArrayElements(const Json& json) : json(json)
 {
 }
 
 template<>
-void GetArrayElements<std::shared_ptr<{{ELEMENT_TYPE}}>, Polymorphic::{{BASE}}>::operator()(Json::ArrayBase<std::shared_ptr<{{ELEMENT_TYPE}}>, Polymorphic::{{BASE}}>& array) const
+void GetArrayElements<std::shared_ptr<{{ELEMENT_TYPE}}>, Polymorphic::{{BASE}}>::operator()(Polymorphic::{{BASE}}< std::shared_ptr<{{ELEMENT_TYPE}}> >& array) const
 {
 	populateArray<std::shared_ptr<{{ELEMENT_TYPE}}>, Polymorphic::{{BASE}}>(array, json.pimpl->value, [](const ::Json::Value& value){return value.{{AS_TYPE}}();});
 }
 
 template GetArrayElements<std::shared_ptr<{{ELEMENT_TYPE}}>, Polymorphic::{{BASE}}>::GetArrayElements(const Json& json);
-template void GetArrayElements<std::shared_ptr<{{ELEMENT_TYPE}}>, Polymorphic::{{BASE}}>::operator()(Json::ArrayBase<std::shared_ptr<{{ELEMENT_TYPE}}>, Polymorphic::{{BASE}}>& array) const;
+template void GetArrayElements<std::shared_ptr<{{ELEMENT_TYPE}}>, Polymorphic::{{BASE}}>::operator()(Polymorphic::{{BASE}}< std::shared_ptr<{{ELEMENT_TYPE}}> >& array) const;
 EOF
 }
 
@@ -159,7 +159,7 @@ EOF
 function GetArrayElements_BASE_CPP {
 
 	BASE=$1
-	    
+
 	FILENAME=GetArrayElements_${BASE}_string.cpp
 	Header GetArrayElements.tcc ${BASE} > ${FILENAME}
 	GetArrayElements_CPP ${BASE} std::string asString >> ${FILENAME}

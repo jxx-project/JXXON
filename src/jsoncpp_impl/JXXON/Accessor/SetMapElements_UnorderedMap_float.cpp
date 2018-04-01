@@ -15,10 +15,10 @@ namespace JXXON {
 namespace Accessor {
 
 template SetMapElements<float, Polymorphic::UnorderedMap>::SetMapElements(Json& json);
-template void SetMapElements<float, Polymorphic::UnorderedMap>::operator()(const Json::MapBase<float, Polymorphic::UnorderedMap>& map);
+template void SetMapElements<float, Polymorphic::UnorderedMap>::operator()(const Polymorphic::UnorderedMap<std::string, float>& map);
 
 template SetMapElements<double, Polymorphic::UnorderedMap>::SetMapElements(Json& json);
-template void SetMapElements<double, Polymorphic::UnorderedMap>::operator()(const Json::MapBase<double, Polymorphic::UnorderedMap>& map);
+template void SetMapElements<double, Polymorphic::UnorderedMap>::operator()(const Polymorphic::UnorderedMap<std::string, double>& map);
 
 } // namespace Accessor
 } // namespace JXXON

@@ -20,13 +20,13 @@ GetMapElements<std::string, Polymorphic::UnorderedMap>::GetMapElements(const Jso
 }
 
 template<>
-void GetMapElements<std::string, Polymorphic::UnorderedMap>::operator()(Json::MapBase<std::string, Polymorphic::UnorderedMap>& map) const
+void GetMapElements<std::string, Polymorphic::UnorderedMap>::operator()(Polymorphic::UnorderedMap<std::string, std::string>& map) const
 {
 	populateMap<std::string, Polymorphic::UnorderedMap>(map, json.pimpl->value, [](const ::Json::Value::const_iterator& i){return i->asString();});
 }
 
 template GetMapElements<std::string, Polymorphic::UnorderedMap>::GetMapElements(const Json& json);
-template void GetMapElements<std::string, Polymorphic::UnorderedMap>::operator()(Json::MapBase<std::string, Polymorphic::UnorderedMap>& map) const;
+template void GetMapElements<std::string, Polymorphic::UnorderedMap>::operator()(Polymorphic::UnorderedMap<std::string, std::string>& map) const;
 
 } // namespace Accessor
 } // namespace JXXON

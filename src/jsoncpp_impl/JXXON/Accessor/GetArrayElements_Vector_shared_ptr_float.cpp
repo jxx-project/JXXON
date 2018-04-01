@@ -20,13 +20,13 @@ GetArrayElements<std::shared_ptr<float>, Polymorphic::Vector>::GetArrayElements(
 }
 
 template<>
-void GetArrayElements<std::shared_ptr<float>, Polymorphic::Vector>::operator()(Json::ArrayBase<std::shared_ptr<float>, Polymorphic::Vector>& array) const
+void GetArrayElements<std::shared_ptr<float>, Polymorphic::Vector>::operator()(Polymorphic::Vector< std::shared_ptr<float> >& array) const
 {
 	populateArray<std::shared_ptr<float>, Polymorphic::Vector>(array, json.pimpl->value, [](const ::Json::Value& value){return value.asFloat();});
 }
 
 template GetArrayElements<std::shared_ptr<float>, Polymorphic::Vector>::GetArrayElements(const Json& json);
-template void GetArrayElements<std::shared_ptr<float>, Polymorphic::Vector>::operator()(Json::ArrayBase<std::shared_ptr<float>, Polymorphic::Vector>& array) const;
+template void GetArrayElements<std::shared_ptr<float>, Polymorphic::Vector>::operator()(Polymorphic::Vector< std::shared_ptr<float> >& array) const;
 
 template<>
 GetArrayElements<std::shared_ptr<double>, Polymorphic::Vector>::GetArrayElements(const Json& json) : json(json)
@@ -34,13 +34,13 @@ GetArrayElements<std::shared_ptr<double>, Polymorphic::Vector>::GetArrayElements
 }
 
 template<>
-void GetArrayElements<std::shared_ptr<double>, Polymorphic::Vector>::operator()(Json::ArrayBase<std::shared_ptr<double>, Polymorphic::Vector>& array) const
+void GetArrayElements<std::shared_ptr<double>, Polymorphic::Vector>::operator()(Polymorphic::Vector< std::shared_ptr<double> >& array) const
 {
 	populateArray<std::shared_ptr<double>, Polymorphic::Vector>(array, json.pimpl->value, [](const ::Json::Value& value){return value.asDouble();});
 }
 
 template GetArrayElements<std::shared_ptr<double>, Polymorphic::Vector>::GetArrayElements(const Json& json);
-template void GetArrayElements<std::shared_ptr<double>, Polymorphic::Vector>::operator()(Json::ArrayBase<std::shared_ptr<double>, Polymorphic::Vector>& array) const;
+template void GetArrayElements<std::shared_ptr<double>, Polymorphic::Vector>::operator()(Polymorphic::Vector< std::shared_ptr<double> >& array) const;
 
 } // namespace Accessor
 } // namespace JXXON

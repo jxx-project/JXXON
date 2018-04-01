@@ -15,7 +15,7 @@ namespace JXXON {
 namespace Accessor {
 
 template<>
-void GetMapElements<std::string, Polymorphic::Map>::operator()(Json::MapBase<std::string, Polymorphic::Map>& map) const
+void GetMapElements<std::string, Polymorphic::Map>::operator()(Polymorphic::Map<std::string, std::string>& map) const
 {
 	map.clear();
 	if (json.pimpl) {
@@ -30,7 +30,7 @@ void GetMapElements<std::string, Polymorphic::Map>::operator()(Json::MapBase<std
 }
 
 template GetMapElements<std::string, Polymorphic::Map>::GetMapElements(const Json& json);
-template void GetMapElements<std::string, Polymorphic::Map>::operator()(Json::MapBase<std::string, Polymorphic::Map>& map) const;
+template void GetMapElements<std::string, Polymorphic::Map>::operator()(Polymorphic::Map<std::string, std::string>& map) const;
 
 } // namespace Accessor
 } // namespace JXXON

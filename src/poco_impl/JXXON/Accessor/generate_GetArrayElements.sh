@@ -21,7 +21,7 @@ GetArrayElements<T, Base, typename std::enable_if<!std::is_base_of<Json::Seriali
 }
 
 template<typename T, template<typename...> class Base>
-void GetArrayElements<T, Base, typename std::enable_if<!std::is_base_of<Json::Serializable, T>::value && !std::is_convertible< T, std::shared_ptr<Json::Serializable> >::value>::type>::operator()(Json::ArrayBase<T, Base>& array) const
+void GetArrayElements<T, Base, typename std::enable_if<!std::is_base_of<Json::Serializable, T>::value && !std::is_convertible< T, std::shared_ptr<Json::Serializable> >::value>::type>::operator()(Base<T>& array) const
 {
 	array.clear();
 	if (json.pimpl) {
@@ -65,7 +65,7 @@ GetArrayElements<T, Base, typename std::enable_if<!std::is_base_of<Json::Seriali
 }
 
 template<typename T, template<typename...> class Base>
-void GetArrayElements<T, Base, typename std::enable_if<!std::is_base_of<Json::Serializable, T>::value && !std::is_convertible< T, std::shared_ptr<Json::Serializable> >::value>::type>::operator()(Json::ArrayBase<T, Base>& array) const
+void GetArrayElements<T, Base, typename std::enable_if<!std::is_base_of<Json::Serializable, T>::value && !std::is_convertible< T, std::shared_ptr<Json::Serializable> >::value>::type>::operator()(Base<T>& array) const
 {
 	array.clear();
 	if (json.pimpl) {
@@ -91,7 +91,7 @@ GetArrayElements_shared_ptr_TCC > GetArrayElements_shared_ptr.tcc
 function GetArrayElements_SPECIALIZATION {
 cat << EOF | sed "s/{{BASE}}/$1/g" | sed "s/{{ELEMENT_TYPE}}/$2/g"
 template<>
-void GetArrayElements<{{ELEMENT_TYPE}}, Polymorphic::{{BASE}}>::operator()(Json::ArrayBase<{{ELEMENT_TYPE}}, Polymorphic::{{BASE}}>& array) const
+void GetArrayElements<{{ELEMENT_TYPE}}, Polymorphic::{{BASE}}>::operator()(Polymorphic::{{BASE}}<{{ELEMENT_TYPE}}>& array) const
 {
 	array.clear();
 	if (json.pimpl) {
@@ -111,7 +111,7 @@ EOF
 function GetArrayElements_shared_ptr_SPECIALIZATION {
 cat << EOF | sed "s/{{BASE}}/$1/g" | sed "s/{{ELEMENT_TYPE}}/$2/g"
 template<>
-void GetArrayElements<std::shared_ptr<{{ELEMENT_TYPE}}>, Polymorphic::{{BASE}}>::operator()(Json::ArrayBase<std::shared_ptr<{{ELEMENT_TYPE}}>, Polymorphic::{{BASE}}>& array) const
+void GetArrayElements<std::shared_ptr<{{ELEMENT_TYPE}}>, Polymorphic::{{BASE}}>::operator()(Polymorphic::{{BASE}}< std::shared_ptr<{{ELEMENT_TYPE}}> >& array) const
 {
 	array.clear();
 	if (json.pimpl) {
@@ -152,14 +152,14 @@ EOF
 function GetArrayElements_CPP {
 cat << EOF | sed "s/{{BASE}}/$1/g" | sed "s/{{ELEMENT_TYPE}}/$2/g"
 template GetArrayElements<{{ELEMENT_TYPE}}, Polymorphic::{{BASE}}>::GetArrayElements(const Json& json);
-template void GetArrayElements<{{ELEMENT_TYPE}}, Polymorphic::{{BASE}}>::operator()(Json::ArrayBase<{{ELEMENT_TYPE}}, Polymorphic::{{BASE}}>& array) const;
+template void GetArrayElements<{{ELEMENT_TYPE}}, Polymorphic::{{BASE}}>::operator()(Polymorphic::{{BASE}}<{{ELEMENT_TYPE}}>& array) const;
 EOF
 }
 
 function GetArrayElements_shared_ptr_CPP {
 cat << EOF | sed "s/{{BASE}}/$1/g" | sed "s/{{ELEMENT_TYPE}}/$2/g"
 template GetArrayElements<std::shared_ptr<{{ELEMENT_TYPE}}>, Polymorphic::{{BASE}}>::GetArrayElements(const Json& json);
-template void GetArrayElements<std::shared_ptr<{{ELEMENT_TYPE}}>, Polymorphic::{{BASE}}>::operator()(Json::ArrayBase<std::shared_ptr<{{ELEMENT_TYPE}}>, Polymorphic::{{BASE}}>& array) const;
+template void GetArrayElements<std::shared_ptr<{{ELEMENT_TYPE}}>, Polymorphic::{{BASE}}>::operator()(Polymorphic::{{BASE}}< std::shared_ptr<{{ELEMENT_TYPE}}> >& array) const;
 EOF
 }
 
@@ -175,7 +175,7 @@ EOF
 function GetArrayElements_BASE_CPP {
 
 	BASE=$1
-	    
+
 	FILENAME=GetArrayElements_${BASE}_string.cpp
 	Header GetArrayElements.tcc ${BASE} > ${FILENAME}
 	GetArrayElements_SPECIALIZATION ${BASE} std::string >> ${FILENAME}

@@ -13,7 +13,7 @@ namespace Accessor {
 namespace {
 
 template<class T, template<typename...> class Base>
-void populateArray(Json::ArrayBase<T, Base>& array, const ::Json::Value& value, const std::function<typename T::element_type(const ::Json::Value&)>& valueAsT)
+void populateArray(Base<T>& array, const ::Json::Value& value, const std::function<typename T::element_type(const ::Json::Value&)>& valueAsT)
 {
 	array.clear();
 	if (!value.isNull()) {

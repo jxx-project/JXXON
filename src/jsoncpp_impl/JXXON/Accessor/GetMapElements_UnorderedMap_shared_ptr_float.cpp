@@ -20,13 +20,13 @@ GetMapElements<std::shared_ptr<float>, Polymorphic::UnorderedMap>::GetMapElement
 }
 
 template<>
-void GetMapElements<std::shared_ptr<float>, Polymorphic::UnorderedMap>::operator()(Json::MapBase<std::shared_ptr<float>, Polymorphic::UnorderedMap>& map) const
+void GetMapElements<std::shared_ptr<float>, Polymorphic::UnorderedMap>::operator()(Polymorphic::UnorderedMap< std::string, std::shared_ptr<float> >& map) const
 {
 	populateMap<std::shared_ptr<float>, Polymorphic::UnorderedMap>(map, json.pimpl->value, [](const ::Json::Value::const_iterator& i){return i->asFloat();});
 }
 
 template GetMapElements<std::shared_ptr<float>, Polymorphic::UnorderedMap>::GetMapElements(const Json& json);
-template void GetMapElements<std::shared_ptr<float>, Polymorphic::UnorderedMap>::operator()(Json::MapBase<std::shared_ptr<float>, Polymorphic::UnorderedMap>& map) const;
+template void GetMapElements<std::shared_ptr<float>, Polymorphic::UnorderedMap>::operator()(Polymorphic::UnorderedMap< std::string, std::shared_ptr<float> >& map) const;
 
 template<>
 GetMapElements<std::shared_ptr<double>, Polymorphic::UnorderedMap>::GetMapElements(const Json& json) : json(json)
@@ -34,13 +34,13 @@ GetMapElements<std::shared_ptr<double>, Polymorphic::UnorderedMap>::GetMapElemen
 }
 
 template<>
-void GetMapElements<std::shared_ptr<double>, Polymorphic::UnorderedMap>::operator()(Json::MapBase<std::shared_ptr<double>, Polymorphic::UnorderedMap>& map) const
+void GetMapElements<std::shared_ptr<double>, Polymorphic::UnorderedMap>::operator()(Polymorphic::UnorderedMap< std::string, std::shared_ptr<double> >& map) const
 {
 	populateMap<std::shared_ptr<double>, Polymorphic::UnorderedMap>(map, json.pimpl->value, [](const ::Json::Value::const_iterator& i){return i->asDouble();});
 }
 
 template GetMapElements<std::shared_ptr<double>, Polymorphic::UnorderedMap>::GetMapElements(const Json& json);
-template void GetMapElements<std::shared_ptr<double>, Polymorphic::UnorderedMap>::operator()(Json::MapBase<std::shared_ptr<double>, Polymorphic::UnorderedMap>& map) const;
+template void GetMapElements<std::shared_ptr<double>, Polymorphic::UnorderedMap>::operator()(Polymorphic::UnorderedMap< std::string, std::shared_ptr<double> >& map) const;
 
 } // namespace Accessor
 } // namespace JXXON

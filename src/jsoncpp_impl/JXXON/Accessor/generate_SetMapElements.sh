@@ -22,7 +22,7 @@ SetMapElements<T, Base, typename std::enable_if<!std::is_base_of<Json::Serializa
 }
 
 template<typename T, template<typename...> class Base>
-void SetMapElements<T, Base, typename std::enable_if<!std::is_base_of<Json::Serializable, T>::value && !std::is_convertible< T, std::shared_ptr<Json::Serializable> >::value>::type>::operator()(const Json::MapBase<T, Base>& map)
+void SetMapElements<T, Base, typename std::enable_if<!std::is_base_of<Json::Serializable, T>::value && !std::is_convertible< T, std::shared_ptr<Json::Serializable> >::value>::type>::operator()(const Base<std::string, T>& map)
 {
 	for (const auto& i : map) {
 		json.pimpl->value[i.first] = i.second;
@@ -60,7 +60,7 @@ SetMapElements<T, Base, typename std::enable_if<!std::is_base_of<Json::Serializa
 }
 
 template<typename T, template<typename...> class Base>
-void SetMapElements<T, Base, typename std::enable_if<!std::is_base_of<Json::Serializable, T>::value && !std::is_convertible< T, std::shared_ptr<Json::Serializable> >::value>::type>::operator()(const Json::MapBase<T, Base>& map)
+void SetMapElements<T, Base, typename std::enable_if<!std::is_base_of<Json::Serializable, T>::value && !std::is_convertible< T, std::shared_ptr<Json::Serializable> >::value>::type>::operator()(const Base<std::string, T>& map)
 {
 	for (const auto& i : map) {
 		json.pimpl->value[i.first] = i.second ? *i.second : ::Json::Value::null;
@@ -100,14 +100,14 @@ EOF
 function SetMapElements_CPP {
 cat << EOF | sed "s/{{BASE}}/$1/g" | sed "s/{{ELEMENT_TYPE}}/$2/g"
 template SetMapElements<{{ELEMENT_TYPE}}, Polymorphic::{{BASE}}>::SetMapElements(Json& json);
-template void SetMapElements<{{ELEMENT_TYPE}}, Polymorphic::{{BASE}}>::operator()(const Json::MapBase<{{ELEMENT_TYPE}}, Polymorphic::{{BASE}}>& map);
+template void SetMapElements<{{ELEMENT_TYPE}}, Polymorphic::{{BASE}}>::operator()(const Polymorphic::{{BASE}}<std::string, {{ELEMENT_TYPE}}>& map);
 EOF
 }
 
 function SetMapElements_shared_ptr_CPP {
 cat << EOF | sed "s/{{BASE}}/$1/g" | sed "s/{{ELEMENT_TYPE}}/$2/g"
 template SetMapElements<std::shared_ptr<{{ELEMENT_TYPE}}>, Polymorphic::{{BASE}}>::SetMapElements(Json& json);
-template void SetMapElements<std::shared_ptr<{{ELEMENT_TYPE}}>, Polymorphic::{{BASE}}>::operator()(const Json::MapBase<std::shared_ptr<{{ELEMENT_TYPE}}>, Polymorphic::{{BASE}}>& map);
+template void SetMapElements<std::shared_ptr<{{ELEMENT_TYPE}}>, Polymorphic::{{BASE}}>::operator()(const Polymorphic::{{BASE}}< std::string, std::shared_ptr<{{ELEMENT_TYPE}}> >& map);
 EOF
 }
 
@@ -123,7 +123,7 @@ EOF
 function SetMapElements_BASE_CPP {
 
 	BASE=$1
-	    
+
 	FILENAME=SetMapElements_${BASE}_string.cpp
 	Header SetMapElements.tcc ${BASE} > ${FILENAME}
 	SetMapElements_CPP ${BASE} std::string >> ${FILENAME}

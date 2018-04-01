@@ -20,13 +20,13 @@ GetArrayElements<std::shared_ptr<int>, Polymorphic::Vector>::GetArrayElements(co
 }
 
 template<>
-void GetArrayElements<std::shared_ptr<int>, Polymorphic::Vector>::operator()(Json::ArrayBase<std::shared_ptr<int>, Polymorphic::Vector>& array) const
+void GetArrayElements<std::shared_ptr<int>, Polymorphic::Vector>::operator()(Polymorphic::Vector< std::shared_ptr<int> >& array) const
 {
 	populateArray<std::shared_ptr<int>, Polymorphic::Vector>(array, json.pimpl->value, [](const ::Json::Value& value){return value.asInt();});
 }
 
 template GetArrayElements<std::shared_ptr<int>, Polymorphic::Vector>::GetArrayElements(const Json& json);
-template void GetArrayElements<std::shared_ptr<int>, Polymorphic::Vector>::operator()(Json::ArrayBase<std::shared_ptr<int>, Polymorphic::Vector>& array) const;
+template void GetArrayElements<std::shared_ptr<int>, Polymorphic::Vector>::operator()(Polymorphic::Vector< std::shared_ptr<int> >& array) const;
 
 #if _SIZEOF_INT64_T != _SIZEOF_INT
 template<>
@@ -35,13 +35,13 @@ GetArrayElements<std::shared_ptr<std::int64_t>, Polymorphic::Vector>::GetArrayEl
 }
 
 template<>
-void GetArrayElements<std::shared_ptr<std::int64_t>, Polymorphic::Vector>::operator()(Json::ArrayBase<std::shared_ptr<std::int64_t>, Polymorphic::Vector>& array) const
+void GetArrayElements<std::shared_ptr<std::int64_t>, Polymorphic::Vector>::operator()(Polymorphic::Vector< std::shared_ptr<std::int64_t> >& array) const
 {
 	populateArray<std::shared_ptr<std::int64_t>, Polymorphic::Vector>(array, json.pimpl->value, [](const ::Json::Value& value){return value.asInt64();});
 }
 
 template GetArrayElements<std::shared_ptr<std::int64_t>, Polymorphic::Vector>::GetArrayElements(const Json& json);
-template void GetArrayElements<std::shared_ptr<std::int64_t>, Polymorphic::Vector>::operator()(Json::ArrayBase<std::shared_ptr<std::int64_t>, Polymorphic::Vector>& array) const;
+template void GetArrayElements<std::shared_ptr<std::int64_t>, Polymorphic::Vector>::operator()(Polymorphic::Vector< std::shared_ptr<std::int64_t> >& array) const;
 #endif
 
 #if _SIZEOF_INTMAX_T != _SIZEOF_INT && _SIZEOF_INTMAX_T != _SIZEOF_INT64_T
@@ -51,13 +51,13 @@ GetArrayElements<std::shared_ptr<std::intmax_t>, Polymorphic::Vector>::GetArrayE
 }
 
 template<>
-void GetArrayElements<std::shared_ptr<std::intmax_t>, Polymorphic::Vector>::operator()(Json::ArrayBase<std::shared_ptr<std::intmax_t>, Polymorphic::Vector>& array) const
+void GetArrayElements<std::shared_ptr<std::intmax_t>, Polymorphic::Vector>::operator()(Polymorphic::Vector< std::shared_ptr<std::intmax_t> >& array) const
 {
 	populateArray<std::shared_ptr<std::intmax_t>, Polymorphic::Vector>(array, json.pimpl->value, [](const ::Json::Value& value){return value.asLargestInt();});
 }
 
 template GetArrayElements<std::shared_ptr<std::intmax_t>, Polymorphic::Vector>::GetArrayElements(const Json& json);
-template void GetArrayElements<std::shared_ptr<std::intmax_t>, Polymorphic::Vector>::operator()(Json::ArrayBase<std::shared_ptr<std::intmax_t>, Polymorphic::Vector>& array) const;
+template void GetArrayElements<std::shared_ptr<std::intmax_t>, Polymorphic::Vector>::operator()(Polymorphic::Vector< std::shared_ptr<std::intmax_t> >& array) const;
 #endif
 
 } // namespace Accessor

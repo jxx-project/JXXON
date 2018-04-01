@@ -15,16 +15,16 @@ namespace JXXON {
 namespace Accessor {
 
 template GetArrayElements<std::shared_ptr<unsigned int>, Polymorphic::List>::GetArrayElements(const Json& json);
-template void GetArrayElements<std::shared_ptr<unsigned int>, Polymorphic::List>::operator()(Json::ArrayBase<std::shared_ptr<unsigned int>, Polymorphic::List>& array) const;
+template void GetArrayElements<std::shared_ptr<unsigned int>, Polymorphic::List>::operator()(Polymorphic::List< std::shared_ptr<unsigned int> >& array) const;
 
 #if _SIZEOF_UINT64_T != _SIZEOF_UNSIGNED_INT
 template GetArrayElements<std::shared_ptr<std::uint64_t>, Polymorphic::List>::GetArrayElements(const Json& json);
-template void GetArrayElements<std::shared_ptr<std::uint64_t>, Polymorphic::List>::operator()(Json::ArrayBase<std::shared_ptr<std::uint64_t>, Polymorphic::List>& array) const;
+template void GetArrayElements<std::shared_ptr<std::uint64_t>, Polymorphic::List>::operator()(Polymorphic::List< std::shared_ptr<std::uint64_t> >& array) const;
 #endif
 
 #if _SIZEOF_UINTMAX_T != _SIZEOF_UNSIGNED_INT && _SIZEOF_UINTMAX_T != _SIZEOF_UINT64_T
 template GetArrayElements<std::shared_ptr<std::uintmax_t>, Polymorphic::List>::GetArrayElements(const Json& json);
-template void GetArrayElements<std::shared_ptr<std::uintmax_t>, Polymorphic::List>::operator()(Json::ArrayBase<std::shared_ptr<std::uintmax_t>, Polymorphic::List>& array) const;
+template void GetArrayElements<std::shared_ptr<std::uintmax_t>, Polymorphic::List>::operator()(Polymorphic::List< std::shared_ptr<std::uintmax_t> >& array) const;
 #endif
 
 } // namespace Accessor

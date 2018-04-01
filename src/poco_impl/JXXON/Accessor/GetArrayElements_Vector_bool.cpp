@@ -15,7 +15,7 @@ namespace JXXON {
 namespace Accessor {
 
 template<>
-void GetArrayElements<bool, Polymorphic::Vector>::operator()(Json::ArrayBase<bool, Polymorphic::Vector>& array) const
+void GetArrayElements<bool, Polymorphic::Vector>::operator()(Polymorphic::Vector<bool>& array) const
 {
 	array.clear();
 	if (json.pimpl) {
@@ -30,7 +30,7 @@ void GetArrayElements<bool, Polymorphic::Vector>::operator()(Json::ArrayBase<boo
 }
 
 template GetArrayElements<bool, Polymorphic::Vector>::GetArrayElements(const Json& json);
-template void GetArrayElements<bool, Polymorphic::Vector>::operator()(Json::ArrayBase<bool, Polymorphic::Vector>& array) const;
+template void GetArrayElements<bool, Polymorphic::Vector>::operator()(Polymorphic::Vector<bool>& array) const;
 
 } // namespace Accessor
 } // namespace JXXON

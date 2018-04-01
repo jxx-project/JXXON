@@ -20,13 +20,13 @@ GetMapElements<float, Polymorphic::UnorderedMap>::GetMapElements(const Json& jso
 }
 
 template<>
-void GetMapElements<float, Polymorphic::UnorderedMap>::operator()(Json::MapBase<float, Polymorphic::UnorderedMap>& map) const
+void GetMapElements<float, Polymorphic::UnorderedMap>::operator()(Polymorphic::UnorderedMap<std::string, float>& map) const
 {
 	populateMap<float, Polymorphic::UnorderedMap>(map, json.pimpl->value, [](const ::Json::Value::const_iterator& i){return i->asFloat();});
 }
 
 template GetMapElements<float, Polymorphic::UnorderedMap>::GetMapElements(const Json& json);
-template void GetMapElements<float, Polymorphic::UnorderedMap>::operator()(Json::MapBase<float, Polymorphic::UnorderedMap>& map) const;
+template void GetMapElements<float, Polymorphic::UnorderedMap>::operator()(Polymorphic::UnorderedMap<std::string, float>& map) const;
 
 template<>
 GetMapElements<double, Polymorphic::UnorderedMap>::GetMapElements(const Json& json) : json(json)
@@ -34,13 +34,13 @@ GetMapElements<double, Polymorphic::UnorderedMap>::GetMapElements(const Json& js
 }
 
 template<>
-void GetMapElements<double, Polymorphic::UnorderedMap>::operator()(Json::MapBase<double, Polymorphic::UnorderedMap>& map) const
+void GetMapElements<double, Polymorphic::UnorderedMap>::operator()(Polymorphic::UnorderedMap<std::string, double>& map) const
 {
 	populateMap<double, Polymorphic::UnorderedMap>(map, json.pimpl->value, [](const ::Json::Value::const_iterator& i){return i->asDouble();});
 }
 
 template GetMapElements<double, Polymorphic::UnorderedMap>::GetMapElements(const Json& json);
-template void GetMapElements<double, Polymorphic::UnorderedMap>::operator()(Json::MapBase<double, Polymorphic::UnorderedMap>& map) const;
+template void GetMapElements<double, Polymorphic::UnorderedMap>::operator()(Polymorphic::UnorderedMap<std::string, double>& map) const;
 
 } // namespace Accessor
 } // namespace JXXON

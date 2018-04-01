@@ -20,13 +20,13 @@ GetMapElements<unsigned int, Polymorphic::Map>::GetMapElements(const Json& json)
 }
 
 template<>
-void GetMapElements<unsigned int, Polymorphic::Map>::operator()(Json::MapBase<unsigned int, Polymorphic::Map>& map) const
+void GetMapElements<unsigned int, Polymorphic::Map>::operator()(Polymorphic::Map<std::string, unsigned int>& map) const
 {
 	populateMap<unsigned int, Polymorphic::Map>(map, json.pimpl->value, [](const ::Json::Value::const_iterator& i){return i->asUInt();});
 }
 
 template GetMapElements<unsigned int, Polymorphic::Map>::GetMapElements(const Json& json);
-template void GetMapElements<unsigned int, Polymorphic::Map>::operator()(Json::MapBase<unsigned int, Polymorphic::Map>& map) const;
+template void GetMapElements<unsigned int, Polymorphic::Map>::operator()(Polymorphic::Map<std::string, unsigned int>& map) const;
 
 #if _SIZEOF_UINT64_T != _SIZEOF_UNSIGNED_INT
 template<>
@@ -35,13 +35,13 @@ GetMapElements<std::uint64_t, Polymorphic::Map>::GetMapElements(const Json& json
 }
 
 template<>
-void GetMapElements<std::uint64_t, Polymorphic::Map>::operator()(Json::MapBase<std::uint64_t, Polymorphic::Map>& map) const
+void GetMapElements<std::uint64_t, Polymorphic::Map>::operator()(Polymorphic::Map<std::string, std::uint64_t>& map) const
 {
 	populateMap<std::uint64_t, Polymorphic::Map>(map, json.pimpl->value, [](const ::Json::Value::const_iterator& i){return i->asUInt64();});
 }
 
 template GetMapElements<std::uint64_t, Polymorphic::Map>::GetMapElements(const Json& json);
-template void GetMapElements<std::uint64_t, Polymorphic::Map>::operator()(Json::MapBase<std::uint64_t, Polymorphic::Map>& map) const;
+template void GetMapElements<std::uint64_t, Polymorphic::Map>::operator()(Polymorphic::Map<std::string, std::uint64_t>& map) const;
 #endif
 
 #if _SIZEOF_UINTMAX_T != _SIZEOF_UNSIGNED_INT && _SIZEOF_UINTMAX_T != _SIZEOF_UINT64_T
@@ -51,13 +51,13 @@ GetMapElements<std::uintmax_t, Polymorphic::Map>::GetMapElements(const Json& jso
 }
 
 template<>
-void GetMapElements<std::uintmax_t, Polymorphic::Map>::operator()(Json::MapBase<std::uintmax_t, Polymorphic::Map>& map) const
+void GetMapElements<std::uintmax_t, Polymorphic::Map>::operator()(Polymorphic::Map<std::string, std::uintmax_t>& map) const
 {
 	populateMap<std::uintmax_t, Polymorphic::Map>(map, json.pimpl->value, [](const ::Json::Value::const_iterator& i){return i->asLargestUInt();});
 }
 
 template GetMapElements<std::uintmax_t, Polymorphic::Map>::GetMapElements(const Json& json);
-template void GetMapElements<std::uintmax_t, Polymorphic::Map>::operator()(Json::MapBase<std::uintmax_t, Polymorphic::Map>& map) const;
+template void GetMapElements<std::uintmax_t, Polymorphic::Map>::operator()(Polymorphic::Map<std::string, std::uintmax_t>& map) const;
 #endif
 
 } // namespace Accessor

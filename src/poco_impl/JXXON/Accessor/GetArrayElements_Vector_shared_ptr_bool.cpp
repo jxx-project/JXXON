@@ -15,7 +15,7 @@ namespace JXXON {
 namespace Accessor {
 
 template<>
-void GetArrayElements<std::shared_ptr<bool>, Polymorphic::Vector>::operator()(Json::ArrayBase<std::shared_ptr<bool>, Polymorphic::Vector>& array) const
+void GetArrayElements<std::shared_ptr<bool>, Polymorphic::Vector>::operator()(Polymorphic::Vector< std::shared_ptr<bool> >& array) const
 {
 	array.clear();
 	if (json.pimpl) {
@@ -30,7 +30,7 @@ void GetArrayElements<std::shared_ptr<bool>, Polymorphic::Vector>::operator()(Js
 }
 
 template GetArrayElements<std::shared_ptr<bool>, Polymorphic::Vector>::GetArrayElements(const Json& json);
-template void GetArrayElements<std::shared_ptr<bool>, Polymorphic::Vector>::operator()(Json::ArrayBase<std::shared_ptr<bool>, Polymorphic::Vector>& array) const;
+template void GetArrayElements<std::shared_ptr<bool>, Polymorphic::Vector>::operator()(Polymorphic::Vector< std::shared_ptr<bool> >& array) const;
 
 } // namespace Accessor
 } // namespace JXXON

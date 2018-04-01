@@ -20,13 +20,13 @@ GetMapElements<bool, Polymorphic::Map>::GetMapElements(const Json& json) : json(
 }
 
 template<>
-void GetMapElements<bool, Polymorphic::Map>::operator()(Json::MapBase<bool, Polymorphic::Map>& map) const
+void GetMapElements<bool, Polymorphic::Map>::operator()(Polymorphic::Map<std::string, bool>& map) const
 {
 	populateMap<bool, Polymorphic::Map>(map, json.pimpl->value, [](const ::Json::Value::const_iterator& i){return i->asBool();});
 }
 
 template GetMapElements<bool, Polymorphic::Map>::GetMapElements(const Json& json);
-template void GetMapElements<bool, Polymorphic::Map>::operator()(Json::MapBase<bool, Polymorphic::Map>& map) const;
+template void GetMapElements<bool, Polymorphic::Map>::operator()(Polymorphic::Map<std::string, bool>& map) const;
 
 } // namespace Accessor
 } // namespace JXXON
