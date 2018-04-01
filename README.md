@@ -37,7 +37,7 @@ struct SampleObject : public JXXON::Serializable
 
 ## Dependencies
 
-JXXON is using [Polymorphic decorators](https://github.com/jxx-project/Polymorphic) >= 1.0.0 to extend C++11 standard containers and add serializiblity.
+JXXON is using [Polymorphic decorators](https://github.com/jxx-project/Polymorphic) >= 1.0.0 to extend C++11 standard containers and to add serializability.
 
 JXXON code is focussing on object mapping. Processing of JSON documents is delegated to **either** [JsonCpp](https://github.com/open-source-parsers/jsoncpp) >= 1.6.0 **or** [Poco](https://pocoproject.org) >= 1.7.4, depending on your choice when building the JXXON library.
 
