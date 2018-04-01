@@ -104,18 +104,28 @@ public:
 		{
 		}
 
-		/// Copy constructor.
+		/// Copy construct array.
 		Array(const Base<T>& other) : Base<T>(other)
 		{
 		}
 
-		/// Move constructor.
+		/// Move construct array.
 		Array(Base<T>&& other) : Base<T>(std::move(other))
 		{
 		}
 
 		/// Initializer list constructor.
 		Array(std::initializer_list<T> initializerList) : Base<T>(initializerList)
+		{
+		}
+
+		/// Copy construct array from delegate type.
+		Array(const typename Base<T>::DelegateType& other) : Base<T>(other)
+		{
+		}
+
+		/// Move construct array from delegate type.
+		Array(typename Base<T>::DelegateType&& other) : Base<T>(std::move(other))
 		{
 		}
 
@@ -156,18 +166,28 @@ public:
 		{
 		}
 
-		/// Copy constructor.
+		/// Copy construct map.
 		Map(const Base<std::string, T>& other) : Base<std::string, T>(other)
 		{
 		}
 
-		/// Move constructor.
+		/// Move construct map.
 		Map(Base<std::string, T>&& other) : Base<std::string, T>(std::move(other))
 		{
 		}
 
 		/// Initializer list constructor.
 		Map(std::initializer_list< std::pair<const std::string, T> > initializerList) : Base<std::string, T>(initializerList)
+		{
+		}
+
+		/// Copy construct map from delegate type.
+		Map(const typename Base<std::string, T>::DelegateType& other) : Base<std::string, T>(other)
+		{
+		}
+
+		/// Move construct map from delegate type.
+		Map(typename Base<std::string, T>::DelegateType&& other) : Base<std::string, T>(std::move(other))
 		{
 		}
 
