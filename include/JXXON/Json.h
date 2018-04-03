@@ -82,7 +82,7 @@ public:
 	template< typename T, template<typename...> class Base >
 	class Array : public Base<T>, public Serializable
 	{
-    public:
+	public:
 		/// Construct empty array.
 		Array()
 		{
