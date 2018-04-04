@@ -13,7 +13,7 @@
 
 namespace JXXON {
 
-/// Alias template extending std::list<T> and implementing JXXON::Serializable.
+/// Alias template composing std::list<T> and implementing JXXON::Serializable.
 template <class T>
 using List = Json::Array<T, Polymorphic::List>;
 
