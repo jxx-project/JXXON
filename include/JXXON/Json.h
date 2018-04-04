@@ -440,9 +440,8 @@ public:
 	}
 
 	void operator()(const Base<T>& array) {
-		for (typename Base<T>::const_iterator i = array.begin(); i != array.end(); i++)
-			{
-			json.append(i->toJson());
+		for (auto& i : array) {
+			json.append(i.toJson());
 		}
 	}
 
@@ -460,9 +459,8 @@ public:
 	}
 
 	void operator()(const Base<T>& array) {
-		for (typename Base<T>::const_iterator i = array.begin(); i != array.end(); i++)
-			{
-			json.append(*i ? (*i)->toJson() : Json());
+		for (auto& i : array) {
+			json.append(i ? i->toJson() : Json());
 		}
 	}
 
@@ -539,8 +537,8 @@ public:
 
 	void operator()(const Base<std::string, T>& map)
 	{
-		for (typename Base<std::string, T>::const_iterator i = map.begin(); i != map.end(); i++) {
-			json.insert(i->first, i->second.toJson());
+		for (auto& i : map) {
+			json.insert(i.first, i.second.toJson());
 		}
 	}
 
@@ -559,8 +557,8 @@ public:
 
 	void operator()(const Base<std::string, T>& map)
 	{
-		for (typename Base<std::string, T>::const_iterator i = map.begin(); i != map.end(); i++) {
-			json.insert(i->first, i->second ? i->second->toJson() : Json());
+		for (auto& i : map) {
+			json.insert(i.first, i.second ? i.second->toJson() : Json());
 		}
 	}
 
