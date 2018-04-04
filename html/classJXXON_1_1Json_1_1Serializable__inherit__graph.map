@@ -1,0 +1,4 @@
+<map id="JXXON::Json::Serializable" name="JXXON::Json::Serializable">
+<area shape="rect" id="node2" href="$classJXXON_1_1Json_1_1Array.html" title="Extension of Base&lt;T&gt; implementing JXXON::Serializable. Use alias templates JXXON::Vector and JXXON::L..." alt="" coords="5,80,148,121"/>
+<area shape="rect" id="node3" href="$classJXXON_1_1Json_1_1Map.html" title="Extension of Base&lt;std::string, T&gt; implementing JXXON::Serializable. Use alias templates JXXON::Map an..." alt="" coords="173,80,333,121"/>
+</map>
