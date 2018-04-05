@@ -16,7 +16,7 @@ JXXON does not expose any details of the encaplusalated JSON parsers/generators 
 
 Provide a common interface base class, which all serializable classes implement.
 
-Lacking such an interface, object mapper consumer classes supposed to handle more than one type would be forced to a non-polymorphic design, using non-virtual template member functions, or using member overloads. In any case, to drop all object oriented runtime flexibility.
+Lacking such an interface, object mapper consumer classes supposed to handle more than one type would be forced to a non-polymorphic design, using non-virtual template member functions, or using member overloads. In any case, to sacrifice all object oriented runtime flexibility.
 
 ### Concise handling of null values
 
