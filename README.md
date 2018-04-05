@@ -22,7 +22,7 @@ Lacking such an interface, object mapper consumer classes supposed to handle mor
 
 Throwing exceptions, when there is a null value somewhere in JSON input, is probably the least helpful thing to do. Null values are valid JSON, even when they occur as array elements.
 
-### Integrate C++ standard containers as transparently as possible and reasonable.
+### Integrate C++ standard containers as transparently as possible and reasonable
 
 C++ standard conainers should feel like first class citizens in JSON. Based on a little bit of [wrapping](https://github.com/jxx-project/Polymorphic).
 
