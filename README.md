@@ -10,7 +10,7 @@ Mapping C++ object hierarchies and containers to JSON documents. There are a cou
 
 ### Full encapsulation
 
-JXXON does not expose any details of the encaplusalated JSON parsers/generators to clients. Neither explicitly, nor via transitive inclusion.
+JXXON does not expose any details of the encapsulated JSON parsers/generators to clients. Neither explicitly, nor via transitive inclusion.
 
 ### Polymorphism-friendliness
 
