@@ -28,7 +28,7 @@ C++ standard conainers should feel like first class citizens in JSON. Based on a
 
 ### Thorough testing
 
-Not strictly a design goal, but best practice. A templatized test suite helps boosting code and branch coverage to amazing levels.
+Best practice rather than strictly a design goal. A templatized test suite helps boosting code and branch coverage to amazing levels.
 
 ## Example
 
@@ -56,6 +56,13 @@ struct SampleObject : public JXXON::Serializable
         std::string property;
 };
 ```
+
+## Modern C++ under the hood
+
+ * Template templates with parameter packs
+ * Smart pointers
+ * Lambda expressions
+ * Range loops
 
 ## See also
 
