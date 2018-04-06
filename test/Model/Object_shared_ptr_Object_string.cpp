@@ -11,6 +11,6 @@
 
 namespace Model {
 
-template class Object< std::shared_ptr< Object<std::string> > >;
+template class Object<std::shared_ptr<Object<std::string>>>;
 
 } // namespace Model

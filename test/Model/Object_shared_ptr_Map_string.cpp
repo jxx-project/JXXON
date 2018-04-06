@@ -12,6 +12,6 @@
 
 namespace Model {
 
-template class Object< std::shared_ptr< JXXON::Map<std::string> > >;
+template class Object<std::shared_ptr<JXXON::Map<std::string>>>;
 
 } // namespace Model

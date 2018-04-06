@@ -12,6 +12,6 @@
 
 namespace Model {
 
-template class Object< std::shared_ptr< JXXON::UnorderedMap<std::string> > >;
+template class Object<std::shared_ptr<JXXON::UnorderedMap<std::string>>>;
 
 } // namespace Model

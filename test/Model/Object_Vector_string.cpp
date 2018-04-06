@@ -11,6 +11,6 @@
 
 namespace Model {
 
-template class Object< JXXON::Vector<std::string> >;
+template class Object<JXXON::Vector<std::string>>;
 
 } // namespace Model

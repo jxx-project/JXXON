@@ -10,6 +10,6 @@
 
 namespace Model {
 
-template class Object< Object<std::string> >;
+template class Object<Object<std::string>>;
 
 } // namespace Model

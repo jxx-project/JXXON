@@ -10,6 +10,6 @@
 
 namespace Model {
 
-template class Object< std::shared_ptr<double> >;
+template class Object<std::shared_ptr<double>>;
 
 } // namespace Model

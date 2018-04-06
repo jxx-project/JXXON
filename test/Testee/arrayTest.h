@@ -35,7 +35,7 @@ int arrayTest(const std::string& arrayType)
 		"{\"a\":\"dummy\",\"b\":\"dummy\"}",
 		"[\"a\",\"b\",\"\"]").run() || failed;
 
-	failed = !Testee::ArrayTestSuite< ArrayType, std::shared_ptr<std::string> >(
+	failed = !Testee::ArrayTestSuite<ArrayType, std::shared_ptr<std::string>>(
 		arrayType,
 		"std::shared_ptr<std::string>",
 		"[\"a\",\"b\"]",
@@ -53,7 +53,7 @@ int arrayTest(const std::string& arrayType)
 		"{\"a\":-4711,\"b\":-4712}",
 		"[-4711,-4712,0]").run() || failed;
 
-	failed = !Testee::ArrayTestSuite< ArrayType, std::shared_ptr<int> >(
+	failed = !Testee::ArrayTestSuite<ArrayType, std::shared_ptr<int>>(
 		arrayType,
 		"std::shared_ptr<int>",
 		"[-4711,-4712]",
@@ -71,7 +71,7 @@ int arrayTest(const std::string& arrayType)
 		"{\"a\":4711,\"b\":4712}",
 		"[4711,4712,0]").run() || failed;
 
-	failed = !Testee::ArrayTestSuite< ArrayType, std::shared_ptr<unsigned int> >(
+	failed = !Testee::ArrayTestSuite<ArrayType, std::shared_ptr<unsigned int>>(
 		arrayType,
 		"std::shared_ptr<unsigned int>",
 		"[4711,4712]",
@@ -89,7 +89,7 @@ int arrayTest(const std::string& arrayType)
 		"{\"a\":-4711471147114711,\"b\":-4712471247124712}",
 		"[-4711471147114711,-4712471247124712,0]").run() || failed;
 
-	failed = !Testee::ArrayTestSuite< ArrayType, std::shared_ptr<std::int64_t> >(
+	failed = !Testee::ArrayTestSuite<ArrayType, std::shared_ptr<std::int64_t>>(
 		arrayType,
 		"std::shared_ptr<std::int64_t>",
 		"[-4711471147114711,-4712471247124712]",
@@ -107,7 +107,7 @@ int arrayTest(const std::string& arrayType)
 		"{\"a\":4711471147114711,\"b\":4712471247124712}",
 		"[4711471147114711,4712471247124712,0]").run() || failed;
 
-	failed = !Testee::ArrayTestSuite< ArrayType, std::shared_ptr<std::uint64_t> >(
+	failed = !Testee::ArrayTestSuite<ArrayType, std::shared_ptr<std::uint64_t>>(
 		arrayType,
 		"std::shared_ptr<std::uint64_t>",
 		"[4711471147114711,4712471247124712]",
@@ -125,7 +125,7 @@ int arrayTest(const std::string& arrayType)
 		"{\"a\":-4711471147114711,\"b\":-4712471247124712}",
 		"[-4711471147114711,-4712471247124712,0]").run() || failed;
 
-	failed = !Testee::ArrayTestSuite< ArrayType, std::shared_ptr<std::intmax_t> >(
+	failed = !Testee::ArrayTestSuite<ArrayType, std::shared_ptr<std::intmax_t>>(
 		arrayType,
 		"std::shared_ptr<std::intmax_t>",
 		"[-4711471147114711,-4712471247124712]",
@@ -143,7 +143,7 @@ int arrayTest(const std::string& arrayType)
 		"{\"a\":4711471147114711,\"b\":4712471247124712}",
 		"[4711471147114711,4712471247124712,0]").run() || failed;
 
-	failed = !Testee::ArrayTestSuite< ArrayType, std::shared_ptr<std::uintmax_t> >(
+	failed = !Testee::ArrayTestSuite<ArrayType, std::shared_ptr<std::uintmax_t>>(
 		arrayType,
 		"std::shared_ptr<std::uintmax_t>",
 		"[4711471147114711,4712471247124712]",
@@ -162,7 +162,7 @@ int arrayTest(const std::string& arrayType)
 		"[3.25,6.75,0.0]",
 		"[3.25,6.75,0]").run() || failed;
 
-	failed = !Testee::ArrayTestSuite< ArrayType, std::shared_ptr<float> >(
+	failed = !Testee::ArrayTestSuite<ArrayType, std::shared_ptr<float>>(
 		arrayType,
 		"std::shared_ptr<float>",
 		"[3.25,6.75]",
@@ -181,7 +181,7 @@ int arrayTest(const std::string& arrayType)
 		"[3.25,6.75,0.0]",
 		"[3.25,6.75,0]").run() || failed;
 
-	failed = !Testee::ArrayTestSuite< ArrayType, std::shared_ptr<double> >(
+	failed = !Testee::ArrayTestSuite<ArrayType, std::shared_ptr<double>>(
 		arrayType,
 		"std::shared_ptr<double>",
 		"[3.25,6.75]",
@@ -199,7 +199,7 @@ int arrayTest(const std::string& arrayType)
 		"{\"a\":true,\"b\":false}",
 		"[true,false,false]").run() || failed;
 
-	failed = !Testee::ArrayTestSuite< ArrayType, std::shared_ptr<bool> >(
+	failed = !Testee::ArrayTestSuite<ArrayType, std::shared_ptr<bool>>(
 		arrayType,
 		"std::shared_ptr<bool>",
 		"[true,false]",
@@ -208,7 +208,7 @@ int arrayTest(const std::string& arrayType)
 		"{\"a\":true,\"b\":false}",
 		"[true,false,null]").run() || failed;
 
-	failed = !Testee::ArrayTestSuite< ArrayType, Model::Object<std::string> >(
+	failed = !Testee::ArrayTestSuite<ArrayType, Model::Object<std::string>>(
 		arrayType,
 		"Model::Object<std::string>",
 		"[{\"value\":\"a\"},{\"value\":\"b\"}]",
@@ -217,7 +217,7 @@ int arrayTest(const std::string& arrayType)
 		"{\"a\":\"dummy\",\"b\":\"dummy\"}",
 		"[{\"value\":\"a\"},{\"value\":\"b\"},{\"value\":\"\"}]").run() || failed;
 
-	failed = !Testee::ArrayTestSuite< ArrayType, std::shared_ptr< Model::Object<std::string> > >(
+	failed = !Testee::ArrayTestSuite<ArrayType, std::shared_ptr< Model::Object<std::string>>>(
 		arrayType,
 		"std::shared_ptr<Model::Object<std::string>>",
 		"[{\"value\":\"a\"},{\"value\":\"b\"}]",
@@ -226,7 +226,7 @@ int arrayTest(const std::string& arrayType)
 		"{\"a\":\"dummy\",\"b\":\"dummy\"}",
 		"[{\"value\":\"a\"},{\"value\":\"b\"},null]").run() || failed;
 
-	failed = !Testee::ArrayTestSuite< ArrayType, JXXON::Vector<std::string> >(
+	failed = !Testee::ArrayTestSuite<ArrayType, JXXON::Vector<std::string>>(
 		arrayType,
 		"JXXON::Vector<std::string>",
 		"[[\"a\",\"b\"],[\"c\",\"d\"]]",
@@ -235,7 +235,7 @@ int arrayTest(const std::string& arrayType)
 		"{\"a\":\"dummy\",\"b\":\"dummy\"}",
 		"[[\"a\",\"b\"],[\"c\",\"d\"],[]]").run() || failed;
 
-	failed = !Testee::ArrayTestSuite< ArrayType, std::shared_ptr< JXXON::Vector<std::string> > >(
+	failed = !Testee::ArrayTestSuite<ArrayType, std::shared_ptr<JXXON::Vector<std::string>>>(
 		arrayType,
 		"std::shared_ptr<JXXON::Vector<std::string>>",
 		"[[\"a\",\"b\"],[\"c\",\"d\"]]",
@@ -244,7 +244,7 @@ int arrayTest(const std::string& arrayType)
 		"{\"a\":\"dummy\",\"b\":\"dummy\"}",
 		"[[\"a\",\"b\"],[\"c\",\"d\"],null]").run() || failed;
 
-	failed = !Testee::ArrayTestSuite< ArrayType, JXXON::List<std::string> >(
+	failed = !Testee::ArrayTestSuite<ArrayType, JXXON::List<std::string>>(
 		arrayType,
 		"JXXON::List<std::string>",
 		"[[\"a\",\"b\"],[\"c\",\"d\"]]",
@@ -253,7 +253,7 @@ int arrayTest(const std::string& arrayType)
 		"{\"a\":\"dummy\",\"b\":\"dummy\"}",
 		"[[\"a\",\"b\"],[\"c\",\"d\"],[]]").run() || failed;
 
-	failed = !Testee::ArrayTestSuite< ArrayType, std::shared_ptr< JXXON::List<std::string> > >(
+	failed = !Testee::ArrayTestSuite<ArrayType, std::shared_ptr<JXXON::List<std::string>>>(
 		arrayType,
 		"std::shared_ptr<JXXON::List<std::string>>",
 		"[[\"a\",\"b\"],[\"c\",\"d\"]]",
@@ -262,7 +262,7 @@ int arrayTest(const std::string& arrayType)
 		"{\"a\":\"dummy\",\"b\":\"dummy\"}",
 		"[[\"a\",\"b\"],[\"c\",\"d\"],null]").run() || failed;
 
-	failed = !Testee::ArrayTestSuite< ArrayType, JXXON::Map<std::string> >(
+	failed = !Testee::ArrayTestSuite<ArrayType, JXXON::Map<std::string>>(
 		arrayType,
 		"JXXON::Map<std::string>",
 		"[{\"value\":\"a\"},{\"value\":\"b\"}]",
@@ -271,7 +271,7 @@ int arrayTest(const std::string& arrayType)
 		"{\"a\":\"dummy\",\"b\":\"dummy\"}",
 		"[{\"value\":\"a\"},{\"value\":\"b\"},{}]").run() || failed;
 
-	failed = !Testee::ArrayTestSuite< ArrayType, std::shared_ptr< JXXON::Map<std::string> > >(
+	failed = !Testee::ArrayTestSuite<ArrayType, std::shared_ptr<JXXON::Map<std::string>>>(
 		arrayType,
 		"std::shared_ptr<JXXON::Map<std::string>>",
 		"[{\"value\":\"a\"},{\"value\":\"b\"}]",
@@ -280,7 +280,7 @@ int arrayTest(const std::string& arrayType)
 		"{\"a\":\"dummy\",\"b\":\"dummy\"}",
 		"[{\"value\":\"a\"},{\"value\":\"b\"},null]").run() || failed;
 
-	failed = !Testee::ArrayTestSuite< ArrayType, JXXON::UnorderedMap<std::string> >(
+	failed = !Testee::ArrayTestSuite<ArrayType, JXXON::UnorderedMap<std::string>>(
 		arrayType,
 		"JXXON::UnorderedMap<std::string>",
 		"[{\"value\":\"a\"},{\"value\":\"b\"}]",
@@ -289,7 +289,7 @@ int arrayTest(const std::string& arrayType)
 		"{\"a\":\"dummy\",\"b\":\"dummy\"}",
 		"[{\"value\":\"a\"},{\"value\":\"b\"},{}]").run() || failed;
 
-	failed = !Testee::ArrayTestSuite< ArrayType, std::shared_ptr< JXXON::UnorderedMap<std::string> > >(
+	failed = !Testee::ArrayTestSuite<ArrayType, std::shared_ptr<JXXON::UnorderedMap<std::string>>>(
 		arrayType,
 		"std::shared_ptr<JXXON::UnorderedMap<std::string>>",
 		"[{\"value\":\"a\"},{\"value\":\"b\"}]",

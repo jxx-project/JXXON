@@ -35,7 +35,7 @@ int mapTest(const std::string& mapType)
 		"[\"dummy\"]",
 		"{\"key\":\"\"}").run() || failed;
 
-	failed = !Testee::MapTestSuite< MapType, std::shared_ptr<std::string> >(
+	failed = !Testee::MapTestSuite<MapType, std::shared_ptr<std::string>>(
 		mapType,
 		"std::shared_ptr<std::string>",
 		"{\"key\":\"dummy\"}",
@@ -53,7 +53,7 @@ int mapTest(const std::string& mapType)
 		"[-4711]",
 		"{\"key\":0}").run() || failed;
 
-	failed = !Testee::MapTestSuite< MapType, std::shared_ptr<int> >(
+	failed = !Testee::MapTestSuite<MapType, std::shared_ptr<int>>(
 		mapType,
 		"std::shared_ptr<int>",
 		"{\"key\":-4711}",
@@ -71,7 +71,7 @@ int mapTest(const std::string& mapType)
 		"[4711]",
 		"{\"key\":0}").run() || failed;
 
-	failed = !Testee::MapTestSuite< MapType, std::shared_ptr<unsigned int> >(
+	failed = !Testee::MapTestSuite<MapType, std::shared_ptr<unsigned int>>(
 		mapType,
 		"std::shared_ptr<unsigned int>",
 		"{\"key\":4711}",
@@ -89,7 +89,7 @@ int mapTest(const std::string& mapType)
 		"[-4711471147114711]",
 		"{\"key\":0}").run() || failed;
 
-	failed = !Testee::MapTestSuite< MapType, std::shared_ptr<std::int64_t> >(
+	failed = !Testee::MapTestSuite<MapType, std::shared_ptr<std::int64_t>>(
 		mapType,
 		"std::shared_ptr<std::int64_t>",
 		"{\"key\":-4711471147114711}",
@@ -107,7 +107,7 @@ int mapTest(const std::string& mapType)
 		"[4711471147114711]",
 		"{\"key\":0}").run() || failed;
 
-	failed = !Testee::MapTestSuite< MapType, std::shared_ptr<std::uint64_t> >(
+	failed = !Testee::MapTestSuite<MapType, std::shared_ptr<std::uint64_t>>(
 		mapType,
 		"std::shared_ptr<std::uint64_t>",
 		"{\"key\":4711471147114711}",
@@ -125,7 +125,7 @@ int mapTest(const std::string& mapType)
 		"[-4711471147114711]",
 		"{\"key\":0}").run() || failed;
 
-	failed = !Testee::MapTestSuite< MapType, std::shared_ptr<std::intmax_t> >(
+	failed = !Testee::MapTestSuite<MapType, std::shared_ptr<std::intmax_t>>(
 		mapType,
 		"std::shared_ptr<std::intmax_t>",
 		"{\"key\":-4711471147114711}",
@@ -143,7 +143,7 @@ int mapTest(const std::string& mapType)
 		"[4711471147114711]",
 		"{\"key\":0}").run() || failed;
 
-	failed = !Testee::MapTestSuite< MapType, std::shared_ptr<std::uintmax_t> >(
+	failed = !Testee::MapTestSuite<MapType, std::shared_ptr<std::uintmax_t>>(
 		mapType,
 		"std::shared_ptr<std::uintmax_t>",
 		"{\"key\":4711471147114711}",
@@ -162,7 +162,7 @@ int mapTest(const std::string& mapType)
 		"{\"key\":0.0}",
 		"{\"key\":0}").run() || failed;
 
-	failed = !Testee::MapTestSuite< MapType, std::shared_ptr<float> >(
+	failed = !Testee::MapTestSuite<MapType, std::shared_ptr<float>>(
 		mapType,
 		"std::shared_ptr<float>",
 		"{\"key\":3.25}",
@@ -181,7 +181,7 @@ int mapTest(const std::string& mapType)
 		"{\"key\":0.0}",
 		"{\"key\":0}").run() || failed;
 
-	failed = !Testee::MapTestSuite< MapType, std::shared_ptr<double> >(
+	failed = !Testee::MapTestSuite<MapType, std::shared_ptr<double>>(
 		mapType,
 		"std::shared_ptr<double>",
 		"{\"key\":3.25}",
@@ -199,7 +199,7 @@ int mapTest(const std::string& mapType)
 		"[true]",
 		"{\"key\":false}").run() || failed;
 
-	failed = !Testee::MapTestSuite< MapType, std::shared_ptr<bool> >(
+	failed = !Testee::MapTestSuite<MapType, std::shared_ptr<bool>>(
 		mapType,
 		"std::shared_ptr<bool>",
 		"{\"key\":true}",
@@ -208,7 +208,7 @@ int mapTest(const std::string& mapType)
 		"[true]",
 		"{\"key\":null}").run() || failed;
 
-	failed = !Testee::MapTestSuite< MapType, Model::Object<std::string> >(
+	failed = !Testee::MapTestSuite<MapType, Model::Object<std::string>>(
 		mapType,
 		"Model::Object<std::string>",
 		"{\"key\":{\"value\":\"dummy\"}}",
@@ -217,7 +217,7 @@ int mapTest(const std::string& mapType)
 		"[{\"value\":\"dummy\"}]",
 		"{\"key\":{\"value\":\"\"}}").run() || failed;
 
-	failed = !Testee::MapTestSuite< MapType, std::shared_ptr< Model::Object<std::string> > >(
+	failed = !Testee::MapTestSuite<MapType, std::shared_ptr< Model::Object<std::string>>>(
 		mapType,
 		"std::shared_ptr<Model::Object<std::string>>",
 		"{\"key\":{\"value\":\"dummy\"}}",
@@ -226,7 +226,7 @@ int mapTest(const std::string& mapType)
 		"[{\"value\":\"dummy\"}]",
 		"{\"key\":null}").run() || failed;
 
-	failed = !Testee::MapTestSuite< MapType, JXXON::Vector<std::string> >(
+	failed = !Testee::MapTestSuite<MapType, JXXON::Vector<std::string>>(
 		mapType,
 		"JXXON::Vector<std::string>",
 		"{\"key\":[\"a\",\"b\"]}",
@@ -235,7 +235,7 @@ int mapTest(const std::string& mapType)
 		"[{\"value\":[\"a\",\"b\"]}]",
 		"{\"key\":[]}").run() || failed;
 
-	failed = !Testee::MapTestSuite< MapType, std::shared_ptr< JXXON::Vector<std::string> > >(
+	failed = !Testee::MapTestSuite<MapType, std::shared_ptr<JXXON::Vector<std::string>>>(
 		mapType,
 		"std::shared_ptr<JXXON::Vector<std::string>>",
 		"{\"key\":[\"a\",\"b\"]}",
@@ -244,7 +244,7 @@ int mapTest(const std::string& mapType)
 		"[{\"value\":[\"a\",\"b\"]}]",
 		"{\"key\":null}").run() || failed;
 
-	failed = !Testee::MapTestSuite< MapType, JXXON::List<std::string> >(
+	failed = !Testee::MapTestSuite<MapType, JXXON::List<std::string>>(
 		mapType,
 		"JXXON::List<std::string>",
 		"{\"key\":[\"a\",\"b\"]}",
@@ -253,7 +253,7 @@ int mapTest(const std::string& mapType)
 		"[{\"value\":[\"a\",\"b\"]}]",
 		"{\"key\":[]}").run() || failed;
 
-	failed = !Testee::MapTestSuite< MapType, std::shared_ptr< JXXON::List<std::string> > >(
+	failed = !Testee::MapTestSuite<MapType, std::shared_ptr<JXXON::List<std::string>>>(
 		mapType,
 		"std::shared_ptr<JXXON::List<std::string>>",
 		"{\"key\":[\"a\",\"b\"]}",
@@ -262,7 +262,7 @@ int mapTest(const std::string& mapType)
 		"[{\"value\":[\"a\",\"b\"]}]",
 		"{\"key\":null}").run() || failed;
 
-	failed = !Testee::MapTestSuite< MapType, JXXON::Map<std::string> >(
+	failed = !Testee::MapTestSuite<MapType, JXXON::Map<std::string>>(
 		mapType,
 		"JXXON::Map<std::string>",
 		"{\"key\":{\"key\":\"dummy\"}}",
@@ -271,7 +271,7 @@ int mapTest(const std::string& mapType)
 		"[{\"key\":\"dummy\"}]",
 		"{\"key\":{}}").run() || failed;
 
-	failed = !Testee::MapTestSuite< MapType, std::shared_ptr< JXXON::Map<std::string> > >(
+	failed = !Testee::MapTestSuite<MapType, std::shared_ptr<JXXON::Map<std::string>>>(
 		mapType,
 		"std::shared_ptr<JXXON::Map<std::string>>",
 		"{\"key\":{\"key\":\"dummy\"}}",
@@ -280,7 +280,7 @@ int mapTest(const std::string& mapType)
 		"[{\"key\":\"dummy\"}]",
 		"{\"key\":null}").run() || failed;
 
-	failed = !Testee::MapTestSuite< MapType, JXXON::UnorderedMap<std::string> >(
+	failed = !Testee::MapTestSuite<MapType, JXXON::UnorderedMap<std::string>>(
 		mapType,
 		"JXXON::UnorderedMap<std::string>",
 		"{\"key\":{\"key\":\"dummy\"}}",
@@ -289,7 +289,7 @@ int mapTest(const std::string& mapType)
 		"[{\"key\":\"dummy\"}]",
 		"{\"key\":{}}").run() || failed;
 
-	failed = !Testee::MapTestSuite< MapType, std::shared_ptr< JXXON::UnorderedMap<std::string> > >(
+	failed = !Testee::MapTestSuite<MapType, std::shared_ptr<JXXON::UnorderedMap<std::string>>>(
 		mapType,
 		"std::shared_ptr<JXXON::UnorderedMap<std::string>>",
 		"{\"key\":{\"key\":\"dummy\"}}",
