@@ -12,13 +12,13 @@ namespace JXXON {
 namespace Accessor {
 
 template<typename T, template<typename...> class Base>
-SetMapElements<T, Base, typename std::enable_if<!std::is_base_of<Json::Serializable, T>::value && !std::is_convertible< T, std::shared_ptr<Json::Serializable> >::value>::type>::SetMapElements(Json& json) : json(json)
+SetMapElements<T, Base, typename std::enable_if<!std::is_base_of<Json::Serializable, T>::value && !std::is_convertible<T, std::shared_ptr<Json::Serializable>>::value>::type>::SetMapElements(Json& json) : json(json)
 {
 	json.setTypeObject();
 }
 
 template<typename T, template<typename...> class Base>
-void SetMapElements<T, Base, typename std::enable_if<!std::is_base_of<Json::Serializable, T>::value && !std::is_convertible< T, std::shared_ptr<Json::Serializable> >::value>::type>::operator()(const Base<std::string, T>& map)
+void SetMapElements<T, Base, typename std::enable_if<!std::is_base_of<Json::Serializable, T>::value && !std::is_convertible<T, std::shared_ptr<Json::Serializable>>::value>::type>::operator()(const Base<std::string, T>& map)
 {
 	for (const auto& i : map) {
 		json.pimpl->getObject().set(i.first, Poco::Dynamic::Var(i.second));

@@ -16,13 +16,13 @@ namespace JXXON {
 namespace Accessor {
 
 template<typename T, template<typename...> class Base>
-SetMapElements<T, Base, typename std::enable_if<!std::is_base_of<Json::Serializable, T>::value && !std::is_convertible< T, std::shared_ptr<Json::Serializable> >::value>::type>::SetMapElements(Json& json) : json(json)
+SetMapElements<T, Base, typename std::enable_if<!std::is_base_of<Json::Serializable, T>::value && !std::is_convertible<T, std::shared_ptr<Json::Serializable>>::value>::type>::SetMapElements(Json& json) : json(json)
 {
 	json.setTypeObject();
 }
 
 template<typename T, template<typename...> class Base>
-void SetMapElements<T, Base, typename std::enable_if<!std::is_base_of<Json::Serializable, T>::value && !std::is_convertible< T, std::shared_ptr<Json::Serializable> >::value>::type>::operator()(const Base<std::string, T>& map)
+void SetMapElements<T, Base, typename std::enable_if<!std::is_base_of<Json::Serializable, T>::value && !std::is_convertible<T, std::shared_ptr<Json::Serializable>>::value>::type>::operator()(const Base<std::string, T>& map)
 {
 	for (const auto& i : map) {
 		json.pimpl->value[i.first] = i.second;
@@ -54,13 +54,13 @@ namespace JXXON {
 namespace Accessor {
 
 template<typename T, template<typename...> class Base>
-SetMapElements<T, Base, typename std::enable_if<!std::is_base_of<Json::Serializable, T>::value && !std::is_convertible< T, std::shared_ptr<Json::Serializable> >::value>::type>::SetMapElements(Json& json) : json(json)
+SetMapElements<T, Base, typename std::enable_if<!std::is_base_of<Json::Serializable, T>::value && !std::is_convertible<T, std::shared_ptr<Json::Serializable>>::value>::type>::SetMapElements(Json& json) : json(json)
 {
 	json.setTypeObject();
 }
 
 template<typename T, template<typename...> class Base>
-void SetMapElements<T, Base, typename std::enable_if<!std::is_base_of<Json::Serializable, T>::value && !std::is_convertible< T, std::shared_ptr<Json::Serializable> >::value>::type>::operator()(const Base<std::string, T>& map)
+void SetMapElements<T, Base, typename std::enable_if<!std::is_base_of<Json::Serializable, T>::value && !std::is_convertible<T, std::shared_ptr<Json::Serializable>>::value>::type>::operator()(const Base<std::string, T>& map)
 {
 	for (const auto& i : map) {
 		json.pimpl->value[i.first] = i.second ? *i.second : ::Json::Value::null;
@@ -107,7 +107,7 @@ EOF
 function SetMapElements_shared_ptr_CPP {
 cat << EOF | sed "s/{{BASE}}/$1/g" | sed "s/{{ELEMENT_TYPE}}/$2/g"
 template SetMapElements<std::shared_ptr<{{ELEMENT_TYPE}}>, Polymorphic::{{BASE}}>::SetMapElements(Json& json);
-template void SetMapElements<std::shared_ptr<{{ELEMENT_TYPE}}>, Polymorphic::{{BASE}}>::operator()(const Polymorphic::{{BASE}}< std::string, std::shared_ptr<{{ELEMENT_TYPE}}> >& map);
+template void SetMapElements<std::shared_ptr<{{ELEMENT_TYPE}}>, Polymorphic::{{BASE}}>::operator()(const Polymorphic::{{BASE}}<std::string, std::shared_ptr<{{ELEMENT_TYPE}}>>& map);
 EOF
 }
 

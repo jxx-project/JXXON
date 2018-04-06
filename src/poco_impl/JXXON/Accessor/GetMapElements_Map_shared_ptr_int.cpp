@@ -15,16 +15,16 @@ namespace JXXON {
 namespace Accessor {
 
 template GetMapElements<std::shared_ptr<int>, Polymorphic::Map>::GetMapElements(const Json& json);
-template void GetMapElements<std::shared_ptr<int>, Polymorphic::Map>::operator()(Polymorphic::Map< std::string, std::shared_ptr<int> >& map) const;
+template void GetMapElements<std::shared_ptr<int>, Polymorphic::Map>::operator()(Polymorphic::Map<std::string, std::shared_ptr<int>>& map) const;
 
 #if _SIZEOF_INT64_T != _SIZEOF_INT
 template GetMapElements<std::shared_ptr<std::int64_t>, Polymorphic::Map>::GetMapElements(const Json& json);
-template void GetMapElements<std::shared_ptr<std::int64_t>, Polymorphic::Map>::operator()(Polymorphic::Map< std::string, std::shared_ptr<std::int64_t> >& map) const;
+template void GetMapElements<std::shared_ptr<std::int64_t>, Polymorphic::Map>::operator()(Polymorphic::Map<std::string, std::shared_ptr<std::int64_t>>& map) const;
 #endif
 
 #if _SIZEOF_INTMAX_T != _SIZEOF_INT && _SIZEOF_INTMAX_T != _SIZEOF_INT64_T
 template GetMapElements<std::shared_ptr<std::intmax_t>, Polymorphic::Map>::GetMapElements(const Json& json);
-template void GetMapElements<std::shared_ptr<std::intmax_t>, Polymorphic::Map>::operator()(Polymorphic::Map< std::string, std::shared_ptr<std::intmax_t> >& map) const;
+template void GetMapElements<std::shared_ptr<std::intmax_t>, Polymorphic::Map>::operator()(Polymorphic::Map<std::string, std::shared_ptr<std::intmax_t>>& map) const;
 #endif
 
 } // namespace Accessor

@@ -20,13 +20,13 @@ GetMapElements<std::shared_ptr<unsigned int>, Polymorphic::Map>::GetMapElements(
 }
 
 template<>
-void GetMapElements<std::shared_ptr<unsigned int>, Polymorphic::Map>::operator()(Polymorphic::Map< std::string, std::shared_ptr<unsigned int> >& map) const
+void GetMapElements<std::shared_ptr<unsigned int>, Polymorphic::Map>::operator()(Polymorphic::Map<std::string, std::shared_ptr<unsigned int>>& map) const
 {
 	populateMap<std::shared_ptr<unsigned int>, Polymorphic::Map>(map, json.pimpl->value, [](const ::Json::Value::const_iterator& i){return i->asUInt();});
 }
 
 template GetMapElements<std::shared_ptr<unsigned int>, Polymorphic::Map>::GetMapElements(const Json& json);
-template void GetMapElements<std::shared_ptr<unsigned int>, Polymorphic::Map>::operator()(Polymorphic::Map< std::string, std::shared_ptr<unsigned int> >& map) const;
+template void GetMapElements<std::shared_ptr<unsigned int>, Polymorphic::Map>::operator()(Polymorphic::Map<std::string, std::shared_ptr<unsigned int>>& map) const;
 
 #if _SIZEOF_UINT64_T != _SIZEOF_UNSIGNED_INT
 template<>
@@ -35,13 +35,13 @@ GetMapElements<std::shared_ptr<std::uint64_t>, Polymorphic::Map>::GetMapElements
 }
 
 template<>
-void GetMapElements<std::shared_ptr<std::uint64_t>, Polymorphic::Map>::operator()(Polymorphic::Map< std::string, std::shared_ptr<std::uint64_t> >& map) const
+void GetMapElements<std::shared_ptr<std::uint64_t>, Polymorphic::Map>::operator()(Polymorphic::Map<std::string, std::shared_ptr<std::uint64_t>>& map) const
 {
 	populateMap<std::shared_ptr<std::uint64_t>, Polymorphic::Map>(map, json.pimpl->value, [](const ::Json::Value::const_iterator& i){return i->asUInt64();});
 }
 
 template GetMapElements<std::shared_ptr<std::uint64_t>, Polymorphic::Map>::GetMapElements(const Json& json);
-template void GetMapElements<std::shared_ptr<std::uint64_t>, Polymorphic::Map>::operator()(Polymorphic::Map< std::string, std::shared_ptr<std::uint64_t> >& map) const;
+template void GetMapElements<std::shared_ptr<std::uint64_t>, Polymorphic::Map>::operator()(Polymorphic::Map<std::string, std::shared_ptr<std::uint64_t>>& map) const;
 #endif
 
 #if _SIZEOF_UINTMAX_T != _SIZEOF_UNSIGNED_INT && _SIZEOF_UINTMAX_T != _SIZEOF_UINT64_T
@@ -51,13 +51,13 @@ GetMapElements<std::shared_ptr<std::uintmax_t>, Polymorphic::Map>::GetMapElement
 }
 
 template<>
-void GetMapElements<std::shared_ptr<std::uintmax_t>, Polymorphic::Map>::operator()(Polymorphic::Map< std::string, std::shared_ptr<std::uintmax_t> >& map) const
+void GetMapElements<std::shared_ptr<std::uintmax_t>, Polymorphic::Map>::operator()(Polymorphic::Map<std::string, std::shared_ptr<std::uintmax_t>>& map) const
 {
 	populateMap<std::shared_ptr<std::uintmax_t>, Polymorphic::Map>(map, json.pimpl->value, [](const ::Json::Value::const_iterator& i){return i->asLargestUInt();});
 }
 
 template GetMapElements<std::shared_ptr<std::uintmax_t>, Polymorphic::Map>::GetMapElements(const Json& json);
-template void GetMapElements<std::shared_ptr<std::uintmax_t>, Polymorphic::Map>::operator()(Polymorphic::Map< std::string, std::shared_ptr<std::uintmax_t> >& map) const;
+template void GetMapElements<std::shared_ptr<std::uintmax_t>, Polymorphic::Map>::operator()(Polymorphic::Map<std::string, std::shared_ptr<std::uintmax_t>>& map) const;
 #endif
 
 } // namespace Accessor

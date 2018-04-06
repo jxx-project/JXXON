@@ -14,7 +14,7 @@ namespace JXXON {
 namespace Accessor {
 
 template<>
-std::shared_ptr<std::string> GetProperty< std::shared_ptr<std::string> >::operator()() const
+std::shared_ptr<std::string> GetProperty<std::shared_ptr<std::string>>::operator()() const
 {
 	if (json.pimpl) {
 		try {
@@ -29,8 +29,8 @@ std::shared_ptr<std::string> GetProperty< std::shared_ptr<std::string> >::operat
 	return nullptr;
 }
 
-template GetProperty< std::shared_ptr<std::string> >::GetProperty(const Json& json, const std::string& name);
-template std::shared_ptr<std::string> GetProperty< std::shared_ptr<std::string> >::operator()() const;
+template GetProperty<std::shared_ptr<std::string>>::GetProperty(const Json& json, const std::string& name);
+template std::shared_ptr<std::string> GetProperty<std::shared_ptr<std::string>>::operator()() const;
 
 } // namespace Accessor
 } // namespace JXXON

@@ -14,18 +14,18 @@ namespace JXXON {
 namespace Accessor {
 
 template<>
-GetProperty< std::shared_ptr<std::string> >::GetProperty(const Json& json, const std::string& name) : json(json), name(name)
+GetProperty<std::shared_ptr<std::string>>::GetProperty(const Json& json, const std::string& name) : json(json), name(name)
 {
 }
 
 template<>
-std::shared_ptr<std::string> GetProperty< std::shared_ptr<std::string> >::operator()() const
+std::shared_ptr<std::string> GetProperty<std::shared_ptr<std::string>>::operator()() const
 {
-	return getChild< std::shared_ptr<std::string> >(json.pimpl->value, name, [](const ::Json::Value& value){return value.asString();});
+	return getChild<std::shared_ptr<std::string>>(json.pimpl->value, name, [](const ::Json::Value& value){return value.asString();});
 }
 
-template GetProperty< std::shared_ptr<std::string> >::GetProperty(const Json& json, const std::string& name);
-template std::shared_ptr<std::string> GetProperty< std::shared_ptr<std::string> >::operator()() const;
+template GetProperty<std::shared_ptr<std::string>>::GetProperty(const Json& json, const std::string& name);
+template std::shared_ptr<std::string> GetProperty<std::shared_ptr<std::string>>::operator()() const;
 
 } // namespace Accessor
 } // namespace JXXON

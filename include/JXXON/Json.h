@@ -79,7 +79,7 @@ public:
 	};
 
 	/// Extension of Base<T> implementing JXXON::Serializable. Use alias templates JXXON::Vector and JXXON::List for referring actual instantiations.
-	template< typename T, template<typename...> class Base >
+	template<typename T, template<typename...> class Base>
 	class Array : public Base<T>, public Serializable
 	{
 	public:
@@ -151,7 +151,7 @@ public:
 	};
 
 	/// Extension of Base<std::string, T> implementing JXXON::Serializable. Use alias templates JXXON::Map and JXXON::UnorderedMap for referring actual instantiations.
-	template <typename T, template<typename...> class Base >
+	template <typename T, template<typename...> class Base>
 	class Map : public Base<std::string, T>, public Serializable
 	{
 	public:
@@ -177,7 +177,7 @@ public:
 		}
 
 		/// Initializer list constructor.
-		Map(std::initializer_list< std::pair<const std::string, T> > initializerList) : Base<std::string, T>(initializerList)
+		Map(std::initializer_list<std::pair<const std::string, T>> initializerList) : Base<std::string, T>(initializerList)
 		{
 		}
 
@@ -311,7 +311,7 @@ private:
 };
 
 template<typename T>
-class GetProperty<T, typename std::enable_if<std::is_convertible< T, std::shared_ptr<Json::Serializable> >::value>::type>
+class GetProperty<T, typename std::enable_if<std::is_convertible<T, std::shared_ptr<Json::Serializable>>::value>::type>
 {
 public:
 	GetProperty(const Json& json, const std::string& name) : json(json), name(name)
@@ -349,7 +349,7 @@ private:
 };
 
 template<typename T>
-class SetProperty<T, typename std::enable_if<std::is_convertible< T, std::shared_ptr<Json::Serializable> >::value>::type>
+class SetProperty<T, typename std::enable_if<std::is_convertible<T, std::shared_ptr<Json::Serializable>>::value>::type>
 {
 public:
 	SetProperty(Json& json, const std::string& name) : json(json), name(name)
@@ -370,7 +370,7 @@ private:
 };
 
 template<typename T>
-class GetProperty<T, typename std::enable_if<!std::is_base_of<Json::Serializable, T>::value && !std::is_convertible< T, std::shared_ptr<Json::Serializable> >::value>::type>
+class GetProperty<T, typename std::enable_if<!std::is_base_of<Json::Serializable, T>::value && !std::is_convertible<T, std::shared_ptr<Json::Serializable>>::value>::type>
 {
 public:
 	GetProperty(const Json& json, const std::string& name);
@@ -383,7 +383,7 @@ private:
 };
 
 template<typename T>
-class SetProperty<T, typename std::enable_if<!std::is_base_of<Json::Serializable, T>::value && !std::is_convertible< T, std::shared_ptr<Json::Serializable> >::value>::type>
+class SetProperty<T, typename std::enable_if<!std::is_base_of<Json::Serializable, T>::value && !std::is_convertible<T, std::shared_ptr<Json::Serializable>>::value>::type>
 {
 public:
 	SetProperty(Json& json, const std::string& name);
@@ -413,7 +413,7 @@ private:
 };
 
 template<typename T, template<typename...> class Base>
-class GetArrayElements<T, Base, typename std::enable_if<std::is_convertible< T, std::shared_ptr<Json::Serializable> >::value>::type>
+class GetArrayElements<T, Base, typename std::enable_if<std::is_convertible<T, std::shared_ptr<Json::Serializable>>::value>::type>
 {
 public:
 	GetArrayElements(const Json& json) : json(json)
@@ -450,7 +450,7 @@ private:
 };
 
 template<typename T, template<typename...> class Base>
-class SetArrayElements<T, Base, typename std::enable_if<std::is_convertible< T, std::shared_ptr<Json::Serializable> >::value>::type>
+class SetArrayElements<T, Base, typename std::enable_if<std::is_convertible<T, std::shared_ptr<Json::Serializable>>::value>::type>
 {
 public:
 	SetArrayElements(Json& json) : json(json)
@@ -469,7 +469,7 @@ private:
 };
 
 template<typename T, template<typename...> class Base>
-class GetArrayElements<T, Base, typename std::enable_if<!std::is_base_of<Json::Serializable, T>::value && !std::is_convertible< T, std::shared_ptr<Json::Serializable> >::value>::type>
+class GetArrayElements<T, Base, typename std::enable_if<!std::is_base_of<Json::Serializable, T>::value && !std::is_convertible<T, std::shared_ptr<Json::Serializable>>::value>::type>
 {
 public:
 	GetArrayElements(const Json& json);
@@ -480,7 +480,7 @@ private:
 };
 
 template<typename T, template<typename...> class Base>
-class SetArrayElements<T, Base, typename std::enable_if<!std::is_base_of<Json::Serializable, T>::value && !std::is_convertible< T, std::shared_ptr<Json::Serializable> >::value>::type>
+class SetArrayElements<T, Base, typename std::enable_if<!std::is_base_of<Json::Serializable, T>::value && !std::is_convertible<T, std::shared_ptr<Json::Serializable>>::value>::type>
 {
 public:
 	SetArrayElements(Json& json);
@@ -509,7 +509,7 @@ private:
 };
 
 template<typename T, template<typename...> class Base>
-class GetMapElements<T, Base, typename std::enable_if<std::is_convertible< T, std::shared_ptr<Json::Serializable> >::value>::type>
+class GetMapElements<T, Base, typename std::enable_if<std::is_convertible<T, std::shared_ptr<Json::Serializable>>::value>::type>
 {
 public:
 	GetMapElements(const Json& json) : json(json)
@@ -547,7 +547,7 @@ private:
 };
 
 template<typename T, template<typename...> class Base>
-class SetMapElements<T, Base, typename std::enable_if<std::is_convertible< T, std::shared_ptr<Json::Serializable> >::value>::type>
+class SetMapElements<T, Base, typename std::enable_if<std::is_convertible<T, std::shared_ptr<Json::Serializable>>::value>::type>
 {
 public:
 	SetMapElements(Json& json) : json(json)
@@ -567,7 +567,7 @@ private:
 };
 
 template<typename T, template<typename...> class Base>
-class GetMapElements<T, Base, typename std::enable_if<!std::is_base_of<Json::Serializable, T>::value && !std::is_convertible< T, std::shared_ptr<Json::Serializable> >::value>::type>
+class GetMapElements<T, Base, typename std::enable_if<!std::is_base_of<Json::Serializable, T>::value && !std::is_convertible<T, std::shared_ptr<Json::Serializable>>::value>::type>
 {
 public:
 	GetMapElements(const Json& json);
@@ -578,7 +578,7 @@ private:
 };
 
 template<typename T, template<typename...> class Base>
-class SetMapElements<T, Base, typename std::enable_if<!std::is_base_of<Json::Serializable, T>::value && !std::is_convertible< T, std::shared_ptr<Json::Serializable> >::value>::type>
+class SetMapElements<T, Base, typename std::enable_if<!std::is_base_of<Json::Serializable, T>::value && !std::is_convertible<T, std::shared_ptr<Json::Serializable>>::value>::type>
 {
 public:
 	SetMapElements(Json& json);

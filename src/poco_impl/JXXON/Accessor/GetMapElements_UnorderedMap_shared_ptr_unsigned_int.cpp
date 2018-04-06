@@ -15,16 +15,16 @@ namespace JXXON {
 namespace Accessor {
 
 template GetMapElements<std::shared_ptr<unsigned int>, Polymorphic::UnorderedMap>::GetMapElements(const Json& json);
-template void GetMapElements<std::shared_ptr<unsigned int>, Polymorphic::UnorderedMap>::operator()(Polymorphic::UnorderedMap< std::string, std::shared_ptr<unsigned int> >& map) const;
+template void GetMapElements<std::shared_ptr<unsigned int>, Polymorphic::UnorderedMap>::operator()(Polymorphic::UnorderedMap<std::string, std::shared_ptr<unsigned int>>& map) const;
 
 #if _SIZEOF_UINT64_T != _SIZEOF_UNSIGNED_INT
 template GetMapElements<std::shared_ptr<std::uint64_t>, Polymorphic::UnorderedMap>::GetMapElements(const Json& json);
-template void GetMapElements<std::shared_ptr<std::uint64_t>, Polymorphic::UnorderedMap>::operator()(Polymorphic::UnorderedMap< std::string, std::shared_ptr<std::uint64_t> >& map) const;
+template void GetMapElements<std::shared_ptr<std::uint64_t>, Polymorphic::UnorderedMap>::operator()(Polymorphic::UnorderedMap<std::string, std::shared_ptr<std::uint64_t>>& map) const;
 #endif
 
 #if _SIZEOF_UINTMAX_T != _SIZEOF_UNSIGNED_INT && _SIZEOF_UINTMAX_T != _SIZEOF_UINT64_T
 template GetMapElements<std::shared_ptr<std::uintmax_t>, Polymorphic::UnorderedMap>::GetMapElements(const Json& json);
-template void GetMapElements<std::shared_ptr<std::uintmax_t>, Polymorphic::UnorderedMap>::operator()(Polymorphic::UnorderedMap< std::string, std::shared_ptr<std::uintmax_t> >& map) const;
+template void GetMapElements<std::shared_ptr<std::uintmax_t>, Polymorphic::UnorderedMap>::operator()(Polymorphic::UnorderedMap<std::string, std::shared_ptr<std::uintmax_t>>& map) const;
 #endif
 
 } // namespace Accessor

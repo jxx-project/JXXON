@@ -15,10 +15,10 @@ namespace JXXON {
 namespace Accessor {
 
 template SetArrayElements<std::shared_ptr<float>, Polymorphic::List>::SetArrayElements(Json& json);
-template void SetArrayElements<std::shared_ptr<float>, Polymorphic::List>::operator()(const Polymorphic::List< std::shared_ptr<float> >& array);
+template void SetArrayElements<std::shared_ptr<float>, Polymorphic::List>::operator()(const Polymorphic::List<std::shared_ptr<float>>& array);
 
 template SetArrayElements<std::shared_ptr<double>, Polymorphic::List>::SetArrayElements(Json& json);
-template void SetArrayElements<std::shared_ptr<double>, Polymorphic::List>::operator()(const Polymorphic::List< std::shared_ptr<double> >& array);
+template void SetArrayElements<std::shared_ptr<double>, Polymorphic::List>::operator()(const Polymorphic::List<std::shared_ptr<double>>& array);
 
 } // namespace Accessor
 } // namespace JXXON

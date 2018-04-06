@@ -12,13 +12,13 @@ namespace JXXON {
 namespace Accessor {
 
 template<typename T, template<typename...> class Base>
-SetArrayElements<T, Base, typename std::enable_if<!std::is_base_of<Json::Serializable, T>::value && !std::is_convertible< T, std::shared_ptr<Json::Serializable> >::value>::type>::SetArrayElements(Json& json) : json(json)
+SetArrayElements<T, Base, typename std::enable_if<!std::is_base_of<Json::Serializable, T>::value && !std::is_convertible<T, std::shared_ptr<Json::Serializable>>::value>::type>::SetArrayElements(Json& json) : json(json)
 {
 	json.setTypeArray();
 }
 
 template<typename T, template<typename...> class Base>
-void SetArrayElements<T, Base, typename std::enable_if<!std::is_base_of<Json::Serializable, T>::value && !std::is_convertible< T, std::shared_ptr<Json::Serializable> >::value>::type>::operator()(const Base<T>& array)
+void SetArrayElements<T, Base, typename std::enable_if<!std::is_base_of<Json::Serializable, T>::value && !std::is_convertible<T, std::shared_ptr<Json::Serializable>>::value>::type>::operator()(const Base<T>& array)
 {
 	for (const auto& i : array) {
 		json.pimpl->getArray().add(i ? Poco::Dynamic::Var(*i) : Poco::Dynamic::Var());

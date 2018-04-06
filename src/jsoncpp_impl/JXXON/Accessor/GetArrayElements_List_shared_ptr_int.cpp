@@ -20,13 +20,13 @@ GetArrayElements<std::shared_ptr<int>, Polymorphic::List>::GetArrayElements(cons
 }
 
 template<>
-void GetArrayElements<std::shared_ptr<int>, Polymorphic::List>::operator()(Polymorphic::List< std::shared_ptr<int> >& array) const
+void GetArrayElements<std::shared_ptr<int>, Polymorphic::List>::operator()(Polymorphic::List<std::shared_ptr<int>>& array) const
 {
 	populateArray<std::shared_ptr<int>, Polymorphic::List>(array, json.pimpl->value, [](const ::Json::Value& value){return value.asInt();});
 }
 
 template GetArrayElements<std::shared_ptr<int>, Polymorphic::List>::GetArrayElements(const Json& json);
-template void GetArrayElements<std::shared_ptr<int>, Polymorphic::List>::operator()(Polymorphic::List< std::shared_ptr<int> >& array) const;
+template void GetArrayElements<std::shared_ptr<int>, Polymorphic::List>::operator()(Polymorphic::List<std::shared_ptr<int>>& array) const;
 
 #if _SIZEOF_INT64_T != _SIZEOF_INT
 template<>
@@ -35,13 +35,13 @@ GetArrayElements<std::shared_ptr<std::int64_t>, Polymorphic::List>::GetArrayElem
 }
 
 template<>
-void GetArrayElements<std::shared_ptr<std::int64_t>, Polymorphic::List>::operator()(Polymorphic::List< std::shared_ptr<std::int64_t> >& array) const
+void GetArrayElements<std::shared_ptr<std::int64_t>, Polymorphic::List>::operator()(Polymorphic::List<std::shared_ptr<std::int64_t>>& array) const
 {
 	populateArray<std::shared_ptr<std::int64_t>, Polymorphic::List>(array, json.pimpl->value, [](const ::Json::Value& value){return value.asInt64();});
 }
 
 template GetArrayElements<std::shared_ptr<std::int64_t>, Polymorphic::List>::GetArrayElements(const Json& json);
-template void GetArrayElements<std::shared_ptr<std::int64_t>, Polymorphic::List>::operator()(Polymorphic::List< std::shared_ptr<std::int64_t> >& array) const;
+template void GetArrayElements<std::shared_ptr<std::int64_t>, Polymorphic::List>::operator()(Polymorphic::List<std::shared_ptr<std::int64_t>>& array) const;
 #endif
 
 #if _SIZEOF_INTMAX_T != _SIZEOF_INT && _SIZEOF_INTMAX_T != _SIZEOF_INT64_T
@@ -51,13 +51,13 @@ GetArrayElements<std::shared_ptr<std::intmax_t>, Polymorphic::List>::GetArrayEle
 }
 
 template<>
-void GetArrayElements<std::shared_ptr<std::intmax_t>, Polymorphic::List>::operator()(Polymorphic::List< std::shared_ptr<std::intmax_t> >& array) const
+void GetArrayElements<std::shared_ptr<std::intmax_t>, Polymorphic::List>::operator()(Polymorphic::List<std::shared_ptr<std::intmax_t>>& array) const
 {
 	populateArray<std::shared_ptr<std::intmax_t>, Polymorphic::List>(array, json.pimpl->value, [](const ::Json::Value& value){return value.asLargestInt();});
 }
 
 template GetArrayElements<std::shared_ptr<std::intmax_t>, Polymorphic::List>::GetArrayElements(const Json& json);
-template void GetArrayElements<std::shared_ptr<std::intmax_t>, Polymorphic::List>::operator()(Polymorphic::List< std::shared_ptr<std::intmax_t> >& array) const;
+template void GetArrayElements<std::shared_ptr<std::intmax_t>, Polymorphic::List>::operator()(Polymorphic::List<std::shared_ptr<std::intmax_t>>& array) const;
 #endif
 
 } // namespace Accessor

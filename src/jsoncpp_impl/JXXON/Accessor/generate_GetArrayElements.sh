@@ -137,13 +137,13 @@ GetArrayElements<std::shared_ptr<{{ELEMENT_TYPE}}>, Polymorphic::{{BASE}}>::GetA
 }
 
 template<>
-void GetArrayElements<std::shared_ptr<{{ELEMENT_TYPE}}>, Polymorphic::{{BASE}}>::operator()(Polymorphic::{{BASE}}< std::shared_ptr<{{ELEMENT_TYPE}}> >& array) const
+void GetArrayElements<std::shared_ptr<{{ELEMENT_TYPE}}>, Polymorphic::{{BASE}}>::operator()(Polymorphic::{{BASE}}<std::shared_ptr<{{ELEMENT_TYPE}}>>& array) const
 {
 	populateArray<std::shared_ptr<{{ELEMENT_TYPE}}>, Polymorphic::{{BASE}}>(array, json.pimpl->value, [](const ::Json::Value& value){return value.{{AS_TYPE}}();});
 }
 
 template GetArrayElements<std::shared_ptr<{{ELEMENT_TYPE}}>, Polymorphic::{{BASE}}>::GetArrayElements(const Json& json);
-template void GetArrayElements<std::shared_ptr<{{ELEMENT_TYPE}}>, Polymorphic::{{BASE}}>::operator()(Polymorphic::{{BASE}}< std::shared_ptr<{{ELEMENT_TYPE}}> >& array) const;
+template void GetArrayElements<std::shared_ptr<{{ELEMENT_TYPE}}>, Polymorphic::{{BASE}}>::operator()(Polymorphic::{{BASE}}<std::shared_ptr<{{ELEMENT_TYPE}}>>& array) const;
 EOF
 }
 

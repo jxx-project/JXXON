@@ -12,12 +12,12 @@ namespace JXXON {
 namespace Accessor {
 
 template<typename T, template<typename...> class Base>
-GetMapElements<T, Base, typename std::enable_if<!std::is_base_of<Json::Serializable, T>::value && !std::is_convertible< T, std::shared_ptr<Json::Serializable> >::value>::type>::GetMapElements(const Json& json) : json(json)
+GetMapElements<T, Base, typename std::enable_if<!std::is_base_of<Json::Serializable, T>::value && !std::is_convertible<T, std::shared_ptr<Json::Serializable>>::value>::type>::GetMapElements(const Json& json) : json(json)
 {
 }
 
 template<typename T, template<typename...> class Base>
-void GetMapElements<T, Base, typename std::enable_if<!std::is_base_of<Json::Serializable, T>::value && !std::is_convertible< T, std::shared_ptr<Json::Serializable> >::value>::type>::operator()(Base<std::string, T>& map) const
+void GetMapElements<T, Base, typename std::enable_if<!std::is_base_of<Json::Serializable, T>::value && !std::is_convertible<T, std::shared_ptr<Json::Serializable>>::value>::type>::operator()(Base<std::string, T>& map) const
 {
 	map.clear();
 	if (json.pimpl) {

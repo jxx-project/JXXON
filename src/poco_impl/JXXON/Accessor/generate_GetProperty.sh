@@ -16,12 +16,12 @@ namespace JXXON {
 namespace Accessor {
 
 template<typename T>
-GetProperty<T,  typename std::enable_if<!std::is_base_of<Json::Serializable, T>::value && !std::is_convertible< T, std::shared_ptr<Json::Serializable> >::value>::type>::GetProperty(const Json& json, const std::string& name) : json(json), name(name)
+GetProperty<T,  typename std::enable_if<!std::is_base_of<Json::Serializable, T>::value && !std::is_convertible<T, std::shared_ptr<Json::Serializable>>::value>::type>::GetProperty(const Json& json, const std::string& name) : json(json), name(name)
 {
 }
 
 template<typename T>
-T GetProperty<T,  typename std::enable_if<!std::is_base_of<Json::Serializable, T>::value && !std::is_convertible< T, std::shared_ptr<Json::Serializable> >::value>::type>::operator()() const
+T GetProperty<T,  typename std::enable_if<!std::is_base_of<Json::Serializable, T>::value && !std::is_convertible<T, std::shared_ptr<Json::Serializable>>::value>::type>::operator()() const
 {
 	if (json.pimpl) {
 		try {
@@ -61,12 +61,12 @@ namespace JXXON {
 namespace Accessor {
 
 template<typename T>
-GetProperty<T,  typename std::enable_if<!std::is_base_of<Json::Serializable, T>::value && !std::is_convertible< T, std::shared_ptr<Json::Serializable> >::value>::type>::GetProperty(const Json& json, const std::string& name) : json(json), name(name)
+GetProperty<T,  typename std::enable_if<!std::is_base_of<Json::Serializable, T>::value && !std::is_convertible<T, std::shared_ptr<Json::Serializable>>::value>::type>::GetProperty(const Json& json, const std::string& name) : json(json), name(name)
 {
 }
 
 template<typename T>
-T GetProperty<T,  typename std::enable_if<!std::is_base_of<Json::Serializable, T>::value && !std::is_convertible< T, std::shared_ptr<Json::Serializable> >::value>::type>::operator()() const
+T GetProperty<T,  typename std::enable_if<!std::is_base_of<Json::Serializable, T>::value && !std::is_convertible<T, std::shared_ptr<Json::Serializable>>::value>::type>::operator()() const
 {
 	if (json.pimpl) {
 		try {
@@ -114,7 +114,7 @@ EOF
 function GetProperty_shared_ptr_SPECIALIZATION {
 cat << EOF | sed "s/{{ELEMENT_TYPE}}/$1/g"
 template<>
-std::shared_ptr<{{ELEMENT_TYPE}}> GetProperty< std::shared_ptr<{{ELEMENT_TYPE}}> >::operator()() const
+std::shared_ptr<{{ELEMENT_TYPE}}> GetProperty<std::shared_ptr<{{ELEMENT_TYPE}}>>::operator()() const
 {
 	if (json.pimpl) {
 		try {
@@ -161,8 +161,8 @@ EOF
 
 function GetProperty_shared_ptr_CPP {
 cat << EOF | sed "s/{{ELEMENT_TYPE}}/$1/g"
-template GetProperty< std::shared_ptr<{{ELEMENT_TYPE}}> >::GetProperty(const Json& json, const std::string& name);
-template std::shared_ptr<{{ELEMENT_TYPE}}> GetProperty< std::shared_ptr<{{ELEMENT_TYPE}}> >::operator()() const;
+template GetProperty<std::shared_ptr<{{ELEMENT_TYPE}}>>::GetProperty(const Json& json, const std::string& name);
+template std::shared_ptr<{{ELEMENT_TYPE}}> GetProperty<std::shared_ptr<{{ELEMENT_TYPE}}>>::operator()() const;
 EOF
 }
 

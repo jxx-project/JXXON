@@ -14,18 +14,18 @@ namespace JXXON {
 namespace Accessor {
 
 template<>
-GetProperty< std::shared_ptr<bool> >::GetProperty(const Json& json, const std::string& name) : json(json), name(name)
+GetProperty<std::shared_ptr<bool>>::GetProperty(const Json& json, const std::string& name) : json(json), name(name)
 {
 }
 
 template<>
-std::shared_ptr<bool> GetProperty< std::shared_ptr<bool> >::operator()() const
+std::shared_ptr<bool> GetProperty<std::shared_ptr<bool>>::operator()() const
 {
-	return getChild< std::shared_ptr<bool> >(json.pimpl->value, name, [](const ::Json::Value& value){return value.asBool();});
+	return getChild<std::shared_ptr<bool>>(json.pimpl->value, name, [](const ::Json::Value& value){return value.asBool();});
 }
 
-template GetProperty< std::shared_ptr<bool> >::GetProperty(const Json& json, const std::string& name);
-template std::shared_ptr<bool> GetProperty< std::shared_ptr<bool> >::operator()() const;
+template GetProperty<std::shared_ptr<bool>>::GetProperty(const Json& json, const std::string& name);
+template std::shared_ptr<bool> GetProperty<std::shared_ptr<bool>>::operator()() const;
 
 } // namespace Accessor
 } // namespace JXXON

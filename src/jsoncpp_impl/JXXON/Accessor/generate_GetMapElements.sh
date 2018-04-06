@@ -137,13 +137,13 @@ GetMapElements<std::shared_ptr<{{ELEMENT_TYPE}}>, Polymorphic::{{BASE}}>::GetMap
 }
 
 template<>
-void GetMapElements<std::shared_ptr<{{ELEMENT_TYPE}}>, Polymorphic::{{BASE}}>::operator()(Polymorphic::{{BASE}}< std::string, std::shared_ptr<{{ELEMENT_TYPE}}> >& map) const
+void GetMapElements<std::shared_ptr<{{ELEMENT_TYPE}}>, Polymorphic::{{BASE}}>::operator()(Polymorphic::{{BASE}}<std::string, std::shared_ptr<{{ELEMENT_TYPE}}>>& map) const
 {
 	populateMap<std::shared_ptr<{{ELEMENT_TYPE}}>, Polymorphic::{{BASE}}>(map, json.pimpl->value, [](const ::Json::Value::const_iterator& i){return i->{{AS_TYPE}}();});
 }
 
 template GetMapElements<std::shared_ptr<{{ELEMENT_TYPE}}>, Polymorphic::{{BASE}}>::GetMapElements(const Json& json);
-template void GetMapElements<std::shared_ptr<{{ELEMENT_TYPE}}>, Polymorphic::{{BASE}}>::operator()(Polymorphic::{{BASE}}< std::string, std::shared_ptr<{{ELEMENT_TYPE}}> >& map) const;
+template void GetMapElements<std::shared_ptr<{{ELEMENT_TYPE}}>, Polymorphic::{{BASE}}>::operator()(Polymorphic::{{BASE}}<std::string, std::shared_ptr<{{ELEMENT_TYPE}}>>& map) const;
 EOF
 }
 

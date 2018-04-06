@@ -16,13 +16,13 @@ namespace JXXON {
 namespace Accessor {
 
 template<typename T>
-SetProperty<T, typename std::enable_if<!std::is_base_of<Json::Serializable, T>::value && !std::is_convertible< T, std::shared_ptr<Json::Serializable> >::value>::type>::SetProperty(Json& json, const std::string& name) : json(json), name(name)
+SetProperty<T, typename std::enable_if<!std::is_base_of<Json::Serializable, T>::value && !std::is_convertible<T, std::shared_ptr<Json::Serializable>>::value>::type>::SetProperty(Json& json, const std::string& name) : json(json), name(name)
 {
 	json.setTypeObject();
 }
 
 template<typename T>
-void SetProperty<T, typename std::enable_if<!std::is_base_of<Json::Serializable, T>::value && !std::is_convertible< T, std::shared_ptr<Json::Serializable> >::value>::type>::operator()(const T& value)
+void SetProperty<T, typename std::enable_if<!std::is_base_of<Json::Serializable, T>::value && !std::is_convertible<T, std::shared_ptr<Json::Serializable>>::value>::type>::operator()(const T& value)
 {
 	json.pimpl->value[name] = value;
 }
@@ -52,13 +52,13 @@ namespace JXXON {
 namespace Accessor {
 
 template<typename T>
-SetProperty<T, typename std::enable_if<!std::is_base_of<Json::Serializable, T>::value && !std::is_convertible< T, std::shared_ptr<Json::Serializable> >::value>::type>::SetProperty(Json& json, const std::string& name) : json(json), name(name)
+SetProperty<T, typename std::enable_if<!std::is_base_of<Json::Serializable, T>::value && !std::is_convertible<T, std::shared_ptr<Json::Serializable>>::value>::type>::SetProperty(Json& json, const std::string& name) : json(json), name(name)
 {
 	json.setTypeObject();
 }
 
 template<typename T>
-void SetProperty<T, typename std::enable_if<!std::is_base_of<Json::Serializable, T>::value && !std::is_convertible< T, std::shared_ptr<Json::Serializable> >::value>::type>::operator()(const T& value)
+void SetProperty<T, typename std::enable_if<!std::is_base_of<Json::Serializable, T>::value && !std::is_convertible<T, std::shared_ptr<Json::Serializable>>::value>::type>::operator()(const T& value)
 {
 	if (value) {
 		json.pimpl->value[name] = *value;
@@ -103,8 +103,8 @@ EOF
 
 function SetProperty_shared_ptr_CPP {
 cat << EOF | sed "s/{{ELEMENT_TYPE}}/$1/g"
-template SetProperty< std::shared_ptr<{{ELEMENT_TYPE}}> >::SetProperty(Json& json, const std::string& name);
-template void SetProperty< std::shared_ptr<{{ELEMENT_TYPE}}> >::operator()(const std::shared_ptr<{{ELEMENT_TYPE}}>& value);
+template SetProperty<std::shared_ptr<{{ELEMENT_TYPE}}>>::SetProperty(Json& json, const std::string& name);
+template void SetProperty<std::shared_ptr<{{ELEMENT_TYPE}}>>::operator()(const std::shared_ptr<{{ELEMENT_TYPE}}>& value);
 EOF
 }
 

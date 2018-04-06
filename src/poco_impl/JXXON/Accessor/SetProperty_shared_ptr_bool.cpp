@@ -13,8 +13,8 @@
 namespace JXXON {
 namespace Accessor {
 
-template SetProperty< std::shared_ptr<bool> >::SetProperty(Json& json, const std::string& name);
-template void SetProperty< std::shared_ptr<bool> >::operator()(const std::shared_ptr<bool>& value);
+template SetProperty<std::shared_ptr<bool>>::SetProperty(Json& json, const std::string& name);
+template void SetProperty<std::shared_ptr<bool>>::operator()(const std::shared_ptr<bool>& value);
 
 } // namespace Accessor
 } // namespace JXXON

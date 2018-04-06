@@ -16,12 +16,12 @@ namespace JXXON {
 namespace Accessor {
 
 template<typename T, template<typename...> class Base>
-GetArrayElements<T, Base, typename std::enable_if<!std::is_base_of<Json::Serializable, T>::value && !std::is_convertible< T, std::shared_ptr<Json::Serializable> >::value>::type>::GetArrayElements(const Json& json) : json(json)
+GetArrayElements<T, Base, typename std::enable_if<!std::is_base_of<Json::Serializable, T>::value && !std::is_convertible<T, std::shared_ptr<Json::Serializable>>::value>::type>::GetArrayElements(const Json& json) : json(json)
 {
 }
 
 template<typename T, template<typename...> class Base>
-void GetArrayElements<T, Base, typename std::enable_if<!std::is_base_of<Json::Serializable, T>::value && !std::is_convertible< T, std::shared_ptr<Json::Serializable> >::value>::type>::operator()(Base<T>& array) const
+void GetArrayElements<T, Base, typename std::enable_if<!std::is_base_of<Json::Serializable, T>::value && !std::is_convertible<T, std::shared_ptr<Json::Serializable>>::value>::type>::operator()(Base<T>& array) const
 {
 	array.clear();
 	if (json.pimpl) {
@@ -60,12 +60,12 @@ namespace JXXON {
 namespace Accessor {
 
 template<typename T, template<typename...> class Base>
-GetArrayElements<T, Base, typename std::enable_if<!std::is_base_of<Json::Serializable, T>::value && !std::is_convertible< T, std::shared_ptr<Json::Serializable> >::value>::type>::GetArrayElements(const Json& json) : json(json)
+GetArrayElements<T, Base, typename std::enable_if<!std::is_base_of<Json::Serializable, T>::value && !std::is_convertible<T, std::shared_ptr<Json::Serializable>>::value>::type>::GetArrayElements(const Json& json) : json(json)
 {
 }
 
 template<typename T, template<typename...> class Base>
-void GetArrayElements<T, Base, typename std::enable_if<!std::is_base_of<Json::Serializable, T>::value && !std::is_convertible< T, std::shared_ptr<Json::Serializable> >::value>::type>::operator()(Base<T>& array) const
+void GetArrayElements<T, Base, typename std::enable_if<!std::is_base_of<Json::Serializable, T>::value && !std::is_convertible<T, std::shared_ptr<Json::Serializable>>::value>::type>::operator()(Base<T>& array) const
 {
 	array.clear();
 	if (json.pimpl) {
@@ -111,7 +111,7 @@ EOF
 function GetArrayElements_shared_ptr_SPECIALIZATION {
 cat << EOF | sed "s/{{BASE}}/$1/g" | sed "s/{{ELEMENT_TYPE}}/$2/g"
 template<>
-void GetArrayElements<std::shared_ptr<{{ELEMENT_TYPE}}>, Polymorphic::{{BASE}}>::operator()(Polymorphic::{{BASE}}< std::shared_ptr<{{ELEMENT_TYPE}}> >& array) const
+void GetArrayElements<std::shared_ptr<{{ELEMENT_TYPE}}>, Polymorphic::{{BASE}}>::operator()(Polymorphic::{{BASE}}<std::shared_ptr<{{ELEMENT_TYPE}}>>& array) const
 {
 	array.clear();
 	if (json.pimpl) {
@@ -159,7 +159,7 @@ EOF
 function GetArrayElements_shared_ptr_CPP {
 cat << EOF | sed "s/{{BASE}}/$1/g" | sed "s/{{ELEMENT_TYPE}}/$2/g"
 template GetArrayElements<std::shared_ptr<{{ELEMENT_TYPE}}>, Polymorphic::{{BASE}}>::GetArrayElements(const Json& json);
-template void GetArrayElements<std::shared_ptr<{{ELEMENT_TYPE}}>, Polymorphic::{{BASE}}>::operator()(Polymorphic::{{BASE}}< std::shared_ptr<{{ELEMENT_TYPE}}> >& array) const;
+template void GetArrayElements<std::shared_ptr<{{ELEMENT_TYPE}}>, Polymorphic::{{BASE}}>::operator()(Polymorphic::{{BASE}}<std::shared_ptr<{{ELEMENT_TYPE}}>>& array) const;
 EOF
 }
 

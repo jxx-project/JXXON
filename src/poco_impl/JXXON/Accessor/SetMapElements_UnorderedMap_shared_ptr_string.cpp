@@ -15,7 +15,7 @@ namespace JXXON {
 namespace Accessor {
 
 template SetMapElements<std::shared_ptr<std::string>, Polymorphic::UnorderedMap>::SetMapElements(Json& json);
-template void SetMapElements<std::shared_ptr<std::string>, Polymorphic::UnorderedMap>::operator()(const Polymorphic::UnorderedMap< std::string, std::shared_ptr<std::string> >& map);
+template void SetMapElements<std::shared_ptr<std::string>, Polymorphic::UnorderedMap>::operator()(const Polymorphic::UnorderedMap<std::string, std::shared_ptr<std::string>>& map);
 
 } // namespace Accessor
 } // namespace JXXON

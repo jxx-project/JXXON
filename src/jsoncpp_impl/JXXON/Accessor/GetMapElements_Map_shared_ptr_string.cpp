@@ -20,13 +20,13 @@ GetMapElements<std::shared_ptr<std::string>, Polymorphic::Map>::GetMapElements(c
 }
 
 template<>
-void GetMapElements<std::shared_ptr<std::string>, Polymorphic::Map>::operator()(Polymorphic::Map< std::string, std::shared_ptr<std::string> >& map) const
+void GetMapElements<std::shared_ptr<std::string>, Polymorphic::Map>::operator()(Polymorphic::Map<std::string, std::shared_ptr<std::string>>& map) const
 {
 	populateMap<std::shared_ptr<std::string>, Polymorphic::Map>(map, json.pimpl->value, [](const ::Json::Value::const_iterator& i){return i->asString();});
 }
 
 template GetMapElements<std::shared_ptr<std::string>, Polymorphic::Map>::GetMapElements(const Json& json);
-template void GetMapElements<std::shared_ptr<std::string>, Polymorphic::Map>::operator()(Polymorphic::Map< std::string, std::shared_ptr<std::string> >& map) const;
+template void GetMapElements<std::shared_ptr<std::string>, Polymorphic::Map>::operator()(Polymorphic::Map<std::string, std::shared_ptr<std::string>>& map) const;
 
 } // namespace Accessor
 } // namespace JXXON

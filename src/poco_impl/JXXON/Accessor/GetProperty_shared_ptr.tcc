@@ -12,12 +12,12 @@ namespace JXXON {
 namespace Accessor {
 
 template<typename T>
-GetProperty<T,  typename std::enable_if<!std::is_base_of<Json::Serializable, T>::value && !std::is_convertible< T, std::shared_ptr<Json::Serializable> >::value>::type>::GetProperty(const Json& json, const std::string& name) : json(json), name(name)
+GetProperty<T,  typename std::enable_if<!std::is_base_of<Json::Serializable, T>::value && !std::is_convertible<T, std::shared_ptr<Json::Serializable>>::value>::type>::GetProperty(const Json& json, const std::string& name) : json(json), name(name)
 {
 }
 
 template<typename T>
-T GetProperty<T,  typename std::enable_if<!std::is_base_of<Json::Serializable, T>::value && !std::is_convertible< T, std::shared_ptr<Json::Serializable> >::value>::type>::operator()() const
+T GetProperty<T,  typename std::enable_if<!std::is_base_of<Json::Serializable, T>::value && !std::is_convertible<T, std::shared_ptr<Json::Serializable>>::value>::type>::operator()() const
 {
 	if (json.pimpl) {
 		try {

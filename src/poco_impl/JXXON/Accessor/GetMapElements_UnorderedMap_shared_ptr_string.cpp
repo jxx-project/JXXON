@@ -15,7 +15,7 @@ namespace JXXON {
 namespace Accessor {
 
 template<>
-void GetMapElements<std::shared_ptr<std::string>, Polymorphic::UnorderedMap>::operator()(Polymorphic::UnorderedMap< std::string, std::shared_ptr<std::string> >& map) const
+void GetMapElements<std::shared_ptr<std::string>, Polymorphic::UnorderedMap>::operator()(Polymorphic::UnorderedMap<std::string, std::shared_ptr<std::string>>& map) const
 {
 	map.clear();
 	if (json.pimpl) {
@@ -30,7 +30,7 @@ void GetMapElements<std::shared_ptr<std::string>, Polymorphic::UnorderedMap>::op
 }
 
 template GetMapElements<std::shared_ptr<std::string>, Polymorphic::UnorderedMap>::GetMapElements(const Json& json);
-template void GetMapElements<std::shared_ptr<std::string>, Polymorphic::UnorderedMap>::operator()(Polymorphic::UnorderedMap< std::string, std::shared_ptr<std::string> >& map) const;
+template void GetMapElements<std::shared_ptr<std::string>, Polymorphic::UnorderedMap>::operator()(Polymorphic::UnorderedMap<std::string, std::shared_ptr<std::string>>& map) const;
 
 } // namespace Accessor
 } // namespace JXXON

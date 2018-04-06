@@ -125,18 +125,18 @@ EOF
 function GetProperty_shared_ptr_CPP {
 cat << EOF | sed "s/{{ELEMENT_TYPE}}/$1/g" | sed "s/{{AS_TYPE}}/$2/g"
 template<>
-GetProperty< std::shared_ptr<{{ELEMENT_TYPE}}> >::GetProperty(const Json& json, const std::string& name) : json(json), name(name)
+GetProperty<std::shared_ptr<{{ELEMENT_TYPE}}>>::GetProperty(const Json& json, const std::string& name) : json(json), name(name)
 {
 }
 
 template<>
-std::shared_ptr<{{ELEMENT_TYPE}}> GetProperty< std::shared_ptr<{{ELEMENT_TYPE}}> >::operator()() const
+std::shared_ptr<{{ELEMENT_TYPE}}> GetProperty<std::shared_ptr<{{ELEMENT_TYPE}}>>::operator()() const
 {
-	return getChild< std::shared_ptr<{{ELEMENT_TYPE}}> >(json.pimpl->value, name, [](const ::Json::Value& value){return value.{{AS_TYPE}}();});
+	return getChild<std::shared_ptr<{{ELEMENT_TYPE}}>>(json.pimpl->value, name, [](const ::Json::Value& value){return value.{{AS_TYPE}}();});
 }
 
-template GetProperty< std::shared_ptr<{{ELEMENT_TYPE}}> >::GetProperty(const Json& json, const std::string& name);
-template std::shared_ptr<{{ELEMENT_TYPE}}> GetProperty< std::shared_ptr<{{ELEMENT_TYPE}}> >::operator()() const;
+template GetProperty<std::shared_ptr<{{ELEMENT_TYPE}}>>::GetProperty(const Json& json, const std::string& name);
+template std::shared_ptr<{{ELEMENT_TYPE}}> GetProperty<std::shared_ptr<{{ELEMENT_TYPE}}>>::operator()() const;
 EOF
 }
 

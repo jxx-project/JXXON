@@ -12,12 +12,12 @@ namespace JXXON {
 namespace Accessor {
 
 template<typename T, template<typename...> class Base>
-GetArrayElements<T, Base, typename std::enable_if<!std::is_base_of<Json::Serializable, T>::value && !std::is_convertible< T, std::shared_ptr<Json::Serializable> >::value>::type>::GetArrayElements(const Json& json) : json(json)
+GetArrayElements<T, Base, typename std::enable_if<!std::is_base_of<Json::Serializable, T>::value && !std::is_convertible<T, std::shared_ptr<Json::Serializable>>::value>::type>::GetArrayElements(const Json& json) : json(json)
 {
 }
 
 template<typename T, template<typename...> class Base>
-void GetArrayElements<T, Base, typename std::enable_if<!std::is_base_of<Json::Serializable, T>::value && !std::is_convertible< T, std::shared_ptr<Json::Serializable> >::value>::type>::operator()(Base<T>& array) const
+void GetArrayElements<T, Base, typename std::enable_if<!std::is_base_of<Json::Serializable, T>::value && !std::is_convertible<T, std::shared_ptr<Json::Serializable>>::value>::type>::operator()(Base<T>& array) const
 {
 	array.clear();
 	if (json.pimpl) {

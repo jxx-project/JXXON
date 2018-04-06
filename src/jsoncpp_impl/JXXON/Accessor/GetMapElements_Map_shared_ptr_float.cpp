@@ -20,13 +20,13 @@ GetMapElements<std::shared_ptr<float>, Polymorphic::Map>::GetMapElements(const J
 }
 
 template<>
-void GetMapElements<std::shared_ptr<float>, Polymorphic::Map>::operator()(Polymorphic::Map< std::string, std::shared_ptr<float> >& map) const
+void GetMapElements<std::shared_ptr<float>, Polymorphic::Map>::operator()(Polymorphic::Map<std::string, std::shared_ptr<float>>& map) const
 {
 	populateMap<std::shared_ptr<float>, Polymorphic::Map>(map, json.pimpl->value, [](const ::Json::Value::const_iterator& i){return i->asFloat();});
 }
 
 template GetMapElements<std::shared_ptr<float>, Polymorphic::Map>::GetMapElements(const Json& json);
-template void GetMapElements<std::shared_ptr<float>, Polymorphic::Map>::operator()(Polymorphic::Map< std::string, std::shared_ptr<float> >& map) const;
+template void GetMapElements<std::shared_ptr<float>, Polymorphic::Map>::operator()(Polymorphic::Map<std::string, std::shared_ptr<float>>& map) const;
 
 template<>
 GetMapElements<std::shared_ptr<double>, Polymorphic::Map>::GetMapElements(const Json& json) : json(json)
@@ -34,13 +34,13 @@ GetMapElements<std::shared_ptr<double>, Polymorphic::Map>::GetMapElements(const 
 }
 
 template<>
-void GetMapElements<std::shared_ptr<double>, Polymorphic::Map>::operator()(Polymorphic::Map< std::string, std::shared_ptr<double> >& map) const
+void GetMapElements<std::shared_ptr<double>, Polymorphic::Map>::operator()(Polymorphic::Map<std::string, std::shared_ptr<double>>& map) const
 {
 	populateMap<std::shared_ptr<double>, Polymorphic::Map>(map, json.pimpl->value, [](const ::Json::Value::const_iterator& i){return i->asDouble();});
 }
 
 template GetMapElements<std::shared_ptr<double>, Polymorphic::Map>::GetMapElements(const Json& json);
-template void GetMapElements<std::shared_ptr<double>, Polymorphic::Map>::operator()(Polymorphic::Map< std::string, std::shared_ptr<double> >& map) const;
+template void GetMapElements<std::shared_ptr<double>, Polymorphic::Map>::operator()(Polymorphic::Map<std::string, std::shared_ptr<double>>& map) const;
 
 } // namespace Accessor
 } // namespace JXXON
