@@ -11,8 +11,7 @@
 #include <cstdint>
 #include <Polymorphic/UnorderedMap.h>
 
-namespace JXXON {
-namespace Accessor {
+namespace JXXON { namespace Accessor {
 
 template SetMapElements<std::shared_ptr<float>, Polymorphic::UnorderedMap>::SetMapElements(Json& json);
 template void SetMapElements<std::shared_ptr<float>, Polymorphic::UnorderedMap>::operator()(const Polymorphic::UnorderedMap<std::string, std::shared_ptr<float>>& map);
@@ -20,5 +19,4 @@ template void SetMapElements<std::shared_ptr<float>, Polymorphic::UnorderedMap>:
 template SetMapElements<std::shared_ptr<double>, Polymorphic::UnorderedMap>::SetMapElements(Json& json);
 template void SetMapElements<std::shared_ptr<double>, Polymorphic::UnorderedMap>::operator()(const Polymorphic::UnorderedMap<std::string, std::shared_ptr<double>>& map);
 
-} // namespace Accessor
-} // namespace JXXON
+}} // namespace JXXON::Accessor

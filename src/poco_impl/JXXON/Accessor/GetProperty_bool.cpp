@@ -10,8 +10,7 @@
 #include "JXXON/Accessor/GetProperty.tcc"
 #include <cstdint>
 
-namespace JXXON {
-namespace Accessor {
+namespace JXXON { namespace Accessor {
 
 template<>
 bool GetProperty<bool>::operator()() const
@@ -32,5 +31,4 @@ bool GetProperty<bool>::operator()() const
 template GetProperty<bool>::GetProperty(const Json& json, const std::string& name);
 template bool GetProperty<bool>::operator()() const;
 
-} // namespace Accessor
-} // namespace JXXON
+}} // namespace JXXON::Accessor

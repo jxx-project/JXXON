@@ -8,8 +8,7 @@
 #ifndef JXXON_Accessor_GetMapElements_shared_ptr_INCLUDED
 #define JXXON_Accessor_GetMapElements_shared_ptr_INCLUDED
 
-namespace JXXON {
-namespace Accessor {
+namespace JXXON { namespace Accessor {
 namespace {
 
 template<typename T, template<typename...> class Base>
@@ -32,7 +31,6 @@ void populateMap(Base<std::string, T>& map, const ::Json::Value& value, const st
 }
 
 } // namespace
-} // namespace Accessor
-} // namespace JXXON
+}} // namespace JXXON::Accessor
 
 #endif // JXXON_Accessor_GetMapElements_shared_ptr_INCLUDED

@@ -10,11 +10,9 @@
 #include "JXXON/Accessor/SetProperty.tcc"
 #include <cstdint>
 
-namespace JXXON {
-namespace Accessor {
+namespace JXXON { namespace Accessor {
 
 template SetProperty<std::string>::SetProperty(Json& json, const std::string& name);
 template void SetProperty<std::string>::operator()(const std::string& value);
 
-} // namespace Accessor
-} // namespace JXXON
+}} // namespace JXXON::Accessor

@@ -10,8 +10,7 @@
 #include "JXXON/Accessor/GetProperty.tcc"
 #include <cstdint>
 
-namespace JXXON {
-namespace Accessor {
+namespace JXXON { namespace Accessor {
 
 template GetProperty<int>::GetProperty(const Json& json, const std::string& name);
 template int GetProperty<int>::operator()() const;
@@ -26,5 +25,4 @@ template GetProperty<std::intmax_t>::GetProperty(const Json& json, const std::st
 template std::intmax_t GetProperty<std::intmax_t>::operator()() const;
 #endif
 
-} // namespace Accessor
-} // namespace JXXON
+}} // namespace JXXON::Accessor

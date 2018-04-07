@@ -11,8 +11,7 @@
 #include <cstdint>
 #include <Polymorphic/Vector.h>
 
-namespace JXXON {
-namespace Accessor {
+namespace JXXON { namespace Accessor {
 
 template SetArrayElements<std::shared_ptr<unsigned int>, Polymorphic::Vector>::SetArrayElements(Json& json);
 template void SetArrayElements<std::shared_ptr<unsigned int>, Polymorphic::Vector>::operator()(const Polymorphic::Vector<std::shared_ptr<unsigned int>>& array);
@@ -27,5 +26,4 @@ template SetArrayElements<std::shared_ptr<std::uintmax_t>, Polymorphic::Vector>:
 template void SetArrayElements<std::shared_ptr<std::uintmax_t>, Polymorphic::Vector>::operator()(const Polymorphic::Vector<std::shared_ptr<std::uintmax_t>>& array);
 #endif
 
-} // namespace Accessor
-} // namespace JXXON
+}} // namespace JXXON::Accessor

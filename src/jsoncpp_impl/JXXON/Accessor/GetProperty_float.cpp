@@ -10,8 +10,7 @@
 #include "JXXON/Accessor/GetProperty.tcc"
 #include <cstdint>
 
-namespace JXXON {
-namespace Accessor {
+namespace JXXON { namespace Accessor {
 
 template<>
 GetProperty<float>::GetProperty(const Json& json, const std::string& name) : json(json), name(name)
@@ -41,5 +40,4 @@ double GetProperty<double>::operator()() const
 template GetProperty<double>::GetProperty(const Json& json, const std::string& name);
 template double GetProperty<double>::operator()() const;
 
-} // namespace Accessor
-} // namespace JXXON
+}} // namespace JXXON::Accessor

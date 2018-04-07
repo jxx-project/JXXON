@@ -8,8 +8,7 @@
 #ifndef JXXON_Accessor_SetProperty_INCLUDED
 #define JXXON_Accessor_SetProperty_INCLUDED
 
-namespace JXXON {
-namespace Accessor {
+namespace JXXON { namespace Accessor {
 
 template<typename T>
 SetProperty<T, typename std::enable_if<!std::is_base_of<Json::Serializable, T>::value && !std::is_convertible<T, std::shared_ptr<Json::Serializable>>::value>::type>::SetProperty(Json& json, const std::string& name) : json(json), name(name)
@@ -23,7 +22,6 @@ void SetProperty<T, typename std::enable_if<!std::is_base_of<Json::Serializable,
 	json.pimpl->getObject().set(name, Poco::Dynamic::Var(value));
 }
 
-} // namespace Accessor
-} // namespace JXXON
+}} // namespace JXXON::Accessor
 
 #endif // JXXON_Accessor_SetProperty_INCLUDED

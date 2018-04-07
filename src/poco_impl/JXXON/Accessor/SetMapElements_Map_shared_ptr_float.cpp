@@ -11,8 +11,7 @@
 #include <cstdint>
 #include <Polymorphic/Map.h>
 
-namespace JXXON {
-namespace Accessor {
+namespace JXXON { namespace Accessor {
 
 template SetMapElements<std::shared_ptr<float>, Polymorphic::Map>::SetMapElements(Json& json);
 template void SetMapElements<std::shared_ptr<float>, Polymorphic::Map>::operator()(const Polymorphic::Map<std::string, std::shared_ptr<float>>& map);
@@ -20,5 +19,4 @@ template void SetMapElements<std::shared_ptr<float>, Polymorphic::Map>::operator
 template SetMapElements<std::shared_ptr<double>, Polymorphic::Map>::SetMapElements(Json& json);
 template void SetMapElements<std::shared_ptr<double>, Polymorphic::Map>::operator()(const Polymorphic::Map<std::string, std::shared_ptr<double>>& map);
 
-} // namespace Accessor
-} // namespace JXXON
+}} // namespace JXXON::Accessor

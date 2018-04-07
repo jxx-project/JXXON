@@ -11,8 +11,7 @@
 #include <cstdint>
 #include <Polymorphic/List.h>
 
-namespace JXXON {
-namespace Accessor {
+namespace JXXON { namespace Accessor {
 
 template SetArrayElements<std::shared_ptr<unsigned int>, Polymorphic::List>::SetArrayElements(Json& json);
 template void SetArrayElements<std::shared_ptr<unsigned int>, Polymorphic::List>::operator()(const Polymorphic::List<std::shared_ptr<unsigned int>>& array);
@@ -27,5 +26,4 @@ template SetArrayElements<std::shared_ptr<std::uintmax_t>, Polymorphic::List>::S
 template void SetArrayElements<std::shared_ptr<std::uintmax_t>, Polymorphic::List>::operator()(const Polymorphic::List<std::shared_ptr<std::uintmax_t>>& array);
 #endif
 
-} // namespace Accessor
-} // namespace JXXON
+}} // namespace JXXON::Accessor

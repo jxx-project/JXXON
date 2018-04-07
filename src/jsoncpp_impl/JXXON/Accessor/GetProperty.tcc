@@ -8,8 +8,7 @@
 #ifndef JXXON_Accessor_GetProperty_INCLUDED
 #define JXXON_Accessor_GetProperty_INCLUDED
 
-namespace JXXON {
-namespace Accessor {
+namespace JXXON { namespace Accessor {
 namespace {
 
 template<typename T>
@@ -29,7 +28,6 @@ T getChild(const ::Json::Value& value, const std::string& name, const std::funct
 }
 
 } // namespace
-} // namespace Accessor
-} // namespace JXXON
+}} // namespace JXXON::Accessor
 
 #endif // JXXON_Accessor_GetProperty_INCLUDED

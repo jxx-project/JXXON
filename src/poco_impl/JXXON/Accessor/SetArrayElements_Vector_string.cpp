@@ -11,11 +11,9 @@
 #include <cstdint>
 #include <Polymorphic/Vector.h>
 
-namespace JXXON {
-namespace Accessor {
+namespace JXXON { namespace Accessor {
 
 template SetArrayElements<std::string, Polymorphic::Vector>::SetArrayElements(Json& json);
 template void SetArrayElements<std::string, Polymorphic::Vector>::operator()(const Polymorphic::Vector<std::string>& array);
 
-} // namespace Accessor
-} // namespace JXXON
+}} // namespace JXXON::Accessor

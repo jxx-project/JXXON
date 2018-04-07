@@ -8,8 +8,7 @@
 #ifndef JXXON_Accessor_GetProperty_shared_ptr_INCLUDED
 #define JXXON_Accessor_GetProperty_shared_ptr_INCLUDED
 
-namespace JXXON {
-namespace Accessor {
+namespace JXXON { namespace Accessor {
 
 template<typename T>
 GetProperty<T,  typename std::enable_if<!std::is_base_of<Json::Serializable, T>::value && !std::is_convertible<T, std::shared_ptr<Json::Serializable>>::value>::type>::GetProperty(const Json& json, const std::string& name) : json(json), name(name)
@@ -32,7 +31,6 @@ T GetProperty<T,  typename std::enable_if<!std::is_base_of<Json::Serializable, T
 	return nullptr;
 }
 
-} // namespace Accessor
-} // namespace JXXON
+}} // namespace JXXON::Accessor
 
 #endif // JXXON_Accessor_GetProperty_shared_ptr_INCLUDED

@@ -11,11 +11,9 @@
 #include <cstdint>
 #include <Polymorphic/List.h>
 
-namespace JXXON {
-namespace Accessor {
+namespace JXXON { namespace Accessor {
 
 template SetArrayElements<std::shared_ptr<std::string>, Polymorphic::List>::SetArrayElements(Json& json);
 template void SetArrayElements<std::shared_ptr<std::string>, Polymorphic::List>::operator()(const Polymorphic::List<std::shared_ptr<std::string>>& array);
 
-} // namespace Accessor
-} // namespace JXXON
+}} // namespace JXXON::Accessor

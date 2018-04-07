@@ -8,8 +8,7 @@
 #ifndef JXXON_Accessor_GetArrayElements_INCLUDED
 #define JXXON_Accessor_GetArrayElements_INCLUDED
 
-namespace JXXON {
-namespace Accessor {
+namespace JXXON { namespace Accessor {
 namespace {
 
 template<class T, template<typename...> class Base>
@@ -32,7 +31,6 @@ void populateArray(Base<T>& array, const ::Json::Value& value, const std::functi
 }
 
 } // namespace
-} // namespace Accessor
-} // namespace JXXON
+}} // namespace JXXON::Accessor
 
 #endif // JXXON_Accessor_GetArrayElements_INCLUDED

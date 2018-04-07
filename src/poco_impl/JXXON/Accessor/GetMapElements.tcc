@@ -8,8 +8,7 @@
 #ifndef JXXON_Accessor_GetMapElements_INCLUDED
 #define JXXON_Accessor_GetMapElements_INCLUDED
 
-namespace JXXON {
-namespace Accessor {
+namespace JXXON { namespace Accessor {
 
 template<typename T, template<typename...> class Base>
 GetMapElements<T, Base, typename std::enable_if<!std::is_base_of<Json::Serializable, T>::value && !std::is_convertible<T, std::shared_ptr<Json::Serializable>>::value>::type>::GetMapElements(const Json& json) : json(json)
@@ -31,7 +30,6 @@ void GetMapElements<T, Base, typename std::enable_if<!std::is_base_of<Json::Seri
 	}
 }
 
-} // namespace Accessor
-} // namespace JXXON
+}} // namespace JXXON::Accessor
 
 #endif // JXXON_Accessor_GetMapElements_INCLUDED

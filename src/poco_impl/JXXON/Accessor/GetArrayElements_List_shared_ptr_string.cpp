@@ -11,8 +11,7 @@
 #include <cstdint>
 #include <Polymorphic/List.h>
 
-namespace JXXON {
-namespace Accessor {
+namespace JXXON { namespace Accessor {
 
 template<>
 void GetArrayElements<std::shared_ptr<std::string>, Polymorphic::List>::operator()(Polymorphic::List<std::shared_ptr<std::string>>& array) const
@@ -32,5 +31,4 @@ void GetArrayElements<std::shared_ptr<std::string>, Polymorphic::List>::operator
 template GetArrayElements<std::shared_ptr<std::string>, Polymorphic::List>::GetArrayElements(const Json& json);
 template void GetArrayElements<std::shared_ptr<std::string>, Polymorphic::List>::operator()(Polymorphic::List<std::shared_ptr<std::string>>& array) const;
 
-} // namespace Accessor
-} // namespace JXXON
+}} // namespace JXXON::Accessor

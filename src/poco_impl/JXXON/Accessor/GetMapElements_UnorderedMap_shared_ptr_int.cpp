@@ -11,8 +11,7 @@
 #include <cstdint>
 #include <Polymorphic/UnorderedMap.h>
 
-namespace JXXON {
-namespace Accessor {
+namespace JXXON { namespace Accessor {
 
 template GetMapElements<std::shared_ptr<int>, Polymorphic::UnorderedMap>::GetMapElements(const Json& json);
 template void GetMapElements<std::shared_ptr<int>, Polymorphic::UnorderedMap>::operator()(Polymorphic::UnorderedMap<std::string, std::shared_ptr<int>>& map) const;
@@ -27,5 +26,4 @@ template GetMapElements<std::shared_ptr<std::intmax_t>, Polymorphic::UnorderedMa
 template void GetMapElements<std::shared_ptr<std::intmax_t>, Polymorphic::UnorderedMap>::operator()(Polymorphic::UnorderedMap<std::string, std::shared_ptr<std::intmax_t>>& map) const;
 #endif
 
-} // namespace Accessor
-} // namespace JXXON
+}} // namespace JXXON::Accessor

@@ -11,8 +11,7 @@
 #include <cstdint>
 #include <Polymorphic/Map.h>
 
-namespace JXXON {
-namespace Accessor {
+namespace JXXON { namespace Accessor {
 
 template GetMapElements<float, Polymorphic::Map>::GetMapElements(const Json& json);
 template void GetMapElements<float, Polymorphic::Map>::operator()(Polymorphic::Map<std::string, float>& map) const;
@@ -20,5 +19,4 @@ template void GetMapElements<float, Polymorphic::Map>::operator()(Polymorphic::M
 template GetMapElements<double, Polymorphic::Map>::GetMapElements(const Json& json);
 template void GetMapElements<double, Polymorphic::Map>::operator()(Polymorphic::Map<std::string, double>& map) const;
 
-} // namespace Accessor
-} // namespace JXXON
+}} // namespace JXXON::Accessor

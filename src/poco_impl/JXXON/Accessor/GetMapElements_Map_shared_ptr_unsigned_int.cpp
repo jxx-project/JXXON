@@ -11,8 +11,7 @@
 #include <cstdint>
 #include <Polymorphic/Map.h>
 
-namespace JXXON {
-namespace Accessor {
+namespace JXXON { namespace Accessor {
 
 template GetMapElements<std::shared_ptr<unsigned int>, Polymorphic::Map>::GetMapElements(const Json& json);
 template void GetMapElements<std::shared_ptr<unsigned int>, Polymorphic::Map>::operator()(Polymorphic::Map<std::string, std::shared_ptr<unsigned int>>& map) const;
@@ -27,5 +26,4 @@ template GetMapElements<std::shared_ptr<std::uintmax_t>, Polymorphic::Map>::GetM
 template void GetMapElements<std::shared_ptr<std::uintmax_t>, Polymorphic::Map>::operator()(Polymorphic::Map<std::string, std::shared_ptr<std::uintmax_t>>& map) const;
 #endif
 
-} // namespace Accessor
-} // namespace JXXON
+}} // namespace JXXON::Accessor

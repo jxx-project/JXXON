@@ -10,8 +10,7 @@
 #include "JXXON/Accessor/GetProperty_shared_ptr.tcc"
 #include <cstdint>
 
-namespace JXXON {
-namespace Accessor {
+namespace JXXON { namespace Accessor {
 
 template<>
 GetProperty<std::shared_ptr<int>>::GetProperty(const Json& json, const std::string& name) : json(json), name(name)
@@ -59,5 +58,4 @@ template GetProperty<std::shared_ptr<std::intmax_t>>::GetProperty(const Json& js
 template std::shared_ptr<std::intmax_t> GetProperty<std::shared_ptr<std::intmax_t>>::operator()() const;
 #endif
 
-} // namespace Accessor
-} // namespace JXXON
+}} // namespace JXXON::Accessor

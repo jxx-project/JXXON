@@ -12,8 +12,7 @@ cat << EOF
 #ifndef JXXON_Accessor_GetProperty_INCLUDED
 #define JXXON_Accessor_GetProperty_INCLUDED
 
-namespace JXXON {
-namespace Accessor {
+namespace JXXON { namespace Accessor {
 namespace {
 
 template<typename T>
@@ -33,8 +32,7 @@ T getChild(const ::Json::Value& value, const std::string& name, const std::funct
 }
 
 } // namespace
-} // namespace Accessor
-} // namespace JXXON
+}} // namespace JXXON::Accessor
 
 #endif // JXXON_Accessor_GetProperty_INCLUDED
 EOF
@@ -54,8 +52,7 @@ cat << EOF
 #ifndef JXXON_Accessor_GetProperty_shared_ptr_INCLUDED
 #define JXXON_Accessor_GetProperty_shared_ptr_INCLUDED
 
-namespace JXXON {
-namespace Accessor {
+namespace JXXON { namespace Accessor {
 namespace {
 
 template<typename T>
@@ -75,8 +72,7 @@ T getChild(const ::Json::Value& value, const std::string& name, const std::funct
 }
 
 } // namespace
-} // namespace Accessor
-} // namespace JXXON
+}} // namespace JXXON::Accessor
 
 #endif // JXXON_Accessor_GetProperty_shared_ptr_INCLUDED
 EOF
@@ -98,8 +94,7 @@ cat << EOF | sed "s/{{INCLUDE}}/$1/g"
 #include "JXXON/Accessor/{{INCLUDE}}"
 #include <cstdint>
 
-namespace JXXON {
-namespace Accessor {
+namespace JXXON { namespace Accessor {
 
 EOF
 }
@@ -143,8 +138,7 @@ EOF
 function Footer {
 cat << EOF
 
-} // namespace Accessor
-} // namespace JXXON
+}} // namespace JXXON::Accessor
 EOF
 }
 

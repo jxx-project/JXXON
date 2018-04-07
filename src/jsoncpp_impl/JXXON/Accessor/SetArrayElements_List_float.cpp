@@ -11,8 +11,7 @@
 #include <cstdint>
 #include <Polymorphic/List.h>
 
-namespace JXXON {
-namespace Accessor {
+namespace JXXON { namespace Accessor {
 
 template SetArrayElements<float, Polymorphic::List>::SetArrayElements(Json& json);
 template void SetArrayElements<float, Polymorphic::List>::operator()(const Polymorphic::List<float>& array);
@@ -20,5 +19,4 @@ template void SetArrayElements<float, Polymorphic::List>::operator()(const Polym
 template SetArrayElements<double, Polymorphic::List>::SetArrayElements(Json& json);
 template void SetArrayElements<double, Polymorphic::List>::operator()(const Polymorphic::List<double>& array);
 
-} // namespace Accessor
-} // namespace JXXON
+}} // namespace JXXON::Accessor

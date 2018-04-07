@@ -11,8 +11,7 @@
 #include <cstdint>
 #include <Polymorphic/List.h>
 
-namespace JXXON {
-namespace Accessor {
+namespace JXXON { namespace Accessor {
 
 template<>
 GetArrayElements<float, Polymorphic::List>::GetArrayElements(const Json& json) : json(json)
@@ -42,5 +41,4 @@ void GetArrayElements<double, Polymorphic::List>::operator()(Polymorphic::List<d
 template GetArrayElements<double, Polymorphic::List>::GetArrayElements(const Json& json);
 template void GetArrayElements<double, Polymorphic::List>::operator()(Polymorphic::List<double>& array) const;
 
-} // namespace Accessor
-} // namespace JXXON
+}} // namespace JXXON::Accessor

@@ -10,8 +10,7 @@
 #include "JXXON/Accessor/SetProperty.tcc"
 #include <cstdint>
 
-namespace JXXON {
-namespace Accessor {
+namespace JXXON { namespace Accessor {
 
 template SetProperty<float>::SetProperty(Json& json, const std::string& name);
 template void SetProperty<float>::operator()(const float& value);
@@ -19,5 +18,4 @@ template void SetProperty<float>::operator()(const float& value);
 template SetProperty<double>::SetProperty(Json& json, const std::string& name);
 template void SetProperty<double>::operator()(const double& value);
 
-} // namespace Accessor
-} // namespace JXXON
+}} // namespace JXXON::Accessor

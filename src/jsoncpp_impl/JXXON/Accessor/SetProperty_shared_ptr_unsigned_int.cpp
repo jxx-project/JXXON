@@ -10,8 +10,7 @@
 #include "JXXON/Accessor/SetProperty_shared_ptr.tcc"
 #include <cstdint>
 
-namespace JXXON {
-namespace Accessor {
+namespace JXXON { namespace Accessor {
 
 template SetProperty<std::shared_ptr<unsigned int>>::SetProperty(Json& json, const std::string& name);
 template void SetProperty<std::shared_ptr<unsigned int>>::operator()(const std::shared_ptr<unsigned int>& value);
@@ -26,5 +25,4 @@ template SetProperty<std::shared_ptr<std::uintmax_t>>::SetProperty(Json& json, c
 template void SetProperty<std::shared_ptr<std::uintmax_t>>::operator()(const std::shared_ptr<std::uintmax_t>& value);
 #endif
 
-} // namespace Accessor
-} // namespace JXXON
+}} // namespace JXXON::Accessor

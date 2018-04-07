@@ -11,8 +11,7 @@
 #include <cstdint>
 #include <Polymorphic/Map.h>
 
-namespace JXXON {
-namespace Accessor {
+namespace JXXON { namespace Accessor {
 
 template SetMapElements<unsigned int, Polymorphic::Map>::SetMapElements(Json& json);
 template void SetMapElements<unsigned int, Polymorphic::Map>::operator()(const Polymorphic::Map<std::string, unsigned int>& map);
@@ -27,5 +26,4 @@ template SetMapElements<std::uintmax_t, Polymorphic::Map>::SetMapElements(Json& 
 template void SetMapElements<std::uintmax_t, Polymorphic::Map>::operator()(const Polymorphic::Map<std::string, std::uintmax_t>& map);
 #endif
 
-} // namespace Accessor
-} // namespace JXXON
+}} // namespace JXXON::Accessor

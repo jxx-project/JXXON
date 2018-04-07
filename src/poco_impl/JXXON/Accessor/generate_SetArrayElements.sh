@@ -12,8 +12,7 @@ cat << EOF
 #ifndef JXXON_Accessor_SetArrayElements_INCLUDED
 #define JXXON_Accessor_SetArrayElements_INCLUDED
 
-namespace JXXON {
-namespace Accessor {
+namespace JXXON { namespace Accessor {
 
 template<typename T, template<typename...> class Base>
 SetArrayElements<T, Base, typename std::enable_if<!std::is_base_of<Json::Serializable, T>::value && !std::is_convertible<T, std::shared_ptr<Json::Serializable>>::value>::type>::SetArrayElements(Json& json) : json(json)
@@ -29,8 +28,7 @@ void SetArrayElements<T, Base, typename std::enable_if<!std::is_base_of<Json::Se
 	}
 }
 
-} // namespace Accessor
-} // namespace JXXON
+}} // namespace JXXON::Accessor
 
 #endif // JXXON_Accessor_SetArrayElements_INCLUDED
 EOF
@@ -50,8 +48,7 @@ cat << EOF
 #ifndef JXXON_Accessor_SetArrayElements_shared_ptr_INCLUDED
 #define JXXON_Accessor_SetArrayElements_shared_ptr_INCLUDED
 
-namespace JXXON {
-namespace Accessor {
+namespace JXXON { namespace Accessor {
 
 template<typename T, template<typename...> class Base>
 SetArrayElements<T, Base, typename std::enable_if<!std::is_base_of<Json::Serializable, T>::value && !std::is_convertible<T, std::shared_ptr<Json::Serializable>>::value>::type>::SetArrayElements(Json& json) : json(json)
@@ -67,8 +64,7 @@ void SetArrayElements<T, Base, typename std::enable_if<!std::is_base_of<Json::Se
 	}
 }
 
-} // namespace Accessor
-} // namespace JXXON
+}} // namespace JXXON::Accessor
 
 #endif // JXXON_Accessor_SetArrayElements_shared_ptr_INCLUDED
 EOF
@@ -91,8 +87,7 @@ cat << EOF | sed "s/{{INCLUDE}}/$1/g"| sed "s/{{BASE}}/$2/g"
 #include <cstdint>
 #include <Polymorphic/{{BASE}}.h>
 
-namespace JXXON {
-namespace Accessor {
+namespace JXXON { namespace Accessor {
 
 EOF
 }
@@ -114,8 +109,7 @@ EOF
 function Footer {
 cat << EOF
 
-} // namespace Accessor
-} // namespace JXXON
+}} // namespace JXXON::Accessor
 EOF
 }
 

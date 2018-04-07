@@ -12,8 +12,7 @@ cat << EOF
 #ifndef JXXON_Accessor_GetProperty_INCLUDED
 #define JXXON_Accessor_GetProperty_INCLUDED
 
-namespace JXXON {
-namespace Accessor {
+namespace JXXON { namespace Accessor {
 
 template<typename T>
 GetProperty<T,  typename std::enable_if<!std::is_base_of<Json::Serializable, T>::value && !std::is_convertible<T, std::shared_ptr<Json::Serializable>>::value>::type>::GetProperty(const Json& json, const std::string& name) : json(json), name(name)
@@ -36,8 +35,7 @@ T GetProperty<T,  typename std::enable_if<!std::is_base_of<Json::Serializable, T
 	return T();
 }
 
-} // namespace Accessor
-} // namespace JXXON
+}} // namespace JXXON::Accessor
 
 #endif // JXXON_Accessor_GetProperty_INCLUDED
 EOF
@@ -57,8 +55,7 @@ cat << EOF
 #ifndef JXXON_Accessor_GetProperty_shared_ptr_INCLUDED
 #define JXXON_Accessor_GetProperty_shared_ptr_INCLUDED
 
-namespace JXXON {
-namespace Accessor {
+namespace JXXON { namespace Accessor {
 
 template<typename T>
 GetProperty<T,  typename std::enable_if<!std::is_base_of<Json::Serializable, T>::value && !std::is_convertible<T, std::shared_ptr<Json::Serializable>>::value>::type>::GetProperty(const Json& json, const std::string& name) : json(json), name(name)
@@ -81,8 +78,7 @@ T GetProperty<T,  typename std::enable_if<!std::is_base_of<Json::Serializable, T
 	return nullptr;
 }
 
-} // namespace Accessor
-} // namespace JXXON
+}} // namespace JXXON::Accessor
 
 #endif // JXXON_Accessor_GetProperty_shared_ptr_INCLUDED
 EOF
@@ -146,8 +142,7 @@ cat << EOF | sed "s/{{INCLUDE}}/$1/g"
 #include "JXXON/Accessor/{{INCLUDE}}"
 #include <cstdint>
 
-namespace JXXON {
-namespace Accessor {
+namespace JXXON { namespace Accessor {
 
 EOF
 }
@@ -169,8 +164,7 @@ EOF
 function Footer {
 cat << EOF
 
-} // namespace Accessor
-} // namespace JXXON
+}} // namespace JXXON::Accessor
 EOF
 }
 

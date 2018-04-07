@@ -10,8 +10,7 @@
 #include "JXXON/Accessor/SetProperty_shared_ptr.tcc"
 #include <cstdint>
 
-namespace JXXON {
-namespace Accessor {
+namespace JXXON { namespace Accessor {
 
 template SetProperty<std::shared_ptr<float>>::SetProperty(Json& json, const std::string& name);
 template void SetProperty<std::shared_ptr<float>>::operator()(const std::shared_ptr<float>& value);
@@ -19,5 +18,4 @@ template void SetProperty<std::shared_ptr<float>>::operator()(const std::shared_
 template SetProperty<std::shared_ptr<double>>::SetProperty(Json& json, const std::string& name);
 template void SetProperty<std::shared_ptr<double>>::operator()(const std::shared_ptr<double>& value);
 
-} // namespace Accessor
-} // namespace JXXON
+}} // namespace JXXON::Accessor

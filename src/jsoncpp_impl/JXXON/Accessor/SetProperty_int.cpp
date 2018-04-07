@@ -10,8 +10,7 @@
 #include "JXXON/Accessor/SetProperty.tcc"
 #include <cstdint>
 
-namespace JXXON {
-namespace Accessor {
+namespace JXXON { namespace Accessor {
 
 template SetProperty<int>::SetProperty(Json& json, const std::string& name);
 template void SetProperty<int>::operator()(const int& value);
@@ -26,5 +25,4 @@ template SetProperty<std::intmax_t>::SetProperty(Json& json, const std::string& 
 template void SetProperty<std::intmax_t>::operator()(const std::intmax_t& value);
 #endif
 
-} // namespace Accessor
-} // namespace JXXON
+}} // namespace JXXON::Accessor

@@ -14,6 +14,7 @@
 
 /// JXXON root namespace.
 namespace JXXON {
+
 namespace Accessor {
 
 template<typename T, typename Enable = void>
@@ -50,18 +51,18 @@ class SetMapElements;
 ///     {
 ///     }
 ///
-///     Sample(const JXXON::Json &json) : value(json.get<std::string>("sampleProperty"))
+///     Sample(const JXXON::Json &json) : property(json.get<decltype(property)>("property"))
 ///     {
 ///     }
 ///
 ///     virtual JXXON::Json toJson() const override
 ///     {
 ///         JXXON::Json json;
-///         json.set("sampleProperty", value);
+///         json.set("property", property);
 ///         return json;
 ///     }
 ///
-///     std::string value;
+///     std::string property;
 /// };
 /// \endcode
 class Json
@@ -589,6 +590,7 @@ private:
 };
 
 } // namespace Accessor
+
 } // namespace JXXON
 
 #endif // JXXON_Json_INCLUDED */
