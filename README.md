@@ -4,9 +4,9 @@ Serialize C++ object hierarchies into JSON documents and vice versa almost as co
 
 ## Design goals
 
-### Focus on one thing and try do that well
+### Focus on one thing and try to do that well
 
-Mapping C++ object hierarchies and containers to JSON documents. There are a couple of C++ JSON parsers/generators out there, mature and proven. I doubt I can write a better one. Instead, JXXON relies on existing ones.
+Mapping C++ object hierarchies and containers to JSON documents. There are a couple of C++ JSON parsers/generators out there, mature and proven. I will not attempt to write a better one. Instead, JXXON relies on existing ones.
 
 ### Full encapsulation
 
@@ -14,15 +14,15 @@ JXXON does not expose any details of the encapsulated JSON parsers/generators to
 
 ### Polymorphism-friendliness
 
-Provide a common interface base class, which all serializable classes implement.
+Providing a common interface base class, which all serializable classes are to implement.
 
-Lacking such an interface, object mapper consumer classes supposed to handle more than one type would be forced to a non-polymorphic design, using non-virtual template member functions, or using member overloads. In any case, to sacrifice all object oriented runtime flexibility.
+Lacking such an interface, object mapper consumer classes supposed to handle more than one type would be forced to a non-polymorphic design, using non-virtual template member functions, or using member overloads. In any case, sacrificing all object oriented runtime flexibility.
 
 ### Concise handling of null values
 
 Throwing exceptions, when there is a null value somewhere in JSON input, is probably the least helpful thing to do. Null values are valid JSON, even when they occur as array elements.
 
-### Integrate C++ standard containers as transparently as possible and reasonable
+### Integrate C++ standard containers as transparently as possible and to a reasonable extent.
 
 C++ standard conainers should feel like first class citizens in JSON. Based on a little bit of [wrapping](https://github.com/jxx-project/Polymorphic).
 
@@ -40,7 +40,7 @@ struct SampleObject : public JXXON::Serializable
 {
         // Deserializing constructor
         SampleObject(const JXXON::Json &json) :
-                property(json.get<std::string>("property_name")),
+                property(json.get<decltype(property)>("property_name")),
         {
         }
 

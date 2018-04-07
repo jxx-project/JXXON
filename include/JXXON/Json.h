@@ -51,14 +51,14 @@ class SetMapElements;
 ///     {
 ///     }
 ///
-///     Sample(const JXXON::Json &json) : property(json.get<decltype(property)>("property"))
+///     Sample(const JXXON::Json &json) : property(json.get<decltype(property)>("property_name"))
 ///     {
 ///     }
 ///
 ///     virtual JXXON::Json toJson() const override
 ///     {
 ///         JXXON::Json json;
-///         json.set("property", property);
+///         json.set("property_name", property);
 ///         return json;
 ///     }
 ///
