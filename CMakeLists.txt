@@ -44,20 +44,22 @@ check_type_size("uintmax_t" SIZEOF_UINTMAX_T LANGUAGE CXX)
 add_definitions(-D_SIZEOF_UINTMAX_T=${SIZEOF_UINTMAX_T})
 
 file(GLOB JXXON_SRCS_G src/JXXON/*.cpp src/${JXXON_IMPL}_impl/JXXON/*.cpp src/${JXXON_IMPL}_impl/JXXON/Accessor/*.cpp)
-add_library(jxxon ${JXXON_SRCS_G})
+add_library(JXXON ${JXXON_SRCS_G})
+add_library(${PROJECT_NAME}::JXXON ALIAS JXXON)
+set_target_properties(JXXON PROPERTIES OUTPUT_NAME jxxon)
 
-target_include_directories(jxxon PUBLIC
+target_include_directories(JXXON PUBLIC
         $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>
         $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/src>
         $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/src/${JXXON_IMPL}_impl>
 	$<BUILD_INTERFACE:${jxxon_impl_INCLUDE_DIRS}>
         $<INSTALL_INTERFACE:include>)
-target_link_libraries(jxxon polymorphic ${jxxon_impl_LIBRARIES})
+target_link_libraries(JXXON Polymorphic::Polymorphic ${jxxon_impl_LIBRARIES})
 
-install(TARGETS jxxon EXPORT JXXONTargets
+install(TARGETS JXXON EXPORT JXXONTargets
 	ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR})
 install(DIRECTORY include/ DESTINATION ${CMAKE_INSTALL_INCLUDEDIR} FILES_MATCHING PATTERN "*.h")
-install(EXPORT JXXONTargets DESTINATION share/JXXON/cmake)
+install(EXPORT JXXONTargets NAMESPACE ${PROJECT_NAME}:: DESTINATION share/JXXON/cmake)
 configure_file(cmake/${JXXON_IMPL}_impl/JXXONConfig.cmake.in JXXONConfig.cmake @ONLY)
 write_basic_package_version_file(${CMAKE_CURRENT_BINARY_DIR}/JXXONConfigVersion.cmake COMPATIBILITY SameMajorVersion)
 install(FILES
