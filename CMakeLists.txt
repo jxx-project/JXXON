@@ -7,6 +7,7 @@
 cmake_minimum_required(VERSION 3.0)
 project(JXXON VERSION 1.0.0 LANGUAGES CXX)
 include(GNUInstallDirs)
+include(CMakePackageConfigHelpers)
 
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -15,22 +16,18 @@ set(CMAKE_CXX_EXTENSIONS NO)
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/Modules/")
 
 if(JXXON_IMPL STREQUAL "poco")
-	if(NOT Poco_INCLUDE_DIRS OR NOT Poco_LIBRARIES)
-		find_package(Poco COMPONENTS JSON REQUIRED)
-	endif()
-	set(jxxon_impl_INCLUDE_DIRS ${Poco_INCLUDE_DIRS})
-	set(jxxon_impl_LIBRARIES ${Poco_LIBRARIES})
+	find_package(Poco COMPONENTS JSON REQUIRED CONFIG)
+	set(jxxon_impl_LIBRARIES Poco::JSON)
 elseif(JXXON_IMPL STREQUAL "jsoncpp")
-	if(NOT JSONCPP_INCLUDE_DIRS OR NOT JSONCPP_LIBRARY)
-		find_package(JsonCpp REQUIRED)
-	endif()
+	find_package(PkgConfig REQUIRED)
+	pkg_check_modules(JSONCPP jsoncpp)
 	set(jxxon_impl_INCLUDE_DIRS ${JSONCPP_INCLUDE_DIRS})
-	set(jxxon_impl_LIBRARIES ${JSONCPP_LIBRARY})
+	set(jxxon_impl_LIBRARIES ${JSONCPP_LIBRARIES})
 else()
 	message(FATAL_ERROR "JXXON_IMPL invalid or not specified. Must be \"poco\" or \"jsoncpp\".")
 endif()
 
-find_package(Polymorphic REQUIRED)
+find_package(Polymorphic REQUIRED CONFIG)
 
 include(CheckTypeSize)
 check_type_size("int" SIZEOF_INT LANGUAGE CXX)
@@ -55,13 +52,18 @@ target_include_directories(jxxon PUBLIC
         $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/src/${JXXON_IMPL}_impl>
 	$<BUILD_INTERFACE:${jxxon_impl_INCLUDE_DIRS}>
         $<INSTALL_INTERFACE:include>)
-target_link_libraries(jxxon polymorphic)
+target_link_libraries(jxxon polymorphic ${jxxon_impl_LIBRARIES})
 
-install(TARGETS jxxon EXPORT JXXONConfig
+install(TARGETS jxxon EXPORT JXXONTargets
 	ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR})
 install(DIRECTORY include/ DESTINATION ${CMAKE_INSTALL_INCLUDEDIR} FILES_MATCHING PATTERN "*.h")
-install(EXPORT JXXONConfig DESTINATION share/JXXON/cmake)
-export(TARGETS jxxon FILE JXXONConfig.cmake)
+install(EXPORT JXXONTargets DESTINATION share/JXXON/cmake)
+configure_file(cmake/${JXXON_IMPL}_impl/JXXONConfig.cmake.in JXXONConfig.cmake @ONLY)
+write_basic_package_version_file(${CMAKE_CURRENT_BINARY_DIR}/JXXONConfigVersion.cmake COMPATIBILITY SameMajorVersion)
+install(FILES
+	${CMAKE_CURRENT_BINARY_DIR}/JXXONConfig.cmake
+	${CMAKE_CURRENT_BINARY_DIR}/JXXONConfigVersion.cmake
+	DESTINATION share/JXXON/cmake)
 
 enable_testing()
 
