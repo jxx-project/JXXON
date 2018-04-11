@@ -4,7 +4,6 @@
 # SPDX-License-Identifier:     BSL-1.0
 #
 
-find_package(Threads)
 
 file(GLOB TEST_MODEL_SRCS_G Model/*.cpp)
 add_library(model ${TEST_MODEL_SRCS_G})
@@ -18,8 +17,7 @@ target_include_directories(objectTest PRIVATE
 target_link_libraries(objectTest
 	${PROJECT_NAME}::JXXON
 	model
-	${jxxon_impl_LIBRARIES}
-	${CMAKE_THREAD_LIBS_INIT})
+	${jxxon_impl_LIBRARIES})
 
 add_executable(vectorTest vectorTest.cpp)
 target_include_directories(vectorTest PRIVATE
@@ -27,8 +25,7 @@ target_include_directories(vectorTest PRIVATE
 target_link_libraries(vectorTest
 	${PROJECT_NAME}::JXXON
 	model
-	${jxxon_impl_LIBRARIES}
-	${CMAKE_THREAD_LIBS_INIT})
+	${jxxon_impl_LIBRARIES})
 
 add_executable(listTest listTest.cpp)
 target_include_directories(listTest PRIVATE
@@ -36,8 +33,7 @@ target_include_directories(listTest PRIVATE
 target_link_libraries(listTest
 	${PROJECT_NAME}::JXXON
 	model
-	${jxxon_impl_LIBRARIES}
-	${CMAKE_THREAD_LIBS_INIT})
+	${jxxon_impl_LIBRARIES})
 
 add_executable(mapTest mapTest.cpp)
 target_include_directories(mapTest PRIVATE
@@ -45,8 +41,7 @@ target_include_directories(mapTest PRIVATE
 target_link_libraries(mapTest
 	${PROJECT_NAME}::JXXON
 	model
-	${jxxon_impl_LIBRARIES}
-	${CMAKE_THREAD_LIBS_INIT})
+	${jxxon_impl_LIBRARIES})
 
 add_executable(unorderedMapTest unorderedMapTest.cpp)
 target_include_directories(unorderedMapTest PRIVATE
@@ -54,8 +49,7 @@ target_include_directories(unorderedMapTest PRIVATE
 target_link_libraries(unorderedMapTest
 	${PROJECT_NAME}::JXXON
 	model
-	${jxxon_impl_LIBRARIES}
-	${CMAKE_THREAD_LIBS_INIT})
+	${jxxon_impl_LIBRARIES})
 
 add_executable(miscellaneousTest miscellaneousTest.cpp)
 target_include_directories(miscellaneousTest PRIVATE
@@ -63,5 +57,4 @@ target_include_directories(miscellaneousTest PRIVATE
 target_link_libraries(miscellaneousTest
 	${PROJECT_NAME}::JXXON
 	model
-	${jxxon_impl_LIBRARIES}
-	${CMAKE_THREAD_LIBS_INIT})
+	${jxxon_impl_LIBRARIES})
