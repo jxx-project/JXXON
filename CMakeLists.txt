@@ -49,11 +49,11 @@ add_library(${PROJECT_NAME}::JXXON ALIAS JXXON)
 set_target_properties(JXXON PROPERTIES OUTPUT_NAME jxxon)
 
 target_include_directories(JXXON PUBLIC
-        $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>
-        $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/src>
-        $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/src/${JXXON_IMPL}_impl>
+	$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>
+	$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/src>
+	$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/src/${JXXON_IMPL}_impl>
 	$<BUILD_INTERFACE:${jxxon_impl_INCLUDE_DIRS}>
-        $<INSTALL_INTERFACE:include>)
+	$<INSTALL_INTERFACE:include>)
 target_link_libraries(JXXON Polymorphic::Polymorphic ${jxxon_impl_LIBRARIES})
 
 install(TARGETS JXXON EXPORT JXXONTargets
