@@ -43,20 +43,20 @@ add_definitions(-D_SIZEOF_INTMAX_T=${SIZEOF_INTMAX_T})
 check_type_size("uintmax_t" SIZEOF_UINTMAX_T LANGUAGE CXX)
 add_definitions(-D_SIZEOF_UINTMAX_T=${SIZEOF_UINTMAX_T})
 
-file(GLOB JXXON_SRCS_G src/JXXON/*.cpp src/${JXXON_IMPL}_impl/JXXON/*.cpp src/${JXXON_IMPL}_impl/JXXON/Accessor/*.cpp)
-add_library(JXXON ${JXXON_SRCS_G})
-add_library(${PROJECT_NAME}::JXXON ALIAS JXXON)
-set_target_properties(JXXON PROPERTIES OUTPUT_NAME jxxon)
+file(GLOB ObjectMapper_SRCS_G src/JXXON/*.cpp src/${JXXON_IMPL}_impl/JXXON/*.cpp src/${JXXON_IMPL}_impl/JXXON/Accessor/*.cpp)
+add_library(ObjectMapper ${ObjectMapper_SRCS_G})
+add_library(${PROJECT_NAME}::ObjectMapper ALIAS ObjectMapper)
+set_target_properties(ObjectMapper PROPERTIES OUTPUT_NAME jxxon)
 
-target_include_directories(JXXON PUBLIC
+target_include_directories(ObjectMapper PUBLIC
 	$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>
 	$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/src>
 	$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/src/${JXXON_IMPL}_impl>
 	$<BUILD_INTERFACE:${jxxon_impl_INCLUDE_DIRS}>
 	$<INSTALL_INTERFACE:include>)
-target_link_libraries(JXXON Polymorphic::Polymorphic ${jxxon_impl_LIBRARIES})
+target_link_libraries(ObjectMapper Polymorphic::Containers ${jxxon_impl_LIBRARIES})
 
-install(TARGETS JXXON EXPORT JXXONTargets
+install(TARGETS ObjectMapper EXPORT JXXONTargets
 	ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR})
 install(DIRECTORY include/ DESTINATION ${CMAKE_INSTALL_INCLUDEDIR} FILES_MATCHING PATTERN "*.h")
 install(EXPORT JXXONTargets NAMESPACE ${PROJECT_NAME}:: DESTINATION share/JXXON/cmake)
