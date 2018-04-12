@@ -68,9 +68,9 @@ public:
 	{
 	}
 
-	virtual void addElement(std::pair<std::string, T>&& element)
+	virtual void addElement(const std::string& key, const T& value)
 	{
-		this->emplace(std::move(element));
+		this->emplace(key, value);
 	}
 };
 

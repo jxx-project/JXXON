@@ -20,7 +20,7 @@ void GetMapElements<bool, Base::UnorderedMap>::operator()(Base::UnorderedMap<boo
 	if (json.pimpl) {
 		try {
 			for (const auto& i : json.pimpl->getObject()) {
-				map.emplace(i.first, i.second.isEmpty() ? bool() : i.second.extract<bool>());
+				map.addElement(i.first, i.second.isEmpty() ? bool() : i.second.extract<bool>());
 			}
 		} catch (Poco::Exception& e) {
 			throw Error(e.message());

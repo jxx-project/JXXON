@@ -22,7 +22,7 @@ void GetArrayElements<T, Base, typename std::enable_if<!std::is_base_of<Json::Se
 	if (json.pimpl) {
 		try {
 			for (const auto& i : json.pimpl->getArray()) {
-				array.emplace_back(i.isEmpty() ? nullptr : std::make_shared<typename T::element_type>(i.convert<typename T::element_type>()));
+				array.addElement(i.isEmpty() ? nullptr : std::make_shared<typename T::element_type>(i.convert<typename T::element_type>()));
 			}
 		} catch (Poco::Exception& e) {
 			throw Error(e.message());

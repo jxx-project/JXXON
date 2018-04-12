@@ -23,7 +23,7 @@ void populateArray(Base<T>& array, const ::Json::Value& value, const std::functi
 		if (value.isArray()) {
 			try {
 				for (const auto& i : value) {
-					array.emplace_back(i.isNull() ?  T() : T(valueAsT(i)));
+					array.addElement(i.isNull() ?  T() : T(valueAsT(i)));
 				}
 			} catch (std::exception& e) {
 				throw Error(e.what());
@@ -66,7 +66,7 @@ void populateArray(Base<T>& array, const ::Json::Value& value, const std::functi
 		if (value.isArray()) {
 			try {
 				for (const auto& i : value) {
-					array.emplace_back(i.isNull() ? T() : std::make_shared<typename T::element_type>(valueAsT(i)));
+					array.addElement(i.isNull() ? T() : std::make_shared<typename T::element_type>(valueAsT(i)));
 				}
 			} catch (std::exception& e) {
 				throw Error(e.what());

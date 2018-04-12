@@ -19,7 +19,7 @@ void populateMap(Base<T>& map, const ::Json::Value& value, const std::function<t
 		if (value.isObject()) {
 			try {
 				for (auto i = value.begin(); i != value.end(); ++i) {
-					map.emplace(i.key().asString(), i->isNull() ? T() : std::make_shared<typename T::element_type>(valueAsT(i)));
+					map.addElement(i.key().asString(), i->isNull() ? T() : std::make_shared<typename T::element_type>(valueAsT(i)));
 				}
 			} catch (std::exception& e) {
 				throw Error(e.what());

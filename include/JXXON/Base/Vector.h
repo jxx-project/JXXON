@@ -68,9 +68,9 @@ public:
 	{
 	}
 
-	virtual void addElement(T&& element)
+	virtual void addElement(const T& element)
 	{
-		this->emplace_back(std::move(element));
+		this->emplace_back(element);
 	}
 };
 

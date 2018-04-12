@@ -26,7 +26,7 @@ void GetArrayElements<T, Base, typename std::enable_if<!std::is_base_of<Json::Se
 	if (json.pimpl) {
 		try {
 			for (const auto& i : json.pimpl->getArray()) {
-				array.emplace_back(i.isEmpty() ? T() : i.convert<T>());
+				array.addElement(i.isEmpty() ? T() : i.convert<T>());
 			}
 		} catch (Poco::Exception& e) {
 			throw Error(e.message());
@@ -68,7 +68,7 @@ void GetArrayElements<T, Base, typename std::enable_if<!std::is_base_of<Json::Se
 	if (json.pimpl) {
 		try {
 			for (const auto& i : json.pimpl->getArray()) {
-				array.emplace_back(i.isEmpty() ? nullptr : std::make_shared<typename T::element_type>(i.convert<typename T::element_type>()));
+				array.addElement(i.isEmpty() ? nullptr : std::make_shared<typename T::element_type>(i.convert<typename T::element_type>()));
 			}
 		} catch (Poco::Exception& e) {
 			throw Error(e.message());
@@ -93,7 +93,7 @@ void GetArrayElements<{{ELEMENT_TYPE}}, Base::{{BASE}}>::operator()(Base::{{BASE
 	if (json.pimpl) {
 		try {
 			for (const auto& i : json.pimpl->getArray()) {
-				array.emplace_back(i.isEmpty() ? {{ELEMENT_TYPE}}() : i.extract<{{ELEMENT_TYPE}}>());
+				array.addElement(i.isEmpty() ? {{ELEMENT_TYPE}}() : i.extract<{{ELEMENT_TYPE}}>());
 			}
 		} catch (Poco::Exception& e) {
 			throw Error(e.message());
@@ -113,7 +113,7 @@ void GetArrayElements<std::shared_ptr<{{ELEMENT_TYPE}}>, Base::{{BASE}}>::operat
 	if (json.pimpl) {
 		try {
 			for (const auto& i : json.pimpl->getArray()) {
-				array.emplace_back(i.isEmpty() ? nullptr : std::make_shared<{{ELEMENT_TYPE}}>(i.extract<{{ELEMENT_TYPE}}>()));
+				array.addElement(i.isEmpty() ? nullptr : std::make_shared<{{ELEMENT_TYPE}}>(i.extract<{{ELEMENT_TYPE}}>()));
 			}
 		} catch (Poco::Exception& e) {
 			throw Error(e.message());

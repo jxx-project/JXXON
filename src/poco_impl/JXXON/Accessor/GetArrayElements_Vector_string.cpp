@@ -20,7 +20,7 @@ void GetArrayElements<std::string, Base::Vector>::operator()(Base::Vector<std::s
 	if (json.pimpl) {
 		try {
 			for (const auto& i : json.pimpl->getArray()) {
-				array.emplace_back(i.isEmpty() ? std::string() : i.extract<std::string>());
+				array.addElement(i.isEmpty() ? std::string() : i.extract<std::string>());
 			}
 		} catch (Poco::Exception& e) {
 			throw Error(e.message());

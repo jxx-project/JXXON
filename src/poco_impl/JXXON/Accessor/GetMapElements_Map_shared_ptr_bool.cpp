@@ -20,7 +20,7 @@ void GetMapElements<std::shared_ptr<bool>, Base::Map>::operator()(Base::Map<std:
 	if (json.pimpl) {
 		try {
 			for (const auto& i : json.pimpl->getObject()) {
-				map.emplace(i.first, i.second.isEmpty() ? nullptr : std::make_shared<bool>(i.second.extract<bool>()));
+				map.addElement(i.first, i.second.isEmpty() ? nullptr : std::make_shared<bool>(i.second.extract<bool>()));
 			}
 		} catch (Poco::Exception& e) {
 			throw Error(e.message());

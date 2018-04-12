@@ -20,7 +20,7 @@ void GetArrayElements<std::shared_ptr<bool>, Base::Vector>::operator()(Base::Vec
 	if (json.pimpl) {
 		try {
 			for (const auto& i : json.pimpl->getArray()) {
-				array.emplace_back(i.isEmpty() ? nullptr : std::make_shared<bool>(i.extract<bool>()));
+				array.addElement(i.isEmpty() ? nullptr : std::make_shared<bool>(i.extract<bool>()));
 			}
 		} catch (Poco::Exception& e) {
 			throw Error(e.message());

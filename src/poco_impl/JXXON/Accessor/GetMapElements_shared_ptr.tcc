@@ -22,7 +22,7 @@ void GetMapElements<T, Base, typename std::enable_if<!std::is_base_of<Json::Seri
 	if (json.pimpl) {
 		try {
 			for (const auto& i : json.pimpl->getObject()) {
-				map.emplace(i.first, i.second.isEmpty() ? T() : std::make_shared<typename T::element_type>(i.second.convert<typename T::element_type>()));
+				map.addElement(i.first, i.second.isEmpty() ? T() : std::make_shared<typename T::element_type>(i.second.convert<typename T::element_type>()));
 			}
 		} catch (Poco::Exception& e) {
 			throw Error(e.message());

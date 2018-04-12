@@ -26,7 +26,7 @@ void GetMapElements<T, Base, typename std::enable_if<!std::is_base_of<Json::Seri
 	if (json.pimpl) {
 		try {
 			for (const auto& i : json.pimpl->getObject()) {
-				map.emplace(i.first, i.second.isEmpty() ? T() : i.second.convert<T>());
+				map.addElement(i.first, i.second.isEmpty() ? T() : i.second.convert<T>());
 			}
 		} catch (Poco::Exception& e) {
 			throw Error(e.message());
@@ -68,7 +68,7 @@ void GetMapElements<T, Base, typename std::enable_if<!std::is_base_of<Json::Seri
 	if (json.pimpl) {
 		try {
 			for (const auto& i : json.pimpl->getObject()) {
-				map.emplace(i.first, i.second.isEmpty() ? T() : std::make_shared<typename T::element_type>(i.second.convert<typename T::element_type>()));
+				map.addElement(i.first, i.second.isEmpty() ? T() : std::make_shared<typename T::element_type>(i.second.convert<typename T::element_type>()));
 			}
 		} catch (Poco::Exception& e) {
 			throw Error(e.message());
@@ -93,7 +93,7 @@ void GetMapElements<{{ELEMENT_TYPE}}, Base::{{BASE}}>::operator()(Base::{{BASE}}
 	if (json.pimpl) {
 		try {
 			for (const auto& i : json.pimpl->getObject()) {
-				map.emplace(i.first, i.second.isEmpty() ? {{ELEMENT_TYPE}}() : i.second.extract<{{ELEMENT_TYPE}}>());
+				map.addElement(i.first, i.second.isEmpty() ? {{ELEMENT_TYPE}}() : i.second.extract<{{ELEMENT_TYPE}}>());
 			}
 		} catch (Poco::Exception& e) {
 			throw Error(e.message());
@@ -113,7 +113,7 @@ void GetMapElements<std::shared_ptr<{{ELEMENT_TYPE}}>, Base::{{BASE}}>::operator
 	if (json.pimpl) {
 		try {
 			for (const auto& i : json.pimpl->getObject()) {
-				map.emplace(i.first, i.second.isEmpty() ? nullptr : std::make_shared<{{ELEMENT_TYPE}}>(i.second.extract<{{ELEMENT_TYPE}}>()));
+				map.addElement(i.first, i.second.isEmpty() ? nullptr : std::make_shared<{{ELEMENT_TYPE}}>(i.second.extract<{{ELEMENT_TYPE}}>()));
 			}
 		} catch (Poco::Exception& e) {
 			throw Error(e.message());

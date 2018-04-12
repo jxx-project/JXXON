@@ -20,7 +20,7 @@ void GetArrayElements<bool, Base::Vector>::operator()(Base::Vector<bool>& array)
 	if (json.pimpl) {
 		try {
 			for (const auto& i : json.pimpl->getArray()) {
-				array.emplace_back(i.isEmpty() ? bool() : i.extract<bool>());
+				array.addElement(i.isEmpty() ? bool() : i.extract<bool>());
 			}
 		} catch (Poco::Exception& e) {
 			throw Error(e.message());
