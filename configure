@@ -43,7 +43,7 @@ while [ $# -ge 1 ]; do
 		jxxon_impl="`echo ${1} | awk '{print substr($0,14)}'`" ;;
 
 	--build-type=*)
-		build_type"`echo ${1} | awk '{print substr($0,14)}'`" ;;
+		build_type="`echo ${1} | awk '{print substr($0,14)}'`" ;;
 
 	--help)
 		showhelp

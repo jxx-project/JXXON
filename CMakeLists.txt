@@ -46,7 +46,7 @@ add_definitions(-D_SIZEOF_UINTMAX_T=${SIZEOF_UINTMAX_T})
 file(GLOB ObjectMapper_SRCS_G src/JXXON/*.cpp src/${JXXON_IMPL}_impl/JXXON/*.cpp src/${JXXON_IMPL}_impl/JXXON/Accessor/*.cpp)
 add_library(ObjectMapper ${ObjectMapper_SRCS_G})
 add_library(${PROJECT_NAME}::ObjectMapper ALIAS ObjectMapper)
-set_target_properties(ObjectMapper PROPERTIES OUTPUT_NAME jxxon)
+set_target_properties(ObjectMapper PROPERTIES OUTPUT_NAME jxxon DEBUG_POSTFIX d)
 
 target_include_directories(ObjectMapper PUBLIC
 	$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>
