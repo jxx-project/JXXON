@@ -8,13 +8,14 @@
 #ifndef JXXON_Base_Map_INCLUDED
 #define JXXON_Base_Map_INCLUDED
 
+#include "JXXON/Base/MapType.h"
 #include <Polymorphic/Map.h>
 
 namespace JXXON { namespace Base {
 
-/// Extension of Polymorphic::Map<std::string, T> adding addElement(T&& element).
+/// Extension of Polymorphic::Map<std::string, T> implementing MapType<T>.
 template<class T>
-class Map : public Polymorphic::Map<std::string, T>
+class Map : public Polymorphic::Map<std::string, T>, public MapType<T>
 {
 public:
 	/// Construct empty map.
@@ -63,12 +64,12 @@ public:
 	{
 	}
 
-	/// Virtual destructor .
+	/// Virtual destructor.
 	~Map()
 	{
 	}
 
-	virtual void addElement(const std::string& key, const T& value)
+	virtual void addElement(const std::string& key, const T& value) override
 	{
 		this->emplace(key, value);
 	}

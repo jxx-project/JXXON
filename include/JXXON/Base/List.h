@@ -8,13 +8,14 @@
 #ifndef JXXON_Base_List_INCLUDED
 #define JXXON_Base_List_INCLUDED
 
+#include "JXXON/Base/ArrayType.h"
 #include <Polymorphic/List.h>
 
 namespace JXXON { namespace Base {
 
-/// Extension of Polymorphic::List<T> adding addElement(T&& element).
+/// Extension of Polymorphic::List<T> implementing ArrayType<T>.
 template<class T>
-class List : public Polymorphic::List<T>
+class List : public Polymorphic::List<T>, public ArrayType<T>
 {
 public:
 	/// Construct empty list.
@@ -63,12 +64,12 @@ public:
 	{
 	}
 
-	/// Virtual destructor .
+	/// Virtual destructor.
 	~List()
 	{
 	}
 
-	virtual void addElement(const T& element)
+	virtual void addElement(const T& element) override
 	{
 		this->emplace_back(element);
 	}

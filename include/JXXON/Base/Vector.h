@@ -8,13 +8,14 @@
 #ifndef JXXON_Base_Vector_INCLUDED
 #define JXXON_Base_Vector_INCLUDED
 
+#include "JXXON/Base/ArrayType.h"
 #include <Polymorphic/Vector.h>
 
 namespace JXXON { namespace Base {
 
-/// Extension of Polymorphic::Vector<T> adding addElement(T&& element).
+/// Extension of Polymorphic::Vector<T> implementing ArrayType<T>.
 template<class T>
-class Vector : public Polymorphic::Vector<T>
+class Vector : public Polymorphic::Vector<T>, public ArrayType<T>
 {
 public:
 	/// Construct empty vector.
@@ -63,12 +64,12 @@ public:
 	{
 	}
 
-	/// Virtual destructor .
+	/// Virtual destructor.
 	~Vector()
 	{
 	}
 
-	virtual void addElement(const T& element)
+	virtual void addElement(const T& element) override
 	{
 		this->emplace_back(element);
 	}

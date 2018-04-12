@@ -8,13 +8,14 @@
 #ifndef JXXON_Base_UnorderedMap_INCLUDED
 #define JXXON_Base_UnorderedMap_INCLUDED
 
+#include "JXXON/Base/MapType.h"
 #include <Polymorphic/UnorderedMap.h>
 
 namespace JXXON { namespace Base {
 
-/// Extension of Polymorphic::UnorderedMap<std::string, T> adding addElement(T&& element).
+/// Extension of Polymorphic::UnorderedMap<std::string, T> implementing MapType<T>.
 template<class T>
-class UnorderedMap : public Polymorphic::UnorderedMap<std::string, T>
+class UnorderedMap : public Polymorphic::UnorderedMap<std::string, T>, public MapType<T>
 {
 public:
 	/// Construct empty unordered map.
@@ -63,12 +64,12 @@ public:
 	{
 	}
 
-	/// Virtual destructor .
+	/// Virtual destructor.
 	~UnorderedMap()
 	{
 	}
 
-	virtual void addElement(const std::string& key, const T& value)
+	virtual void addElement(const std::string& key, const T& value) override
 	{
 		this->emplace(key, value);
 	}

@@ -137,7 +137,7 @@ public:
 			get(*this);
 		}
 
-		/// Virtual destructor .
+		/// Virtual destructor.
 		~Array()
 		{
 		}
@@ -199,7 +199,7 @@ public:
 			get(*this);
 		}
 
-		/// Virtual destructor .
+		/// Virtual destructor.
 		~Map()
 		{
 		}
