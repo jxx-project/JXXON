@@ -4,59 +4,59 @@
 // SPDX-License-Identifier:		BSL-1.0
 //
 
-#include "JXXON/Json.h"
+#include "JXXON/Base/Map.h"
 #include "JXXON/Error.h"
+#include "JXXON/Json.h"
 #include "JXXON/Json/Impl.h"
 #include "JXXON/Accessor/GetMapElements.tcc"
 #include <cstdint>
-#include <Polymorphic/Map.h>
 
 namespace JXXON { namespace Accessor {
 
 template<>
-GetMapElements<unsigned int, Polymorphic::Map>::GetMapElements(const Json& json) : json(json)
+GetMapElements<unsigned int, Base::Map>::GetMapElements(const Json& json) : json(json)
 {
 }
 
 template<>
-void GetMapElements<unsigned int, Polymorphic::Map>::operator()(Polymorphic::Map<std::string, unsigned int>& map) const
+void GetMapElements<unsigned int, Base::Map>::operator()(Base::Map<unsigned int>& map) const
 {
-	populateMap<unsigned int, Polymorphic::Map>(map, json.pimpl->value, [](const ::Json::Value::const_iterator& i){return i->asUInt();});
+	populateMap<unsigned int, Base::Map>(map, json.pimpl->value, [](const ::Json::Value::const_iterator& i){return i->asUInt();});
 }
 
-template GetMapElements<unsigned int, Polymorphic::Map>::GetMapElements(const Json& json);
-template void GetMapElements<unsigned int, Polymorphic::Map>::operator()(Polymorphic::Map<std::string, unsigned int>& map) const;
+template GetMapElements<unsigned int, Base::Map>::GetMapElements(const Json& json);
+template void GetMapElements<unsigned int, Base::Map>::operator()(Base::Map<unsigned int>& map) const;
 
 #if _SIZEOF_UINT64_T != _SIZEOF_UNSIGNED_INT
 template<>
-GetMapElements<std::uint64_t, Polymorphic::Map>::GetMapElements(const Json& json) : json(json)
+GetMapElements<std::uint64_t, Base::Map>::GetMapElements(const Json& json) : json(json)
 {
 }
 
 template<>
-void GetMapElements<std::uint64_t, Polymorphic::Map>::operator()(Polymorphic::Map<std::string, std::uint64_t>& map) const
+void GetMapElements<std::uint64_t, Base::Map>::operator()(Base::Map<std::uint64_t>& map) const
 {
-	populateMap<std::uint64_t, Polymorphic::Map>(map, json.pimpl->value, [](const ::Json::Value::const_iterator& i){return i->asUInt64();});
+	populateMap<std::uint64_t, Base::Map>(map, json.pimpl->value, [](const ::Json::Value::const_iterator& i){return i->asUInt64();});
 }
 
-template GetMapElements<std::uint64_t, Polymorphic::Map>::GetMapElements(const Json& json);
-template void GetMapElements<std::uint64_t, Polymorphic::Map>::operator()(Polymorphic::Map<std::string, std::uint64_t>& map) const;
+template GetMapElements<std::uint64_t, Base::Map>::GetMapElements(const Json& json);
+template void GetMapElements<std::uint64_t, Base::Map>::operator()(Base::Map<std::uint64_t>& map) const;
 #endif
 
 #if _SIZEOF_UINTMAX_T != _SIZEOF_UNSIGNED_INT && _SIZEOF_UINTMAX_T != _SIZEOF_UINT64_T
 template<>
-GetMapElements<std::uintmax_t, Polymorphic::Map>::GetMapElements(const Json& json) : json(json)
+GetMapElements<std::uintmax_t, Base::Map>::GetMapElements(const Json& json) : json(json)
 {
 }
 
 template<>
-void GetMapElements<std::uintmax_t, Polymorphic::Map>::operator()(Polymorphic::Map<std::string, std::uintmax_t>& map) const
+void GetMapElements<std::uintmax_t, Base::Map>::operator()(Base::Map<std::uintmax_t>& map) const
 {
-	populateMap<std::uintmax_t, Polymorphic::Map>(map, json.pimpl->value, [](const ::Json::Value::const_iterator& i){return i->asLargestUInt();});
+	populateMap<std::uintmax_t, Base::Map>(map, json.pimpl->value, [](const ::Json::Value::const_iterator& i){return i->asLargestUInt();});
 }
 
-template GetMapElements<std::uintmax_t, Polymorphic::Map>::GetMapElements(const Json& json);
-template void GetMapElements<std::uintmax_t, Polymorphic::Map>::operator()(Polymorphic::Map<std::string, std::uintmax_t>& map) const;
+template GetMapElements<std::uintmax_t, Base::Map>::GetMapElements(const Json& json);
+template void GetMapElements<std::uintmax_t, Base::Map>::operator()(Base::Map<std::uintmax_t>& map) const;
 #endif
 
 }} // namespace JXXON::Accessor

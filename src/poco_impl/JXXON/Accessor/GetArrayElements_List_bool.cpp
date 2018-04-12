@@ -4,17 +4,17 @@
 // SPDX-License-Identifier:		BSL-1.0
 //
 
-#include "JXXON/Json.h"
+#include "JXXON/Base/List.h"
 #include "JXXON/Error.h"
+#include "JXXON/Json.h"
 #include "JXXON/Json/Impl.h"
 #include "JXXON/Accessor/GetArrayElements.tcc"
 #include <cstdint>
-#include <Polymorphic/List.h>
 
 namespace JXXON { namespace Accessor {
 
 template<>
-void GetArrayElements<bool, Polymorphic::List>::operator()(Polymorphic::List<bool>& array) const
+void GetArrayElements<bool, Base::List>::operator()(Base::List<bool>& array) const
 {
 	array.clear();
 	if (json.pimpl) {
@@ -28,7 +28,7 @@ void GetArrayElements<bool, Polymorphic::List>::operator()(Polymorphic::List<boo
 	}
 }
 
-template GetArrayElements<bool, Polymorphic::List>::GetArrayElements(const Json& json);
-template void GetArrayElements<bool, Polymorphic::List>::operator()(Polymorphic::List<bool>& array) const;
+template GetArrayElements<bool, Base::List>::GetArrayElements(const Json& json);
+template void GetArrayElements<bool, Base::List>::operator()(Base::List<bool>& array) const;
 
 }} // namespace JXXON::Accessor

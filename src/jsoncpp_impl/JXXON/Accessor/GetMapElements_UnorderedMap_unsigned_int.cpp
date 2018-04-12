@@ -4,59 +4,59 @@
 // SPDX-License-Identifier:		BSL-1.0
 //
 
-#include "JXXON/Json.h"
+#include "JXXON/Base/UnorderedMap.h"
 #include "JXXON/Error.h"
+#include "JXXON/Json.h"
 #include "JXXON/Json/Impl.h"
 #include "JXXON/Accessor/GetMapElements.tcc"
 #include <cstdint>
-#include <Polymorphic/UnorderedMap.h>
 
 namespace JXXON { namespace Accessor {
 
 template<>
-GetMapElements<unsigned int, Polymorphic::UnorderedMap>::GetMapElements(const Json& json) : json(json)
+GetMapElements<unsigned int, Base::UnorderedMap>::GetMapElements(const Json& json) : json(json)
 {
 }
 
 template<>
-void GetMapElements<unsigned int, Polymorphic::UnorderedMap>::operator()(Polymorphic::UnorderedMap<std::string, unsigned int>& map) const
+void GetMapElements<unsigned int, Base::UnorderedMap>::operator()(Base::UnorderedMap<unsigned int>& map) const
 {
-	populateMap<unsigned int, Polymorphic::UnorderedMap>(map, json.pimpl->value, [](const ::Json::Value::const_iterator& i){return i->asUInt();});
+	populateMap<unsigned int, Base::UnorderedMap>(map, json.pimpl->value, [](const ::Json::Value::const_iterator& i){return i->asUInt();});
 }
 
-template GetMapElements<unsigned int, Polymorphic::UnorderedMap>::GetMapElements(const Json& json);
-template void GetMapElements<unsigned int, Polymorphic::UnorderedMap>::operator()(Polymorphic::UnorderedMap<std::string, unsigned int>& map) const;
+template GetMapElements<unsigned int, Base::UnorderedMap>::GetMapElements(const Json& json);
+template void GetMapElements<unsigned int, Base::UnorderedMap>::operator()(Base::UnorderedMap<unsigned int>& map) const;
 
 #if _SIZEOF_UINT64_T != _SIZEOF_UNSIGNED_INT
 template<>
-GetMapElements<std::uint64_t, Polymorphic::UnorderedMap>::GetMapElements(const Json& json) : json(json)
+GetMapElements<std::uint64_t, Base::UnorderedMap>::GetMapElements(const Json& json) : json(json)
 {
 }
 
 template<>
-void GetMapElements<std::uint64_t, Polymorphic::UnorderedMap>::operator()(Polymorphic::UnorderedMap<std::string, std::uint64_t>& map) const
+void GetMapElements<std::uint64_t, Base::UnorderedMap>::operator()(Base::UnorderedMap<std::uint64_t>& map) const
 {
-	populateMap<std::uint64_t, Polymorphic::UnorderedMap>(map, json.pimpl->value, [](const ::Json::Value::const_iterator& i){return i->asUInt64();});
+	populateMap<std::uint64_t, Base::UnorderedMap>(map, json.pimpl->value, [](const ::Json::Value::const_iterator& i){return i->asUInt64();});
 }
 
-template GetMapElements<std::uint64_t, Polymorphic::UnorderedMap>::GetMapElements(const Json& json);
-template void GetMapElements<std::uint64_t, Polymorphic::UnorderedMap>::operator()(Polymorphic::UnorderedMap<std::string, std::uint64_t>& map) const;
+template GetMapElements<std::uint64_t, Base::UnorderedMap>::GetMapElements(const Json& json);
+template void GetMapElements<std::uint64_t, Base::UnorderedMap>::operator()(Base::UnorderedMap<std::uint64_t>& map) const;
 #endif
 
 #if _SIZEOF_UINTMAX_T != _SIZEOF_UNSIGNED_INT && _SIZEOF_UINTMAX_T != _SIZEOF_UINT64_T
 template<>
-GetMapElements<std::uintmax_t, Polymorphic::UnorderedMap>::GetMapElements(const Json& json) : json(json)
+GetMapElements<std::uintmax_t, Base::UnorderedMap>::GetMapElements(const Json& json) : json(json)
 {
 }
 
 template<>
-void GetMapElements<std::uintmax_t, Polymorphic::UnorderedMap>::operator()(Polymorphic::UnorderedMap<std::string, std::uintmax_t>& map) const
+void GetMapElements<std::uintmax_t, Base::UnorderedMap>::operator()(Base::UnorderedMap<std::uintmax_t>& map) const
 {
-	populateMap<std::uintmax_t, Polymorphic::UnorderedMap>(map, json.pimpl->value, [](const ::Json::Value::const_iterator& i){return i->asLargestUInt();});
+	populateMap<std::uintmax_t, Base::UnorderedMap>(map, json.pimpl->value, [](const ::Json::Value::const_iterator& i){return i->asLargestUInt();});
 }
 
-template GetMapElements<std::uintmax_t, Polymorphic::UnorderedMap>::GetMapElements(const Json& json);
-template void GetMapElements<std::uintmax_t, Polymorphic::UnorderedMap>::operator()(Polymorphic::UnorderedMap<std::string, std::uintmax_t>& map) const;
+template GetMapElements<std::uintmax_t, Base::UnorderedMap>::GetMapElements(const Json& json);
+template void GetMapElements<std::uintmax_t, Base::UnorderedMap>::operator()(Base::UnorderedMap<std::uintmax_t>& map) const;
 #endif
 
 }} // namespace JXXON::Accessor

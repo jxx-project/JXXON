@@ -4,19 +4,19 @@
 // SPDX-License-Identifier:		BSL-1.0
 //
 
-#include "JXXON/Json.h"
+#include "JXXON/Base/Map.h"
 #include "JXXON/Error.h"
+#include "JXXON/Json.h"
 #include "JXXON/Json/Impl.h"
 #include "JXXON/Accessor/SetMapElements_shared_ptr.tcc"
 #include <cstdint>
-#include <Polymorphic/Map.h>
 
 namespace JXXON { namespace Accessor {
 
-template SetMapElements<std::shared_ptr<float>, Polymorphic::Map>::SetMapElements(Json& json);
-template void SetMapElements<std::shared_ptr<float>, Polymorphic::Map>::operator()(const Polymorphic::Map<std::string, std::shared_ptr<float>>& map);
+template SetMapElements<std::shared_ptr<float>, Base::Map>::SetMapElements(Json& json);
+template void SetMapElements<std::shared_ptr<float>, Base::Map>::operator()(const Base::Map<std::shared_ptr<float>>& map);
 
-template SetMapElements<std::shared_ptr<double>, Polymorphic::Map>::SetMapElements(Json& json);
-template void SetMapElements<std::shared_ptr<double>, Polymorphic::Map>::operator()(const Polymorphic::Map<std::string, std::shared_ptr<double>>& map);
+template SetMapElements<std::shared_ptr<double>, Base::Map>::SetMapElements(Json& json);
+template void SetMapElements<std::shared_ptr<double>, Base::Map>::operator()(const Base::Map<std::shared_ptr<double>>& map);
 
 }} // namespace JXXON::Accessor

@@ -151,9 +151,9 @@ public:
 		}
 	};
 
-	/// Extension of Base<std::string, T> implementing JXXON::Serializable. Use alias templates JXXON::Map and JXXON::UnorderedMap for referring actual instantiations.
-	template <typename T, template<typename...> class Base>
-	class Map : public Base<std::string, T>, public Serializable
+	/// Extension of Base<T> implementing JXXON::Serializable. Use alias templates JXXON::Map and JXXON::UnorderedMap for referring actual instantiations.
+	template<typename T, template<typename...> class Base>
+	class Map : public Base<T>, public Serializable
 	{
 	public:
 		/// Construct empty map
@@ -163,32 +163,32 @@ public:
 
 		/// Construct map with emplace constructed elements of range [first, last).
 		template<typename InputIterator>
-		Map(InputIterator first, InputIterator last) : Base<std::string, T>(first, last)
+		Map(InputIterator first, InputIterator last) : Base<T>(first, last)
 		{
 		}
 
 		/// Copy construct map.
-		Map(const Base<std::string, T>& other) : Base<std::string, T>(other)
+		Map(const Base<T>& other) : Base<T>(other)
 		{
 		}
 
 		/// Move construct map.
-		Map(Base<std::string, T>&& other) : Base<std::string, T>(std::move(other))
+		Map(Base<T>&& other) : Base<T>(std::move(other))
 		{
 		}
 
 		/// Initializer list constructor.
-		Map(std::initializer_list<std::pair<const std::string, T>> initializerList) : Base<std::string, T>(initializerList)
+		Map(std::initializer_list<std::pair<const std::string, T>> initializerList) : Base<T>(initializerList)
 		{
 		}
 
 		/// Copy construct map from delegate type.
-		Map(const typename Base<std::string, T>::DelegateType& other) : Base<std::string, T>(other)
+		Map(const typename Base<T>::DelegateType& other) : Base<T>(other)
 		{
 		}
 
 		/// Move construct map from delegate type.
-		Map(typename Base<std::string, T>::DelegateType&& other) : Base<std::string, T>(std::move(other))
+		Map(typename Base<T>::DelegateType&& other) : Base<T>(std::move(other))
 		{
 		}
 
@@ -499,7 +499,7 @@ public:
 	{
 	}
 
-	void operator()(Base<std::string, T>& map) const
+	void operator()(Base<T>& map) const
 	{
 		map.clear();
 		json.insert([&map](const std::string& key, const Json& element){map.emplace(key, element.isNull() ? T() : T(element));});
@@ -517,7 +517,7 @@ public:
 	{
 	}
 
-	void operator()(Base<std::string, T>& map) const
+	void operator()(Base<T>& map) const
 	{
 		map.clear();
 		json.insert([&map](const std::string& key, const Json& element){map.emplace(key, element.isNull() ? T() : std::make_shared<typename T::element_type>(element));});
@@ -536,7 +536,7 @@ public:
 		json.setTypeObject();
 	}
 
-	void operator()(const Base<std::string, T>& map)
+	void operator()(const Base<T>& map)
 	{
 		for (auto& i : map) {
 			json.insert(i.first, i.second.toJson());
@@ -556,7 +556,7 @@ public:
 		json.setTypeObject();
 	}
 
-	void operator()(const Base<std::string, T>& map)
+	void operator()(const Base<T>& map)
 	{
 		for (auto& i : map) {
 			json.insert(i.first, i.second ? i.second->toJson() : Json());
@@ -572,7 +572,7 @@ class GetMapElements<T, Base, typename std::enable_if<!std::is_base_of<Json::Ser
 {
 public:
 	GetMapElements(const Json& json);
-	void operator()(Base<std::string, T>& map) const;
+	void operator()(Base<T>& map) const;
 
 private:
 	const Json& json;
@@ -583,7 +583,7 @@ class SetMapElements<T, Base, typename std::enable_if<!std::is_base_of<Json::Ser
 {
 public:
 	SetMapElements(Json& json);
-	void operator()(const Base<std::string, T>& map);
+	void operator()(const Base<T>& map);
 
 private:
 	Json& json;

@@ -4,19 +4,19 @@
 // SPDX-License-Identifier:		BSL-1.0
 //
 
-#include "JXXON/Json.h"
+#include "JXXON/Base/Vector.h"
 #include "JXXON/Error.h"
+#include "JXXON/Json.h"
 #include "JXXON/Json/Impl.h"
 #include "JXXON/Accessor/GetArrayElements.tcc"
 #include <cstdint>
-#include <Polymorphic/Vector.h>
 
 namespace JXXON { namespace Accessor {
 
-template GetArrayElements<float, Polymorphic::Vector>::GetArrayElements(const Json& json);
-template void GetArrayElements<float, Polymorphic::Vector>::operator()(Polymorphic::Vector<float>& array) const;
+template GetArrayElements<float, Base::Vector>::GetArrayElements(const Json& json);
+template void GetArrayElements<float, Base::Vector>::operator()(Base::Vector<float>& array) const;
 
-template GetArrayElements<double, Polymorphic::Vector>::GetArrayElements(const Json& json);
-template void GetArrayElements<double, Polymorphic::Vector>::operator()(Polymorphic::Vector<double>& array) const;
+template GetArrayElements<double, Base::Vector>::GetArrayElements(const Json& json);
+template void GetArrayElements<double, Base::Vector>::operator()(Base::Vector<double>& array) const;
 
 }} // namespace JXXON::Accessor

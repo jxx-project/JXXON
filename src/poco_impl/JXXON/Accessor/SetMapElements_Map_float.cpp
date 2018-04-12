@@ -4,19 +4,19 @@
 // SPDX-License-Identifier:		BSL-1.0
 //
 
-#include "JXXON/Json.h"
+#include "JXXON/Base/Map.h"
 #include "JXXON/Error.h"
+#include "JXXON/Json.h"
 #include "JXXON/Json/Impl.h"
 #include "JXXON/Accessor/SetMapElements.tcc"
 #include <cstdint>
-#include <Polymorphic/Map.h>
 
 namespace JXXON { namespace Accessor {
 
-template SetMapElements<float, Polymorphic::Map>::SetMapElements(Json& json);
-template void SetMapElements<float, Polymorphic::Map>::operator()(const Polymorphic::Map<std::string, float>& map);
+template SetMapElements<float, Base::Map>::SetMapElements(Json& json);
+template void SetMapElements<float, Base::Map>::operator()(const Base::Map<float>& map);
 
-template SetMapElements<double, Polymorphic::Map>::SetMapElements(Json& json);
-template void SetMapElements<double, Polymorphic::Map>::operator()(const Polymorphic::Map<std::string, double>& map);
+template SetMapElements<double, Base::Map>::SetMapElements(Json& json);
+template void SetMapElements<double, Base::Map>::operator()(const Base::Map<double>& map);
 
 }} // namespace JXXON::Accessor

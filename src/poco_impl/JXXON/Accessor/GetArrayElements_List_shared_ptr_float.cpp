@@ -4,19 +4,19 @@
 // SPDX-License-Identifier:		BSL-1.0
 //
 
-#include "JXXON/Json.h"
+#include "JXXON/Base/List.h"
 #include "JXXON/Error.h"
+#include "JXXON/Json.h"
 #include "JXXON/Json/Impl.h"
 #include "JXXON/Accessor/GetArrayElements_shared_ptr.tcc"
 #include <cstdint>
-#include <Polymorphic/List.h>
 
 namespace JXXON { namespace Accessor {
 
-template GetArrayElements<std::shared_ptr<float>, Polymorphic::List>::GetArrayElements(const Json& json);
-template void GetArrayElements<std::shared_ptr<float>, Polymorphic::List>::operator()(Polymorphic::List<std::shared_ptr<float>>& array) const;
+template GetArrayElements<std::shared_ptr<float>, Base::List>::GetArrayElements(const Json& json);
+template void GetArrayElements<std::shared_ptr<float>, Base::List>::operator()(Base::List<std::shared_ptr<float>>& array) const;
 
-template GetArrayElements<std::shared_ptr<double>, Polymorphic::List>::GetArrayElements(const Json& json);
-template void GetArrayElements<std::shared_ptr<double>, Polymorphic::List>::operator()(Polymorphic::List<std::shared_ptr<double>>& array) const;
+template GetArrayElements<std::shared_ptr<double>, Base::List>::GetArrayElements(const Json& json);
+template void GetArrayElements<std::shared_ptr<double>, Base::List>::operator()(Base::List<std::shared_ptr<double>>& array) const;
 
 }} // namespace JXXON::Accessor

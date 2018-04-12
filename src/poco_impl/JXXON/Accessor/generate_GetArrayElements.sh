@@ -87,7 +87,7 @@ GetArrayElements_shared_ptr_TCC > GetArrayElements_shared_ptr.tcc
 function GetArrayElements_SPECIALIZATION {
 cat << EOF | sed "s/{{BASE}}/$1/g" | sed "s/{{ELEMENT_TYPE}}/$2/g"
 template<>
-void GetArrayElements<{{ELEMENT_TYPE}}, Polymorphic::{{BASE}}>::operator()(Polymorphic::{{BASE}}<{{ELEMENT_TYPE}}>& array) const
+void GetArrayElements<{{ELEMENT_TYPE}}, Base::{{BASE}}>::operator()(Base::{{BASE}}<{{ELEMENT_TYPE}}>& array) const
 {
 	array.clear();
 	if (json.pimpl) {
@@ -107,7 +107,7 @@ EOF
 function GetArrayElements_shared_ptr_SPECIALIZATION {
 cat << EOF | sed "s/{{BASE}}/$1/g" | sed "s/{{ELEMENT_TYPE}}/$2/g"
 template<>
-void GetArrayElements<std::shared_ptr<{{ELEMENT_TYPE}}>, Polymorphic::{{BASE}}>::operator()(Polymorphic::{{BASE}}<std::shared_ptr<{{ELEMENT_TYPE}}>>& array) const
+void GetArrayElements<std::shared_ptr<{{ELEMENT_TYPE}}>, Base::{{BASE}}>::operator()(Base::{{BASE}}<std::shared_ptr<{{ELEMENT_TYPE}}>>& array) const
 {
 	array.clear();
 	if (json.pimpl) {
@@ -132,12 +132,12 @@ cat << EOF | sed "s/{{INCLUDE}}/$1/g"| sed "s/{{BASE}}/$2/g"
 // SPDX-License-Identifier:		BSL-1.0
 //
 
-#include "JXXON/Json.h"
+#include "JXXON/Base/{{BASE}}.h"
 #include "JXXON/Error.h"
+#include "JXXON/Json.h"
 #include "JXXON/Json/Impl.h"
 #include "JXXON/Accessor/{{INCLUDE}}"
 #include <cstdint>
-#include <Polymorphic/{{BASE}}.h>
 
 namespace JXXON { namespace Accessor {
 
@@ -146,15 +146,15 @@ EOF
 
 function GetArrayElements_CPP {
 cat << EOF | sed "s/{{BASE}}/$1/g" | sed "s/{{ELEMENT_TYPE}}/$2/g"
-template GetArrayElements<{{ELEMENT_TYPE}}, Polymorphic::{{BASE}}>::GetArrayElements(const Json& json);
-template void GetArrayElements<{{ELEMENT_TYPE}}, Polymorphic::{{BASE}}>::operator()(Polymorphic::{{BASE}}<{{ELEMENT_TYPE}}>& array) const;
+template GetArrayElements<{{ELEMENT_TYPE}}, Base::{{BASE}}>::GetArrayElements(const Json& json);
+template void GetArrayElements<{{ELEMENT_TYPE}}, Base::{{BASE}}>::operator()(Base::{{BASE}}<{{ELEMENT_TYPE}}>& array) const;
 EOF
 }
 
 function GetArrayElements_shared_ptr_CPP {
 cat << EOF | sed "s/{{BASE}}/$1/g" | sed "s/{{ELEMENT_TYPE}}/$2/g"
-template GetArrayElements<std::shared_ptr<{{ELEMENT_TYPE}}>, Polymorphic::{{BASE}}>::GetArrayElements(const Json& json);
-template void GetArrayElements<std::shared_ptr<{{ELEMENT_TYPE}}>, Polymorphic::{{BASE}}>::operator()(Polymorphic::{{BASE}}<std::shared_ptr<{{ELEMENT_TYPE}}>>& array) const;
+template GetArrayElements<std::shared_ptr<{{ELEMENT_TYPE}}>, Base::{{BASE}}>::GetArrayElements(const Json& json);
+template void GetArrayElements<std::shared_ptr<{{ELEMENT_TYPE}}>, Base::{{BASE}}>::operator()(Base::{{BASE}}<std::shared_ptr<{{ELEMENT_TYPE}}>>& array) const;
 EOF
 }
 

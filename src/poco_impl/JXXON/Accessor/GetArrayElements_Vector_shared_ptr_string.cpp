@@ -4,17 +4,17 @@
 // SPDX-License-Identifier:		BSL-1.0
 //
 
-#include "JXXON/Json.h"
+#include "JXXON/Base/Vector.h"
 #include "JXXON/Error.h"
+#include "JXXON/Json.h"
 #include "JXXON/Json/Impl.h"
 #include "JXXON/Accessor/GetArrayElements_shared_ptr.tcc"
 #include <cstdint>
-#include <Polymorphic/Vector.h>
 
 namespace JXXON { namespace Accessor {
 
 template<>
-void GetArrayElements<std::shared_ptr<std::string>, Polymorphic::Vector>::operator()(Polymorphic::Vector<std::shared_ptr<std::string>>& array) const
+void GetArrayElements<std::shared_ptr<std::string>, Base::Vector>::operator()(Base::Vector<std::shared_ptr<std::string>>& array) const
 {
 	array.clear();
 	if (json.pimpl) {
@@ -28,7 +28,7 @@ void GetArrayElements<std::shared_ptr<std::string>, Polymorphic::Vector>::operat
 	}
 }
 
-template GetArrayElements<std::shared_ptr<std::string>, Polymorphic::Vector>::GetArrayElements(const Json& json);
-template void GetArrayElements<std::shared_ptr<std::string>, Polymorphic::Vector>::operator()(Polymorphic::Vector<std::shared_ptr<std::string>>& array) const;
+template GetArrayElements<std::shared_ptr<std::string>, Base::Vector>::GetArrayElements(const Json& json);
+template void GetArrayElements<std::shared_ptr<std::string>, Base::Vector>::operator()(Base::Vector<std::shared_ptr<std::string>>& array) const;
 
 }} // namespace JXXON::Accessor

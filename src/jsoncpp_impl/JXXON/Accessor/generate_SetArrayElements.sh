@@ -80,12 +80,12 @@ cat << EOF | sed "s/{{INCLUDE}}/$1/g"| sed "s/{{BASE}}/$2/g"
 // SPDX-License-Identifier:		BSL-1.0
 //
 
-#include "JXXON/Json.h"
+#include "JXXON/Base/{{BASE}}.h"
 #include "JXXON/Error.h"
+#include "JXXON/Json.h"
 #include "JXXON/Json/Impl.h"
 #include "JXXON/Accessor/{{INCLUDE}}"
 #include <cstdint>
-#include <Polymorphic/{{BASE}}.h>
 
 namespace JXXON { namespace Accessor {
 
@@ -94,15 +94,15 @@ EOF
 
 function SetArrayElements_CPP {
 cat << EOF | sed "s/{{BASE}}/$1/g" | sed "s/{{ELEMENT_TYPE}}/$2/g"
-template SetArrayElements<{{ELEMENT_TYPE}}, Polymorphic::{{BASE}}>::SetArrayElements(Json& json);
-template void SetArrayElements<{{ELEMENT_TYPE}}, Polymorphic::{{BASE}}>::operator()(const Polymorphic::{{BASE}}<{{ELEMENT_TYPE}}>& array);
+template SetArrayElements<{{ELEMENT_TYPE}}, Base::{{BASE}}>::SetArrayElements(Json& json);
+template void SetArrayElements<{{ELEMENT_TYPE}}, Base::{{BASE}}>::operator()(const Base::{{BASE}}<{{ELEMENT_TYPE}}>& array);
 EOF
 }
 
 function SetArrayElements_shared_ptr_CPP {
 cat << EOF | sed "s/{{BASE}}/$1/g" | sed "s/{{ELEMENT_TYPE}}/$2/g"
-template SetArrayElements<std::shared_ptr<{{ELEMENT_TYPE}}>, Polymorphic::{{BASE}}>::SetArrayElements(Json& json);
-template void SetArrayElements<std::shared_ptr<{{ELEMENT_TYPE}}>, Polymorphic::{{BASE}}>::operator()(const Polymorphic::{{BASE}}<std::shared_ptr<{{ELEMENT_TYPE}}>>& array);
+template SetArrayElements<std::shared_ptr<{{ELEMENT_TYPE}}>, Base::{{BASE}}>::SetArrayElements(Json& json);
+template void SetArrayElements<std::shared_ptr<{{ELEMENT_TYPE}}>, Base::{{BASE}}>::operator()(const Base::{{BASE}}<std::shared_ptr<{{ELEMENT_TYPE}}>>& array);
 EOF
 }
 

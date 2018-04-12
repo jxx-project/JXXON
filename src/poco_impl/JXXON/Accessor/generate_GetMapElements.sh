@@ -20,7 +20,7 @@ GetMapElements<T, Base, typename std::enable_if<!std::is_base_of<Json::Serializa
 }
 
 template<typename T, template<typename...> class Base>
-void GetMapElements<T, Base, typename std::enable_if<!std::is_base_of<Json::Serializable, T>::value && !std::is_convertible<T, std::shared_ptr<Json::Serializable>>::value>::type>::operator()(Base<std::string, T>& map) const
+void GetMapElements<T, Base, typename std::enable_if<!std::is_base_of<Json::Serializable, T>::value && !std::is_convertible<T, std::shared_ptr<Json::Serializable>>::value>::type>::operator()(Base<T>& map) const
 {
 	map.clear();
 	if (json.pimpl) {
@@ -62,7 +62,7 @@ GetMapElements<T, Base, typename std::enable_if<!std::is_base_of<Json::Serializa
 }
 
 template<typename T, template<typename...> class Base>
-void GetMapElements<T, Base, typename std::enable_if<!std::is_base_of<Json::Serializable, T>::value && !std::is_convertible<T, std::shared_ptr<Json::Serializable>>::value>::type>::operator()(Base<std::string, T>& map) const
+void GetMapElements<T, Base, typename std::enable_if<!std::is_base_of<Json::Serializable, T>::value && !std::is_convertible<T, std::shared_ptr<Json::Serializable>>::value>::type>::operator()(Base<T>& map) const
 {
 	map.clear();
 	if (json.pimpl) {
@@ -87,7 +87,7 @@ GetMapElements_shared_ptr_TCC > GetMapElements_shared_ptr.tcc
 function GetMapElements_SPECIALIZATION {
 cat << EOF | sed "s/{{BASE}}/$1/g" | sed "s/{{ELEMENT_TYPE}}/$2/g"
 template<>
-void GetMapElements<{{ELEMENT_TYPE}}, Polymorphic::{{BASE}}>::operator()(Polymorphic::{{BASE}}<std::string, {{ELEMENT_TYPE}}>& map) const
+void GetMapElements<{{ELEMENT_TYPE}}, Base::{{BASE}}>::operator()(Base::{{BASE}}<{{ELEMENT_TYPE}}>& map) const
 {
 	map.clear();
 	if (json.pimpl) {
@@ -107,7 +107,7 @@ EOF
 function GetMapElements_shared_ptr_SPECIALIZATION {
 cat << EOF | sed "s/{{BASE}}/$1/g" | sed "s/{{ELEMENT_TYPE}}/$2/g"
 template<>
-void GetMapElements<std::shared_ptr<{{ELEMENT_TYPE}}>, Polymorphic::{{BASE}}>::operator()(Polymorphic::{{BASE}}<std::string, std::shared_ptr<{{ELEMENT_TYPE}}>>& map) const
+void GetMapElements<std::shared_ptr<{{ELEMENT_TYPE}}>, Base::{{BASE}}>::operator()(Base::{{BASE}}<std::shared_ptr<{{ELEMENT_TYPE}}>>& map) const
 {
 	map.clear();
 	if (json.pimpl) {
@@ -132,12 +132,12 @@ cat << EOF | sed "s/{{INCLUDE}}/$1/g"| sed "s/{{BASE}}/$2/g"
 // SPDX-License-Identifier:		BSL-1.0
 //
 
-#include "JXXON/Json.h"
+#include "JXXON/Base/{{BASE}}.h"
 #include "JXXON/Error.h"
+#include "JXXON/Json.h"
 #include "JXXON/Json/Impl.h"
 #include "JXXON/Accessor/{{INCLUDE}}"
 #include <cstdint>
-#include <Polymorphic/{{BASE}}.h>
 
 namespace JXXON { namespace Accessor {
 
@@ -146,15 +146,15 @@ EOF
 
 function GetMapElements_CPP {
 cat << EOF | sed "s/{{BASE}}/$1/g" | sed "s/{{ELEMENT_TYPE}}/$2/g"
-template GetMapElements<{{ELEMENT_TYPE}}, Polymorphic::{{BASE}}>::GetMapElements(const Json& json);
-template void GetMapElements<{{ELEMENT_TYPE}}, Polymorphic::{{BASE}}>::operator()(Polymorphic::{{BASE}}<std::string, {{ELEMENT_TYPE}}>& map) const;
+template GetMapElements<{{ELEMENT_TYPE}}, Base::{{BASE}}>::GetMapElements(const Json& json);
+template void GetMapElements<{{ELEMENT_TYPE}}, Base::{{BASE}}>::operator()(Base::{{BASE}}<{{ELEMENT_TYPE}}>& map) const;
 EOF
 }
 
 function GetMapElements_shared_ptr_CPP {
 cat << EOF | sed "s/{{BASE}}/$1/g" | sed "s/{{ELEMENT_TYPE}}/$2/g"
-template GetMapElements<std::shared_ptr<{{ELEMENT_TYPE}}>, Polymorphic::{{BASE}}>::GetMapElements(const Json& json);
-template void GetMapElements<std::shared_ptr<{{ELEMENT_TYPE}}>, Polymorphic::{{BASE}}>::operator()(Polymorphic::{{BASE}}<std::string, std::shared_ptr<{{ELEMENT_TYPE}}>>& map) const;
+template GetMapElements<std::shared_ptr<{{ELEMENT_TYPE}}>, Base::{{BASE}}>::GetMapElements(const Json& json);
+template void GetMapElements<std::shared_ptr<{{ELEMENT_TYPE}}>, Base::{{BASE}}>::operator()(Base::{{BASE}}<std::shared_ptr<{{ELEMENT_TYPE}}>>& map) const;
 EOF
 }
 

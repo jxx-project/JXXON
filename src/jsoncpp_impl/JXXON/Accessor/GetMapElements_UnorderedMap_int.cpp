@@ -4,59 +4,59 @@
 // SPDX-License-Identifier:		BSL-1.0
 //
 
-#include "JXXON/Json.h"
+#include "JXXON/Base/UnorderedMap.h"
 #include "JXXON/Error.h"
+#include "JXXON/Json.h"
 #include "JXXON/Json/Impl.h"
 #include "JXXON/Accessor/GetMapElements.tcc"
 #include <cstdint>
-#include <Polymorphic/UnorderedMap.h>
 
 namespace JXXON { namespace Accessor {
 
 template<>
-GetMapElements<int, Polymorphic::UnorderedMap>::GetMapElements(const Json& json) : json(json)
+GetMapElements<int, Base::UnorderedMap>::GetMapElements(const Json& json) : json(json)
 {
 }
 
 template<>
-void GetMapElements<int, Polymorphic::UnorderedMap>::operator()(Polymorphic::UnorderedMap<std::string, int>& map) const
+void GetMapElements<int, Base::UnorderedMap>::operator()(Base::UnorderedMap<int>& map) const
 {
-	populateMap<int, Polymorphic::UnorderedMap>(map, json.pimpl->value, [](const ::Json::Value::const_iterator& i){return i->asInt();});
+	populateMap<int, Base::UnorderedMap>(map, json.pimpl->value, [](const ::Json::Value::const_iterator& i){return i->asInt();});
 }
 
-template GetMapElements<int, Polymorphic::UnorderedMap>::GetMapElements(const Json& json);
-template void GetMapElements<int, Polymorphic::UnorderedMap>::operator()(Polymorphic::UnorderedMap<std::string, int>& map) const;
+template GetMapElements<int, Base::UnorderedMap>::GetMapElements(const Json& json);
+template void GetMapElements<int, Base::UnorderedMap>::operator()(Base::UnorderedMap<int>& map) const;
 
 #if _SIZEOF_INT64_T != _SIZEOF_INT
 template<>
-GetMapElements<std::int64_t, Polymorphic::UnorderedMap>::GetMapElements(const Json& json) : json(json)
+GetMapElements<std::int64_t, Base::UnorderedMap>::GetMapElements(const Json& json) : json(json)
 {
 }
 
 template<>
-void GetMapElements<std::int64_t, Polymorphic::UnorderedMap>::operator()(Polymorphic::UnorderedMap<std::string, std::int64_t>& map) const
+void GetMapElements<std::int64_t, Base::UnorderedMap>::operator()(Base::UnorderedMap<std::int64_t>& map) const
 {
-	populateMap<std::int64_t, Polymorphic::UnorderedMap>(map, json.pimpl->value, [](const ::Json::Value::const_iterator& i){return i->asInt64();});
+	populateMap<std::int64_t, Base::UnorderedMap>(map, json.pimpl->value, [](const ::Json::Value::const_iterator& i){return i->asInt64();});
 }
 
-template GetMapElements<std::int64_t, Polymorphic::UnorderedMap>::GetMapElements(const Json& json);
-template void GetMapElements<std::int64_t, Polymorphic::UnorderedMap>::operator()(Polymorphic::UnorderedMap<std::string, std::int64_t>& map) const;
+template GetMapElements<std::int64_t, Base::UnorderedMap>::GetMapElements(const Json& json);
+template void GetMapElements<std::int64_t, Base::UnorderedMap>::operator()(Base::UnorderedMap<std::int64_t>& map) const;
 #endif
 
 #if _SIZEOF_INTMAX_T != _SIZEOF_INT && _SIZEOF_INTMAX_T != _SIZEOF_INT64_T
 template<>
-GetMapElements<std::intmax_t, Polymorphic::UnorderedMap>::GetMapElements(const Json& json) : json(json)
+GetMapElements<std::intmax_t, Base::UnorderedMap>::GetMapElements(const Json& json) : json(json)
 {
 }
 
 template<>
-void GetMapElements<std::intmax_t, Polymorphic::UnorderedMap>::operator()(Polymorphic::UnorderedMap<std::string, std::intmax_t>& map) const
+void GetMapElements<std::intmax_t, Base::UnorderedMap>::operator()(Base::UnorderedMap<std::intmax_t>& map) const
 {
-	populateMap<std::intmax_t, Polymorphic::UnorderedMap>(map, json.pimpl->value, [](const ::Json::Value::const_iterator& i){return i->asLargestInt();});
+	populateMap<std::intmax_t, Base::UnorderedMap>(map, json.pimpl->value, [](const ::Json::Value::const_iterator& i){return i->asLargestInt();});
 }
 
-template GetMapElements<std::intmax_t, Polymorphic::UnorderedMap>::GetMapElements(const Json& json);
-template void GetMapElements<std::intmax_t, Polymorphic::UnorderedMap>::operator()(Polymorphic::UnorderedMap<std::string, std::intmax_t>& map) const;
+template GetMapElements<std::intmax_t, Base::UnorderedMap>::GetMapElements(const Json& json);
+template void GetMapElements<std::intmax_t, Base::UnorderedMap>::operator()(Base::UnorderedMap<std::intmax_t>& map) const;
 #endif
 
 }} // namespace JXXON::Accessor

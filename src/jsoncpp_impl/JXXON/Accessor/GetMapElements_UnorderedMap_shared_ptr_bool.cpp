@@ -4,27 +4,27 @@
 // SPDX-License-Identifier:		BSL-1.0
 //
 
-#include "JXXON/Json.h"
+#include "JXXON/Base/UnorderedMap.h"
 #include "JXXON/Error.h"
+#include "JXXON/Json.h"
 #include "JXXON/Json/Impl.h"
 #include "JXXON/Accessor/GetMapElements_shared_ptr.tcc"
 #include <cstdint>
-#include <Polymorphic/UnorderedMap.h>
 
 namespace JXXON { namespace Accessor {
 
 template<>
-GetMapElements<std::shared_ptr<bool>, Polymorphic::UnorderedMap>::GetMapElements(const Json& json) : json(json)
+GetMapElements<std::shared_ptr<bool>, Base::UnorderedMap>::GetMapElements(const Json& json) : json(json)
 {
 }
 
 template<>
-void GetMapElements<std::shared_ptr<bool>, Polymorphic::UnorderedMap>::operator()(Polymorphic::UnorderedMap<std::string, std::shared_ptr<bool>>& map) const
+void GetMapElements<std::shared_ptr<bool>, Base::UnorderedMap>::operator()(Base::UnorderedMap<std::shared_ptr<bool>>& map) const
 {
-	populateMap<std::shared_ptr<bool>, Polymorphic::UnorderedMap>(map, json.pimpl->value, [](const ::Json::Value::const_iterator& i){return i->asBool();});
+	populateMap<std::shared_ptr<bool>, Base::UnorderedMap>(map, json.pimpl->value, [](const ::Json::Value::const_iterator& i){return i->asBool();});
 }
 
-template GetMapElements<std::shared_ptr<bool>, Polymorphic::UnorderedMap>::GetMapElements(const Json& json);
-template void GetMapElements<std::shared_ptr<bool>, Polymorphic::UnorderedMap>::operator()(Polymorphic::UnorderedMap<std::string, std::shared_ptr<bool>>& map) const;
+template GetMapElements<std::shared_ptr<bool>, Base::UnorderedMap>::GetMapElements(const Json& json);
+template void GetMapElements<std::shared_ptr<bool>, Base::UnorderedMap>::operator()(Base::UnorderedMap<std::shared_ptr<bool>>& map) const;
 
 }} // namespace JXXON::Accessor

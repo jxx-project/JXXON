@@ -4,26 +4,26 @@
 // SPDX-License-Identifier:		BSL-1.0
 //
 
-#include "JXXON/Json.h"
+#include "JXXON/Base/Map.h"
 #include "JXXON/Error.h"
+#include "JXXON/Json.h"
 #include "JXXON/Json/Impl.h"
 #include "JXXON/Accessor/SetMapElements.tcc"
 #include <cstdint>
-#include <Polymorphic/Map.h>
 
 namespace JXXON { namespace Accessor {
 
-template SetMapElements<unsigned int, Polymorphic::Map>::SetMapElements(Json& json);
-template void SetMapElements<unsigned int, Polymorphic::Map>::operator()(const Polymorphic::Map<std::string, unsigned int>& map);
+template SetMapElements<unsigned int, Base::Map>::SetMapElements(Json& json);
+template void SetMapElements<unsigned int, Base::Map>::operator()(const Base::Map<unsigned int>& map);
 
 #if _SIZEOF_UINT64_T != _SIZEOF_UNSIGNED_INT
-template SetMapElements<std::uint64_t, Polymorphic::Map>::SetMapElements(Json& json);
-template void SetMapElements<std::uint64_t, Polymorphic::Map>::operator()(const Polymorphic::Map<std::string, std::uint64_t>& map);
+template SetMapElements<std::uint64_t, Base::Map>::SetMapElements(Json& json);
+template void SetMapElements<std::uint64_t, Base::Map>::operator()(const Base::Map<std::uint64_t>& map);
 #endif
 
 #if _SIZEOF_UINTMAX_T != _SIZEOF_UNSIGNED_INT && _SIZEOF_UINTMAX_T != _SIZEOF_UINT64_T
-template SetMapElements<std::uintmax_t, Polymorphic::Map>::SetMapElements(Json& json);
-template void SetMapElements<std::uintmax_t, Polymorphic::Map>::operator()(const Polymorphic::Map<std::string, std::uintmax_t>& map);
+template SetMapElements<std::uintmax_t, Base::Map>::SetMapElements(Json& json);
+template void SetMapElements<std::uintmax_t, Base::Map>::operator()(const Base::Map<std::uintmax_t>& map);
 #endif
 
 }} // namespace JXXON::Accessor

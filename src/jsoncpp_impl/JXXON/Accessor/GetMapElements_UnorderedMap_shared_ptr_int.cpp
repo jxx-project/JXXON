@@ -4,59 +4,59 @@
 // SPDX-License-Identifier:		BSL-1.0
 //
 
-#include "JXXON/Json.h"
+#include "JXXON/Base/UnorderedMap.h"
 #include "JXXON/Error.h"
+#include "JXXON/Json.h"
 #include "JXXON/Json/Impl.h"
 #include "JXXON/Accessor/GetMapElements_shared_ptr.tcc"
 #include <cstdint>
-#include <Polymorphic/UnorderedMap.h>
 
 namespace JXXON { namespace Accessor {
 
 template<>
-GetMapElements<std::shared_ptr<int>, Polymorphic::UnorderedMap>::GetMapElements(const Json& json) : json(json)
+GetMapElements<std::shared_ptr<int>, Base::UnorderedMap>::GetMapElements(const Json& json) : json(json)
 {
 }
 
 template<>
-void GetMapElements<std::shared_ptr<int>, Polymorphic::UnorderedMap>::operator()(Polymorphic::UnorderedMap<std::string, std::shared_ptr<int>>& map) const
+void GetMapElements<std::shared_ptr<int>, Base::UnorderedMap>::operator()(Base::UnorderedMap<std::shared_ptr<int>>& map) const
 {
-	populateMap<std::shared_ptr<int>, Polymorphic::UnorderedMap>(map, json.pimpl->value, [](const ::Json::Value::const_iterator& i){return i->asInt();});
+	populateMap<std::shared_ptr<int>, Base::UnorderedMap>(map, json.pimpl->value, [](const ::Json::Value::const_iterator& i){return i->asInt();});
 }
 
-template GetMapElements<std::shared_ptr<int>, Polymorphic::UnorderedMap>::GetMapElements(const Json& json);
-template void GetMapElements<std::shared_ptr<int>, Polymorphic::UnorderedMap>::operator()(Polymorphic::UnorderedMap<std::string, std::shared_ptr<int>>& map) const;
+template GetMapElements<std::shared_ptr<int>, Base::UnorderedMap>::GetMapElements(const Json& json);
+template void GetMapElements<std::shared_ptr<int>, Base::UnorderedMap>::operator()(Base::UnorderedMap<std::shared_ptr<int>>& map) const;
 
 #if _SIZEOF_INT64_T != _SIZEOF_INT
 template<>
-GetMapElements<std::shared_ptr<std::int64_t>, Polymorphic::UnorderedMap>::GetMapElements(const Json& json) : json(json)
+GetMapElements<std::shared_ptr<std::int64_t>, Base::UnorderedMap>::GetMapElements(const Json& json) : json(json)
 {
 }
 
 template<>
-void GetMapElements<std::shared_ptr<std::int64_t>, Polymorphic::UnorderedMap>::operator()(Polymorphic::UnorderedMap<std::string, std::shared_ptr<std::int64_t>>& map) const
+void GetMapElements<std::shared_ptr<std::int64_t>, Base::UnorderedMap>::operator()(Base::UnorderedMap<std::shared_ptr<std::int64_t>>& map) const
 {
-	populateMap<std::shared_ptr<std::int64_t>, Polymorphic::UnorderedMap>(map, json.pimpl->value, [](const ::Json::Value::const_iterator& i){return i->asInt64();});
+	populateMap<std::shared_ptr<std::int64_t>, Base::UnorderedMap>(map, json.pimpl->value, [](const ::Json::Value::const_iterator& i){return i->asInt64();});
 }
 
-template GetMapElements<std::shared_ptr<std::int64_t>, Polymorphic::UnorderedMap>::GetMapElements(const Json& json);
-template void GetMapElements<std::shared_ptr<std::int64_t>, Polymorphic::UnorderedMap>::operator()(Polymorphic::UnorderedMap<std::string, std::shared_ptr<std::int64_t>>& map) const;
+template GetMapElements<std::shared_ptr<std::int64_t>, Base::UnorderedMap>::GetMapElements(const Json& json);
+template void GetMapElements<std::shared_ptr<std::int64_t>, Base::UnorderedMap>::operator()(Base::UnorderedMap<std::shared_ptr<std::int64_t>>& map) const;
 #endif
 
 #if _SIZEOF_INTMAX_T != _SIZEOF_INT && _SIZEOF_INTMAX_T != _SIZEOF_INT64_T
 template<>
-GetMapElements<std::shared_ptr<std::intmax_t>, Polymorphic::UnorderedMap>::GetMapElements(const Json& json) : json(json)
+GetMapElements<std::shared_ptr<std::intmax_t>, Base::UnorderedMap>::GetMapElements(const Json& json) : json(json)
 {
 }
 
 template<>
-void GetMapElements<std::shared_ptr<std::intmax_t>, Polymorphic::UnorderedMap>::operator()(Polymorphic::UnorderedMap<std::string, std::shared_ptr<std::intmax_t>>& map) const
+void GetMapElements<std::shared_ptr<std::intmax_t>, Base::UnorderedMap>::operator()(Base::UnorderedMap<std::shared_ptr<std::intmax_t>>& map) const
 {
-	populateMap<std::shared_ptr<std::intmax_t>, Polymorphic::UnorderedMap>(map, json.pimpl->value, [](const ::Json::Value::const_iterator& i){return i->asLargestInt();});
+	populateMap<std::shared_ptr<std::intmax_t>, Base::UnorderedMap>(map, json.pimpl->value, [](const ::Json::Value::const_iterator& i){return i->asLargestInt();});
 }
 
-template GetMapElements<std::shared_ptr<std::intmax_t>, Polymorphic::UnorderedMap>::GetMapElements(const Json& json);
-template void GetMapElements<std::shared_ptr<std::intmax_t>, Polymorphic::UnorderedMap>::operator()(Polymorphic::UnorderedMap<std::string, std::shared_ptr<std::intmax_t>>& map) const;
+template GetMapElements<std::shared_ptr<std::intmax_t>, Base::UnorderedMap>::GetMapElements(const Json& json);
+template void GetMapElements<std::shared_ptr<std::intmax_t>, Base::UnorderedMap>::operator()(Base::UnorderedMap<std::shared_ptr<std::intmax_t>>& map) const;
 #endif
 
 }} // namespace JXXON::Accessor

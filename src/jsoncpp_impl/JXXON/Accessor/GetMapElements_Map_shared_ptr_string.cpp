@@ -4,27 +4,27 @@
 // SPDX-License-Identifier:		BSL-1.0
 //
 
-#include "JXXON/Json.h"
+#include "JXXON/Base/Map.h"
 #include "JXXON/Error.h"
+#include "JXXON/Json.h"
 #include "JXXON/Json/Impl.h"
 #include "JXXON/Accessor/GetMapElements_shared_ptr.tcc"
 #include <cstdint>
-#include <Polymorphic/Map.h>
 
 namespace JXXON { namespace Accessor {
 
 template<>
-GetMapElements<std::shared_ptr<std::string>, Polymorphic::Map>::GetMapElements(const Json& json) : json(json)
+GetMapElements<std::shared_ptr<std::string>, Base::Map>::GetMapElements(const Json& json) : json(json)
 {
 }
 
 template<>
-void GetMapElements<std::shared_ptr<std::string>, Polymorphic::Map>::operator()(Polymorphic::Map<std::string, std::shared_ptr<std::string>>& map) const
+void GetMapElements<std::shared_ptr<std::string>, Base::Map>::operator()(Base::Map<std::shared_ptr<std::string>>& map) const
 {
-	populateMap<std::shared_ptr<std::string>, Polymorphic::Map>(map, json.pimpl->value, [](const ::Json::Value::const_iterator& i){return i->asString();});
+	populateMap<std::shared_ptr<std::string>, Base::Map>(map, json.pimpl->value, [](const ::Json::Value::const_iterator& i){return i->asString();});
 }
 
-template GetMapElements<std::shared_ptr<std::string>, Polymorphic::Map>::GetMapElements(const Json& json);
-template void GetMapElements<std::shared_ptr<std::string>, Polymorphic::Map>::operator()(Polymorphic::Map<std::string, std::shared_ptr<std::string>>& map) const;
+template GetMapElements<std::shared_ptr<std::string>, Base::Map>::GetMapElements(const Json& json);
+template void GetMapElements<std::shared_ptr<std::string>, Base::Map>::operator()(Base::Map<std::shared_ptr<std::string>>& map) const;
 
 }} // namespace JXXON::Accessor

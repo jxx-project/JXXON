@@ -4,17 +4,17 @@
 // SPDX-License-Identifier:		BSL-1.0
 //
 
-#include "JXXON/Json.h"
+#include "JXXON/Base/Map.h"
 #include "JXXON/Error.h"
+#include "JXXON/Json.h"
 #include "JXXON/Json/Impl.h"
 #include "JXXON/Accessor/GetMapElements.tcc"
 #include <cstdint>
-#include <Polymorphic/Map.h>
 
 namespace JXXON { namespace Accessor {
 
 template<>
-void GetMapElements<std::string, Polymorphic::Map>::operator()(Polymorphic::Map<std::string, std::string>& map) const
+void GetMapElements<std::string, Base::Map>::operator()(Base::Map<std::string>& map) const
 {
 	map.clear();
 	if (json.pimpl) {
@@ -28,7 +28,7 @@ void GetMapElements<std::string, Polymorphic::Map>::operator()(Polymorphic::Map<
 	}
 }
 
-template GetMapElements<std::string, Polymorphic::Map>::GetMapElements(const Json& json);
-template void GetMapElements<std::string, Polymorphic::Map>::operator()(Polymorphic::Map<std::string, std::string>& map) const;
+template GetMapElements<std::string, Base::Map>::GetMapElements(const Json& json);
+template void GetMapElements<std::string, Base::Map>::operator()(Base::Map<std::string>& map) const;
 
 }} // namespace JXXON::Accessor

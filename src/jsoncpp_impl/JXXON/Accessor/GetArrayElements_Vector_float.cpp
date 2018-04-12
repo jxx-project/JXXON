@@ -4,41 +4,41 @@
 // SPDX-License-Identifier:		BSL-1.0
 //
 
-#include "JXXON/Json.h"
+#include "JXXON/Base/Vector.h"
 #include "JXXON/Error.h"
+#include "JXXON/Json.h"
 #include "JXXON/Json/Impl.h"
 #include "JXXON/Accessor/GetArrayElements.tcc"
 #include <cstdint>
-#include <Polymorphic/Vector.h>
 
 namespace JXXON { namespace Accessor {
 
 template<>
-GetArrayElements<float, Polymorphic::Vector>::GetArrayElements(const Json& json) : json(json)
+GetArrayElements<float, Base::Vector>::GetArrayElements(const Json& json) : json(json)
 {
 }
 
 template<>
-void GetArrayElements<float, Polymorphic::Vector>::operator()(Polymorphic::Vector<float>& array) const
+void GetArrayElements<float, Base::Vector>::operator()(Base::Vector<float>& array) const
 {
-	populateArray<float, Polymorphic::Vector>(array, json.pimpl->value, [](const ::Json::Value& value){return value.asFloat();});
+	populateArray<float, Base::Vector>(array, json.pimpl->value, [](const ::Json::Value& value){return value.asFloat();});
 }
 
-template GetArrayElements<float, Polymorphic::Vector>::GetArrayElements(const Json& json);
-template void GetArrayElements<float, Polymorphic::Vector>::operator()(Polymorphic::Vector<float>& array) const;
+template GetArrayElements<float, Base::Vector>::GetArrayElements(const Json& json);
+template void GetArrayElements<float, Base::Vector>::operator()(Base::Vector<float>& array) const;
 
 template<>
-GetArrayElements<double, Polymorphic::Vector>::GetArrayElements(const Json& json) : json(json)
+GetArrayElements<double, Base::Vector>::GetArrayElements(const Json& json) : json(json)
 {
 }
 
 template<>
-void GetArrayElements<double, Polymorphic::Vector>::operator()(Polymorphic::Vector<double>& array) const
+void GetArrayElements<double, Base::Vector>::operator()(Base::Vector<double>& array) const
 {
-	populateArray<double, Polymorphic::Vector>(array, json.pimpl->value, [](const ::Json::Value& value){return value.asDouble();});
+	populateArray<double, Base::Vector>(array, json.pimpl->value, [](const ::Json::Value& value){return value.asDouble();});
 }
 
-template GetArrayElements<double, Polymorphic::Vector>::GetArrayElements(const Json& json);
-template void GetArrayElements<double, Polymorphic::Vector>::operator()(Polymorphic::Vector<double>& array) const;
+template GetArrayElements<double, Base::Vector>::GetArrayElements(const Json& json);
+template void GetArrayElements<double, Base::Vector>::operator()(Base::Vector<double>& array) const;
 
 }} // namespace JXXON::Accessor

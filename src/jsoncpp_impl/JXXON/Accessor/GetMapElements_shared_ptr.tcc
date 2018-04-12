@@ -12,7 +12,7 @@ namespace JXXON { namespace Accessor {
 namespace {
 
 template<typename T, template<typename...> class Base>
-void populateMap(Base<std::string, T>& map, const ::Json::Value& value, const std::function<typename T::element_type(const ::Json::Value::const_iterator&)>& valueAsT)
+void populateMap(Base<T>& map, const ::Json::Value& value, const std::function<typename T::element_type(const ::Json::Value::const_iterator&)>& valueAsT)
 {
 	map.clear();
 	if (!value.isNull()) {

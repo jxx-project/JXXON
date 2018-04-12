@@ -4,16 +4,16 @@
 // SPDX-License-Identifier:		BSL-1.0
 //
 
-#include "JXXON/Json.h"
+#include "JXXON/Base/List.h"
 #include "JXXON/Error.h"
+#include "JXXON/Json.h"
 #include "JXXON/Json/Impl.h"
 #include "JXXON/Accessor/SetArrayElements.tcc"
 #include <cstdint>
-#include <Polymorphic/List.h>
 
 namespace JXXON { namespace Accessor {
 
-template SetArrayElements<bool, Polymorphic::List>::SetArrayElements(Json& json);
-template void SetArrayElements<bool, Polymorphic::List>::operator()(const Polymorphic::List<bool>& array);
+template SetArrayElements<bool, Base::List>::SetArrayElements(Json& json);
+template void SetArrayElements<bool, Base::List>::operator()(const Base::List<bool>& array);
 
 }} // namespace JXXON::Accessor
