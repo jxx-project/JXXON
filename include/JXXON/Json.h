@@ -1,7 +1,7 @@
 //
 // Copyright (C) 2018 Dr. Michael Steffens
 //
-// SPDX-License-Identifier:     BSL-1.0
+// SPDX-License-Identifier:	BSL-1.0
 //
 
 
@@ -96,7 +96,7 @@ public:
 		virtual void forEach(const std::function<void(const T& element)>& f) const = 0;
 	};
 
-    /// Extension of Base<T> implementing JXXON::Serializable. Use alias templates JXXON::Vector and JXXON::List for referring actual instantiations.
+	/// Extension of Base<T> implementing JXXON::Serializable. Use alias templates JXXON::Vector and JXXON::List for referring actual instantiations.
 	template<typename T, template<typename...> class Base>
 	class Array : public Base<T>, public Serializable
 	{

@@ -5,7 +5,7 @@ cat << EOF
 //
 // Copyright (C) 2018 Dr. Michael Steffens
 //
-// SPDX-License-Identifier:		BSL-1.0
+// SPDX-License-Identifier:	BSL-1.0
 //
 
 
@@ -46,7 +46,7 @@ cat << EOF
 //
 // Copyright (C) 2018 Dr. Michael Steffens
 //
-// SPDX-License-Identifier:		BSL-1.0
+// SPDX-License-Identifier:	BSL-1.0
 //
 
 
@@ -125,7 +125,7 @@ cat << EOF | sed "s/{{INCLUDE}}/$1/g"
 //
 // Copyright (C) 2018 Dr. Michael Steffens
 //
-// SPDX-License-Identifier:		BSL-1.0
+// SPDX-License-Identifier:	BSL-1.0
 //
 
 #include "JXXON/Error.h"
