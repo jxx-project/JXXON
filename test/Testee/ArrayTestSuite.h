@@ -65,6 +65,30 @@ public:
 					 {
 						 JXXON::Json json(invalidJSON);
 						 TestCase::assert_throw<JXXON::Error>([&]{ArrayType<T> array(json);});
+					 }),
+
+			TestCase("Delegate reference type conversion of " + arrayType + " of " + type, [&]
+					 {
+						 ArrayType<T> array({T()});
+						 typename ArrayType<T>::DelegateType& other = array;
+						 TestCase::assert_equal(array.size(), typename ArrayType<T>::size_type(1));
+						 TestCase::assert_equal(other.size(), typename ArrayType<T>::DelegateType::size_type(1));
+					 }),
+
+			TestCase("Delegate const reference type conversion of " + arrayType + " of " + type, [&]
+					 {
+						 const ArrayType<T> array({T()});
+						 const typename ArrayType<T>::DelegateType& other = array;
+						 TestCase::assert_equal(array.size(), typename ArrayType<T>::size_type(1));
+						 TestCase::assert_equal(other.size(), typename ArrayType<T>::DelegateType::size_type(1));
+					 }),
+
+			TestCase("Delegate rvalue reference type conversion of " + arrayType + " of " + type, [&]
+					 {
+						 ArrayType<T> array({T()});
+						 typename ArrayType<T>::DelegateType other = static_cast<typename ArrayType<T>::DelegateType&&>(array);
+						 TestCase::assert_equal(array.size(), typename ArrayType<T>::size_type(0));
+						 TestCase::assert_equal(other.size(), typename ArrayType<T>::DelegateType::size_type(1));
 					 })
 		})
 	{

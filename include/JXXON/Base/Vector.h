@@ -24,12 +24,12 @@ public:
 	}
 
 	/// Construct vector of size n of default constructed elements.
-	explicit Vector(typename Polymorphic::Vector<T>::size_type n) : Polymorphic::Vector<T>(n)
+	explicit Vector(typename Vector::size_type n) : Polymorphic::Vector<T>(n)
 	{
 	}
 
 	/// Construct vector of size n of copy of value constructed elements.
-	Vector(typename Polymorphic::Vector<T>::size_type n, const T& value) : Polymorphic::Vector<T>(n, value)
+	Vector(typename Vector::size_type n, const T& value) : Polymorphic::Vector<T>(n, value)
 	{
 	}
 
@@ -40,12 +40,12 @@ public:
 	}
 
 	/// Copy construct vector.
-	Vector(const Polymorphic::Vector<T>& other) : Polymorphic::Vector<T>(other)
+	Vector(const Vector& other) : Polymorphic::Vector<T>(other)
 	{
 	}
 
 	/// Move construct vector.
-	Vector(Polymorphic::Vector<T>&& other) : Polymorphic::Vector<T>(std::move(other))
+	Vector(Vector&& other) : Polymorphic::Vector<T>(std::move(other))
 	{
 	}
 
@@ -55,12 +55,12 @@ public:
 	}
 
 	/// Copy construct vector from delegate type.
-	Vector(const typename Polymorphic::Vector<T>::DelegateType& other) : Polymorphic::Vector<T>(other)
+	Vector(const typename Vector::DelegateType& other) : Polymorphic::Vector<T>(other)
 	{
 	}
 
 	/// Move construct vector from delegate type.
-	Vector(typename Polymorphic::Vector<T>::DelegateType&& other) : Polymorphic::Vector<T>(std::move(other))
+	Vector(typename Vector::DelegateType&& other) : Polymorphic::Vector<T>(std::move(other))
 	{
 	}
 

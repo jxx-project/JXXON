@@ -24,12 +24,12 @@ public:
 	}
 
 	/// Construct map of size n of default constructed elements.
-	explicit Map(typename Polymorphic::Map<std::string, T>::size_type n) : Polymorphic::Map<std::string, T>(n)
+	explicit Map(typename Map::size_type n) : Polymorphic::Map<std::string, T>(n)
 	{
 	}
 
 	/// Construct map of size n of copy of value constructed elements.
-	Map(typename Polymorphic::Map<std::string, T>::size_type n, const T& value) : Polymorphic::Map<std::string, T>(n, value)
+	Map(typename Map::size_type n, const T& value) : Polymorphic::Map<std::string, T>(n, value)
 	{
 	}
 
@@ -40,12 +40,12 @@ public:
 	}
 
 	/// Copy construct map.
-	Map(const Polymorphic::Map<std::string, T>& other) : Polymorphic::Map<std::string, T>(other)
+	Map(const Map& other) : Polymorphic::Map<std::string, T>(other)
 	{
 	}
 
 	/// Move construct map.
-	Map(Polymorphic::Map<std::string, T>&& other) : Polymorphic::Map<std::string, T>(std::move(other))
+	Map(Map&& other) : Polymorphic::Map<std::string, T>(std::move(other))
 	{
 	}
 
@@ -55,12 +55,12 @@ public:
 	}
 
 	/// Copy construct map from delegate type.
-	Map(const typename Polymorphic::Map<std::string, T>::DelegateType& other) : Polymorphic::Map<std::string, T>(other)
+	Map(const typename Map::DelegateType& other) : Polymorphic::Map<std::string, T>(other)
 	{
 	}
 
 	/// Move construct map from delegate type.
-	Map(typename Polymorphic::Map<std::string, T>::DelegateType&& other) : Polymorphic::Map<std::string, T>(std::move(other))
+	Map(typename Map::DelegateType&& other) : Polymorphic::Map<std::string, T>(std::move(other))
 	{
 	}
 

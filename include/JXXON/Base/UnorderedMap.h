@@ -24,12 +24,12 @@ public:
 	}
 
 	/// Construct unordered map of size n of default constructed elements.
-	explicit UnorderedMap(typename Polymorphic::UnorderedMap<std::string, T>::size_type n) : Polymorphic::UnorderedMap<std::string, T>(n)
+	explicit UnorderedMap(typename UnorderedMap::size_type n) : Polymorphic::UnorderedMap<std::string, T>(n)
 	{
 	}
 
 	/// Construct unordered map of size n of copy of value constructed elements.
-	UnorderedMap(typename Polymorphic::UnorderedMap<std::string, T>::size_type n, const T& value) : Polymorphic::UnorderedMap<std::string, T>(n, value)
+	UnorderedMap(typename UnorderedMap::size_type n, const T& value) : Polymorphic::UnorderedMap<std::string, T>(n, value)
 	{
 	}
 
@@ -40,12 +40,12 @@ public:
 	}
 
 	/// Copy construct unordered map.
-	UnorderedMap(const Polymorphic::UnorderedMap<std::string, T>& other) : Polymorphic::UnorderedMap<std::string, T>(other)
+	UnorderedMap(const UnorderedMap& other) : Polymorphic::UnorderedMap<std::string, T>(other)
 	{
 	}
 
 	/// Move construct unordered map.
-	UnorderedMap(Polymorphic::UnorderedMap<std::string, T>&& other) : Polymorphic::UnorderedMap<std::string, T>(std::move(other))
+	UnorderedMap(UnorderedMap&& other) : Polymorphic::UnorderedMap<std::string, T>(std::move(other))
 	{
 	}
 
@@ -55,12 +55,12 @@ public:
 	}
 
 	/// Copy construct unordered map from delegate type.
-	UnorderedMap(const typename Polymorphic::UnorderedMap<std::string, T>::DelegateType& other) : Polymorphic::UnorderedMap<std::string, T>(other)
+	UnorderedMap(const typename UnorderedMap::DelegateType& other) : Polymorphic::UnorderedMap<std::string, T>(other)
 	{
 	}
 
 	/// Move construct unordered map from delegate type.
-	UnorderedMap(typename Polymorphic::UnorderedMap<std::string, T>::DelegateType&& other) : Polymorphic::UnorderedMap<std::string, T>(std::move(other))
+	UnorderedMap(typename UnorderedMap::DelegateType&& other) : Polymorphic::UnorderedMap<std::string, T>(std::move(other))
 	{
 	}
 

@@ -24,12 +24,12 @@ public:
 	}
 
 	/// Construct list of size n of default constructed elements.
-	explicit List(typename Polymorphic::List<T>::size_type n) : Polymorphic::List<T>(n)
+	explicit List(typename List::size_type n) : Polymorphic::List<T>(n)
 	{
 	}
 
 	/// Construct list of size n of copy of value constructed elements.
-	List(typename Polymorphic::List<T>::size_type n, const T& value) : Polymorphic::List<T>(n, value)
+	List(typename List::size_type n, const T& value) : Polymorphic::List<T>(n, value)
 	{
 	}
 
@@ -40,12 +40,12 @@ public:
 	}
 
 	/// Copy construct list.
-	List(const Polymorphic::List<T>& other) : Polymorphic::List<T>(other)
+	List(const List& other) : Polymorphic::List<T>(other)
 	{
 	}
 
 	/// Move construct list.
-	List(Polymorphic::List<T>&& other) : Polymorphic::List<T>(std::move(other))
+	List(List&& other) : Polymorphic::List<T>(std::move(other))
 	{
 	}
 
@@ -55,12 +55,12 @@ public:
 	}
 
 	/// Copy construct list from delegate type.
-	List(const typename Polymorphic::List<T>::DelegateType& other) : Polymorphic::List<T>(other)
+	List(const typename List::DelegateType& other) : Polymorphic::List<T>(other)
 	{
 	}
 
 	/// Move construct list from delegate type.
-	List(typename Polymorphic::List<T>::DelegateType&& other) : Polymorphic::List<T>(std::move(other))
+	List(typename List::DelegateType&& other) : Polymorphic::List<T>(std::move(other))
 	{
 	}
 
