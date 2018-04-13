@@ -79,7 +79,24 @@ public:
 		}
 	};
 
-	/// Extension of Base<T> implementing JXXON::Serializable. Use alias templates JXXON::Vector and JXXON::List for referring actual instantiations.
+	/// Interface implemented by JSON array type containers.
+	template<class T>
+	class ArrayType
+	{
+	public:
+		/// Virtual destructor.
+		~ArrayType()
+		{
+		}
+
+		/// Add element to array. Ordered containers like vector or list must append element at the end.
+		virtual void addElement(const T& element) = 0;
+
+		/// Iterate through array.
+		virtual void forEach(const std::function<void(const T& element)>& f) const = 0;
+	};
+
+    /// Extension of Base<T> implementing JXXON::Serializable. Use alias templates JXXON::Vector and JXXON::List for referring actual instantiations.
 	template<typename T, template<typename...> class Base>
 	class Array : public Base<T>, public Serializable
 	{
@@ -149,6 +166,23 @@ public:
 			set(*this);
 			return json;
 		}
+	};
+
+	/// Interface implemented by JSON array type containers.
+	template<class T>
+	class MapType
+	{
+	public:
+		/// Virtual destructor.
+		~MapType()
+		{
+		}
+
+		/// Add element to map.
+		virtual void addElement(const std::string& key, const T& value) = 0;
+
+		/// Iterate through map.
+		virtual void forEach(const std::function<void(const T& element)>& f) const = 0;
 	};
 
 	/// Extension of Base<T> implementing JXXON::Serializable. Use alias templates JXXON::Map and JXXON::UnorderedMap for referring actual instantiations.
@@ -406,7 +440,7 @@ public:
 	void operator()(Base<T>& array) const
 	{
 		array.clear();
-		json.append([&array](const Json& element){array.emplace_back(element.isNull() ? T() : T(element));});
+		json.append([&array](const Json& element){array.addElememt(element.isNull() ? T() : T(element));});
 	}
 
 private:
@@ -424,7 +458,7 @@ public:
 	void operator()(Base<T>& array) const
 	{
 		array.clear();
-		json.append([&array](const Json& element){array.emplace_back(element.isNull() ? T() : std::make_shared<typename T::element_type>(element));});
+		json.append([&array](const Json& element){array.addElement(element.isNull() ? T() : std::make_shared<typename T::element_type>(element));});
 	}
 
 private:
@@ -502,7 +536,7 @@ public:
 	void operator()(Base<T>& map) const
 	{
 		map.clear();
-		json.insert([&map](const std::string& key, const Json& element){map.emplace(key, element.isNull() ? T() : T(element));});
+		json.insert([&map](const std::string& key, const Json& element){map.addElement(key, element.isNull() ? T() : T(element));});
 	}
 
 private:
@@ -520,7 +554,7 @@ public:
 	void operator()(Base<T>& map) const
 	{
 		map.clear();
-		json.insert([&map](const std::string& key, const Json& element){map.emplace(key, element.isNull() ? T() : std::make_shared<typename T::element_type>(element));});
+		json.insert([&map](const std::string& key, const Json& element){map.addElement(key, element.isNull() ? T() : std::make_shared<typename T::element_type>(element));});
 	}
 
 private:

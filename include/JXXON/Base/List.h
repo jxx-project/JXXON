@@ -8,14 +8,14 @@
 #ifndef JXXON_Base_List_INCLUDED
 #define JXXON_Base_List_INCLUDED
 
-#include "JXXON/Base/ArrayType.h"
+#include "JXXON/Json.h"
 #include <Polymorphic/List.h>
 
 namespace JXXON { namespace Base {
 
-/// Extension of Polymorphic::List<T> implementing ArrayType<T>.
+/// Extension of Polymorphic::List<T> implementing JXXON::Json::ArrayType<T>.
 template<class T>
-class List : public Polymorphic::List<T>, public ArrayType<T>
+class List : public Polymorphic::List<T>, public JXXON::Json::ArrayType<T>
 {
 public:
 	/// Construct empty list.
@@ -72,6 +72,13 @@ public:
 	virtual void addElement(const T& element) override
 	{
 		this->emplace_back(element);
+	}
+
+	virtual void forEach(const std::function<void(const T& element)>& f) const override
+	{
+		for (auto& i : *this) {
+			f(i);
+		}
 	}
 };
 

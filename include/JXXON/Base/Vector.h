@@ -8,14 +8,14 @@
 #ifndef JXXON_Base_Vector_INCLUDED
 #define JXXON_Base_Vector_INCLUDED
 
-#include "JXXON/Base/ArrayType.h"
+#include "JXXON/Json.h"
 #include <Polymorphic/Vector.h>
 
 namespace JXXON { namespace Base {
 
-/// Extension of Polymorphic::Vector<T> implementing ArrayType<T>.
+/// Extension of Polymorphic::Vector<T> implementing JXXON::Json::ArrayType<T>.
 template<class T>
-class Vector : public Polymorphic::Vector<T>, public ArrayType<T>
+class Vector : public Polymorphic::Vector<T>, public JXXON::Json::ArrayType<T>
 {
 public:
 	/// Construct empty vector.
@@ -72,6 +72,13 @@ public:
 	virtual void addElement(const T& element) override
 	{
 		this->emplace_back(element);
+	}
+
+	virtual void forEach(const std::function<void(const T& element)>& f) const override
+	{
+		for (auto& i : *this) {
+			f(i);
+		}
 	}
 };
 

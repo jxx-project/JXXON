@@ -8,14 +8,14 @@
 #ifndef JXXON_Base_Map_INCLUDED
 #define JXXON_Base_Map_INCLUDED
 
-#include "JXXON/Base/MapType.h"
+#include "JXXON/Json.h"
 #include <Polymorphic/Map.h>
 
 namespace JXXON { namespace Base {
 
-/// Extension of Polymorphic::Map<std::string, T> implementing MapType<T>.
+/// Extension of Polymorphic::Map<std::string, T> implementing JXXON::Json::MapType<T>.
 template<class T>
-class Map : public Polymorphic::Map<std::string, T>, public MapType<T>
+class Map : public Polymorphic::Map<std::string, T>, public JXXON::Json::MapType<T>
 {
 public:
 	/// Construct empty map.
@@ -72,6 +72,13 @@ public:
 	virtual void addElement(const std::string& key, const T& value) override
 	{
 		this->emplace(key, value);
+	}
+
+	virtual void forEach(const std::function<void(const T& element)>& f) const override
+	{
+		for (auto& i : *this) {
+			f(i);
+		}
 	}
 };
 
