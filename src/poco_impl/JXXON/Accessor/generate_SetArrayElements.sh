@@ -23,9 +23,7 @@ SetArrayElements<T, Base, typename std::enable_if<!std::is_base_of<Json::Seriali
 template<typename T, template<typename...> class Base>
 void SetArrayElements<T, Base, typename std::enable_if<!std::is_base_of<Json::Serializable, T>::value && !std::is_convertible<T, std::shared_ptr<Json::Serializable>>::value>::type>::operator()(const Base<T>& array)
 {
-	for (const auto& i : array) {
-		json.pimpl->getArray().add(Poco::Dynamic::Var(i));
-	}
+	array.forEach([&](const T& element){json.pimpl->getArray().add(Poco::Dynamic::Var(element));});
 }
 
 }} // namespace JXXON::Accessor
@@ -59,9 +57,7 @@ SetArrayElements<T, Base, typename std::enable_if<!std::is_base_of<Json::Seriali
 template<typename T, template<typename...> class Base>
 void SetArrayElements<T, Base, typename std::enable_if<!std::is_base_of<Json::Serializable, T>::value && !std::is_convertible<T, std::shared_ptr<Json::Serializable>>::value>::type>::operator()(const Base<T>& array)
 {
-	for (const auto& i : array) {
-		json.pimpl->getArray().add(i ? Poco::Dynamic::Var(*i) : Poco::Dynamic::Var());
-	}
+	array.forEach([&](const T& element){json.pimpl->getArray().add(Poco::Dynamic::Var(element ? Poco::Dynamic::Var(*element) : Poco::Dynamic::Var()));});
 }
 
 }} // namespace JXXON::Accessor

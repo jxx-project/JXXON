@@ -19,9 +19,7 @@ SetArrayElements<T, Base, typename std::enable_if<!std::is_base_of<Json::Seriali
 template<typename T, template<typename...> class Base>
 void SetArrayElements<T, Base, typename std::enable_if<!std::is_base_of<Json::Serializable, T>::value && !std::is_convertible<T, std::shared_ptr<Json::Serializable>>::value>::type>::operator()(const Base<T>& array)
 {
-	for (const auto& i : array) {
-		json.pimpl->value.append(::Json::Value(i));
-	}
+	array.forEach([&](const T& element){json.pimpl->value.append(::Json::Value(element));});
 }
 
 }} // namespace JXXON::Accessor

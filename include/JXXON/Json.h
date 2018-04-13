@@ -182,7 +182,7 @@ public:
 		virtual void addElement(const std::string& key, const T& value) = 0;
 
 		/// Iterate through map.
-		virtual void forEach(const std::function<void(const T& element)>& f) const = 0;
+		virtual void forEach(const std::function<void(const std::string& key, const T& value)>& f) const = 0;
 	};
 
 	/// Extension of Base<T> implementing JXXON::Serializable. Use alias templates JXXON::Map and JXXON::UnorderedMap for referring actual instantiations.
@@ -440,7 +440,7 @@ public:
 	void operator()(Base<T>& array) const
 	{
 		array.clear();
-		json.append([&array](const Json& element){array.addElememt(element.isNull() ? T() : T(element));});
+		json.append([&array](const Json& element){array.addElement(element.isNull() ? T() : T(element));});
 	}
 
 private:
@@ -475,9 +475,7 @@ public:
 	}
 
 	void operator()(const Base<T>& array) {
-		for (auto& i : array) {
-			json.append(i.toJson());
-		}
+		array.forEach([&](const T& element){json.append(element.toJson());});
 	}
 
 private:
@@ -494,9 +492,7 @@ public:
 	}
 
 	void operator()(const Base<T>& array) {
-		for (auto& i : array) {
-			json.append(i ? i->toJson() : Json());
-		}
+		array.forEach([&](const T& element){json.append(element ? element->toJson() : Json());});
 	}
 
 private:
@@ -572,9 +568,7 @@ public:
 
 	void operator()(const Base<T>& map)
 	{
-		for (auto& i : map) {
-			json.insert(i.first, i.second.toJson());
-		}
+		map.forEach([&](const std::string& key, const T& value){json.insert(key, value.toJson());});
 	}
 
 private:
@@ -592,9 +586,7 @@ public:
 
 	void operator()(const Base<T>& map)
 	{
-		for (auto& i : map) {
-			json.insert(i.first, i.second ? i.second->toJson() : Json());
-		}
+		map.forEach([&](const std::string& key, const T& value){json.insert(key, value ? value->toJson() : Json());});
 	}
 
 private:

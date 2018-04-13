@@ -74,10 +74,10 @@ public:
 		this->emplace(key, value);
 	}
 
-	virtual void forEach(const std::function<void(const T& element)>& f) const override
+	virtual void forEach(const std::function<void(const std::string& key, const T& value)>& f) const override
 	{
-		for (auto& i : *this) {
-			f(i);
+		for (const auto& i : *this) {
+			f(i.first, i.second);
 		}
 	}
 };

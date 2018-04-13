@@ -76,7 +76,7 @@ public:
 
 	virtual void forEach(const std::function<void(const T& element)>& f) const override
 	{
-		for (auto& i : *this) {
+		for (const auto& i : *this) {
 			f(i);
 		}
 	}

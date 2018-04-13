@@ -19,9 +19,7 @@ SetMapElements<T, Base, typename std::enable_if<!std::is_base_of<Json::Serializa
 template<typename T, template<typename...> class Base>
 void SetMapElements<T, Base, typename std::enable_if<!std::is_base_of<Json::Serializable, T>::value && !std::is_convertible<T, std::shared_ptr<Json::Serializable>>::value>::type>::operator()(const Base<T>& map)
 {
-	for (const auto& i : map) {
-		json.pimpl->getObject().set(i.first, i.second ? Poco::Dynamic::Var(*i.second) : Poco::Dynamic::Var());
-	}
+	map.forEach([&](const std::string& key, const T& value){json.pimpl->getObject().set(key, value ? Poco::Dynamic::Var(*value) : Poco::Dynamic::Var());});
 }
 
 }} // namespace JXXON::Accessor
