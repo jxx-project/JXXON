@@ -6,6 +6,7 @@
 
 cmake_minimum_required(VERSION 3.0)
 project(JXXON VERSION 1.0.0 LANGUAGES CXX)
+
 include(GNUInstallDirs)
 include(CMakePackageConfigHelpers)
 
@@ -13,10 +14,12 @@ set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS NO)
 
-set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/Modules/")
+set(Polymorphic_FIND_VERSION 1.0.0)
+find_package(Polymorphic ${Polymorphic_FIND_VERSION} REQUIRED CONFIG)
 
 if(JXXON_IMPL STREQUAL "poco")
-	find_package(Poco 1.6.0 COMPONENTS JSON REQUIRED CONFIG)
+	set(Poco_FIND_VERSION 1.6.0)
+	find_package(Poco ${Poco_FIND_VERSION} COMPONENTS JSON REQUIRED CONFIG)
 	set(jxxon_impl_LIBRARIES Poco::JSON)
 elseif(JXXON_IMPL STREQUAL "jsoncpp")
 	find_package(PkgConfig REQUIRED)
@@ -26,8 +29,6 @@ elseif(JXXON_IMPL STREQUAL "jsoncpp")
 else()
 	message(FATAL_ERROR "JXXON_IMPL invalid or not specified. Must be \"poco\" or \"jsoncpp\".")
 endif()
-
-find_package(Polymorphic 1.0.0 REQUIRED CONFIG)
 
 include(CheckTypeSize)
 check_type_size("int" SIZEOF_INT LANGUAGE CXX)

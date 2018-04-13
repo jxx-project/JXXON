@@ -1,3 +1,3 @@
-find_package(Polymorphic 1.0.0 REQUIRED CONFIG)
-find_package(Poco 1.6.0 COMPONENTS JSON REQUIRED CONFIG)
+find_package(Polymorphic @Polymorphic_FIND_VERSION@ REQUIRED CONFIG)
+find_package(Poco @Poco_FIND_VERSION@ COMPONENTS JSON REQUIRED CONFIG)
 include(${CMAKE_CURRENT_LIST_DIR}/JXXONTargets.cmake)
