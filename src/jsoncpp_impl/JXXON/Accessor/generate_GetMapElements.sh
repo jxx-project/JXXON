@@ -15,10 +15,9 @@ cat << EOF
 namespace JXXON { namespace Accessor {
 namespace {
 
-template<typename T, template<typename...> class Base>
-void populateMap(Base<T>& map, const ::Json::Value& value, const std::function<T(const ::Json::Value::const_iterator&)>& valueAsT)
+template<typename T>
+void populateMap(Json::MapType<T>& map, const ::Json::Value& value, const std::function<T(const ::Json::Value::const_iterator&)>& valueAsT)
 {
-	map.clear();
 	if (!value.isNull()) {
 		if (value.isObject()) {
 			try {
@@ -58,10 +57,9 @@ cat << EOF
 namespace JXXON { namespace Accessor {
 namespace {
 
-template<typename T, template<typename...> class Base>
-void populateMap(Base<T>& map, const ::Json::Value& value, const std::function<typename T::element_type(const ::Json::Value::const_iterator&)>& valueAsT)
+template<typename T>
+void populateMap(Json::MapType<T>& map, const ::Json::Value& value, const std::function<typename T::element_type(const ::Json::Value::const_iterator&)>& valueAsT)
 {
-	map.clear();
 	if (!value.isNull()) {
 		if (value.isObject()) {
 			try {
@@ -87,14 +85,13 @@ EOF
 GetMapElements_shared_ptr_TCC > GetMapElements_shared_ptr.tcc
 
 function Header {
-cat << EOF | sed "s/{{INCLUDE}}/$1/g"| sed "s/{{BASE}}/$2/g"
+cat << EOF | sed "s/{{INCLUDE}}/$1/g"
 //
 // Copyright (C) 2018 Dr. Michael Steffens
 //
 // SPDX-License-Identifier:		BSL-1.0
 //
 
-#include "JXXON/Base/{{BASE}}.h"
 #include "JXXON/Error.h"
 #include "JXXON/Json.h"
 #include "JXXON/Json/Impl.h"
@@ -107,38 +104,38 @@ EOF
 }
 
 function GetMapElements_CPP {
-cat << EOF | sed "s/{{BASE}}/$1/g" | sed "s/{{ELEMENT_TYPE}}/$2/g" | sed "s/{{AS_TYPE}}/$3/g"
+cat << EOF | sed "s/{{ELEMENT_TYPE}}/$1/g" | sed "s/{{AS_TYPE}}/$2/g"
 template<>
-GetMapElements<{{ELEMENT_TYPE}}, Base::{{BASE}}>::GetMapElements(const Json& json) : json(json)
+GetMapElements<{{ELEMENT_TYPE}}>::GetMapElements(const Json& json) : json(json)
 {
 }
 
 template<>
-void GetMapElements<{{ELEMENT_TYPE}}, Base::{{BASE}}>::operator()(Base::{{BASE}}<{{ELEMENT_TYPE}}>& map) const
+void GetMapElements<{{ELEMENT_TYPE}}>::operator()(Json::MapType<{{ELEMENT_TYPE}}>& map) const
 {
-	populateMap<{{ELEMENT_TYPE}}, Base::{{BASE}}>(map, json.pimpl->value, [](const ::Json::Value::const_iterator& i){return i->{{AS_TYPE}}();});
+	populateMap<{{ELEMENT_TYPE}}>(map, json.pimpl->value, [](const ::Json::Value::const_iterator& i){return i->{{AS_TYPE}}();});
 }
 
-template GetMapElements<{{ELEMENT_TYPE}}, Base::{{BASE}}>::GetMapElements(const Json& json);
-template void GetMapElements<{{ELEMENT_TYPE}}, Base::{{BASE}}>::operator()(Base::{{BASE}}<{{ELEMENT_TYPE}}>& map) const;
+template GetMapElements<{{ELEMENT_TYPE}}>::GetMapElements(const Json& json);
+template void GetMapElements<{{ELEMENT_TYPE}}>::operator()(Json::MapType<{{ELEMENT_TYPE}}>& map) const;
 EOF
 }
 
 function GetMapElements_shared_ptr_CPP {
-cat << EOF | sed "s/{{BASE}}/$1/g" | sed "s/{{ELEMENT_TYPE}}/$2/g" | sed "s/{{AS_TYPE}}/$3/g"
+cat << EOF | sed "s/{{ELEMENT_TYPE}}/$1/g" | sed "s/{{AS_TYPE}}/$2/g"
 template<>
-GetMapElements<std::shared_ptr<{{ELEMENT_TYPE}}>, Base::{{BASE}}>::GetMapElements(const Json& json) : json(json)
+GetMapElements<std::shared_ptr<{{ELEMENT_TYPE}}>>::GetMapElements(const Json& json) : json(json)
 {
 }
 
 template<>
-void GetMapElements<std::shared_ptr<{{ELEMENT_TYPE}}>, Base::{{BASE}}>::operator()(Base::{{BASE}}<std::shared_ptr<{{ELEMENT_TYPE}}>>& map) const
+void GetMapElements<std::shared_ptr<{{ELEMENT_TYPE}}>>::operator()(Json::MapType<std::shared_ptr<{{ELEMENT_TYPE}}>>& map) const
 {
-	populateMap<std::shared_ptr<{{ELEMENT_TYPE}}>, Base::{{BASE}}>(map, json.pimpl->value, [](const ::Json::Value::const_iterator& i){return i->{{AS_TYPE}}();});
+	populateMap<std::shared_ptr<{{ELEMENT_TYPE}}>>(map, json.pimpl->value, [](const ::Json::Value::const_iterator& i){return i->{{AS_TYPE}}();});
 }
 
-template GetMapElements<std::shared_ptr<{{ELEMENT_TYPE}}>, Base::{{BASE}}>::GetMapElements(const Json& json);
-template void GetMapElements<std::shared_ptr<{{ELEMENT_TYPE}}>, Base::{{BASE}}>::operator()(Base::{{BASE}}<std::shared_ptr<{{ELEMENT_TYPE}}>>& map) const;
+template GetMapElements<std::shared_ptr<{{ELEMENT_TYPE}}>>::GetMapElements(const Json& json);
+template void GetMapElements<std::shared_ptr<{{ELEMENT_TYPE}}>>::operator()(Json::MapType<std::shared_ptr<{{ELEMENT_TYPE}}>>& map) const;
 EOF
 }
 
@@ -150,134 +147,125 @@ EOF
 }
 
 
-function GetMapElements_BASE_CPP {
-
-	BASE=$1
-
-	FILENAME=GetMapElements_${BASE}_string.cpp
-	Header GetMapElements.tcc ${BASE} > ${FILENAME}
-	GetMapElements_CPP ${BASE} std::string asString >> ${FILENAME}
-	Footer >> ${FILENAME}
+FILENAME=GetMapElements_string.cpp
+Header GetMapElements.tcc > ${FILENAME}
+GetMapElements_CPP std::string asString >> ${FILENAME}
+Footer >> ${FILENAME}
 
 
-	FILENAME=GetMapElements_${BASE}_shared_ptr_string.cpp
-	Header GetMapElements_shared_ptr.tcc ${BASE} > ${FILENAME}
-	GetMapElements_shared_ptr_CPP ${BASE} std::string asString >> ${FILENAME}
-	Footer >> ${FILENAME}
+FILENAME=GetMapElements_shared_ptr_string.cpp
+Header GetMapElements_shared_ptr.tcc > ${FILENAME}
+GetMapElements_shared_ptr_CPP std::string asString >> ${FILENAME}
+Footer >> ${FILENAME}
 
 
-	FILENAME=GetMapElements_${BASE}_int.cpp
-	Header GetMapElements.tcc ${BASE} > ${FILENAME}
-	GetMapElements_CPP ${BASE} int asInt >> ${FILENAME}
+FILENAME=GetMapElements_int.cpp
+Header GetMapElements.tcc > ${FILENAME}
+GetMapElements_CPP int asInt >> ${FILENAME}
 cat << EOF >> ${FILENAME}
 
 #if _SIZEOF_INT64_T != _SIZEOF_INT
 EOF
-	GetMapElements_CPP ${BASE} std::int64_t asInt64 >> ${FILENAME}
+GetMapElements_CPP std::int64_t asInt64 >> ${FILENAME}
 cat << EOF >> ${FILENAME}
 #endif
 
 #if _SIZEOF_INTMAX_T != _SIZEOF_INT && _SIZEOF_INTMAX_T != _SIZEOF_INT64_T
 EOF
-	GetMapElements_CPP ${BASE} std::intmax_t asLargestInt >> ${FILENAME}
+GetMapElements_CPP std::intmax_t asLargestInt >> ${FILENAME}
 cat << EOF >> ${FILENAME}
 #endif
 EOF
-	Footer >> ${FILENAME}
+Footer >> ${FILENAME}
 
 
-	FILENAME=GetMapElements_${BASE}_shared_ptr_int.cpp
-	Header GetMapElements_shared_ptr.tcc ${BASE} > ${FILENAME}
-	GetMapElements_shared_ptr_CPP ${BASE} int asInt >> ${FILENAME}
+FILENAME=GetMapElements_shared_ptr_int.cpp
+Header GetMapElements_shared_ptr.tcc > ${FILENAME}
+GetMapElements_shared_ptr_CPP int asInt >> ${FILENAME}
 cat << EOF >> ${FILENAME}
 
 #if _SIZEOF_INT64_T != _SIZEOF_INT
 EOF
-	GetMapElements_shared_ptr_CPP ${BASE} std::int64_t asInt64 >> ${FILENAME}
+GetMapElements_shared_ptr_CPP std::int64_t asInt64 >> ${FILENAME}
 cat << EOF >> ${FILENAME}
 #endif
 
 #if _SIZEOF_INTMAX_T != _SIZEOF_INT && _SIZEOF_INTMAX_T != _SIZEOF_INT64_T
 EOF
-	GetMapElements_shared_ptr_CPP ${BASE} std::intmax_t asLargestInt >> ${FILENAME}
+GetMapElements_shared_ptr_CPP std::intmax_t asLargestInt >> ${FILENAME}
 cat << EOF >> ${FILENAME}
 #endif
 EOF
-	Footer >> ${FILENAME}
+Footer >> ${FILENAME}
 
 
-	FILENAME=GetMapElements_${BASE}_unsigned_int.cpp
-	Header GetMapElements.tcc ${BASE} > ${FILENAME}
-	GetMapElements_CPP ${BASE} 'unsigned int' asUInt >> ${FILENAME}
+FILENAME=GetMapElements_unsigned_int.cpp
+Header GetMapElements.tcc > ${FILENAME}
+GetMapElements_CPP 'unsigned int' asUInt >> ${FILENAME}
 cat << EOF >> ${FILENAME}
 
 #if _SIZEOF_UINT64_T != _SIZEOF_UNSIGNED_INT
 EOF
-	GetMapElements_CPP ${BASE} std::uint64_t asUInt64 >> ${FILENAME}
+GetMapElements_CPP std::uint64_t asUInt64 >> ${FILENAME}
 cat << EOF >> ${FILENAME}
 #endif
 
 #if _SIZEOF_UINTMAX_T != _SIZEOF_UNSIGNED_INT && _SIZEOF_UINTMAX_T != _SIZEOF_UINT64_T
 EOF
-	GetMapElements_CPP ${BASE} std::uintmax_t asLargestUInt >> ${FILENAME}
+GetMapElements_CPP std::uintmax_t asLargestUInt >> ${FILENAME}
 cat << EOF >> ${FILENAME}
 #endif
 EOF
-	Footer >> ${FILENAME}
+Footer >> ${FILENAME}
 
 
-	FILENAME=GetMapElements_${BASE}_shared_ptr_unsigned_int.cpp
-	Header GetMapElements_shared_ptr.tcc ${BASE} > ${FILENAME}
-	GetMapElements_shared_ptr_CPP ${BASE} 'unsigned int' asUInt >> ${FILENAME}
+FILENAME=GetMapElements_shared_ptr_unsigned_int.cpp
+Header GetMapElements_shared_ptr.tcc > ${FILENAME}
+GetMapElements_shared_ptr_CPP 'unsigned int' asUInt >> ${FILENAME}
 cat << EOF >> ${FILENAME}
 
 #if _SIZEOF_UINT64_T != _SIZEOF_UNSIGNED_INT
 EOF
-	GetMapElements_shared_ptr_CPP ${BASE} std::uint64_t asUInt64 >> ${FILENAME}
+GetMapElements_shared_ptr_CPP std::uint64_t asUInt64 >> ${FILENAME}
 cat << EOF >> ${FILENAME}
 #endif
 
 #if _SIZEOF_UINTMAX_T != _SIZEOF_UNSIGNED_INT && _SIZEOF_UINTMAX_T != _SIZEOF_UINT64_T
 EOF
-	GetMapElements_shared_ptr_CPP ${BASE} std::uintmax_t asLargestUInt >> ${FILENAME}
+GetMapElements_shared_ptr_CPP std::uintmax_t asLargestUInt >> ${FILENAME}
 cat << EOF >> ${FILENAME}
 #endif
 EOF
-	Footer >> ${FILENAME}
+Footer >> ${FILENAME}
 
 
-	FILENAME=GetMapElements_${BASE}_float.cpp
-	Header GetMapElements.tcc ${BASE} > ${FILENAME}
-	GetMapElements_CPP ${BASE} float asFloat >> ${FILENAME}
+FILENAME=GetMapElements_float.cpp
+Header GetMapElements.tcc > ${FILENAME}
+GetMapElements_CPP float asFloat >> ${FILENAME}
 cat << EOF >> ${FILENAME}
 
 EOF
-	GetMapElements_CPP ${BASE} double asDouble >> ${FILENAME}
-	Footer >> ${FILENAME}
+GetMapElements_CPP double asDouble >> ${FILENAME}
+Footer >> ${FILENAME}
 
 
-	FILENAME=GetMapElements_${BASE}_shared_ptr_float.cpp
-	Header GetMapElements_shared_ptr.tcc ${BASE} > ${FILENAME}
-	GetMapElements_shared_ptr_CPP ${BASE} float asFloat >> ${FILENAME}
+FILENAME=GetMapElements_shared_ptr_float.cpp
+Header GetMapElements_shared_ptr.tcc > ${FILENAME}
+GetMapElements_shared_ptr_CPP float asFloat >> ${FILENAME}
 cat << EOF >> ${FILENAME}
 
 EOF
-	GetMapElements_shared_ptr_CPP ${BASE} double asDouble >> ${FILENAME}
-	Footer >> ${FILENAME}
+GetMapElements_shared_ptr_CPP double asDouble >> ${FILENAME}
+Footer >> ${FILENAME}
 
 
-	FILENAME=GetMapElements_${BASE}_bool.cpp
-	Header GetMapElements.tcc ${BASE} > ${FILENAME}
-	GetMapElements_CPP ${BASE} bool asBool >> ${FILENAME}
-	Footer >> ${FILENAME}
+FILENAME=GetMapElements_bool.cpp
+Header GetMapElements.tcc > ${FILENAME}
+GetMapElements_CPP bool asBool >> ${FILENAME}
+Footer >> ${FILENAME}
 
 
-	FILENAME=GetMapElements_${BASE}_shared_ptr_bool.cpp
-	Header GetMapElements_shared_ptr.tcc ${BASE} > ${FILENAME}
-	GetMapElements_shared_ptr_CPP ${BASE} bool asBool >> ${FILENAME}
-	Footer >> ${FILENAME}
-
-}
-
-GetMapElements_BASE_CPP Map
-GetMapElements_BASE_CPP UnorderedMap
+FILENAME=GetMapElements_shared_ptr_bool.cpp
+Header GetMapElements_shared_ptr.tcc > ${FILENAME}
+GetMapElements_shared_ptr_CPP bool asBool >> ${FILENAME}
+Footer >> ${FILENAME}

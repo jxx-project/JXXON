@@ -23,16 +23,16 @@ class GetProperty;
 template<typename T, typename Enable = void>
 class SetProperty;
 
-template<typename T, template<typename...> class Base, typename Enable = void>
+template<typename T, typename Enable = void>
 class GetArrayElements;
 
-template<typename T, template<typename...> class Base, typename Enable = void>
+template<typename T, typename Enable = void>
 class SetArrayElements;
 
-template<typename T, template<typename...> class Base, typename Enable = void>
+template<typename T, typename Enable = void>
 class GetMapElements;
 
-template<typename T, template<typename...> class Base, typename Enable = void>
+template<typename T, typename Enable = void>
 class SetMapElements;
 
 } // namespace Accessor
@@ -150,7 +150,8 @@ public:
 		/// Construct array from Json object.
 		Array(const Json& json)
 		{
-			Accessor::GetArrayElements<T, Base> get(json);
+			this->clear();
+			Accessor::GetArrayElements<T> get(json);
 			get(*this);
 		}
 
@@ -162,7 +163,7 @@ public:
 		virtual Json toJson() const override
 		{
 			JXXON::Json json;
-			Accessor::SetArrayElements<T, Base> set(json);
+			Accessor::SetArrayElements<T> set(json);
 			set(*this);
 			return json;
 		}
@@ -229,7 +230,8 @@ public:
 		/// Construct map from Json object.
 		Map(const Json& json)
 		{
-			Accessor::GetMapElements<T, Base> get(json);
+			this->clear();
+			Accessor::GetMapElements<T> get(json);
 			get(*this);
 		}
 
@@ -241,7 +243,7 @@ public:
 		virtual Json toJson() const override
 		{
 			JXXON::Json json;
-			Accessor::SetMapElements<T, Base> set(json);
+			Accessor::SetMapElements<T> set(json);
 			set(*this);
 			return json;
 		}
@@ -290,16 +292,16 @@ public:
 	template<typename T, typename Enable>
 	friend class Accessor::SetProperty;
 
-	template<typename T, template<typename...> class Base, typename Enable>
+	template<typename T, typename Enable>
 	friend class Accessor::GetArrayElements;
 
-	template<typename T, template<typename...> class Base, typename Enable>
+	template<typename T, typename Enable>
 	friend class Accessor::SetArrayElements;
 
-	template<typename T, template<typename...> class Base, typename Enable>
+	template<typename T, typename Enable>
 	friend class Accessor::GetMapElements;
 
-	template<typename T, template<typename...> class Base, typename Enable>
+	template<typename T, typename Enable>
 	friend class Accessor::SetMapElements;
 
 	/// Stream operator overload reading Json objects.
@@ -429,17 +431,16 @@ private:
 	const std::string& name;
 };
 
-template<typename T, template<typename...> class Base>
-class GetArrayElements<T, Base, typename std::enable_if<std::is_base_of<Json::Serializable, T>::value>::type>
+template<typename T>
+class GetArrayElements<T, typename std::enable_if<std::is_base_of<Json::Serializable, T>::value>::type>
 {
 public:
 	GetArrayElements(const Json& json) : json(json)
 	{
 	}
 
-	void operator()(Base<T>& array) const
+	void operator()(Json::ArrayType<T>& array) const
 	{
-		array.clear();
 		json.append([&array](const Json& element){array.addElement(element.isNull() ? T() : T(element));});
 	}
 
@@ -447,17 +448,16 @@ private:
 	const Json& json;
 };
 
-template<typename T, template<typename...> class Base>
-class GetArrayElements<T, Base, typename std::enable_if<std::is_convertible<T, std::shared_ptr<Json::Serializable>>::value>::type>
+template<typename T>
+class GetArrayElements<T, typename std::enable_if<std::is_convertible<T, std::shared_ptr<Json::Serializable>>::value>::type>
 {
 public:
 	GetArrayElements(const Json& json) : json(json)
 	{
 	}
 
-	void operator()(Base<T>& array) const
+	void operator()(Json::ArrayType<T>& array) const
 	{
-		array.clear();
 		json.append([&array](const Json& element){array.addElement(element.isNull() ? T() : std::make_shared<typename T::element_type>(element));});
 	}
 
@@ -465,8 +465,8 @@ private:
 	const Json& json;
 };
 
-template<typename T, template<typename...> class Base>
-class SetArrayElements<T, Base, typename std::enable_if<std::is_base_of<Json::Serializable, T>::value>::type>
+template<typename T>
+class SetArrayElements<T, typename std::enable_if<std::is_base_of<Json::Serializable, T>::value>::type>
 {
 public:
 	SetArrayElements(Json& json) : json(json)
@@ -474,7 +474,7 @@ public:
 		json.setTypeArray();
 	}
 
-	void operator()(const Base<T>& array) {
+	void operator()(const Json::ArrayType<T>& array) {
 		array.forEach([&](const T& element){json.append(element.toJson());});
 	}
 
@@ -482,8 +482,8 @@ private:
 	Json& json;
 };
 
-template<typename T, template<typename...> class Base>
-class SetArrayElements<T, Base, typename std::enable_if<std::is_convertible<T, std::shared_ptr<Json::Serializable>>::value>::type>
+template<typename T>
+class SetArrayElements<T, typename std::enable_if<std::is_convertible<T, std::shared_ptr<Json::Serializable>>::value>::type>
 {
 public:
 	SetArrayElements(Json& json) : json(json)
@@ -491,7 +491,7 @@ public:
 		json.setTypeArray();
 	}
 
-	void operator()(const Base<T>& array) {
+	void operator()(const Json::ArrayType<T>& array) {
 		array.forEach([&](const T& element){json.append(element ? element->toJson() : Json());});
 	}
 
@@ -499,39 +499,38 @@ private:
 	Json& json;
 };
 
-template<typename T, template<typename...> class Base>
-class GetArrayElements<T, Base, typename std::enable_if<!std::is_base_of<Json::Serializable, T>::value && !std::is_convertible<T, std::shared_ptr<Json::Serializable>>::value>::type>
+template<typename T>
+class GetArrayElements<T, typename std::enable_if<!std::is_base_of<Json::Serializable, T>::value && !std::is_convertible<T, std::shared_ptr<Json::Serializable>>::value>::type>
 {
 public:
 	GetArrayElements(const Json& json);
-	void operator()(Base<T>& array) const;
+	void operator()(Json::ArrayType<T>& array) const;
 
 private:
 	const Json& json;
 };
 
-template<typename T, template<typename...> class Base>
-class SetArrayElements<T, Base, typename std::enable_if<!std::is_base_of<Json::Serializable, T>::value && !std::is_convertible<T, std::shared_ptr<Json::Serializable>>::value>::type>
+template<typename T>
+class SetArrayElements<T, typename std::enable_if<!std::is_base_of<Json::Serializable, T>::value && !std::is_convertible<T, std::shared_ptr<Json::Serializable>>::value>::type>
 {
 public:
 	SetArrayElements(Json& json);
-	void operator()(const Base<T>& array);
+	void operator()(const Json::ArrayType<T>& array);
 
 private:
 	Json& json;
 };
 
-template<typename T, template<typename...> class Base>
-class GetMapElements<T, Base, typename std::enable_if<std::is_base_of<Json::Serializable, T>::value>::type>
+template<typename T>
+class GetMapElements<T, typename std::enable_if<std::is_base_of<Json::Serializable, T>::value>::type>
 {
 public:
 	GetMapElements(const Json& json) : json(json)
 	{
 	}
 
-	void operator()(Base<T>& map) const
+	void operator()(Json::MapType<T>& map) const
 	{
-		map.clear();
 		json.insert([&map](const std::string& key, const Json& element){map.addElement(key, element.isNull() ? T() : T(element));});
 	}
 
@@ -539,17 +538,16 @@ private:
 	const Json& json;
 };
 
-template<typename T, template<typename...> class Base>
-class GetMapElements<T, Base, typename std::enable_if<std::is_convertible<T, std::shared_ptr<Json::Serializable>>::value>::type>
+template<typename T>
+class GetMapElements<T, typename std::enable_if<std::is_convertible<T, std::shared_ptr<Json::Serializable>>::value>::type>
 {
 public:
 	GetMapElements(const Json& json) : json(json)
 	{
 	}
 
-	void operator()(Base<T>& map) const
+	void operator()(Json::MapType<T>& map) const
 	{
-		map.clear();
 		json.insert([&map](const std::string& key, const Json& element){map.addElement(key, element.isNull() ? T() : std::make_shared<typename T::element_type>(element));});
 	}
 
@@ -557,8 +555,8 @@ private:
 	const Json& json;
 };
 
-template<typename T, template<typename...> class Base>
-class SetMapElements<T, Base, typename std::enable_if<std::is_base_of<Json::Serializable, T>::value>::type>
+template<typename T>
+class SetMapElements<T, typename std::enable_if<std::is_base_of<Json::Serializable, T>::value>::type>
 {
 public:
 	SetMapElements(Json& json) : json(json)
@@ -566,7 +564,7 @@ public:
 		json.setTypeObject();
 	}
 
-	void operator()(const Base<T>& map)
+	void operator()(const Json::MapType<T>& map)
 	{
 		map.forEach([&](const std::string& key, const T& value){json.insert(key, value.toJson());});
 	}
@@ -575,8 +573,8 @@ private:
 	Json& json;
 };
 
-template<typename T, template<typename...> class Base>
-class SetMapElements<T, Base, typename std::enable_if<std::is_convertible<T, std::shared_ptr<Json::Serializable>>::value>::type>
+template<typename T>
+class SetMapElements<T, typename std::enable_if<std::is_convertible<T, std::shared_ptr<Json::Serializable>>::value>::type>
 {
 public:
 	SetMapElements(Json& json) : json(json)
@@ -584,7 +582,7 @@ public:
 		json.setTypeObject();
 	}
 
-	void operator()(const Base<T>& map)
+	void operator()(const Json::MapType<T>& map)
 	{
 		map.forEach([&](const std::string& key, const T& value){json.insert(key, value ? value->toJson() : Json());});
 	}
@@ -593,23 +591,23 @@ private:
 	Json& json;
 };
 
-template<typename T, template<typename...> class Base>
-class GetMapElements<T, Base, typename std::enable_if<!std::is_base_of<Json::Serializable, T>::value && !std::is_convertible<T, std::shared_ptr<Json::Serializable>>::value>::type>
+template<typename T>
+class GetMapElements<T, typename std::enable_if<!std::is_base_of<Json::Serializable, T>::value && !std::is_convertible<T, std::shared_ptr<Json::Serializable>>::value>::type>
 {
 public:
 	GetMapElements(const Json& json);
-	void operator()(Base<T>& map) const;
+	void operator()(Json::MapType<T>& map) const;
 
 private:
 	const Json& json;
 };
 
-template<typename T, template<typename...> class Base>
-class SetMapElements<T, Base, typename std::enable_if<!std::is_base_of<Json::Serializable, T>::value && !std::is_convertible<T, std::shared_ptr<Json::Serializable>>::value>::type>
+template<typename T>
+class SetMapElements<T, typename std::enable_if<!std::is_base_of<Json::Serializable, T>::value && !std::is_convertible<T, std::shared_ptr<Json::Serializable>>::value>::type>
 {
 public:
 	SetMapElements(Json& json);
-	void operator()(const Base<T>& map);
+	void operator()(const Json::MapType<T>& map);
 
 private:
 	Json& json;

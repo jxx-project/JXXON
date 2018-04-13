@@ -15,10 +15,9 @@ cat << EOF
 namespace JXXON { namespace Accessor {
 namespace {
 
-template<class T, template<typename...> class Base>
-void populateArray(Base<T>& array, const ::Json::Value& value, const std::function<T(const ::Json::Value&)>& valueAsT)
+template<typename T>
+void populateArray(Json::ArrayType<T>& array, const ::Json::Value& value, const std::function<T(const ::Json::Value&)>& valueAsT)
 {
-	array.clear();
 	if (!value.isNull()) {
 		if (value.isArray()) {
 			try {
@@ -58,10 +57,9 @@ cat << EOF
 namespace JXXON { namespace Accessor {
 namespace {
 
-template<class T, template<typename...> class Base>
-void populateArray(Base<T>& array, const ::Json::Value& value, const std::function<typename T::element_type(const ::Json::Value&)>& valueAsT)
+template<typename T>
+void populateArray(Json::ArrayType<T>& array, const ::Json::Value& value, const std::function<typename T::element_type(const ::Json::Value&)>& valueAsT)
 {
-	array.clear();
 	if (!value.isNull()) {
 		if (value.isArray()) {
 			try {
@@ -87,14 +85,13 @@ EOF
 GetArrayElements_shared_ptr_TCC > GetArrayElements_shared_ptr.tcc
 
 function Header {
-cat << EOF | sed "s/{{INCLUDE}}/$1/g"| sed "s/{{BASE}}/$2/g"
+cat << EOF | sed "s/{{INCLUDE}}/$1/g"
 //
 // Copyright (C) 2018 Dr. Michael Steffens
 //
 // SPDX-License-Identifier:		BSL-1.0
 //
 
-#include "JXXON/Base/{{BASE}}.h"
 #include "JXXON/Error.h"
 #include "JXXON/Json.h"
 #include "JXXON/Json/Impl.h"
@@ -107,38 +104,38 @@ EOF
 }
 
 function GetArrayElements_CPP {
-cat << EOF | sed "s/{{BASE}}/$1/g" | sed "s/{{ELEMENT_TYPE}}/$2/g" | sed "s/{{AS_TYPE}}/$3/g"
+cat << EOF | sed "s/{{ELEMENT_TYPE}}/$1/g" | sed "s/{{AS_TYPE}}/$2/g"
 template<>
-GetArrayElements<{{ELEMENT_TYPE}}, Base::{{BASE}}>::GetArrayElements(const Json& json) : json(json)
+GetArrayElements<{{ELEMENT_TYPE}}>::GetArrayElements(const Json& json) : json(json)
 {
 }
 
 template<>
-void GetArrayElements<{{ELEMENT_TYPE}}, Base::{{BASE}}>::operator()(Base::{{BASE}}<{{ELEMENT_TYPE}}>& array) const
+void GetArrayElements<{{ELEMENT_TYPE}}>::operator()(Json::ArrayType<{{ELEMENT_TYPE}}>& array) const
 {
-	populateArray<{{ELEMENT_TYPE}}, Base::{{BASE}}>(array, json.pimpl->value, [](const ::Json::Value& value){return value.{{AS_TYPE}}();});
+	populateArray<{{ELEMENT_TYPE}}>(array, json.pimpl->value, [](const ::Json::Value& value){return value.{{AS_TYPE}}();});
 }
 
-template GetArrayElements<{{ELEMENT_TYPE}}, Base::{{BASE}}>::GetArrayElements(const Json& json);
-template void GetArrayElements<{{ELEMENT_TYPE}}, Base::{{BASE}}>::operator()(Base::{{BASE}}<{{ELEMENT_TYPE}}>& array) const;
+template GetArrayElements<{{ELEMENT_TYPE}}>::GetArrayElements(const Json& json);
+template void GetArrayElements<{{ELEMENT_TYPE}}>::operator()(Json::ArrayType<{{ELEMENT_TYPE}}>& array) const;
 EOF
 }
 
 function GetArrayElements_shared_ptr_CPP {
-cat << EOF | sed "s/{{BASE}}/$1/g" | sed "s/{{ELEMENT_TYPE}}/$2/g" | sed "s/{{AS_TYPE}}/$3/g"
+cat << EOF | sed "s/{{ELEMENT_TYPE}}/$1/g" | sed "s/{{AS_TYPE}}/$2/g"
 template<>
-GetArrayElements<std::shared_ptr<{{ELEMENT_TYPE}}>, Base::{{BASE}}>::GetArrayElements(const Json& json) : json(json)
+GetArrayElements<std::shared_ptr<{{ELEMENT_TYPE}}>>::GetArrayElements(const Json& json) : json(json)
 {
 }
 
 template<>
-void GetArrayElements<std::shared_ptr<{{ELEMENT_TYPE}}>, Base::{{BASE}}>::operator()(Base::{{BASE}}<std::shared_ptr<{{ELEMENT_TYPE}}>>& array) const
+void GetArrayElements<std::shared_ptr<{{ELEMENT_TYPE}}>>::operator()(Json::ArrayType<std::shared_ptr<{{ELEMENT_TYPE}}>>& array) const
 {
-	populateArray<std::shared_ptr<{{ELEMENT_TYPE}}>, Base::{{BASE}}>(array, json.pimpl->value, [](const ::Json::Value& value){return value.{{AS_TYPE}}();});
+	populateArray<std::shared_ptr<{{ELEMENT_TYPE}}>>(array, json.pimpl->value, [](const ::Json::Value& value){return value.{{AS_TYPE}}();});
 }
 
-template GetArrayElements<std::shared_ptr<{{ELEMENT_TYPE}}>, Base::{{BASE}}>::GetArrayElements(const Json& json);
-template void GetArrayElements<std::shared_ptr<{{ELEMENT_TYPE}}>, Base::{{BASE}}>::operator()(Base::{{BASE}}<std::shared_ptr<{{ELEMENT_TYPE}}>>& array) const;
+template GetArrayElements<std::shared_ptr<{{ELEMENT_TYPE}}>>::GetArrayElements(const Json& json);
+template void GetArrayElements<std::shared_ptr<{{ELEMENT_TYPE}}>>::operator()(Json::ArrayType<std::shared_ptr<{{ELEMENT_TYPE}}>>& array) const;
 EOF
 }
 
@@ -150,134 +147,125 @@ EOF
 }
 
 
-function GetArrayElements_BASE_CPP {
-
-	BASE=$1
-
-	FILENAME=GetArrayElements_${BASE}_string.cpp
-	Header GetArrayElements.tcc ${BASE} > ${FILENAME}
-	GetArrayElements_CPP ${BASE} std::string asString >> ${FILENAME}
-	Footer >> ${FILENAME}
+FILENAME=GetArrayElements_string.cpp
+Header GetArrayElements.tcc > ${FILENAME}
+GetArrayElements_CPP std::string asString >> ${FILENAME}
+Footer >> ${FILENAME}
 
 
-	FILENAME=GetArrayElements_${BASE}_shared_ptr_string.cpp
-	Header GetArrayElements_shared_ptr.tcc ${BASE} > ${FILENAME}
-	GetArrayElements_shared_ptr_CPP ${BASE} std::string asString >> ${FILENAME}
-	Footer >> ${FILENAME}
+FILENAME=GetArrayElements_shared_ptr_string.cpp
+Header GetArrayElements_shared_ptr.tcc > ${FILENAME}
+GetArrayElements_shared_ptr_CPP std::string asString >> ${FILENAME}
+Footer >> ${FILENAME}
 
 
-	FILENAME=GetArrayElements_${BASE}_int.cpp
-	Header GetArrayElements.tcc ${BASE} > ${FILENAME}
-	GetArrayElements_CPP ${BASE} int asInt >> ${FILENAME}
+FILENAME=GetArrayElements_int.cpp
+Header GetArrayElements.tcc > ${FILENAME}
+GetArrayElements_CPP int asInt >> ${FILENAME}
 cat << EOF >> ${FILENAME}
 
 #if _SIZEOF_INT64_T != _SIZEOF_INT
 EOF
-	GetArrayElements_CPP ${BASE} std::int64_t asInt64 >> ${FILENAME}
+GetArrayElements_CPP std::int64_t asInt64 >> ${FILENAME}
 cat << EOF >> ${FILENAME}
 #endif
 
 #if _SIZEOF_INTMAX_T != _SIZEOF_INT && _SIZEOF_INTMAX_T != _SIZEOF_INT64_T
 EOF
-	GetArrayElements_CPP ${BASE} std::intmax_t asLargestInt >> ${FILENAME}
+GetArrayElements_CPP std::intmax_t asLargestInt >> ${FILENAME}
 cat << EOF >> ${FILENAME}
 #endif
 EOF
-	Footer >> ${FILENAME}
+Footer >> ${FILENAME}
 
 
-	FILENAME=GetArrayElements_${BASE}_shared_ptr_int.cpp
-	Header GetArrayElements_shared_ptr.tcc ${BASE} > ${FILENAME}
-	GetArrayElements_shared_ptr_CPP ${BASE} int asInt >> ${FILENAME}
+FILENAME=GetArrayElements_shared_ptr_int.cpp
+Header GetArrayElements_shared_ptr.tcc > ${FILENAME}
+GetArrayElements_shared_ptr_CPP int asInt >> ${FILENAME}
 cat << EOF >> ${FILENAME}
 
 #if _SIZEOF_INT64_T != _SIZEOF_INT
 EOF
-	GetArrayElements_shared_ptr_CPP ${BASE} std::int64_t asInt64 >> ${FILENAME}
+GetArrayElements_shared_ptr_CPP std::int64_t asInt64 >> ${FILENAME}
 cat << EOF >> ${FILENAME}
 #endif
 
 #if _SIZEOF_INTMAX_T != _SIZEOF_INT && _SIZEOF_INTMAX_T != _SIZEOF_INT64_T
 EOF
-	GetArrayElements_shared_ptr_CPP ${BASE} std::intmax_t asLargestInt >> ${FILENAME}
+GetArrayElements_shared_ptr_CPP std::intmax_t asLargestInt >> ${FILENAME}
 cat << EOF >> ${FILENAME}
 #endif
 EOF
-	Footer >> ${FILENAME}
+Footer >> ${FILENAME}
 
 
-	FILENAME=GetArrayElements_${BASE}_unsigned_int.cpp
-	Header GetArrayElements.tcc ${BASE} > ${FILENAME}
-	GetArrayElements_CPP ${BASE} 'unsigned int' asUInt >> ${FILENAME}
+FILENAME=GetArrayElements_unsigned_int.cpp
+Header GetArrayElements.tcc > ${FILENAME}
+GetArrayElements_CPP 'unsigned int' asUInt >> ${FILENAME}
 cat << EOF >> ${FILENAME}
 
 #if _SIZEOF_UINT64_T != _SIZEOF_UNSIGNED_INT
 EOF
-	GetArrayElements_CPP ${BASE} std::uint64_t asUInt64 >> ${FILENAME}
+GetArrayElements_CPP std::uint64_t asUInt64 >> ${FILENAME}
 cat << EOF >> ${FILENAME}
 #endif
 
 #if _SIZEOF_UINTMAX_T != _SIZEOF_UNSIGNED_INT && _SIZEOF_UINTMAX_T != _SIZEOF_UINT64_T
 EOF
-	GetArrayElements_CPP ${BASE} std::uintmax_t asLargestUInt >> ${FILENAME}
+GetArrayElements_CPP std::uintmax_t asLargestUInt >> ${FILENAME}
 cat << EOF >> ${FILENAME}
 #endif
 EOF
-	Footer >> ${FILENAME}
+Footer >> ${FILENAME}
 
 
-	FILENAME=GetArrayElements_${BASE}_shared_ptr_unsigned_int.cpp
-	Header GetArrayElements_shared_ptr.tcc ${BASE} > ${FILENAME}
-	GetArrayElements_shared_ptr_CPP ${BASE} 'unsigned int' asUInt >> ${FILENAME}
+FILENAME=GetArrayElements_shared_ptr_unsigned_int.cpp
+Header GetArrayElements_shared_ptr.tcc > ${FILENAME}
+GetArrayElements_shared_ptr_CPP 'unsigned int' asUInt >> ${FILENAME}
 cat << EOF >> ${FILENAME}
 
 #if _SIZEOF_UINT64_T != _SIZEOF_UNSIGNED_INT
 EOF
-	GetArrayElements_shared_ptr_CPP ${BASE} std::uint64_t asUInt64 >> ${FILENAME}
+GetArrayElements_shared_ptr_CPP std::uint64_t asUInt64 >> ${FILENAME}
 cat << EOF >> ${FILENAME}
 #endif
 
 #if _SIZEOF_UINTMAX_T != _SIZEOF_UNSIGNED_INT && _SIZEOF_UINTMAX_T != _SIZEOF_UINT64_T
 EOF
-	GetArrayElements_shared_ptr_CPP ${BASE} std::uintmax_t asLargestUInt >> ${FILENAME}
+GetArrayElements_shared_ptr_CPP std::uintmax_t asLargestUInt >> ${FILENAME}
 cat << EOF >> ${FILENAME}
 #endif
 EOF
-	Footer >> ${FILENAME}
+Footer >> ${FILENAME}
 
 
-	FILENAME=GetArrayElements_${BASE}_float.cpp
-	Header GetArrayElements.tcc ${BASE} > ${FILENAME}
-	GetArrayElements_CPP ${BASE} float asFloat >> ${FILENAME}
+FILENAME=GetArrayElements_float.cpp
+Header GetArrayElements.tcc > ${FILENAME}
+GetArrayElements_CPP float asFloat >> ${FILENAME}
 cat << EOF >> ${FILENAME}
 
 EOF
-	GetArrayElements_CPP ${BASE} double asDouble >> ${FILENAME}
-	Footer >> ${FILENAME}
+GetArrayElements_CPP double asDouble >> ${FILENAME}
+Footer >> ${FILENAME}
 
 
-	FILENAME=GetArrayElements_${BASE}_shared_ptr_float.cpp
-	Header GetArrayElements_shared_ptr.tcc ${BASE} > ${FILENAME}
-	GetArrayElements_shared_ptr_CPP ${BASE} float asFloat >> ${FILENAME}
+FILENAME=GetArrayElements_shared_ptr_float.cpp
+Header GetArrayElements_shared_ptr.tcc > ${FILENAME}
+GetArrayElements_shared_ptr_CPP float asFloat >> ${FILENAME}
 cat << EOF >> ${FILENAME}
 
 EOF
-	GetArrayElements_shared_ptr_CPP ${BASE} double asDouble >> ${FILENAME}
-	Footer >> ${FILENAME}
+GetArrayElements_shared_ptr_CPP double asDouble >> ${FILENAME}
+Footer >> ${FILENAME}
 
 
-	FILENAME=GetArrayElements_${BASE}_bool.cpp
-	Header GetArrayElements.tcc ${BASE} > ${FILENAME}
-	GetArrayElements_CPP ${BASE} bool asBool >> ${FILENAME}
-	Footer >> ${FILENAME}
+FILENAME=GetArrayElements_bool.cpp
+Header GetArrayElements.tcc > ${FILENAME}
+GetArrayElements_CPP bool asBool >> ${FILENAME}
+Footer >> ${FILENAME}
 
 
-	FILENAME=GetArrayElements_${BASE}_shared_ptr_bool.cpp
-	Header GetArrayElements_shared_ptr.tcc ${BASE} > ${FILENAME}
-	GetArrayElements_shared_ptr_CPP ${BASE} bool asBool >> ${FILENAME}
-	Footer >> ${FILENAME}
-
-}
-
-GetArrayElements_BASE_CPP Vector
-GetArrayElements_BASE_CPP List
+FILENAME=GetArrayElements_shared_ptr_bool.cpp
+Header GetArrayElements_shared_ptr.tcc > ${FILENAME}
+GetArrayElements_shared_ptr_CPP bool asBool >> ${FILENAME}
+Footer >> ${FILENAME}

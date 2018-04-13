@@ -78,8 +78,8 @@ cat << EOF | sed "s/{{INCLUDE}}/$1/g"
 // SPDX-License-Identifier:		BSL-1.0
 //
 
-#include "JXXON/Json.h"
 #include "JXXON/Error.h"
+#include "JXXON/Json.h"
 #include "JXXON/Json/Impl.h"
 #include "JXXON/Accessor/{{INCLUDE}}"
 #include <cstdint>

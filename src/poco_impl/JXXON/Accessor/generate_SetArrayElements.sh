@@ -14,14 +14,14 @@ cat << EOF
 
 namespace JXXON { namespace Accessor {
 
-template<typename T, template<typename...> class Base>
-SetArrayElements<T, Base, typename std::enable_if<!std::is_base_of<Json::Serializable, T>::value && !std::is_convertible<T, std::shared_ptr<Json::Serializable>>::value>::type>::SetArrayElements(Json& json) : json(json)
+template<typename T>
+SetArrayElements<T, typename std::enable_if<!std::is_base_of<Json::Serializable, T>::value && !std::is_convertible<T, std::shared_ptr<Json::Serializable>>::value>::type>::SetArrayElements(Json& json) : json(json)
 {
 	json.setTypeArray();
 }
 
-template<typename T, template<typename...> class Base>
-void SetArrayElements<T, Base, typename std::enable_if<!std::is_base_of<Json::Serializable, T>::value && !std::is_convertible<T, std::shared_ptr<Json::Serializable>>::value>::type>::operator()(const Base<T>& array)
+template<typename T>
+void SetArrayElements<T, typename std::enable_if<!std::is_base_of<Json::Serializable, T>::value && !std::is_convertible<T, std::shared_ptr<Json::Serializable>>::value>::type>::operator()(const Json::ArrayType<T>& array)
 {
 	array.forEach([&](const T& element){json.pimpl->getArray().add(Poco::Dynamic::Var(element));});
 }
@@ -48,14 +48,14 @@ cat << EOF
 
 namespace JXXON { namespace Accessor {
 
-template<typename T, template<typename...> class Base>
-SetArrayElements<T, Base, typename std::enable_if<!std::is_base_of<Json::Serializable, T>::value && !std::is_convertible<T, std::shared_ptr<Json::Serializable>>::value>::type>::SetArrayElements(Json& json) : json(json)
+template<typename T>
+SetArrayElements<T, typename std::enable_if<!std::is_base_of<Json::Serializable, T>::value && !std::is_convertible<T, std::shared_ptr<Json::Serializable>>::value>::type>::SetArrayElements(Json& json) : json(json)
 {
 	json.setTypeArray();
 }
 
-template<typename T, template<typename...> class Base>
-void SetArrayElements<T, Base, typename std::enable_if<!std::is_base_of<Json::Serializable, T>::value && !std::is_convertible<T, std::shared_ptr<Json::Serializable>>::value>::type>::operator()(const Base<T>& array)
+template<typename T>
+void SetArrayElements<T, typename std::enable_if<!std::is_base_of<Json::Serializable, T>::value && !std::is_convertible<T, std::shared_ptr<Json::Serializable>>::value>::type>::operator()(const Json::ArrayType<T>& array)
 {
 	array.forEach([&](const T& element){json.pimpl->getArray().add(Poco::Dynamic::Var(element ? Poco::Dynamic::Var(*element) : Poco::Dynamic::Var()));});
 }
@@ -69,14 +69,13 @@ EOF
 SetArrayElements_shared_ptr_TCC > SetArrayElements_shared_ptr.tcc
 
 function Header {
-cat << EOF | sed "s/{{INCLUDE}}/$1/g"| sed "s/{{BASE}}/$2/g"
+cat << EOF | sed "s/{{INCLUDE}}/$1/g"
 //
 // Copyright (C) 2018 Dr. Michael Steffens
 //
 // SPDX-License-Identifier:		BSL-1.0
 //
 
-#include "JXXON/Base/{{BASE}}.h"
 #include "JXXON/Error.h"
 #include "JXXON/Json.h"
 #include "JXXON/Json/Impl.h"
@@ -89,16 +88,16 @@ EOF
 }
 
 function SetArrayElements_CPP {
-cat << EOF | sed "s/{{BASE}}/$1/g" | sed "s/{{ELEMENT_TYPE}}/$2/g"
-template SetArrayElements<{{ELEMENT_TYPE}}, Base::{{BASE}}>::SetArrayElements(Json& json);
-template void SetArrayElements<{{ELEMENT_TYPE}}, Base::{{BASE}}>::operator()(const Base::{{BASE}}<{{ELEMENT_TYPE}}>& array);
+cat << EOF | sed "s/{{ELEMENT_TYPE}}/$1/g"
+template SetArrayElements<{{ELEMENT_TYPE}}>::SetArrayElements(Json& json);
+template void SetArrayElements<{{ELEMENT_TYPE}}>::operator()(const Json::ArrayType<{{ELEMENT_TYPE}}>& array);
 EOF
 }
 
 function SetArrayElements_shared_ptr_CPP {
-cat << EOF | sed "s/{{BASE}}/$1/g" | sed "s/{{ELEMENT_TYPE}}/$2/g"
-template SetArrayElements<std::shared_ptr<{{ELEMENT_TYPE}}>, Base::{{BASE}}>::SetArrayElements(Json& json);
-template void SetArrayElements<std::shared_ptr<{{ELEMENT_TYPE}}>, Base::{{BASE}}>::operator()(const Base::{{BASE}}<std::shared_ptr<{{ELEMENT_TYPE}}>>& array);
+cat << EOF | sed "s/{{ELEMENT_TYPE}}/$1/g"
+template SetArrayElements<std::shared_ptr<{{ELEMENT_TYPE}}>>::SetArrayElements(Json& json);
+template void SetArrayElements<std::shared_ptr<{{ELEMENT_TYPE}}>>::operator()(const Json::ArrayType<std::shared_ptr<{{ELEMENT_TYPE}}>>& array);
 EOF
 }
 
@@ -110,134 +109,125 @@ EOF
 }
 
 
-function SetArrayElements_BASE_CPP {
-
-	BASE=$1
-
-	FILENAME=SetArrayElements_${BASE}_string.cpp
-	Header SetArrayElements.tcc ${BASE} > ${FILENAME}
-	SetArrayElements_CPP ${BASE} std::string >> ${FILENAME}
-	Footer >> ${FILENAME}
+FILENAME=SetArrayElements_string.cpp
+Header SetArrayElements.tcc > ${FILENAME}
+SetArrayElements_CPP std::string >> ${FILENAME}
+Footer >> ${FILENAME}
 
 
-	FILENAME=SetArrayElements_${BASE}_shared_ptr_string.cpp
-	Header SetArrayElements_shared_ptr.tcc ${BASE} > ${FILENAME}
-	SetArrayElements_shared_ptr_CPP ${BASE} std::string >> ${FILENAME}
-	Footer >> ${FILENAME}
+FILENAME=SetArrayElements_shared_ptr_string.cpp
+Header SetArrayElements_shared_ptr.tcc > ${FILENAME}
+SetArrayElements_shared_ptr_CPP std::string >> ${FILENAME}
+Footer >> ${FILENAME}
 
 
-	FILENAME=SetArrayElements_${BASE}_int.cpp
-	Header SetArrayElements.tcc ${BASE} > ${FILENAME}
-	SetArrayElements_CPP ${BASE} int >> ${FILENAME}
+FILENAME=SetArrayElements_int.cpp
+Header SetArrayElements.tcc > ${FILENAME}
+SetArrayElements_CPP int >> ${FILENAME}
 cat << EOF >> ${FILENAME}
 
 #if _SIZEOF_INT64_T != _SIZEOF_INT
 EOF
-	SetArrayElements_CPP ${BASE} std::int64_t >> ${FILENAME}
+SetArrayElements_CPP std::int64_t >> ${FILENAME}
 cat << EOF >> ${FILENAME}
 #endif
 
 #if _SIZEOF_INTMAX_T != _SIZEOF_INT && _SIZEOF_INTMAX_T != _SIZEOF_INT64_T
 EOF
-	SetArrayElements_CPP ${BASE} std::intmax_t >> ${FILENAME}
+SetArrayElements_CPP std::intmax_t >> ${FILENAME}
 cat << EOF >> ${FILENAME}
 #endif
 EOF
-	Footer >> ${FILENAME}
+Footer >> ${FILENAME}
 
 
-	FILENAME=SetArrayElements_${BASE}_shared_ptr_int.cpp
-	Header SetArrayElements_shared_ptr.tcc ${BASE} > ${FILENAME}
-	SetArrayElements_shared_ptr_CPP ${BASE} int >> ${FILENAME}
+FILENAME=SetArrayElements_shared_ptr_int.cpp
+Header SetArrayElements_shared_ptr.tcc > ${FILENAME}
+SetArrayElements_shared_ptr_CPP int >> ${FILENAME}
 cat << EOF >> ${FILENAME}
 
 #if _SIZEOF_INT64_T != _SIZEOF_INT
 EOF
-	SetArrayElements_shared_ptr_CPP ${BASE} std::int64_t >> ${FILENAME}
+SetArrayElements_shared_ptr_CPP std::int64_t >> ${FILENAME}
 cat << EOF >> ${FILENAME}
 #endif
 
 #if _SIZEOF_INTMAX_T != _SIZEOF_INT && _SIZEOF_INTMAX_T != _SIZEOF_INT64_T
 EOF
-	SetArrayElements_shared_ptr_CPP ${BASE} std::intmax_t >> ${FILENAME}
+SetArrayElements_shared_ptr_CPP std::intmax_t >> ${FILENAME}
 cat << EOF >> ${FILENAME}
 #endif
 EOF
-	Footer >> ${FILENAME}
+Footer >> ${FILENAME}
 
 
-	FILENAME=SetArrayElements_${BASE}_unsigned_int.cpp
-	Header SetArrayElements.tcc ${BASE} > ${FILENAME}
-	SetArrayElements_CPP ${BASE} 'unsigned int' >> ${FILENAME}
+FILENAME=SetArrayElements_unsigned_int.cpp
+Header SetArrayElements.tcc > ${FILENAME}
+SetArrayElements_CPP 'unsigned int' >> ${FILENAME}
 cat << EOF >> ${FILENAME}
 
 #if _SIZEOF_UINT64_T != _SIZEOF_UNSIGNED_INT
 EOF
-	SetArrayElements_CPP ${BASE} std::uint64_t >> ${FILENAME}
+SetArrayElements_CPP std::uint64_t >> ${FILENAME}
 cat << EOF >> ${FILENAME}
 #endif
 
 #if _SIZEOF_UINTMAX_T != _SIZEOF_UNSIGNED_INT && _SIZEOF_UINTMAX_T != _SIZEOF_UINT64_T
 EOF
-	SetArrayElements_CPP ${BASE} std::uintmax_t >> ${FILENAME}
+SetArrayElements_CPP std::uintmax_t >> ${FILENAME}
 cat << EOF >> ${FILENAME}
 #endif
 EOF
-	Footer >> ${FILENAME}
+Footer >> ${FILENAME}
 
 
-	FILENAME=SetArrayElements_${BASE}_shared_ptr_unsigned_int.cpp
-	Header SetArrayElements_shared_ptr.tcc ${BASE} > ${FILENAME}
-	SetArrayElements_shared_ptr_CPP ${BASE} 'unsigned int' >> ${FILENAME}
+FILENAME=SetArrayElements_shared_ptr_unsigned_int.cpp
+Header SetArrayElements_shared_ptr.tcc > ${FILENAME}
+SetArrayElements_shared_ptr_CPP 'unsigned int' >> ${FILENAME}
 cat << EOF >> ${FILENAME}
 
 #if _SIZEOF_UINT64_T != _SIZEOF_UNSIGNED_INT
 EOF
-	SetArrayElements_shared_ptr_CPP ${BASE} std::uint64_t >> ${FILENAME}
+SetArrayElements_shared_ptr_CPP std::uint64_t >> ${FILENAME}
 cat << EOF >> ${FILENAME}
 #endif
 
 #if _SIZEOF_UINTMAX_T != _SIZEOF_UNSIGNED_INT && _SIZEOF_UINTMAX_T != _SIZEOF_UINT64_T
 EOF
-	SetArrayElements_shared_ptr_CPP ${BASE} std::uintmax_t >> ${FILENAME}
+SetArrayElements_shared_ptr_CPP std::uintmax_t >> ${FILENAME}
 cat << EOF >> ${FILENAME}
 #endif
 EOF
-	Footer >> ${FILENAME}
+Footer >> ${FILENAME}
 
 
-	FILENAME=SetArrayElements_${BASE}_float.cpp
-	Header SetArrayElements.tcc ${BASE} > ${FILENAME}
-	SetArrayElements_CPP ${BASE} float >> ${FILENAME}
+FILENAME=SetArrayElements_float.cpp
+Header SetArrayElements.tcc > ${FILENAME}
+SetArrayElements_CPP float >> ${FILENAME}
 cat << EOF >> ${FILENAME}
 
 EOF
-	SetArrayElements_CPP ${BASE} double >> ${FILENAME}
-	Footer >> ${FILENAME}
+SetArrayElements_CPP double >> ${FILENAME}
+Footer >> ${FILENAME}
 
 
-	FILENAME=SetArrayElements_${BASE}_shared_ptr_float.cpp
-	Header SetArrayElements_shared_ptr.tcc ${BASE} > ${FILENAME}
-	SetArrayElements_shared_ptr_CPP ${BASE} float >> ${FILENAME}
+FILENAME=SetArrayElements_shared_ptr_float.cpp
+Header SetArrayElements_shared_ptr.tcc > ${FILENAME}
+SetArrayElements_shared_ptr_CPP float >> ${FILENAME}
 cat << EOF >> ${FILENAME}
 
 EOF
-	SetArrayElements_shared_ptr_CPP ${BASE} double >> ${FILENAME}
-	Footer >> ${FILENAME}
+SetArrayElements_shared_ptr_CPP double >> ${FILENAME}
+Footer >> ${FILENAME}
 
 
-	FILENAME=SetArrayElements_${BASE}_bool.cpp
-	Header SetArrayElements.tcc ${BASE} > ${FILENAME}
-	SetArrayElements_CPP ${BASE} bool >> ${FILENAME}
-	Footer >> ${FILENAME}
+FILENAME=SetArrayElements_bool.cpp
+Header SetArrayElements.tcc > ${FILENAME}
+SetArrayElements_CPP bool >> ${FILENAME}
+Footer >> ${FILENAME}
 
 
-	FILENAME=SetArrayElements_${BASE}_shared_ptr_bool.cpp
-	Header SetArrayElements_shared_ptr.tcc ${BASE} > ${FILENAME}
-	SetArrayElements_shared_ptr_CPP ${BASE} bool >> ${FILENAME}
-	Footer >> ${FILENAME}
-
-}
-
-SetArrayElements_BASE_CPP Vector
-SetArrayElements_BASE_CPP List
+FILENAME=SetArrayElements_shared_ptr_bool.cpp
+Header SetArrayElements_shared_ptr.tcc > ${FILENAME}
+SetArrayElements_shared_ptr_CPP bool >> ${FILENAME}
+Footer >> ${FILENAME}
