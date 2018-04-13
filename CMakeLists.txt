@@ -16,7 +16,7 @@ set(CMAKE_CXX_EXTENSIONS NO)
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/Modules/")
 
 if(JXXON_IMPL STREQUAL "poco")
-	find_package(Poco COMPONENTS JSON REQUIRED CONFIG)
+	find_package(Poco 1.6.0 COMPONENTS JSON REQUIRED CONFIG)
 	set(jxxon_impl_LIBRARIES Poco::JSON)
 elseif(JXXON_IMPL STREQUAL "jsoncpp")
 	find_package(PkgConfig REQUIRED)
@@ -27,7 +27,7 @@ else()
 	message(FATAL_ERROR "JXXON_IMPL invalid or not specified. Must be \"poco\" or \"jsoncpp\".")
 endif()
 
-find_package(Polymorphic REQUIRED CONFIG)
+find_package(Polymorphic 1.0.0 REQUIRED CONFIG)
 
 include(CheckTypeSize)
 check_type_size("int" SIZEOF_INT LANGUAGE CXX)
