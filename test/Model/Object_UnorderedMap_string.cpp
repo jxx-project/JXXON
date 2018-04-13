@@ -11,6 +11,6 @@
 
 namespace Model {
 
-template class Object<JXXON::UnorderedMap<std::string>>;
+template struct Object<JXXON::UnorderedMap<std::string>>;
 
 } // namespace Model

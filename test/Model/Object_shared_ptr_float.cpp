@@ -10,6 +10,6 @@
 
 namespace Model {
 
-template class Object<std::shared_ptr<float>>;
+template struct Object<std::shared_ptr<float>>;
 
 } // namespace Model

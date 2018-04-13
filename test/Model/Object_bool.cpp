@@ -9,6 +9,6 @@
 
 namespace Model {
 
-template class Object<bool>;
+template struct Object<bool>;
 
 } // namespace Model

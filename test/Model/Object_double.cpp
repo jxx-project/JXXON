@@ -9,6 +9,6 @@
 
 namespace Model {
 
-template class Object<double>;
+template struct Object<double>;
 
 } // namespace Model
