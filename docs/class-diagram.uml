@@ -29,20 +29,41 @@ namespace JXXON {
 		+toJson() : Json
 	}
 	Serializable ..> Json_Serializable
+
+	interface "Json::ArrayType" as Json_ArrayType {
+		+addElement(element)
+		+forEach(function<(element)>)
+	}
+	Json_ArrayType --+ Json
 	
+	interface "Json::MapType" as Json_MapType {
+		+addElement(key, value)
+		+forEach(function<(key, value)>)
+	}
+	Json_MapType --+ Json
+	
+	namespace Base {
+		class "Vector or\nList<T>" as ArrayBase
+		class "Map or\nUnorderedMap<T>" as MapBase
+		ArrayBase --|> Polymorphic.ArrayBase
+		ArrayBase --|> JXXON.Json_ArrayType
+		MapBase --|> Polymorphic.MapBase
+		MapBase --|> JXXON.Json_MapType
+	}
+
 	class "Json::Array" as Json_Array<T, Base> {
 		+Json::Array::Array(json)
 		+toJson() : Json
 	}
 	Json_Array --+ Json
 	Json_Array -right-|> Json_Serializable
-	Json_Array --|> Polymorphic.ArrayBase
+	Json_Array --|> JXXON.Base.ArrayBase
 	
 	class Vector<T>
-	Vector ..> Json_Array : <T, Polymorphic::Vector>
+	Vector ..> Json_Array : <T, Base::Vector>
 	
 	class List<T>
-	List ..> Json_Array : <T, Polymorphic::List>
+	List ..> Json_Array : <T, Base::List>
 	
 	class "Json::Map" as Json_Map<T, Base> {
 		+Json::Map::Map(json)
@@ -50,13 +71,13 @@ namespace JXXON {
 	}
 	Json_Map --+ Json
 	Json_Map -left-|> Json_Serializable
-	Json_Map --|> Polymorphic.MapBase
+	Json_Map --|> JXXON.Base.MapBase
 	
 	class Map<T>
-	Map ..> Json_Map : <T, Polymorphic::Map>
+	Map ..> Json_Map : <T, Base::Map>
 	
 	class UnorderedMap<T>
-	UnorderedMap ..> Json_Map : <T, Polymorphic::UnorderedMap>
+	UnorderedMap ..> Json_Map : <T, Base::UnorderedMap>
 	
 	namespace Accessor {
 		class GetProperty<T> {
@@ -69,22 +90,22 @@ namespace JXXON {
 		}
 		JXXON.Json --> SetProperty
 		
-		class GetArrayElements<T, Base> {
+		class GetArrayElements<T> {
 			+operator()(array)
 		}
 		JXXON.Json_Array --> GetArrayElements
 		
-		class SetArrayElements<T, Base> {
+		class SetArrayElements<T> {
 			+operator()(array)
 		}
 		JXXON.Json_Array --> SetArrayElements
 
-		class GetMapElements<T, Base> {
+		class GetMapElements<T> {
 			+operator()(map)
 		}
 		JXXON.Json_Map --> GetMapElements
 		
-		class SetMapElements<T, Base> {
+		class SetMapElements<T> {
 			+operator()(map)
 		}
 		JXXON.Json_Map --> SetMapElements
