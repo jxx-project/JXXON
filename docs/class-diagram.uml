@@ -1,13 +1,13 @@
 @startuml
 
 namespace std {
-	class "vector or\nlist<T>" as ArrayBase
-	class "map or\nunordered_map<std::string, T>" as MapBase
+	class "vector\nlist<T>" as ArrayBase
+	class "map\nunordered_map<std::string, T>" as MapBase
 }
 
 namespace Polymorphic {
-	class "Vector or\nList<T>" as ArrayBase
-	class "Map or\nUnorderedMap<std::string, T>" as MapBase
+	class "Vector\nList<T>" as ArrayBase
+	class "Map\nUnorderedMap<std::string, T>" as MapBase
 	ArrayBase *-> std.ArrayBase
 	MapBase *-> std.MapBase
 }
@@ -25,88 +25,84 @@ namespace JXXON {
 	}
 	Json_Serializable --+ Json
 	
-	interface Serializable {
-		+toJson() : Json
-	}
+	interface Serializable << typedef >>
 	Serializable ..> Json_Serializable
 
-	interface "Json::ArrayType" as Json_ArrayType {
-		+addElement(element)
-		+forEach(function<(element)>)
+	interface "Json::ArrayType<T>" as Json_ArrayType {
+		+addElement(T)
+		+forEach(std::function<void(T)>)
 	}
 	Json_ArrayType --+ Json
 	
-	interface "Json::MapType" as Json_MapType {
-		+addElement(key, value)
-		+forEach(function<(key, value)>)
+	interface "Json::MapType<T>" as Json_MapType {
+		+addElement(std::string, T)
+		+forEach(std::function<void(std::string, T)>)
 	}
 	Json_MapType --+ Json
 	
-	namespace Base {
-		class "Vector or\nList<T>" as ArrayBase
-		class "Map or\nUnorderedMap<T>" as MapBase
-		ArrayBase --|> Polymorphic.ArrayBase
-		ArrayBase --|> JXXON.Json_ArrayType
-		MapBase --|> Polymorphic.MapBase
-		MapBase --|> JXXON.Json_MapType
-	}
+	class "Base::Vector\nBase::List<T>" as ArrayBase
+	class "Base::Map\nBase::UnorderedMap<T>" as MapBase
+	ArrayBase --|> Polymorphic.ArrayBase
+	ArrayBase --|> JXXON.Json_ArrayType
+	MapBase --|> Polymorphic.MapBase
+	MapBase --|> JXXON.Json_MapType
 
 	class "Json::Array" as Json_Array<T, Base> {
-		+Json::Array::Array(json)
+		+Json::Array::Array(Json)
 		+toJson() : Json
 	}
 	Json_Array --+ Json
 	Json_Array -right-|> Json_Serializable
-	Json_Array --|> JXXON.Base.ArrayBase
+	Json_Array --|> ArrayBase
 	
-	class Vector<T>
+	class Vector<T> << typedef >>
 	Vector ..> Json_Array : <T, Base::Vector>
 	
-	class List<T>
+	class List<T> << typedef >>
 	List ..> Json_Array : <T, Base::List>
 	
 	class "Json::Map" as Json_Map<T, Base> {
-		+Json::Map::Map(json)
+		+Json::Map::Map(Json)
 		+toJson() : Json
 	}
 	Json_Map --+ Json
 	Json_Map -left-|> Json_Serializable
-	Json_Map --|> JXXON.Base.MapBase
+	Json_Map --|> MapBase
 	
-	class Map<T>
+	class Map<T> << typedef >>
 	Map ..> Json_Map : <T, Base::Map>
 	
-	class UnorderedMap<T>
+	class UnorderedMap<T> << typedef >>
 	UnorderedMap ..> Json_Map : <T, Base::UnorderedMap>
 	
 	namespace Accessor {
 		class GetProperty<T> {
-			+operator()() :T
+			+operator()() : T
 		}
 		JXXON.Json --> GetProperty
 		
 		class SetProperty<T> {
-			+operator()(value)
+			+operator()(T)
 		}
 		JXXON.Json --> SetProperty
 		
 		class GetArrayElements<T> {
-			+operator()(array)
+			+operator()(Json::ArrayType)
 		}
 		JXXON.Json_Array --> GetArrayElements
 		
 		class SetArrayElements<T> {
-			+operator()(array)
+			+operator()(Json::ArrayType)
 		}
 		JXXON.Json_Array --> SetArrayElements
 
 		class GetMapElements<T> {
-			+operator()(map)
+			+operator()(Json::MapType)
 		}
 		JXXON.Json_Map --> GetMapElements
 		
 		class SetMapElements<T> {
-			+operator()(map)
+			+operator()(Json::MapType)
 		}
 		JXXON.Json_Map --> SetMapElements
 	}
