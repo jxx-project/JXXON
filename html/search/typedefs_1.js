@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['map',['Map',['../namespaceJXXON.html#a68ffa8a160560c01963d2e644bc2ea62',1,'JXXON']]]
+  ['map',['Map',['../namespaceJXXON.html#a48a54188b2ed3a840f78b334ffbdb0cb',1,'JXXON']]]
 ];

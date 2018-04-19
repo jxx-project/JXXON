@@ -1,4 +1,6 @@
 var searchData=
 [
-  ['list',['List',['../namespaceJXXON.html#ab0de44e3f00e6e42189029867df57823',1,'JXXON']]]
+  ['json',['Json',['../classJXXON_1_1Json.html',1,'JXXON']]],
+  ['json',['Json',['../classJXXON_1_1Json.html#ae5dbdb1aa474891caa41fbc793565a7f',1,'JXXON::Json::Json()'],['../classJXXON_1_1Json.html#a207ea7a03a6e1776394bcab4ce03c28f',1,'JXXON::Json::Json(Json &amp;&amp;other)'],['../classJXXON_1_1Json.html#ab8a922865d8e0fe48c725544429f6252',1,'JXXON::Json::Json(const std::string &amp;document)']]],
+  ['jxxon',['JXXON',['../namespaceJXXON.html',1,'']]]
 ];

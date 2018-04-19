@@ -1,7 +1,9 @@
 var classJXXON_1_1Json =
 [
     [ "Array", "classJXXON_1_1Json_1_1Array.html", "classJXXON_1_1Json_1_1Array" ],
+    [ "ArrayType", "classJXXON_1_1Json_1_1ArrayType.html", "classJXXON_1_1Json_1_1ArrayType" ],
     [ "Map", "classJXXON_1_1Json_1_1Map.html", "classJXXON_1_1Json_1_1Map" ],
+    [ "MapType", "classJXXON_1_1Json_1_1MapType.html", "classJXXON_1_1Json_1_1MapType" ],
     [ "Serializable", "classJXXON_1_1Json_1_1Serializable.html", "classJXXON_1_1Json_1_1Serializable" ],
     [ "Json", "classJXXON_1_1Json.html#ae5dbdb1aa474891caa41fbc793565a7f", null ],
     [ "Json", "classJXXON_1_1Json.html#ab723ec2fd4d79a16a7b8e3878f301715", null ],
@@ -14,10 +16,10 @@ var classJXXON_1_1Json =
     [ "operator=", "classJXXON_1_1Json.html#a04eea3da0e4fb821eeb63f71289c6a06", null ],
     [ "set", "classJXXON_1_1Json.html#a31c284ee52ada53bde00ce75bcdc3562", null ],
     [ "toString", "classJXXON_1_1Json.html#a3c3cf793d72e4a025e76a8cc64bc887a", null ],
-    [ "Accessor::GetArrayElements", "classJXXON_1_1Json.html#affe6935e9c2b60eb53d4eb3d415a9c70", null ],
-    [ "Accessor::GetMapElements", "classJXXON_1_1Json.html#ada2c9c0bc2709421636e97e14d0ddfb3", null ],
-    [ "Accessor::SetArrayElements", "classJXXON_1_1Json.html#a649bdf45205fee1d11895644c8f3b694", null ],
-    [ "Accessor::SetMapElements", "classJXXON_1_1Json.html#ae65632ad30bca05ad327264a09b9e2ff", null ],
+    [ "Accessor::GetArrayElements", "classJXXON_1_1Json.html#af06a111e3d5d73a27c7506bd8e2f060f", null ],
+    [ "Accessor::GetMapElements", "classJXXON_1_1Json.html#a607c7ace2581e6aafe778975ffcff4d6", null ],
+    [ "Accessor::SetArrayElements", "classJXXON_1_1Json.html#a2c80a144f6488bc792cf1e3d1c112408", null ],
+    [ "Accessor::SetMapElements", "classJXXON_1_1Json.html#a4aa237c825bab2cf73770a95476dd8d8", null ],
     [ "operator<<", "classJXXON_1_1Json.html#a4a588d36c2bf13a283f09f24bbf598dc", null ],
     [ "operator>>", "classJXXON_1_1Json.html#ac808426e551176909f4d3df3f0609d79", null ]
 ];
