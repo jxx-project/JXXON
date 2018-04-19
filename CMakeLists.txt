@@ -5,7 +5,7 @@
 #
 
 cmake_minimum_required(VERSION 3.0)
-project(JXXON VERSION 1.0.0 LANGUAGES CXX)
+project(JXXON VERSION 1.1.0 LANGUAGES CXX)
 
 include(GNUInstallDirs)
 include(CMakePackageConfigHelpers)
@@ -14,7 +14,7 @@ set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS NO)
 
-set(Polymorphic_FIND_VERSION 1.0.0)
+set(Polymorphic_FIND_VERSION 1.1.0)
 find_package(Polymorphic ${Polymorphic_FIND_VERSION} REQUIRED CONFIG)
 
 if(JXXON_IMPL STREQUAL "poco")
