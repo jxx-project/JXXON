@@ -1,6 +1,8 @@
 # Changelog
 
-## 1.1.0 - 2018-04-19
+## Unreleased
+
+## 1.1.0 — 2018-04-19
 ### Added
 - CMake target version.
 - Transitive CMake dependency resolution based on CONFIG lookup.
@@ -15,7 +17,7 @@
 ### Removed
 - CMake modules.
 
-## 1.0.0 - 2018-04-01
+## 1.0.0 — 2018-04-01
 ### Added
 - Json object mapper:
    - Poco implementation.
