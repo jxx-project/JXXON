@@ -12,15 +12,28 @@
 
 namespace JXXON { namespace Accessor {
 
-template GetMapElements<std::shared_ptr<unsigned int>>::GetMapElements(const Json& json);
-template void GetMapElements<std::shared_ptr<unsigned int>>::operator()(Json::MapType<std::shared_ptr<unsigned int>>& map) const;
 
-#if _SIZEOF_UINT64_T != _SIZEOF_UNSIGNED_INT
+#if (_SIZEOF_UINT8_T + 0)
+template GetMapElements<std::shared_ptr<std::uint8_t>>::GetMapElements(const Json& json);
+template void GetMapElements<std::shared_ptr<std::uint8_t>>::operator()(Json::MapType<std::shared_ptr<std::uint8_t>>& map) const;
+#endif
+
+#if (_SIZEOF_UINT16_T + 0)
+template GetMapElements<std::shared_ptr<std::uint16_t>>::GetMapElements(const Json& json);
+template void GetMapElements<std::shared_ptr<std::uint16_t>>::operator()(Json::MapType<std::shared_ptr<std::uint16_t>>& map) const;
+#endif
+
+#if (_SIZEOF_UINT32_T + 0)
+template GetMapElements<std::shared_ptr<std::uint32_t>>::GetMapElements(const Json& json);
+template void GetMapElements<std::shared_ptr<std::uint32_t>>::operator()(Json::MapType<std::shared_ptr<std::uint32_t>>& map) const;
+#endif
+
+#if (_SIZEOF_UINT64_T + 0)
 template GetMapElements<std::shared_ptr<std::uint64_t>>::GetMapElements(const Json& json);
 template void GetMapElements<std::shared_ptr<std::uint64_t>>::operator()(Json::MapType<std::shared_ptr<std::uint64_t>>& map) const;
 #endif
 
-#if _SIZEOF_UINTMAX_T != _SIZEOF_UNSIGNED_INT && _SIZEOF_UINTMAX_T != _SIZEOF_UINT64_T
+#if (_SIZEOF_UINTMAX_T + 0) && !((_SIZEOF_UINTMAX_T + 0) == (_SIZEOF_UINT8_T + 0) || (_SIZEOF_UINTMAX_T + 0) == (_SIZEOF_UINT16_T + 0) || (_SIZEOF_UINTMAX_T + 0) == (_SIZEOF_UINT32_T + 0) || (_SIZEOF_UINTMAX_T + 0) == (_SIZEOF_UINT64_T + 0))
 template GetMapElements<std::shared_ptr<std::uintmax_t>>::GetMapElements(const Json& json);
 template void GetMapElements<std::shared_ptr<std::uintmax_t>>::operator()(Json::MapType<std::shared_ptr<std::uintmax_t>>& map) const;
 #endif

@@ -12,21 +12,56 @@
 
 namespace JXXON { namespace Accessor {
 
+
+#if (_SIZEOF_UINT8_T + 0)
 template<>
-GetArrayElements<std::shared_ptr<unsigned int>>::GetArrayElements(const Json& json) : json(json)
+GetArrayElements<std::shared_ptr<std::uint8_t>>::GetArrayElements(const Json& json) : json(json)
 {
 }
 
 template<>
-void GetArrayElements<std::shared_ptr<unsigned int>>::operator()(Json::ArrayType<std::shared_ptr<unsigned int>>& array) const
+void GetArrayElements<std::shared_ptr<std::uint8_t>>::operator()(Json::ArrayType<std::shared_ptr<std::uint8_t>>& array) const
 {
-	populateArray<std::shared_ptr<unsigned int>>(array, json.pimpl->value, [](const ::Json::Value& value){return value.asUInt();});
+	populateArray<std::shared_ptr<std::uint8_t>>(array, json.pimpl->value, [](const ::Json::Value& value){return value.asUInt();});
 }
 
-template GetArrayElements<std::shared_ptr<unsigned int>>::GetArrayElements(const Json& json);
-template void GetArrayElements<std::shared_ptr<unsigned int>>::operator()(Json::ArrayType<std::shared_ptr<unsigned int>>& array) const;
+template GetArrayElements<std::shared_ptr<std::uint8_t>>::GetArrayElements(const Json& json);
+template void GetArrayElements<std::shared_ptr<std::uint8_t>>::operator()(Json::ArrayType<std::shared_ptr<std::uint8_t>>& array) const;
+#endif
 
-#if _SIZEOF_UINT64_T != _SIZEOF_UNSIGNED_INT
+#if (_SIZEOF_UINT16_T + 0)
+template<>
+GetArrayElements<std::shared_ptr<std::uint16_t>>::GetArrayElements(const Json& json) : json(json)
+{
+}
+
+template<>
+void GetArrayElements<std::shared_ptr<std::uint16_t>>::operator()(Json::ArrayType<std::shared_ptr<std::uint16_t>>& array) const
+{
+	populateArray<std::shared_ptr<std::uint16_t>>(array, json.pimpl->value, [](const ::Json::Value& value){return value.asUInt();});
+}
+
+template GetArrayElements<std::shared_ptr<std::uint16_t>>::GetArrayElements(const Json& json);
+template void GetArrayElements<std::shared_ptr<std::uint16_t>>::operator()(Json::ArrayType<std::shared_ptr<std::uint16_t>>& array) const;
+#endif
+
+#if (_SIZEOF_UINT32_T + 0)
+template<>
+GetArrayElements<std::shared_ptr<std::uint32_t>>::GetArrayElements(const Json& json) : json(json)
+{
+}
+
+template<>
+void GetArrayElements<std::shared_ptr<std::uint32_t>>::operator()(Json::ArrayType<std::shared_ptr<std::uint32_t>>& array) const
+{
+	populateArray<std::shared_ptr<std::uint32_t>>(array, json.pimpl->value, [](const ::Json::Value& value){return value.asUInt();});
+}
+
+template GetArrayElements<std::shared_ptr<std::uint32_t>>::GetArrayElements(const Json& json);
+template void GetArrayElements<std::shared_ptr<std::uint32_t>>::operator()(Json::ArrayType<std::shared_ptr<std::uint32_t>>& array) const;
+#endif
+
+#if (_SIZEOF_UINT64_T + 0)
 template<>
 GetArrayElements<std::shared_ptr<std::uint64_t>>::GetArrayElements(const Json& json) : json(json)
 {
@@ -42,7 +77,7 @@ template GetArrayElements<std::shared_ptr<std::uint64_t>>::GetArrayElements(cons
 template void GetArrayElements<std::shared_ptr<std::uint64_t>>::operator()(Json::ArrayType<std::shared_ptr<std::uint64_t>>& array) const;
 #endif
 
-#if _SIZEOF_UINTMAX_T != _SIZEOF_UNSIGNED_INT && _SIZEOF_UINTMAX_T != _SIZEOF_UINT64_T
+#if (_SIZEOF_UINTMAX_T + 0) && !((_SIZEOF_UINTMAX_T + 0) == (_SIZEOF_UINT8_T + 0) || (_SIZEOF_UINTMAX_T + 0) == (_SIZEOF_UINT16_T + 0) || (_SIZEOF_UINTMAX_T + 0) == (_SIZEOF_UINT32_T + 0) || (_SIZEOF_UINTMAX_T + 0) == (_SIZEOF_UINT64_T + 0))
 template<>
 GetArrayElements<std::shared_ptr<std::uintmax_t>>::GetArrayElements(const Json& json) : json(json)
 {

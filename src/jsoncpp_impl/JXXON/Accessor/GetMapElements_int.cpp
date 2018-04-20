@@ -12,21 +12,56 @@
 
 namespace JXXON { namespace Accessor {
 
+
+#if (_SIZEOF_INT8_T + 0)
 template<>
-GetMapElements<int>::GetMapElements(const Json& json) : json(json)
+GetMapElements<std::int8_t>::GetMapElements(const Json& json) : json(json)
 {
 }
 
 template<>
-void GetMapElements<int>::operator()(Json::MapType<int>& map) const
+void GetMapElements<std::int8_t>::operator()(Json::MapType<std::int8_t>& map) const
 {
-	populateMap<int>(map, json.pimpl->value, [](const ::Json::Value::const_iterator& i){return i->asInt();});
+	populateMap<std::int8_t>(map, json.pimpl->value, [](const ::Json::Value::const_iterator& i){return i->asInt();});
 }
 
-template GetMapElements<int>::GetMapElements(const Json& json);
-template void GetMapElements<int>::operator()(Json::MapType<int>& map) const;
+template GetMapElements<std::int8_t>::GetMapElements(const Json& json);
+template void GetMapElements<std::int8_t>::operator()(Json::MapType<std::int8_t>& map) const;
+#endif
 
-#if _SIZEOF_INT64_T != _SIZEOF_INT
+#if (_SIZEOF_INT16_T + 0)
+template<>
+GetMapElements<std::int16_t>::GetMapElements(const Json& json) : json(json)
+{
+}
+
+template<>
+void GetMapElements<std::int16_t>::operator()(Json::MapType<std::int16_t>& map) const
+{
+	populateMap<std::int16_t>(map, json.pimpl->value, [](const ::Json::Value::const_iterator& i){return i->asInt();});
+}
+
+template GetMapElements<std::int16_t>::GetMapElements(const Json& json);
+template void GetMapElements<std::int16_t>::operator()(Json::MapType<std::int16_t>& map) const;
+#endif
+
+#if (_SIZEOF_INT32_T + 0)
+template<>
+GetMapElements<std::int32_t>::GetMapElements(const Json& json) : json(json)
+{
+}
+
+template<>
+void GetMapElements<std::int32_t>::operator()(Json::MapType<std::int32_t>& map) const
+{
+	populateMap<std::int32_t>(map, json.pimpl->value, [](const ::Json::Value::const_iterator& i){return i->asInt();});
+}
+
+template GetMapElements<std::int32_t>::GetMapElements(const Json& json);
+template void GetMapElements<std::int32_t>::operator()(Json::MapType<std::int32_t>& map) const;
+#endif
+
+#if (_SIZEOF_INT64_T + 0)
 template<>
 GetMapElements<std::int64_t>::GetMapElements(const Json& json) : json(json)
 {
@@ -42,7 +77,7 @@ template GetMapElements<std::int64_t>::GetMapElements(const Json& json);
 template void GetMapElements<std::int64_t>::operator()(Json::MapType<std::int64_t>& map) const;
 #endif
 
-#if _SIZEOF_INTMAX_T != _SIZEOF_INT && _SIZEOF_INTMAX_T != _SIZEOF_INT64_T
+#if (_SIZEOF_INTMAX_T + 0) && !((_SIZEOF_INTMAX_T + 0) == (_SIZEOF_INT8_T + 0) || (_SIZEOF_INTMAX_T + 0) == (_SIZEOF_INT16_T + 0) || (_SIZEOF_INTMAX_T + 0) == (_SIZEOF_INT32_T + 0) || (_SIZEOF_INTMAX_T + 0) == (_SIZEOF_INT64_T + 0))
 template<>
 GetMapElements<std::intmax_t>::GetMapElements(const Json& json) : json(json)
 {

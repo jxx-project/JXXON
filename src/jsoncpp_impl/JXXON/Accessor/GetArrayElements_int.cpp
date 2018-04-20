@@ -12,21 +12,56 @@
 
 namespace JXXON { namespace Accessor {
 
+
+#if (_SIZEOF_INT8_T + 0)
 template<>
-GetArrayElements<int>::GetArrayElements(const Json& json) : json(json)
+GetArrayElements<std::int8_t>::GetArrayElements(const Json& json) : json(json)
 {
 }
 
 template<>
-void GetArrayElements<int>::operator()(Json::ArrayType<int>& array) const
+void GetArrayElements<std::int8_t>::operator()(Json::ArrayType<std::int8_t>& array) const
 {
-	populateArray<int>(array, json.pimpl->value, [](const ::Json::Value& value){return value.asInt();});
+	populateArray<std::int8_t>(array, json.pimpl->value, [](const ::Json::Value& value){return value.asInt();});
 }
 
-template GetArrayElements<int>::GetArrayElements(const Json& json);
-template void GetArrayElements<int>::operator()(Json::ArrayType<int>& array) const;
+template GetArrayElements<std::int8_t>::GetArrayElements(const Json& json);
+template void GetArrayElements<std::int8_t>::operator()(Json::ArrayType<std::int8_t>& array) const;
+#endif
 
-#if _SIZEOF_INT64_T != _SIZEOF_INT
+#if (_SIZEOF_INT16_T + 0)
+template<>
+GetArrayElements<std::int16_t>::GetArrayElements(const Json& json) : json(json)
+{
+}
+
+template<>
+void GetArrayElements<std::int16_t>::operator()(Json::ArrayType<std::int16_t>& array) const
+{
+	populateArray<std::int16_t>(array, json.pimpl->value, [](const ::Json::Value& value){return value.asInt();});
+}
+
+template GetArrayElements<std::int16_t>::GetArrayElements(const Json& json);
+template void GetArrayElements<std::int16_t>::operator()(Json::ArrayType<std::int16_t>& array) const;
+#endif
+
+#if (_SIZEOF_INT32_T + 0)
+template<>
+GetArrayElements<std::int32_t>::GetArrayElements(const Json& json) : json(json)
+{
+}
+
+template<>
+void GetArrayElements<std::int32_t>::operator()(Json::ArrayType<std::int32_t>& array) const
+{
+	populateArray<std::int32_t>(array, json.pimpl->value, [](const ::Json::Value& value){return value.asInt();});
+}
+
+template GetArrayElements<std::int32_t>::GetArrayElements(const Json& json);
+template void GetArrayElements<std::int32_t>::operator()(Json::ArrayType<std::int32_t>& array) const;
+#endif
+
+#if (_SIZEOF_INT64_T + 0)
 template<>
 GetArrayElements<std::int64_t>::GetArrayElements(const Json& json) : json(json)
 {
@@ -42,7 +77,7 @@ template GetArrayElements<std::int64_t>::GetArrayElements(const Json& json);
 template void GetArrayElements<std::int64_t>::operator()(Json::ArrayType<std::int64_t>& array) const;
 #endif
 
-#if _SIZEOF_INTMAX_T != _SIZEOF_INT && _SIZEOF_INTMAX_T != _SIZEOF_INT64_T
+#if (_SIZEOF_INTMAX_T + 0) && !((_SIZEOF_INTMAX_T + 0) == (_SIZEOF_INT8_T + 0) || (_SIZEOF_INTMAX_T + 0) == (_SIZEOF_INT16_T + 0) || (_SIZEOF_INTMAX_T + 0) == (_SIZEOF_INT32_T + 0) || (_SIZEOF_INTMAX_T + 0) == (_SIZEOF_INT64_T + 0))
 template<>
 GetArrayElements<std::intmax_t>::GetArrayElements(const Json& json) : json(json)
 {

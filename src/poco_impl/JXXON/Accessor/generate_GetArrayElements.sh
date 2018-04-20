@@ -177,16 +177,33 @@ Footer >> ${FILENAME}
 
 FILENAME=GetArrayElements_int.cpp
 Header GetArrayElements.tcc > ${FILENAME}
-GetArrayElements_CPP int >> ${FILENAME}
 cat << EOF >> ${FILENAME}
 
-#if _SIZEOF_INT64_T != _SIZEOF_INT
+#if (_SIZEOF_INT8_T + 0)
+EOF
+GetArrayElements_CPP std::int8_t >> ${FILENAME}
+cat << EOF >> ${FILENAME}
+#endif
+
+#if (_SIZEOF_INT16_T + 0)
+EOF
+GetArrayElements_CPP std::int16_t >> ${FILENAME}
+cat << EOF >> ${FILENAME}
+#endif
+
+#if (_SIZEOF_INT32_T + 0)
+EOF
+GetArrayElements_CPP std::int32_t >> ${FILENAME}
+cat << EOF >> ${FILENAME}
+#endif
+
+#if (_SIZEOF_INT64_T + 0)
 EOF
 GetArrayElements_CPP std::int64_t >> ${FILENAME}
 cat << EOF >> ${FILENAME}
 #endif
 
-#if _SIZEOF_INTMAX_T != _SIZEOF_INT && _SIZEOF_INTMAX_T != _SIZEOF_INT64_T
+#if (_SIZEOF_INTMAX_T + 0) && !((_SIZEOF_INTMAX_T + 0) == (_SIZEOF_INT8_T + 0) || (_SIZEOF_INTMAX_T + 0) == (_SIZEOF_INT16_T + 0) || (_SIZEOF_INTMAX_T + 0) == (_SIZEOF_INT32_T + 0) || (_SIZEOF_INTMAX_T + 0) == (_SIZEOF_INT64_T + 0))
 EOF
 GetArrayElements_CPP std::intmax_t >> ${FILENAME}
 cat << EOF >> ${FILENAME}
@@ -197,16 +214,33 @@ Footer >> ${FILENAME}
 
 FILENAME=GetArrayElements_shared_ptr_int.cpp
 Header GetArrayElements_shared_ptr.tcc > ${FILENAME}
-GetArrayElements_shared_ptr_CPP int >> ${FILENAME}
 cat << EOF >> ${FILENAME}
 
-#if _SIZEOF_INT64_T != _SIZEOF_INT
+#if (_SIZEOF_INT8_T + 0)
+EOF
+GetArrayElements_shared_ptr_CPP std::int8_t >> ${FILENAME}
+cat << EOF >> ${FILENAME}
+#endif
+
+#if (_SIZEOF_INT16_T + 0)
+EOF
+GetArrayElements_shared_ptr_CPP std::int16_t >> ${FILENAME}
+cat << EOF >> ${FILENAME}
+#endif
+
+#if (_SIZEOF_INT32_T + 0)
+EOF
+GetArrayElements_shared_ptr_CPP std::int32_t >> ${FILENAME}
+cat << EOF >> ${FILENAME}
+#endif
+
+#if (_SIZEOF_INT64_T + 0)
 EOF
 GetArrayElements_shared_ptr_CPP std::int64_t >> ${FILENAME}
 cat << EOF >> ${FILENAME}
 #endif
 
-#if _SIZEOF_INTMAX_T != _SIZEOF_INT && _SIZEOF_INTMAX_T != _SIZEOF_INT64_T
+#if (_SIZEOF_INTMAX_T + 0) && !((_SIZEOF_INTMAX_T + 0) == (_SIZEOF_INT8_T + 0) || (_SIZEOF_INTMAX_T + 0) == (_SIZEOF_INT16_T + 0) || (_SIZEOF_INTMAX_T + 0) == (_SIZEOF_INT32_T + 0) || (_SIZEOF_INTMAX_T + 0) == (_SIZEOF_INT64_T + 0))
 EOF
 GetArrayElements_shared_ptr_CPP std::intmax_t >> ${FILENAME}
 cat << EOF >> ${FILENAME}
@@ -217,16 +251,33 @@ Footer >> ${FILENAME}
 
 FILENAME=GetArrayElements_unsigned_int.cpp
 Header GetArrayElements.tcc > ${FILENAME}
-GetArrayElements_CPP 'unsigned int' >> ${FILENAME}
 cat << EOF >> ${FILENAME}
 
-#if _SIZEOF_UINT64_T != _SIZEOF_UNSIGNED_INT
+#if (_SIZEOF_UINT8_T + 0)
+EOF
+GetArrayElements_CPP std::uint8_t >> ${FILENAME}
+cat << EOF >> ${FILENAME}
+#endif
+
+#if (_SIZEOF_UINT16_T + 0)
+EOF
+GetArrayElements_CPP std::uint16_t >> ${FILENAME}
+cat << EOF >> ${FILENAME}
+#endif
+
+#if (_SIZEOF_UINT32_T + 0)
+EOF
+GetArrayElements_CPP std::uint32_t >> ${FILENAME}
+cat << EOF >> ${FILENAME}
+#endif
+
+#if (_SIZEOF_UINT64_T + 0)
 EOF
 GetArrayElements_CPP std::uint64_t >> ${FILENAME}
 cat << EOF >> ${FILENAME}
 #endif
 
-#if _SIZEOF_UINTMAX_T != _SIZEOF_UNSIGNED_INT && _SIZEOF_UINTMAX_T != _SIZEOF_UINT64_T
+#if (_SIZEOF_UINTMAX_T + 0) && !((_SIZEOF_UINTMAX_T + 0) == (_SIZEOF_UINT8_T + 0) || (_SIZEOF_UINTMAX_T + 0) == (_SIZEOF_UINT16_T + 0) || (_SIZEOF_UINTMAX_T + 0) == (_SIZEOF_UINT32_T + 0) || (_SIZEOF_UINTMAX_T + 0) == (_SIZEOF_UINT64_T + 0))
 EOF
 GetArrayElements_CPP std::uintmax_t >> ${FILENAME}
 cat << EOF >> ${FILENAME}
@@ -237,16 +288,33 @@ Footer >> ${FILENAME}
 
 FILENAME=GetArrayElements_shared_ptr_unsigned_int.cpp
 Header GetArrayElements_shared_ptr.tcc > ${FILENAME}
-GetArrayElements_shared_ptr_CPP 'unsigned int' >> ${FILENAME}
 cat << EOF >> ${FILENAME}
 
-#if _SIZEOF_UINT64_T != _SIZEOF_UNSIGNED_INT
+#if (_SIZEOF_UINT8_T + 0)
+EOF
+GetArrayElements_shared_ptr_CPP std::uint8_t >> ${FILENAME}
+cat << EOF >> ${FILENAME}
+#endif
+
+#if (_SIZEOF_UINT16_T + 0)
+EOF
+GetArrayElements_shared_ptr_CPP std::uint16_t >> ${FILENAME}
+cat << EOF >> ${FILENAME}
+#endif
+
+#if (_SIZEOF_UINT32_T + 0)
+EOF
+GetArrayElements_shared_ptr_CPP std::uint32_t >> ${FILENAME}
+cat << EOF >> ${FILENAME}
+#endif
+
+#if (_SIZEOF_UINT64_T + 0)
 EOF
 GetArrayElements_shared_ptr_CPP std::uint64_t >> ${FILENAME}
 cat << EOF >> ${FILENAME}
 #endif
 
-#if _SIZEOF_UINTMAX_T != _SIZEOF_UNSIGNED_INT && _SIZEOF_UINTMAX_T != _SIZEOF_UINT64_T
+#if (_SIZEOF_UINTMAX_T + 0) && !((_SIZEOF_UINTMAX_T + 0) == (_SIZEOF_UINT8_T + 0) || (_SIZEOF_UINTMAX_T + 0) == (_SIZEOF_UINT16_T + 0) || (_SIZEOF_UINTMAX_T + 0) == (_SIZEOF_UINT32_T + 0) || (_SIZEOF_UINTMAX_T + 0) == (_SIZEOF_UINT64_T + 0))
 EOF
 GetArrayElements_shared_ptr_CPP std::uintmax_t >> ${FILENAME}
 cat << EOF >> ${FILENAME}

@@ -12,21 +12,56 @@
 
 namespace JXXON { namespace Accessor {
 
+
+#if (_SIZEOF_INT8_T + 0)
 template<>
-GetMapElements<std::shared_ptr<int>>::GetMapElements(const Json& json) : json(json)
+GetMapElements<std::shared_ptr<std::int8_t>>::GetMapElements(const Json& json) : json(json)
 {
 }
 
 template<>
-void GetMapElements<std::shared_ptr<int>>::operator()(Json::MapType<std::shared_ptr<int>>& map) const
+void GetMapElements<std::shared_ptr<std::int8_t>>::operator()(Json::MapType<std::shared_ptr<std::int8_t>>& map) const
 {
-	populateMap<std::shared_ptr<int>>(map, json.pimpl->value, [](const ::Json::Value::const_iterator& i){return i->asInt();});
+	populateMap<std::shared_ptr<std::int8_t>>(map, json.pimpl->value, [](const ::Json::Value::const_iterator& i){return i->asInt();});
 }
 
-template GetMapElements<std::shared_ptr<int>>::GetMapElements(const Json& json);
-template void GetMapElements<std::shared_ptr<int>>::operator()(Json::MapType<std::shared_ptr<int>>& map) const;
+template GetMapElements<std::shared_ptr<std::int8_t>>::GetMapElements(const Json& json);
+template void GetMapElements<std::shared_ptr<std::int8_t>>::operator()(Json::MapType<std::shared_ptr<std::int8_t>>& map) const;
+#endif
 
-#if _SIZEOF_INT64_T != _SIZEOF_INT
+#if (_SIZEOF_INT16_T + 0)
+template<>
+GetMapElements<std::shared_ptr<std::int16_t>>::GetMapElements(const Json& json) : json(json)
+{
+}
+
+template<>
+void GetMapElements<std::shared_ptr<std::int16_t>>::operator()(Json::MapType<std::shared_ptr<std::int16_t>>& map) const
+{
+	populateMap<std::shared_ptr<std::int16_t>>(map, json.pimpl->value, [](const ::Json::Value::const_iterator& i){return i->asInt();});
+}
+
+template GetMapElements<std::shared_ptr<std::int16_t>>::GetMapElements(const Json& json);
+template void GetMapElements<std::shared_ptr<std::int16_t>>::operator()(Json::MapType<std::shared_ptr<std::int16_t>>& map) const;
+#endif
+
+#if (_SIZEOF_INT32_T + 0)
+template<>
+GetMapElements<std::shared_ptr<std::int32_t>>::GetMapElements(const Json& json) : json(json)
+{
+}
+
+template<>
+void GetMapElements<std::shared_ptr<std::int32_t>>::operator()(Json::MapType<std::shared_ptr<std::int32_t>>& map) const
+{
+	populateMap<std::shared_ptr<std::int32_t>>(map, json.pimpl->value, [](const ::Json::Value::const_iterator& i){return i->asInt();});
+}
+
+template GetMapElements<std::shared_ptr<std::int32_t>>::GetMapElements(const Json& json);
+template void GetMapElements<std::shared_ptr<std::int32_t>>::operator()(Json::MapType<std::shared_ptr<std::int32_t>>& map) const;
+#endif
+
+#if (_SIZEOF_INT64_T + 0)
 template<>
 GetMapElements<std::shared_ptr<std::int64_t>>::GetMapElements(const Json& json) : json(json)
 {
@@ -42,7 +77,7 @@ template GetMapElements<std::shared_ptr<std::int64_t>>::GetMapElements(const Jso
 template void GetMapElements<std::shared_ptr<std::int64_t>>::operator()(Json::MapType<std::shared_ptr<std::int64_t>>& map) const;
 #endif
 
-#if _SIZEOF_INTMAX_T != _SIZEOF_INT && _SIZEOF_INTMAX_T != _SIZEOF_INT64_T
+#if (_SIZEOF_INTMAX_T + 0) && !((_SIZEOF_INTMAX_T + 0) == (_SIZEOF_INT8_T + 0) || (_SIZEOF_INTMAX_T + 0) == (_SIZEOF_INT16_T + 0) || (_SIZEOF_INTMAX_T + 0) == (_SIZEOF_INT32_T + 0) || (_SIZEOF_INTMAX_T + 0) == (_SIZEOF_INT64_T + 0))
 template<>
 GetMapElements<std::shared_ptr<std::intmax_t>>::GetMapElements(const Json& json) : json(json)
 {

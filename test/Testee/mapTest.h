@@ -80,6 +80,127 @@ int mapTest(const std::string& mapType)
 		"[4711]",
 		"{\"key\":null}").run() || failed;
 
+#if (_SIZEOF_INT8_T + 0)
+	failed = !Testee::MapTestSuite<MapType, std::int8_t>(
+		mapType,
+		"std::int8_t",
+		"{\"key\":-47}",
+		"{\"key\":null}",
+		"{\"key\":[-47]}",
+		"[-47]",
+		"{\"key\":0}").run() || failed;
+
+	failed = !Testee::MapTestSuite<MapType, std::shared_ptr<std::int8_t>>(
+		mapType,
+		"std::shared_ptr<std::int8_t>",
+		"{\"key\":-47}",
+		"{\"key\":null}",
+		"{\"key\":[-47]}",
+		"[-47]",
+		"{\"key\":null}").run() || failed;
+#endif
+
+#if (_SIZEOF_UINT8_T + 0)
+	failed = !Testee::MapTestSuite<MapType, std::uint8_t>(
+		mapType,
+		"std::uint8_t",
+		"{\"key\":47}",
+		"{\"key\":null}",
+		"{\"key\":[47]}",
+		"[47]",
+		"{\"key\":0}").run() || failed;
+
+	failed = !Testee::MapTestSuite<MapType, std::shared_ptr<std::uint8_t>>(
+		mapType,
+		"std::shared_ptr<std::uint8_t>",
+		"{\"key\":47}",
+		"{\"key\":null}",
+		"{\"key\":[47]}",
+		"[47]",
+		"{\"key\":null}").run() || failed;
+#endif
+
+#if (_SIZEOF_INT16_T + 0)
+	failed = !Testee::MapTestSuite<MapType, std::int16_t>(
+		mapType,
+		"std::int16_t",
+		"{\"key\":-4711}",
+		"{\"key\":null}",
+		"{\"key\":[-4711]}",
+		"[-4711]",
+		"{\"key\":0}").run() || failed;
+
+	failed = !Testee::MapTestSuite<MapType, std::shared_ptr<std::int16_t>>(
+		mapType,
+		"std::shared_ptr<std::int16_t>",
+		"{\"key\":-4711}",
+		"{\"key\":null}",
+		"{\"key\":[-4711]}",
+		"[-4711]",
+		"{\"key\":null}").run() || failed;
+#endif
+
+#if (_SIZEOF_UINT16_T + 0)
+	failed = !Testee::MapTestSuite<MapType, std::uint16_t>(
+		mapType,
+		"std::uint16_t",
+		"{\"key\":4711}",
+		"{\"key\":null}",
+		"{\"key\":[4711]}",
+		"[4711]",
+		"{\"key\":0}").run() || failed;
+
+	failed = !Testee::MapTestSuite<MapType, std::shared_ptr<std::uint16_t>>(
+		mapType,
+		"std::shared_ptr<std::uint16_t>",
+		"{\"key\":4711}",
+		"{\"key\":null}",
+		"{\"key\":[4711]}",
+		"[4711]",
+		"{\"key\":null}").run() || failed;
+#endif
+
+#if (_SIZEOF_INT32_T + 0)
+	failed = !Testee::MapTestSuite<MapType, std::int32_t>(
+		mapType,
+		"std::int32_t",
+		"{\"key\":-47114711}",
+		"{\"key\":null}",
+		"{\"key\":[-47114711]}",
+		"[-47114711]",
+		"{\"key\":0}").run() || failed;
+
+	failed = !Testee::MapTestSuite<MapType, std::shared_ptr<std::int32_t>>(
+		mapType,
+		"std::shared_ptr<std::int32_t>",
+		"{\"key\":-47114711}",
+		"{\"key\":null}",
+		"{\"key\":[-47114711]}",
+		"[-47114711]",
+		"{\"key\":null}").run() || failed;
+#endif
+
+#if (_SIZEOF_UINT32_T + 0)
+	failed = !Testee::MapTestSuite<MapType, std::uint32_t>(
+		mapType,
+		"std::uint32_t",
+		"{\"key\":47114711}",
+		"{\"key\":null}",
+		"{\"key\":[47114711]}",
+		"[47114711]",
+		"{\"key\":0}").run() || failed;
+
+	failed = !Testee::MapTestSuite<MapType, std::shared_ptr<std::uint32_t>>(
+		mapType,
+		"std::shared_ptr<std::uint32_t>",
+		"{\"key\":47114711}",
+		"{\"key\":null}",
+		"{\"key\":[47114711]}",
+		"[47114711]",
+		"{\"key\":null}").run() || failed;
+#endif
+
+#if (_SIZEOF_INT64_T + 0)
 	failed = !Testee::MapTestSuite<MapType, std::int64_t>(
 		mapType,
 		"std::int64_t",
@@ -97,7 +218,9 @@ int mapTest(const std::string& mapType)
 		"{\"key\":[-4711471147114711]}",
 		"[-4711471147114711]",
 		"{\"key\":null}").run() || failed;
+#endif
 
+#if (_SIZEOF_UINT64_T + 0)
 	failed = !Testee::MapTestSuite<MapType, std::uint64_t>(
 		mapType,
 		"std::uint64_t",
@@ -115,6 +238,7 @@ int mapTest(const std::string& mapType)
 		"{\"key\":[4711471147114711]}",
 		"[4711471147114711]",
 		"{\"key\":null}").run() || failed;
+#endif
 
 	failed = !Testee::MapTestSuite<MapType, std::intmax_t>(
 		mapType,

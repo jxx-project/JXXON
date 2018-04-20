@@ -12,21 +12,56 @@
 
 namespace JXXON { namespace Accessor {
 
+
+#if (_SIZEOF_UINT8_T + 0)
 template<>
-GetProperty<unsigned int>::GetProperty(const Json& json, const std::string& name) : json(json), name(name)
+GetProperty<std::uint8_t>::GetProperty(const Json& json, const std::string& name) : json(json), name(name)
 {
 }
 
 template<>
-unsigned int GetProperty<unsigned int>::operator()() const
+std::uint8_t GetProperty<std::uint8_t>::operator()() const
 {
-	return getChild<unsigned int>(json.pimpl->value, name, [](const ::Json::Value& value){return value.asUInt();});
+	return getChild<std::uint8_t>(json.pimpl->value, name, [](const ::Json::Value& value){return value.asUInt();});
 }
 
-template GetProperty<unsigned int>::GetProperty(const Json& json, const std::string& name);
-template unsigned int GetProperty<unsigned int>::operator()() const;
+template GetProperty<std::uint8_t>::GetProperty(const Json& json, const std::string& name);
+template std::uint8_t GetProperty<std::uint8_t>::operator()() const;
+#endif
 
-#if _SIZEOF_UINT64_T != _SIZEOF_UNSIGNED_INT
+#if (_SIZEOF_UINT16_T + 0)
+template<>
+GetProperty<std::uint16_t>::GetProperty(const Json& json, const std::string& name) : json(json), name(name)
+{
+}
+
+template<>
+std::uint16_t GetProperty<std::uint16_t>::operator()() const
+{
+	return getChild<std::uint16_t>(json.pimpl->value, name, [](const ::Json::Value& value){return value.asUInt();});
+}
+
+template GetProperty<std::uint16_t>::GetProperty(const Json& json, const std::string& name);
+template std::uint16_t GetProperty<std::uint16_t>::operator()() const;
+#endif
+
+#if (_SIZEOF_UINT32_T + 0)
+template<>
+GetProperty<std::uint32_t>::GetProperty(const Json& json, const std::string& name) : json(json), name(name)
+{
+}
+
+template<>
+std::uint32_t GetProperty<std::uint32_t>::operator()() const
+{
+	return getChild<std::uint32_t>(json.pimpl->value, name, [](const ::Json::Value& value){return value.asUInt();});
+}
+
+template GetProperty<std::uint32_t>::GetProperty(const Json& json, const std::string& name);
+template std::uint32_t GetProperty<std::uint32_t>::operator()() const;
+#endif
+
+#if (_SIZEOF_UINT64_T + 0)
 template<>
 GetProperty<std::uint64_t>::GetProperty(const Json& json, const std::string& name) : json(json), name(name)
 {
@@ -42,7 +77,7 @@ template GetProperty<std::uint64_t>::GetProperty(const Json& json, const std::st
 template std::uint64_t GetProperty<std::uint64_t>::operator()() const;
 #endif
 
-#if _SIZEOF_UINTMAX_T != _SIZEOF_UNSIGNED_INT && _SIZEOF_UINTMAX_T != _SIZEOF_UINT64_T
+#if (_SIZEOF_UINTMAX_T + 0) && !((_SIZEOF_UINTMAX_T + 0) == (_SIZEOF_UINT8_T + 0) || (_SIZEOF_UINTMAX_T + 0) == (_SIZEOF_UINT16_T + 0) || (_SIZEOF_UINTMAX_T + 0) == (_SIZEOF_UINT32_T + 0) || (_SIZEOF_UINTMAX_T + 0) == (_SIZEOF_UINT64_T + 0))
 template<>
 GetProperty<std::uintmax_t>::GetProperty(const Json& json, const std::string& name) : json(json), name(name)
 {
