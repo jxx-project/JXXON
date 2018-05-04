@@ -69,6 +69,36 @@ public:
 	{
 	}
 
+	/// Copy assign list.
+	List& operator=(const List& other)
+	{
+		return static_cast<List&>(Polymorphic::List<T>::operator=(other));
+	}
+
+	/// Move assign list.
+	List& operator=(List&& other)
+	{
+		return static_cast<List&>(Polymorphic::List<T>::operator=(std::move(other)));
+	}
+
+	/// Initializer list assignment.
+	List& operator=(std::initializer_list<T> initializerList)
+	{
+		return static_cast<List&>(Polymorphic::List<T>::operator=(initializerList));
+	}
+
+	/// Copy assign delegate type list.
+	List& operator=(const typename List::DelegateType& other)
+	{
+		return static_cast<List&>(Polymorphic::List<T>::operator=(other));
+	}
+
+	/// Move assign delegate type list.
+	List& operator=(typename List::DelegateType&& other)
+	{
+		return static_cast<List&>(Polymorphic::List<T>::operator=(std::move(other)));
+	}
+
 	virtual void addElement(const T& element) override
 	{
 		this->emplace_back(element);

@@ -69,6 +69,36 @@ public:
 	{
 	}
 
+	/// Copy assign unordered map.
+	UnorderedMap& operator=(const UnorderedMap& other)
+	{
+		return static_cast<UnorderedMap&>(Polymorphic::UnorderedMap<std::string, T>::operator=(other));
+	}
+
+	/// Move assign unordered map.
+	UnorderedMap& operator=(UnorderedMap&& other)
+	{
+		return static_cast<UnorderedMap&>(Polymorphic::UnorderedMap<std::string, T>::operator=(std::move(other)));
+	}
+
+	/// Initializer list assignment.
+	UnorderedMap& operator=(std::initializer_list<T> initializerList)
+	{
+		return static_cast<UnorderedMap&>(Polymorphic::UnorderedMap<std::string, T>::operator=(initializerList));
+	}
+
+	/// Copy assign delegate type unordered map.
+	UnorderedMap& operator=(const typename UnorderedMap::DelegateType& other)
+	{
+		return static_cast<UnorderedMap&>(Polymorphic::UnorderedMap<std::string, T>::operator=(other));
+	}
+
+	/// Move assign delegate type unordered map.
+	UnorderedMap& operator=(typename UnorderedMap::DelegateType&& other)
+	{
+		return static_cast<UnorderedMap&>(Polymorphic::UnorderedMap<std::string, T>::operator=(std::move(other)));
+	}
+
 	virtual void addElement(const std::string& key, const T& value) override
 	{
 		this->emplace(key, value);

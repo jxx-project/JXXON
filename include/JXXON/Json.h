@@ -123,12 +123,12 @@ public:
 		}
 
 		/// Copy construct array.
-		Array(const Base<T>& other) : Base<T>(other)
+		Array(const Array& other) : Base<T>(other)
 		{
 		}
 
 		/// Move construct array.
-		Array(Base<T>&& other) : Base<T>(std::move(other))
+		Array(Array&& other) : Base<T>(std::move(other))
 		{
 		}
 
@@ -160,6 +160,36 @@ public:
 		{
 		}
 
+		/// Copy assign array.
+		Array& operator=(const Array& other)
+		{
+			return static_cast<Array&>(Base<T>::operator=(other));
+		}
+
+		/// Move assign array.
+		Array& operator=(Array&& other)
+		{
+			return static_cast<Array&>(Base<T>::operator=(std::move(other)));
+		}
+
+		/// Initializer list assignment.
+		Array& operator=(std::initializer_list<T> initializerList)
+		{
+			return static_cast<Array&>(Base<T>::operator=(initializerList));
+		}
+
+		/// Copy assign delegate type array.
+		Array& operator=(const typename Base<T>::DelegateType& other)
+		{
+			return static_cast<Array&>(Base<T>::operator=(other));
+		}
+
+		/// Move assign delegate type array.
+		Array& operator=(typename Base<T>::DelegateType&& other)
+		{
+			return static_cast<Array&>(Base<T>::operator=(std::move(other)));
+		}
+
 		virtual Json toJson() const override
 		{
 			JXXON::Json json;
@@ -169,7 +199,7 @@ public:
 		}
 	};
 
-	/// Interface implemented by JSON array type containers.
+	/// Interface implemented by JSON map type containers.
 	template<class T>
 	class MapType
 	{
@@ -203,12 +233,12 @@ public:
 		}
 
 		/// Copy construct map.
-		Map(const Base<T>& other) : Base<T>(other)
+		Map(const Map& other) : Base<T>(other)
 		{
 		}
 
 		/// Move construct map.
-		Map(Base<T>&& other) : Base<T>(std::move(other))
+		Map(Map&& other) : Base<T>(std::move(other))
 		{
 		}
 
@@ -238,6 +268,36 @@ public:
 		/// Virtual destructor.
 		~Map()
 		{
+		}
+
+		/// Copy assign map.
+		Map& operator=(const Map& other)
+		{
+			return static_cast<Map&>(Base<T>::operator=(other));
+		}
+
+		/// Move assign map.
+		Map& operator=(Map&& other)
+		{
+			return static_cast<Map&>(Base<T>::operator=(std::move(other)));
+		}
+
+		/// Initializer list assignment.
+		Map& operator=(std::initializer_list<std::pair<const std::string, T>> initializerList)
+		{
+			return static_cast<Map&>(Base<T>::operator=(initializerList));
+		}
+
+		/// Copy assign delegate type map.
+		Map& operator=(const typename Base<T>::DelegateType& other)
+		{
+			return static_cast<Map&>(Base<T>::operator=(other));
+		}
+
+		/// Move assign delegate type map.
+		Map& operator=(typename Base<T>::DelegateType&& other)
+		{
+			return static_cast<Map&>(Base<T>::operator=(std::move(other)));
 		}
 
 		virtual Json toJson() const override

@@ -69,6 +69,36 @@ public:
 	{
 	}
 
+	/// Copy assign vector.
+	Vector& operator=(const Vector& other)
+	{
+		return static_cast<Vector&>(Polymorphic::Vector<T>::operator=(other));
+	}
+
+	/// Move assign vector.
+	Vector& operator=(Vector&& other)
+	{
+		return static_cast<Vector&>(Polymorphic::Vector<T>::operator=(std::move(other)));
+	}
+
+	/// Initializer list assignment.
+	Vector& operator=(std::initializer_list<T> initializerList)
+	{
+		return static_cast<Vector&>(Polymorphic::Vector<T>::operator=(initializerList));
+	}
+
+	/// Copy assign delegate type vector.
+	Vector& operator=(const typename Vector::DelegateType& other)
+	{
+		return static_cast<Vector&>(Polymorphic::Vector<T>::operator=(other));
+	}
+
+	/// Move assign delegate type vector.
+	Vector& operator=(typename Vector::DelegateType&& other)
+	{
+		return static_cast<Vector&>(Polymorphic::Vector<T>::operator=(std::move(other)));
+	}
+
 	virtual void addElement(const T& element) override
 	{
 		this->emplace_back(element);

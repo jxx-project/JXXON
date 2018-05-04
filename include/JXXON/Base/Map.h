@@ -69,6 +69,36 @@ public:
 	{
 	}
 
+	/// Copy assign map.
+	Map& operator=(const Map& other)
+	{
+		return static_cast<Map&>(Polymorphic::Map<std::string, T>::operator=(other));
+	}
+
+	/// Move assign map.
+	Map& operator=(Map&& other)
+	{
+		return static_cast<Map&>(Polymorphic::Map<std::string, T>::operator=(std::move(other)));
+	}
+
+	/// Initializer list assignment.
+	Map& operator=(std::initializer_list<T> initializerList)
+	{
+		return static_cast<Map&>(Polymorphic::Map<std::string, T>::operator=(initializerList));
+	}
+
+	/// Copy assign delegate type map.
+	Map& operator=(const typename Map::DelegateType& other)
+	{
+		return static_cast<Map&>(Polymorphic::Map<std::string, T>::operator=(other));
+	}
+
+	/// Move assign delegate type map.
+	Map& operator=(typename Map::DelegateType&& other)
+	{
+		return static_cast<Map&>(Polymorphic::Map<std::string, T>::operator=(std::move(other)));
+	}
+
 	virtual void addElement(const std::string& key, const T& value) override
 	{
 		this->emplace(key, value);

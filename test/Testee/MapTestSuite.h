@@ -67,6 +67,42 @@ public:
 						 TestCase::assert_throw<JXXON::Error>([&]{MapType<T> map(json);});
 					 }),
 
+			TestCase("Copy assignment of " + mapType + " of " + type, [&]
+					 {
+						 const MapType<T> map({std::make_pair(std::string(""), T())});
+						 MapType<T> other;
+						 other = map;
+						 TestCase::assert_equal(map.size(), typename MapType<T>::size_type(1));
+						 TestCase::assert_equal(other.size(), typename MapType<T>::size_type(1));
+					 }),
+
+			TestCase("Move assignment of " + mapType + " of " + type, [&]
+					 {
+						 MapType<T> map({std::make_pair(std::string(""), T())});
+						 MapType<T> other;
+						 other = std::move(map);
+						 TestCase::assert_equal(map.size(), typename MapType<T>::size_type(0));
+						 TestCase::assert_equal(other.size(), typename MapType<T>::size_type(1));
+					 }),
+
+			TestCase("Delegate type copy assignment of " + mapType + " of " + type, [&]
+					 {
+						 const typename MapType<T>::DelegateType map({std::make_pair(std::string(""), T())});
+						 MapType<T> other;
+						 other = map;
+						 TestCase::assert_equal(map.size(), typename MapType<T>::DelegateType::size_type(1));
+						 TestCase::assert_equal(other.size(), typename MapType<T>::size_type(1));
+					 }),
+
+			TestCase("Delegate type move assignment of " + mapType + " of " + type, [&]
+					 {
+						 typename MapType<T>::DelegateType map({std::make_pair(std::string(""), T())});
+						 MapType<T> other;
+						 other = std::move(map);
+						 TestCase::assert_equal(map.size(), typename MapType<T>::DelegateType::size_type(0));
+						 TestCase::assert_equal(other.size(), typename MapType<T>::size_type(1));
+					 }),
+
 			TestCase("Delegate reference type conversion of " + mapType + " of " + type, [&]
 					 {
 						 MapType<T> map({std::make_pair(std::string(""), T())});

@@ -67,6 +67,42 @@ public:
 						 TestCase::assert_throw<JXXON::Error>([&]{ArrayType<T> array(json);});
 					 }),
 
+			TestCase("Copy assignment of " + arrayType + " of " + type, [&]
+					 {
+						 const ArrayType<T> array({T()});
+						 ArrayType<T> other;
+						 other = array;
+						 TestCase::assert_equal(array.size(), typename ArrayType<T>::size_type(1));
+						 TestCase::assert_equal(other.size(), typename ArrayType<T>::size_type(1));
+					 }),
+
+			TestCase("Move assignment of of " + arrayType + " of " + type, [&]
+					 {
+						 ArrayType<T> array({T()});
+						 ArrayType<T> other;
+						 other = std::move(array);
+						 TestCase::assert_equal(array.size(), typename ArrayType<T>::size_type(0));
+						 TestCase::assert_equal(other.size(), typename ArrayType<T>::size_type(1));
+					 }),
+
+			TestCase("Delegate type copy assignment of " + arrayType + " of " + type, [&]
+					 {
+						 const typename ArrayType<T>::DelegateType array({T()});
+						 ArrayType<T> other;
+						 other = array;
+						 TestCase::assert_equal(array.size(), typename ArrayType<T>::DelegateType::size_type(1));
+						 TestCase::assert_equal(other.size(), typename ArrayType<T>::size_type(1));
+					 }),
+
+			TestCase("Delegate type move assignment of of " + arrayType + " of " + type, [&]
+					 {
+						 typename ArrayType<T>::DelegateType array({T()});
+						 ArrayType<T> other;
+						 other = std::move(array);
+						 TestCase::assert_equal(array.size(), typename ArrayType<T>::size_type(0));
+						 TestCase::assert_equal(other.size(), typename ArrayType<T>::DelegateType::size_type(1));
+					 }),
+
 			TestCase("Delegate reference type conversion of " + arrayType + " of " + type, [&]
 					 {
 						 ArrayType<T> array({T()});
