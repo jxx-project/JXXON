@@ -18,6 +18,8 @@ template<template<typename...> class ArrayType, typename T>
 class ArrayTestSuite : public TestSuite
 {
 public:
+	typedef typename ArrayType<T>::DelegateType::size_type SizeType;
+	typedef typename ArrayType<T>::DelegateType DelegateType;
 
 	ArrayTestSuite(
 		const std::string& arrayType,
@@ -72,8 +74,8 @@ public:
 						 const ArrayType<T> array({T()});
 						 ArrayType<T> other;
 						 other = array;
-						 TestCase::assert_equal(array.size(), typename ArrayType<T>::size_type(1));
-						 TestCase::assert_equal(other.size(), typename ArrayType<T>::size_type(1));
+						 TestCase::assert_equal(array.size(), SizeType(1));
+						 TestCase::assert_equal(other.size(), SizeType(1));
 					 }),
 
 			TestCase("Move assignment of of " + arrayType + " of " + type, [&]
@@ -81,50 +83,50 @@ public:
 						 ArrayType<T> array({T()});
 						 ArrayType<T> other;
 						 other = std::move(array);
-						 TestCase::assert_equal(array.size(), typename ArrayType<T>::size_type(0));
-						 TestCase::assert_equal(other.size(), typename ArrayType<T>::size_type(1));
+						 TestCase::assert_equal(array.size(), SizeType(0));
+						 TestCase::assert_equal(other.size(), SizeType(1));
 					 }),
 
 			TestCase("Delegate type copy assignment of " + arrayType + " of " + type, [&]
 					 {
-						 const typename ArrayType<T>::DelegateType array({T()});
+						 const DelegateType array({T()});
 						 ArrayType<T> other;
 						 other = array;
-						 TestCase::assert_equal(array.size(), typename ArrayType<T>::DelegateType::size_type(1));
-						 TestCase::assert_equal(other.size(), typename ArrayType<T>::size_type(1));
+						 TestCase::assert_equal(array.size(), SizeType(1));
+						 TestCase::assert_equal(other.size(), SizeType(1));
 					 }),
 
 			TestCase("Delegate type move assignment of of " + arrayType + " of " + type, [&]
 					 {
-						 typename ArrayType<T>::DelegateType array({T()});
+						 DelegateType array({T()});
 						 ArrayType<T> other;
 						 other = std::move(array);
-						 TestCase::assert_equal(array.size(), typename ArrayType<T>::size_type(0));
-						 TestCase::assert_equal(other.size(), typename ArrayType<T>::DelegateType::size_type(1));
+						 TestCase::assert_equal(array.size(), SizeType(0));
+						 TestCase::assert_equal(other.size(), SizeType(1));
 					 }),
 
 			TestCase("Delegate reference type conversion of " + arrayType + " of " + type, [&]
 					 {
 						 ArrayType<T> array({T()});
-						 typename ArrayType<T>::DelegateType& other = array;
-						 TestCase::assert_equal(array.size(), typename ArrayType<T>::size_type(1));
-						 TestCase::assert_equal(other.size(), typename ArrayType<T>::DelegateType::size_type(1));
+						 DelegateType& other = array;
+						 TestCase::assert_equal(array.size(), SizeType(1));
+						 TestCase::assert_equal(other.size(), SizeType(1));
 					 }),
 
 			TestCase("Delegate const reference type conversion of " + arrayType + " of " + type, [&]
 					 {
 						 const ArrayType<T> array({T()});
-						 const typename ArrayType<T>::DelegateType& other = array;
-						 TestCase::assert_equal(array.size(), typename ArrayType<T>::size_type(1));
-						 TestCase::assert_equal(other.size(), typename ArrayType<T>::DelegateType::size_type(1));
+						 const DelegateType& other = array;
+						 TestCase::assert_equal(array.size(), SizeType(1));
+						 TestCase::assert_equal(other.size(), SizeType(1));
 					 }),
 
 			TestCase("Delegate rvalue reference type conversion of " + arrayType + " of " + type, [&]
 					 {
 						 ArrayType<T> array({T()});
-						 typename ArrayType<T>::DelegateType other = static_cast<typename ArrayType<T>::DelegateType&&>(array);
-						 TestCase::assert_equal(array.size(), typename ArrayType<T>::size_type(0));
-						 TestCase::assert_equal(other.size(), typename ArrayType<T>::DelegateType::size_type(1));
+						 DelegateType other = static_cast<DelegateType&&>(array);
+						 TestCase::assert_equal(array.size(), SizeType(0));
+						 TestCase::assert_equal(other.size(), SizeType(1));
 					 })
 		})
 	{
