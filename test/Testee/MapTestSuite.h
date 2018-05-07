@@ -71,7 +71,7 @@ public:
 
 			TestCase("Copy assignment of " + mapType + " of " + type, [&]
 					 {
-						 const MapType<T> map({std::make_pair(std::string(""), T())});
+						 const MapType<T> map = {std::make_pair(std::string(""), T())};
 						 MapType<T> other;
 						 other = map;
 						 TestCase::assert_equal(map.size(), SizeType(1));
@@ -80,7 +80,7 @@ public:
 
 			TestCase("Move assignment of " + mapType + " of " + type, [&]
 					 {
-						 MapType<T> map({std::make_pair(std::string(""), T())});
+						 MapType<T> map = {std::make_pair(std::string(""), T())};
 						 MapType<T> other;
 						 other = std::move(map);
 						 TestCase::assert_equal(map.size(), SizeType(0));
@@ -89,7 +89,7 @@ public:
 
 			TestCase("Delegate type copy assignment of " + mapType + " of " + type, [&]
 					 {
-						 const DelegateType map({std::make_pair(std::string(""), T())});
+						 const DelegateType map = {std::make_pair(std::string(""), T())};
 						 MapType<T> other;
 						 other = map;
 						 TestCase::assert_equal(map.size(), SizeType(1));
@@ -98,7 +98,7 @@ public:
 
 			TestCase("Delegate type move assignment of " + mapType + " of " + type, [&]
 					 {
-						 DelegateType map({std::make_pair(std::string(""), T())});
+						 DelegateType map = {std::make_pair(std::string(""), T())};
 						 MapType<T> other;
 						 other = std::move(map);
 						 TestCase::assert_equal(map.size(), SizeType(0));
@@ -107,7 +107,7 @@ public:
 
 			TestCase("Delegate reference type conversion of " + mapType + " of " + type, [&]
 					 {
-						 MapType<T> map({std::make_pair(std::string(""), T())});
+						 MapType<T> map = {std::make_pair(std::string(""), T())};
 						 DelegateType& other = map;
 						 TestCase::assert_equal(map.size(), SizeType(1));
 						 TestCase::assert_equal(other.size(), SizeType(1));
@@ -115,7 +115,7 @@ public:
 
 			TestCase("Delegate const reference type conversion of " + mapType + " of " + type, [&]
 					 {
-						 const MapType<T> map({std::make_pair(std::string(""), T())});
+						 const MapType<T> map = {std::make_pair(std::string(""), T())};
 						 const DelegateType& other = map;
 						 TestCase::assert_equal(map.size(), SizeType(1));
 						 TestCase::assert_equal(other.size(), SizeType(1));
@@ -123,7 +123,7 @@ public:
 
 			TestCase("Delegate rvalue reference type conversion of " + mapType + " of " + type, [&]
 					 {
-						 MapType<T> map({std::make_pair(std::string(""), T())});
+						 MapType<T> map = {std::make_pair(std::string(""), T())};
 						 DelegateType other = static_cast<DelegateType&&>(map);
 						 TestCase::assert_equal(map.size(), SizeType(0));
 						 TestCase::assert_equal(other.size(), SizeType(1));
