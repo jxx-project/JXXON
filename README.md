@@ -24,7 +24,7 @@ Throwing exceptions, when there is a null value somewhere in JSON input, is prob
 
 ### Integrate C++ standard containers as transparently as possible and to a reasonable extent.
 
-C++ standard conainers should feel like first class citizens in JSON. Based on a little bit of [wrapping](https://github.com/jxx-project/Polymorphic).
+C++ standard containers should feel like first class citizens in JSON. Based on a little bit of [wrapping](https://github.com/jxx-project/Polymorphic).
 
 ### Thorough testing
 
