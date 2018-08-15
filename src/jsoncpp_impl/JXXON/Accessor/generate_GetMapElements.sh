@@ -12,17 +12,23 @@ cat << EOF
 #ifndef JXXON_Accessor_GetMapElements_INCLUDED
 #define JXXON_Accessor_GetMapElements_INCLUDED
 
-namespace JXXON { namespace Accessor {
-namespace {
+#include "JXXON/Error.h"
+#include "JXXON/Json.h"
+#include "JXXON/Json/Impl.h"
+
+namespace JXXON { namespace Accessor { namespace {
 
 template<typename T>
-void populateMap(Json::MapType<T>& map, const ::Json::Value& value, const std::function<T(const ::Json::Value::const_iterator&)>& valueAsT)
+void populateMap(
+	Json::MapType<T>& map,
+	const ::Json::Value& value,
+	const std::function<T(const ::Json::Value::const_iterator&)>& valueAsT)
 {
 	if (!value.isNull()) {
 		if (value.isObject()) {
 			try {
 				for (auto i = value.begin(); i != value.end(); ++i) {
-					map.addElement(i.key().asString(), i->isNull() ?  T() : T(valueAsT(i)));
+					map.addElement(i.key().asString(), i->isNull() ? T() : T(valueAsT(i)));
 				}
 			} catch (std::exception& e) {
 				throw Error(e.what());
@@ -33,8 +39,7 @@ void populateMap(Json::MapType<T>& map, const ::Json::Value& value, const std::f
 	}
 }
 
-} // namespace
-}} // namespace JXXON::Accessor
+}}} // namespace JXXON::Accessor::
 
 #endif // JXXON_Accessor_GetMapElements_INCLUDED
 EOF
@@ -54,11 +59,17 @@ cat << EOF
 #ifndef JXXON_Accessor_GetMapElements_shared_ptr_INCLUDED
 #define JXXON_Accessor_GetMapElements_shared_ptr_INCLUDED
 
-namespace JXXON { namespace Accessor {
-namespace {
+#include "JXXON/Error.h"
+#include "JXXON/Json.h"
+#include "JXXON/Json/Impl.h"
+
+namespace JXXON { namespace Accessor { namespace {
 
 template<typename T>
-void populateMap(Json::MapType<T>& map, const ::Json::Value& value, const std::function<typename T::element_type(const ::Json::Value::const_iterator&)>& valueAsT)
+void populateMap(
+	Json::MapType<T>& map,
+	const ::Json::Value& value,
+	const std::function<typename T::element_type(const ::Json::Value::const_iterator&)>& valueAsT)
 {
 	if (!value.isNull()) {
 		if (value.isObject()) {
@@ -75,8 +86,7 @@ void populateMap(Json::MapType<T>& map, const ::Json::Value& value, const std::f
 	}
 }
 
-} // namespace
-}} // namespace JXXON::Accessor
+}}} // namespace JXXON::Accessor::
 
 #endif // JXXON_Accessor_GetMapElements_shared_ptr_INCLUDED
 EOF
@@ -92,9 +102,7 @@ cat << EOF | sed "s/{{INCLUDE}}/$1/g"
 // SPDX-License-Identifier:	BSL-1.0
 //
 
-#include "JXXON/Error.h"
-#include "JXXON/Json.h"
-#include "JXXON/Json/Impl.h"
+
 #include "JXXON/Accessor/{{INCLUDE}}"
 #include <cstdint>
 
@@ -113,7 +121,7 @@ GetMapElements<{{ELEMENT_TYPE}}>::GetMapElements(const Json& json) : json(json)
 template<>
 void GetMapElements<{{ELEMENT_TYPE}}>::operator()(Json::MapType<{{ELEMENT_TYPE}}>& map) const
 {
-	populateMap<{{ELEMENT_TYPE}}>(map, json.pimpl->value, [](const ::Json::Value::const_iterator& i){return i->{{AS_TYPE}}();});
+	populateMap<{{ELEMENT_TYPE}}>(map, json.pimpl->value, [](const ::Json::Value::const_iterator& i) { return i->{{AS_TYPE}}(); });
 }
 
 template GetMapElements<{{ELEMENT_TYPE}}>::GetMapElements(const Json& json);
@@ -131,7 +139,7 @@ GetMapElements<std::shared_ptr<{{ELEMENT_TYPE}}>>::GetMapElements(const Json& js
 template<>
 void GetMapElements<std::shared_ptr<{{ELEMENT_TYPE}}>>::operator()(Json::MapType<std::shared_ptr<{{ELEMENT_TYPE}}>>& map) const
 {
-	populateMap<std::shared_ptr<{{ELEMENT_TYPE}}>>(map, json.pimpl->value, [](const ::Json::Value::const_iterator& i){return i->{{AS_TYPE}}();});
+	populateMap<std::shared_ptr<{{ELEMENT_TYPE}}>>(map, json.pimpl->value, [](const ::Json::Value::const_iterator& i) { return i->{{AS_TYPE}}(); });
 }
 
 template GetMapElements<std::shared_ptr<{{ELEMENT_TYPE}}>>::GetMapElements(const Json& json);
@@ -187,7 +195,9 @@ GetMapElements_CPP std::int64_t asInt64 >> ${FILENAME}
 cat << EOF >> ${FILENAME}
 #endif
 
-#if (_SIZEOF_INTMAX_T + 0) && !((_SIZEOF_INTMAX_T + 0) == (_SIZEOF_INT8_T + 0) || (_SIZEOF_INTMAX_T + 0) == (_SIZEOF_INT16_T + 0) || (_SIZEOF_INTMAX_T + 0) == (_SIZEOF_INT32_T + 0) || (_SIZEOF_INTMAX_T + 0) == (_SIZEOF_INT64_T + 0))
+#if (_SIZEOF_INTMAX_T + 0) && \\
+	!((_SIZEOF_INTMAX_T + 0) == (_SIZEOF_INT8_T + 0) || (_SIZEOF_INTMAX_T + 0) == (_SIZEOF_INT16_T + 0) || \\
+	  (_SIZEOF_INTMAX_T + 0) == (_SIZEOF_INT32_T + 0) || (_SIZEOF_INTMAX_T + 0) == (_SIZEOF_INT64_T + 0))
 EOF
 GetMapElements_CPP std::intmax_t asLargestInt >> ${FILENAME}
 cat << EOF >> ${FILENAME}
@@ -224,7 +234,9 @@ GetMapElements_shared_ptr_CPP std::int64_t asInt64 >> ${FILENAME}
 cat << EOF >> ${FILENAME}
 #endif
 
-#if (_SIZEOF_INTMAX_T + 0) && !((_SIZEOF_INTMAX_T + 0) == (_SIZEOF_INT8_T + 0) || (_SIZEOF_INTMAX_T + 0) == (_SIZEOF_INT16_T + 0) || (_SIZEOF_INTMAX_T + 0) == (_SIZEOF_INT32_T + 0) || (_SIZEOF_INTMAX_T + 0) == (_SIZEOF_INT64_T + 0))
+#if (_SIZEOF_INTMAX_T + 0) && \\
+	!((_SIZEOF_INTMAX_T + 0) == (_SIZEOF_INT8_T + 0) || (_SIZEOF_INTMAX_T + 0) == (_SIZEOF_INT16_T + 0) || \\
+	  (_SIZEOF_INTMAX_T + 0) == (_SIZEOF_INT32_T + 0) || (_SIZEOF_INTMAX_T + 0) == (_SIZEOF_INT64_T + 0))
 EOF
 GetMapElements_shared_ptr_CPP std::intmax_t asLargestInt >> ${FILENAME}
 cat << EOF >> ${FILENAME}
@@ -261,7 +273,9 @@ GetMapElements_CPP std::uint64_t asUInt64 >> ${FILENAME}
 cat << EOF >> ${FILENAME}
 #endif
 
-#if (_SIZEOF_UINTMAX_T + 0) && !((_SIZEOF_UINTMAX_T + 0) == (_SIZEOF_UINT8_T + 0) || (_SIZEOF_UINTMAX_T + 0) == (_SIZEOF_UINT16_T + 0) || (_SIZEOF_UINTMAX_T + 0) == (_SIZEOF_UINT32_T + 0) || (_SIZEOF_UINTMAX_T + 0) == (_SIZEOF_UINT64_T + 0))
+#if (_SIZEOF_UINTMAX_T + 0) && \\
+	!((_SIZEOF_UINTMAX_T + 0) == (_SIZEOF_UINT8_T + 0) || (_SIZEOF_UINTMAX_T + 0) == (_SIZEOF_UINT16_T + 0) || \\
+	  (_SIZEOF_UINTMAX_T + 0) == (_SIZEOF_UINT32_T + 0) || (_SIZEOF_UINTMAX_T + 0) == (_SIZEOF_UINT64_T + 0))
 EOF
 GetMapElements_CPP std::uintmax_t asLargestUInt >> ${FILENAME}
 cat << EOF >> ${FILENAME}
@@ -298,7 +312,9 @@ GetMapElements_shared_ptr_CPP std::uint64_t asUInt64 >> ${FILENAME}
 cat << EOF >> ${FILENAME}
 #endif
 
-#if (_SIZEOF_UINTMAX_T + 0) && !((_SIZEOF_UINTMAX_T + 0) == (_SIZEOF_UINT8_T + 0) || (_SIZEOF_UINTMAX_T + 0) == (_SIZEOF_UINT16_T + 0) || (_SIZEOF_UINTMAX_T + 0) == (_SIZEOF_UINT32_T + 0) || (_SIZEOF_UINTMAX_T + 0) == (_SIZEOF_UINT64_T + 0))
+#if (_SIZEOF_UINTMAX_T + 0) && \\
+	!((_SIZEOF_UINTMAX_T + 0) == (_SIZEOF_UINT8_T + 0) || (_SIZEOF_UINTMAX_T + 0) == (_SIZEOF_UINT16_T + 0) || \\
+	  (_SIZEOF_UINTMAX_T + 0) == (_SIZEOF_UINT32_T + 0) || (_SIZEOF_UINTMAX_T + 0) == (_SIZEOF_UINT64_T + 0))
 EOF
 GetMapElements_shared_ptr_CPP std::uintmax_t asLargestUInt >> ${FILENAME}
 cat << EOF >> ${FILENAME}

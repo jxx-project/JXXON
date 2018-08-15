@@ -18,7 +18,6 @@ namespace Testee {
 class TestSuite
 {
 public:
-
 	TestSuite(const std::string& subject, std::list<TestCase>&& testCases) : subject(subject), testCases(std::move(testCases))
 	{
 	}

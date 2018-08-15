@@ -8,11 +8,17 @@
 #ifndef JXXON_Accessor_GetMapElements_shared_ptr_INCLUDED
 #define JXXON_Accessor_GetMapElements_shared_ptr_INCLUDED
 
-namespace JXXON { namespace Accessor {
-namespace {
+#include "JXXON/Error.h"
+#include "JXXON/Json.h"
+#include "JXXON/Json/Impl.h"
+
+namespace JXXON { namespace Accessor { namespace {
 
 template<typename T>
-void populateMap(Json::MapType<T>& map, const ::Json::Value& value, const std::function<typename T::element_type(const ::Json::Value::const_iterator&)>& valueAsT)
+void populateMap(
+	Json::MapType<T>& map,
+	const ::Json::Value& value,
+	const std::function<typename T::element_type(const ::Json::Value::const_iterator&)>& valueAsT)
 {
 	if (!value.isNull()) {
 		if (value.isObject()) {
@@ -29,7 +35,6 @@ void populateMap(Json::MapType<T>& map, const ::Json::Value& value, const std::f
 	}
 }
 
-} // namespace
-}} // namespace JXXON::Accessor
+}}} // namespace JXXON::Accessor::
 
 #endif // JXXON_Accessor_GetMapElements_shared_ptr_INCLUDED

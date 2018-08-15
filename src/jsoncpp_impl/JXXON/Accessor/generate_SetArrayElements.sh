@@ -12,18 +12,31 @@ cat << EOF
 #ifndef JXXON_Accessor_SetArrayElements_INCLUDED
 #define JXXON_Accessor_SetArrayElements_INCLUDED
 
+#include "JXXON/Error.h"
+#include "JXXON/Json.h"
+#include "JXXON/Json/Impl.h"
+
 namespace JXXON { namespace Accessor {
 
 template<typename T>
-SetArrayElements<T, typename std::enable_if<!std::is_base_of<Json::Serializable, T>::value && !std::is_convertible<T, std::shared_ptr<Json::Serializable>>::value>::type>::SetArrayElements(Json& json) : json(json)
+SetArrayElements<
+	T,
+	typename std::enable_if<
+		!std::is_base_of<Json::Serializable, T>::value &&
+		!std::is_convertible<T, std::shared_ptr<Json::Serializable>>::value>::type>::SetArrayElements(Json& json) :
+	json(json)
 {
 	json.setTypeArray();
 }
 
 template<typename T>
-void SetArrayElements<T, typename std::enable_if<!std::is_base_of<Json::Serializable, T>::value && !std::is_convertible<T, std::shared_ptr<Json::Serializable>>::value>::type>::operator()(const Json::ArrayType<T>& array)
+void SetArrayElements<
+	T,
+	typename std::enable_if<
+		!std::is_base_of<Json::Serializable, T>::value &&
+		!std::is_convertible<T, std::shared_ptr<Json::Serializable>>::value>::type>::operator()(const Json::ArrayType<T>& array)
 {
-	array.forEach([&](const T& element){json.pimpl->value.append(::Json::Value(element));});
+	array.forEach([&](const T& element) { json.pimpl->value.append(::Json::Value(element)); });
 }
 
 }} // namespace JXXON::Accessor
@@ -46,18 +59,31 @@ cat << EOF
 #ifndef JXXON_Accessor_SetArrayElements_shared_ptr_INCLUDED
 #define JXXON_Accessor_SetArrayElements_shared_ptr_INCLUDED
 
+#include "JXXON/Error.h"
+#include "JXXON/Json.h"
+#include "JXXON/Json/Impl.h"
+
 namespace JXXON { namespace Accessor {
 
 template<typename T>
-SetArrayElements<T, typename std::enable_if<!std::is_base_of<Json::Serializable, T>::value && !std::is_convertible<T, std::shared_ptr<Json::Serializable>>::value>::type>::SetArrayElements(Json& json) : json(json)
+SetArrayElements<
+	T,
+	typename std::enable_if<
+		!std::is_base_of<Json::Serializable, T>::value &&
+		!std::is_convertible<T, std::shared_ptr<Json::Serializable>>::value>::type>::SetArrayElements(Json& json) :
+	json(json)
 {
 	json.setTypeArray();
 }
 
 template<typename T>
-void SetArrayElements<T, typename std::enable_if<!std::is_base_of<Json::Serializable, T>::value && !std::is_convertible<T, std::shared_ptr<Json::Serializable>>::value>::type>::operator()(const Json::ArrayType<T>& array)
+void SetArrayElements<
+	T,
+	typename std::enable_if<
+		!std::is_base_of<Json::Serializable, T>::value &&
+		!std::is_convertible<T, std::shared_ptr<Json::Serializable>>::value>::type>::operator()(const Json::ArrayType<T>& array)
 {
-	array.forEach([&](const T& element){json.pimpl->value.append(element ? ::Json::Value(*element) : ::Json::Value::null);});
+	array.forEach([&](const T& element) { json.pimpl->value.append(element ? ::Json::Value(*element) : ::Json::Value::null); });
 }
 
 }} // namespace JXXON::Accessor
@@ -76,9 +102,7 @@ cat << EOF | sed "s/{{INCLUDE}}/$1/g"
 // SPDX-License-Identifier:	BSL-1.0
 //
 
-#include "JXXON/Error.h"
-#include "JXXON/Json.h"
-#include "JXXON/Json/Impl.h"
+
 #include "JXXON/Accessor/{{INCLUDE}}"
 #include <cstdint>
 
@@ -149,7 +173,9 @@ SetArrayElements_CPP std::int64_t >> ${FILENAME}
 cat << EOF >> ${FILENAME}
 #endif
 
-#if (_SIZEOF_INTMAX_T + 0) && !((_SIZEOF_INTMAX_T + 0) == (_SIZEOF_INT8_T + 0) || (_SIZEOF_INTMAX_T + 0) == (_SIZEOF_INT16_T + 0) || (_SIZEOF_INTMAX_T + 0) == (_SIZEOF_INT32_T + 0) || (_SIZEOF_INTMAX_T + 0) == (_SIZEOF_INT64_T + 0))
+#if (_SIZEOF_INTMAX_T + 0) && \\
+	!((_SIZEOF_INTMAX_T + 0) == (_SIZEOF_INT8_T + 0) || (_SIZEOF_INTMAX_T + 0) == (_SIZEOF_INT16_T + 0) || \\
+	  (_SIZEOF_INTMAX_T + 0) == (_SIZEOF_INT32_T + 0) || (_SIZEOF_INTMAX_T + 0) == (_SIZEOF_INT64_T + 0))
 EOF
 SetArrayElements_CPP std::intmax_t >> ${FILENAME}
 cat << EOF >> ${FILENAME}
@@ -186,7 +212,9 @@ SetArrayElements_shared_ptr_CPP std::int64_t >> ${FILENAME}
 cat << EOF >> ${FILENAME}
 #endif
 
-#if (_SIZEOF_INTMAX_T + 0) && !((_SIZEOF_INTMAX_T + 0) == (_SIZEOF_INT8_T + 0) || (_SIZEOF_INTMAX_T + 0) == (_SIZEOF_INT16_T + 0) || (_SIZEOF_INTMAX_T + 0) == (_SIZEOF_INT32_T + 0) || (_SIZEOF_INTMAX_T + 0) == (_SIZEOF_INT64_T + 0))
+#if (_SIZEOF_INTMAX_T + 0) && \\
+	!((_SIZEOF_INTMAX_T + 0) == (_SIZEOF_INT8_T + 0) || (_SIZEOF_INTMAX_T + 0) == (_SIZEOF_INT16_T + 0) || \\
+	  (_SIZEOF_INTMAX_T + 0) == (_SIZEOF_INT32_T + 0) || (_SIZEOF_INTMAX_T + 0) == (_SIZEOF_INT64_T + 0))
 EOF
 SetArrayElements_shared_ptr_CPP std::intmax_t >> ${FILENAME}
 cat << EOF >> ${FILENAME}
@@ -223,7 +251,9 @@ SetArrayElements_CPP std::uint64_t >> ${FILENAME}
 cat << EOF >> ${FILENAME}
 #endif
 
-#if (_SIZEOF_UINTMAX_T + 0) && !((_SIZEOF_UINTMAX_T + 0) == (_SIZEOF_UINT8_T + 0) || (_SIZEOF_UINTMAX_T + 0) == (_SIZEOF_UINT16_T + 0) || (_SIZEOF_UINTMAX_T + 0) == (_SIZEOF_UINT32_T + 0) || (_SIZEOF_UINTMAX_T + 0) == (_SIZEOF_UINT64_T + 0))
+#if (_SIZEOF_UINTMAX_T + 0) && \\
+	!((_SIZEOF_UINTMAX_T + 0) == (_SIZEOF_UINT8_T + 0) || (_SIZEOF_UINTMAX_T + 0) == (_SIZEOF_UINT16_T + 0) || \\
+	  (_SIZEOF_UINTMAX_T + 0) == (_SIZEOF_UINT32_T + 0) || (_SIZEOF_UINTMAX_T + 0) == (_SIZEOF_UINT64_T + 0))
 EOF
 SetArrayElements_CPP std::uintmax_t >> ${FILENAME}
 cat << EOF >> ${FILENAME}
@@ -260,7 +290,9 @@ SetArrayElements_shared_ptr_CPP std::uint64_t >> ${FILENAME}
 cat << EOF >> ${FILENAME}
 #endif
 
-#if (_SIZEOF_UINTMAX_T + 0) && !((_SIZEOF_UINTMAX_T + 0) == (_SIZEOF_UINT8_T + 0) || (_SIZEOF_UINTMAX_T + 0) == (_SIZEOF_UINT16_T + 0) || (_SIZEOF_UINTMAX_T + 0) == (_SIZEOF_UINT32_T + 0) || (_SIZEOF_UINTMAX_T + 0) == (_SIZEOF_UINT64_T + 0))
+#if (_SIZEOF_UINTMAX_T + 0) && \\
+	!((_SIZEOF_UINTMAX_T + 0) == (_SIZEOF_UINT8_T + 0) || (_SIZEOF_UINTMAX_T + 0) == (_SIZEOF_UINT16_T + 0) || \\
+	  (_SIZEOF_UINTMAX_T + 0) == (_SIZEOF_UINT32_T + 0) || (_SIZEOF_UINTMAX_T + 0) == (_SIZEOF_UINT64_T + 0))
 EOF
 SetArrayElements_shared_ptr_CPP std::uintmax_t >> ${FILENAME}
 cat << EOF >> ${FILENAME}

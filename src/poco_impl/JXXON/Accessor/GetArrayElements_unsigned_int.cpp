@@ -4,9 +4,7 @@
 // SPDX-License-Identifier:	BSL-1.0
 //
 
-#include "JXXON/Error.h"
-#include "JXXON/Json.h"
-#include "JXXON/Json/Impl.h"
+
 #include "JXXON/Accessor/GetArrayElements.tcc"
 #include <cstdint>
 
@@ -33,7 +31,9 @@ template GetArrayElements<std::uint64_t>::GetArrayElements(const Json& json);
 template void GetArrayElements<std::uint64_t>::operator()(Json::ArrayType<std::uint64_t>& array) const;
 #endif
 
-#if (_SIZEOF_UINTMAX_T + 0) && !((_SIZEOF_UINTMAX_T + 0) == (_SIZEOF_UINT8_T + 0) || (_SIZEOF_UINTMAX_T + 0) == (_SIZEOF_UINT16_T + 0) || (_SIZEOF_UINTMAX_T + 0) == (_SIZEOF_UINT32_T + 0) || (_SIZEOF_UINTMAX_T + 0) == (_SIZEOF_UINT64_T + 0))
+#if (_SIZEOF_UINTMAX_T + 0) && \
+	!((_SIZEOF_UINTMAX_T + 0) == (_SIZEOF_UINT8_T + 0) || (_SIZEOF_UINTMAX_T + 0) == (_SIZEOF_UINT16_T + 0) || \
+	  (_SIZEOF_UINTMAX_T + 0) == (_SIZEOF_UINT32_T + 0) || (_SIZEOF_UINTMAX_T + 0) == (_SIZEOF_UINT64_T + 0))
 template GetArrayElements<std::uintmax_t>::GetArrayElements(const Json& json);
 template void GetArrayElements<std::uintmax_t>::operator()(Json::ArrayType<std::uintmax_t>& array) const;
 #endif

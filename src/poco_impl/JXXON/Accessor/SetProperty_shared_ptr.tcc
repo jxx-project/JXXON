@@ -8,16 +8,30 @@
 #ifndef JXXON_Accessor_SetProperty_shared_ptr_INCLUDED
 #define JXXON_Accessor_SetProperty_shared_ptr_INCLUDED
 
+#include "JXXON/Error.h"
+#include "JXXON/Json.h"
+#include "JXXON/Json/Impl.h"
+
 namespace JXXON { namespace Accessor {
 
 template<typename T>
-SetProperty<T, typename std::enable_if<!std::is_base_of<Json::Serializable, T>::value && !std::is_convertible<T, std::shared_ptr<Json::Serializable>>::value>::type>::SetProperty(Json& json, const std::string& name) : json(json), name(name)
+SetProperty<
+	T,
+	typename std::enable_if<
+		!std::is_base_of<Json::Serializable, T>::value && !std::is_convertible<T, std::shared_ptr<Json::Serializable>>::value>::
+		type>::SetProperty(Json& json, const std::string& name) :
+	json(json),
+	name(name)
 {
 	json.setTypeObject();
 }
 
 template<typename T>
-void SetProperty<T, typename std::enable_if<!std::is_base_of<Json::Serializable, T>::value && !std::is_convertible<T, std::shared_ptr<Json::Serializable>>::value>::type>::operator()(const T& value)
+void SetProperty<
+	T,
+	typename std::enable_if<
+		!std::is_base_of<Json::Serializable, T>::value &&
+		!std::is_convertible<T, std::shared_ptr<Json::Serializable>>::value>::type>::operator()(const T& value)
 {
 	if (value) {
 		json.pimpl->getObject().set(name, Poco::Dynamic::Var(*value));

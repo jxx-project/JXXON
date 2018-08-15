@@ -9,8 +9,8 @@
 #define TestCase_INCLUDED
 
 #include <functional>
-#include <stdexcept>
 #include <sstream>
+#include <stdexcept>
 
 namespace Testee {
 

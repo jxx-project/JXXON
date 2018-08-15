@@ -8,15 +8,28 @@
 #ifndef JXXON_Accessor_GetMapElements_INCLUDED
 #define JXXON_Accessor_GetMapElements_INCLUDED
 
+#include "JXXON/Error.h"
+#include "JXXON/Json.h"
+#include "JXXON/Json/Impl.h"
+
 namespace JXXON { namespace Accessor {
 
 template<typename T>
-GetMapElements<T, typename std::enable_if<!std::is_base_of<Json::Serializable, T>::value && !std::is_convertible<T, std::shared_ptr<Json::Serializable>>::value>::type>::GetMapElements(const Json& json) : json(json)
+GetMapElements<
+	T,
+	typename std::enable_if<
+		!std::is_base_of<Json::Serializable, T>::value &&
+		!std::is_convertible<T, std::shared_ptr<Json::Serializable>>::value>::type>::GetMapElements(const Json& json) :
+	json(json)
 {
 }
 
 template<typename T>
-void GetMapElements<T, typename std::enable_if<!std::is_base_of<Json::Serializable, T>::value && !std::is_convertible<T, std::shared_ptr<Json::Serializable>>::value>::type>::operator()(Json::MapType<T>& map) const
+void GetMapElements<
+	T,
+	typename std::enable_if<
+		!std::is_base_of<Json::Serializable, T>::value &&
+		!std::is_convertible<T, std::shared_ptr<Json::Serializable>>::value>::type>::operator()(Json::MapType<T>& map) const
 {
 	if (json.pimpl) {
 		try {

@@ -4,9 +4,7 @@
 // SPDX-License-Identifier:	BSL-1.0
 //
 
-#include "JXXON/Error.h"
-#include "JXXON/Json.h"
-#include "JXXON/Json/Impl.h"
+
 #include "JXXON/Accessor/GetProperty_shared_ptr.tcc"
 #include <cstdint>
 
@@ -20,7 +18,7 @@ GetProperty<std::shared_ptr<float>>::GetProperty(const Json& json, const std::st
 template<>
 std::shared_ptr<float> GetProperty<std::shared_ptr<float>>::operator()() const
 {
-	return getChild<std::shared_ptr<float>>(json.pimpl->value, name, [](const ::Json::Value& value){return value.asFloat();});
+	return getChild<std::shared_ptr<float>>(json.pimpl->value, name, [](const ::Json::Value& value) { return value.asFloat(); });
 }
 
 template GetProperty<std::shared_ptr<float>>::GetProperty(const Json& json, const std::string& name);
@@ -34,7 +32,7 @@ GetProperty<std::shared_ptr<double>>::GetProperty(const Json& json, const std::s
 template<>
 std::shared_ptr<double> GetProperty<std::shared_ptr<double>>::operator()() const
 {
-	return getChild<std::shared_ptr<double>>(json.pimpl->value, name, [](const ::Json::Value& value){return value.asDouble();});
+	return getChild<std::shared_ptr<double>>(json.pimpl->value, name, [](const ::Json::Value& value) { return value.asDouble(); });
 }
 
 template GetProperty<std::shared_ptr<double>>::GetProperty(const Json& json, const std::string& name);

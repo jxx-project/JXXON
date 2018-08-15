@@ -4,9 +4,7 @@
 // SPDX-License-Identifier:	BSL-1.0
 //
 
-#include "JXXON/Error.h"
-#include "JXXON/Json.h"
-#include "JXXON/Json/Impl.h"
+
 #include "JXXON/Accessor/GetArrayElements_shared_ptr.tcc"
 #include <cstdint>
 
@@ -20,7 +18,7 @@ GetArrayElements<std::shared_ptr<float>>::GetArrayElements(const Json& json) : j
 template<>
 void GetArrayElements<std::shared_ptr<float>>::operator()(Json::ArrayType<std::shared_ptr<float>>& array) const
 {
-	populateArray<std::shared_ptr<float>>(array, json.pimpl->value, [](const ::Json::Value& value){return value.asFloat();});
+	populateArray<std::shared_ptr<float>>(array, json.pimpl->value, [](const ::Json::Value& value) { return value.asFloat(); });
 }
 
 template GetArrayElements<std::shared_ptr<float>>::GetArrayElements(const Json& json);
@@ -34,7 +32,7 @@ GetArrayElements<std::shared_ptr<double>>::GetArrayElements(const Json& json) : 
 template<>
 void GetArrayElements<std::shared_ptr<double>>::operator()(Json::ArrayType<std::shared_ptr<double>>& array) const
 {
-	populateArray<std::shared_ptr<double>>(array, json.pimpl->value, [](const ::Json::Value& value){return value.asDouble();});
+	populateArray<std::shared_ptr<double>>(array, json.pimpl->value, [](const ::Json::Value& value) { return value.asDouble(); });
 }
 
 template GetArrayElements<std::shared_ptr<double>>::GetArrayElements(const Json& json);

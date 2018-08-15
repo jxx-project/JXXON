@@ -12,8 +12,11 @@ cat << EOF
 #ifndef JXXON_Accessor_GetProperty_INCLUDED
 #define JXXON_Accessor_GetProperty_INCLUDED
 
-namespace JXXON { namespace Accessor {
-namespace {
+#include "JXXON/Error.h"
+#include "JXXON/Json.h"
+#include "JXXON/Json/Impl.h"
+
+namespace JXXON { namespace Accessor { namespace {
 
 template<typename T>
 T getChild(const ::Json::Value& value, const std::string& name, const std::function<T(const ::Json::Value&)>& valueAsT)
@@ -24,15 +27,14 @@ T getChild(const ::Json::Value& value, const std::string& name, const std::funct
 			if (!child.isNull()) {
 				return T(valueAsT(child));
 			}
-		} catch(std::exception& e) {
+		} catch (std::exception& e) {
 			throw Error(e.what());
 		}
 	}
 	return T();
 }
 
-} // namespace
-}} // namespace JXXON::Accessor
+}}} // namespace JXXON::Accessor::
 
 #endif // JXXON_Accessor_GetProperty_INCLUDED
 EOF
@@ -52,11 +54,17 @@ cat << EOF
 #ifndef JXXON_Accessor_GetProperty_shared_ptr_INCLUDED
 #define JXXON_Accessor_GetProperty_shared_ptr_INCLUDED
 
-namespace JXXON { namespace Accessor {
-namespace {
+#include "JXXON/Error.h"
+#include "JXXON/Json.h"
+#include "JXXON/Json/Impl.h"
+
+namespace JXXON { namespace Accessor { namespace {
 
 template<typename T>
-T getChild(const ::Json::Value& value, const std::string& name, const std::function<typename T::element_type(const ::Json::Value&)>& valueAsT)
+T getChild(
+	const ::Json::Value& value,
+	const std::string& name,
+	const std::function<typename T::element_type(const ::Json::Value&)>& valueAsT)
 {
 	if (!value.isNull()) {
 		try {
@@ -64,15 +72,14 @@ T getChild(const ::Json::Value& value, const std::string& name, const std::funct
 			if (!child.isNull()) {
 				return std::make_shared<typename T::element_type>(valueAsT(child));
 			}
-		} catch(std::exception& e) {
+		} catch (std::exception& e) {
 			throw Error(e.what());
 		}
 	}
 	return nullptr;
 }
 
-} // namespace
-}} // namespace JXXON::Accessor
+}}} // namespace JXXON::Accessor::
 
 #endif // JXXON_Accessor_GetProperty_shared_ptr_INCLUDED
 EOF
@@ -88,9 +95,7 @@ cat << EOF | sed "s/{{INCLUDE}}/$1/g"
 // SPDX-License-Identifier:	BSL-1.0
 //
 
-#include "JXXON/Error.h"
-#include "JXXON/Json.h"
-#include "JXXON/Json/Impl.h"
+
 #include "JXXON/Accessor/{{INCLUDE}}"
 #include <cstdint>
 
@@ -109,7 +114,7 @@ GetProperty<{{ELEMENT_TYPE}}>::GetProperty(const Json& json, const std::string& 
 template<>
 {{ELEMENT_TYPE}} GetProperty<{{ELEMENT_TYPE}}>::operator()() const
 {
-	return getChild<{{ELEMENT_TYPE}}>(json.pimpl->value, name, [](const ::Json::Value& value){return value.{{AS_TYPE}}();});
+	return getChild<{{ELEMENT_TYPE}}>(json.pimpl->value, name, [](const ::Json::Value& value) { return value.{{AS_TYPE}}(); });
 }
 
 template GetProperty<{{ELEMENT_TYPE}}>::GetProperty(const Json& json, const std::string& name);
@@ -127,7 +132,7 @@ GetProperty<std::shared_ptr<{{ELEMENT_TYPE}}>>::GetProperty(const Json& json, co
 template<>
 std::shared_ptr<{{ELEMENT_TYPE}}> GetProperty<std::shared_ptr<{{ELEMENT_TYPE}}>>::operator()() const
 {
-	return getChild<std::shared_ptr<{{ELEMENT_TYPE}}>>(json.pimpl->value, name, [](const ::Json::Value& value){return value.{{AS_TYPE}}();});
+	return getChild<std::shared_ptr<{{ELEMENT_TYPE}}>>(json.pimpl->value, name, [](const ::Json::Value& value) { return value.{{AS_TYPE}}(); });
 }
 
 template GetProperty<std::shared_ptr<{{ELEMENT_TYPE}}>>::GetProperty(const Json& json, const std::string& name);
@@ -182,7 +187,9 @@ GetProperty_CPP std::int64_t asInt64 >> ${FILENAME}
 cat << EOF >> ${FILENAME}
 #endif
 
-#if (_SIZEOF_INTMAX_T + 0) && !((_SIZEOF_INTMAX_T + 0) == (_SIZEOF_INT8_T + 0) || (_SIZEOF_INTMAX_T + 0) == (_SIZEOF_INT16_T + 0) || (_SIZEOF_INTMAX_T + 0) == (_SIZEOF_INT32_T + 0) || (_SIZEOF_INTMAX_T + 0) == (_SIZEOF_INT64_T + 0))
+#if (_SIZEOF_INTMAX_T + 0) && \\
+	!((_SIZEOF_INTMAX_T + 0) == (_SIZEOF_INT8_T + 0) || (_SIZEOF_INTMAX_T + 0) == (_SIZEOF_INT16_T + 0) || \\
+	  (_SIZEOF_INTMAX_T + 0) == (_SIZEOF_INT32_T + 0) || (_SIZEOF_INTMAX_T + 0) == (_SIZEOF_INT64_T + 0))
 EOF
 GetProperty_CPP std::intmax_t asLargestInt >> ${FILENAME}
 cat << EOF >> ${FILENAME}
@@ -219,7 +226,9 @@ GetProperty_shared_ptr_CPP std::int64_t asInt64 >> ${FILENAME}
 cat << EOF >> ${FILENAME}
 #endif
 
-#if (_SIZEOF_INTMAX_T + 0) && !((_SIZEOF_INTMAX_T + 0) == (_SIZEOF_INT8_T + 0) || (_SIZEOF_INTMAX_T + 0) == (_SIZEOF_INT16_T + 0) || (_SIZEOF_INTMAX_T + 0) == (_SIZEOF_INT32_T + 0) || (_SIZEOF_INTMAX_T + 0) == (_SIZEOF_INT64_T + 0))
+#if (_SIZEOF_INTMAX_T + 0) && \\
+	!((_SIZEOF_INTMAX_T + 0) == (_SIZEOF_INT8_T + 0) || (_SIZEOF_INTMAX_T + 0) == (_SIZEOF_INT16_T + 0) || \\
+	  (_SIZEOF_INTMAX_T + 0) == (_SIZEOF_INT32_T + 0) || (_SIZEOF_INTMAX_T + 0) == (_SIZEOF_INT64_T + 0))
 EOF
 GetProperty_shared_ptr_CPP std::intmax_t asLargestInt >> ${FILENAME}
 cat << EOF >> ${FILENAME}
@@ -256,7 +265,9 @@ GetProperty_CPP std::uint64_t asUInt64 >> ${FILENAME}
 cat << EOF >> ${FILENAME}
 #endif
 
-#if (_SIZEOF_UINTMAX_T + 0) && !((_SIZEOF_UINTMAX_T + 0) == (_SIZEOF_UINT8_T + 0) || (_SIZEOF_UINTMAX_T + 0) == (_SIZEOF_UINT16_T + 0) || (_SIZEOF_UINTMAX_T + 0) == (_SIZEOF_UINT32_T + 0) || (_SIZEOF_UINTMAX_T + 0) == (_SIZEOF_UINT64_T + 0))
+#if (_SIZEOF_UINTMAX_T + 0) && \\
+	!((_SIZEOF_UINTMAX_T + 0) == (_SIZEOF_UINT8_T + 0) || (_SIZEOF_UINTMAX_T + 0) == (_SIZEOF_UINT16_T + 0) || \\
+	  (_SIZEOF_UINTMAX_T + 0) == (_SIZEOF_UINT32_T + 0) || (_SIZEOF_UINTMAX_T + 0) == (_SIZEOF_UINT64_T + 0))
 EOF
 GetProperty_CPP std::uintmax_t asLargestUInt >> ${FILENAME}
 cat << EOF >> ${FILENAME}
@@ -293,7 +304,9 @@ GetProperty_shared_ptr_CPP std::uint64_t asUInt64 >> ${FILENAME}
 cat << EOF >> ${FILENAME}
 #endif
 
-#if (_SIZEOF_UINTMAX_T + 0) && !((_SIZEOF_UINTMAX_T + 0) == (_SIZEOF_UINT8_T + 0) || (_SIZEOF_UINTMAX_T + 0) == (_SIZEOF_UINT16_T + 0) || (_SIZEOF_UINTMAX_T + 0) == (_SIZEOF_UINT32_T + 0) || (_SIZEOF_UINTMAX_T + 0) == (_SIZEOF_UINT64_T + 0))
+#if (_SIZEOF_UINTMAX_T + 0) && \\
+	!((_SIZEOF_UINTMAX_T + 0) == (_SIZEOF_UINT8_T + 0) || (_SIZEOF_UINTMAX_T + 0) == (_SIZEOF_UINT16_T + 0) || \\
+	  (_SIZEOF_UINTMAX_T + 0) == (_SIZEOF_UINT32_T + 0) || (_SIZEOF_UINTMAX_T + 0) == (_SIZEOF_UINT64_T + 0))
 EOF
 GetProperty_shared_ptr_CPP std::uintmax_t asLargestUInt >> ${FILENAME}
 cat << EOF >> ${FILENAME}

@@ -8,11 +8,17 @@
 #ifndef JXXON_Accessor_GetProperty_shared_ptr_INCLUDED
 #define JXXON_Accessor_GetProperty_shared_ptr_INCLUDED
 
-namespace JXXON { namespace Accessor {
-namespace {
+#include "JXXON/Error.h"
+#include "JXXON/Json.h"
+#include "JXXON/Json/Impl.h"
+
+namespace JXXON { namespace Accessor { namespace {
 
 template<typename T>
-T getChild(const ::Json::Value& value, const std::string& name, const std::function<typename T::element_type(const ::Json::Value&)>& valueAsT)
+T getChild(
+	const ::Json::Value& value,
+	const std::string& name,
+	const std::function<typename T::element_type(const ::Json::Value&)>& valueAsT)
 {
 	if (!value.isNull()) {
 		try {
@@ -20,14 +26,13 @@ T getChild(const ::Json::Value& value, const std::string& name, const std::funct
 			if (!child.isNull()) {
 				return std::make_shared<typename T::element_type>(valueAsT(child));
 			}
-		} catch(std::exception& e) {
+		} catch (std::exception& e) {
 			throw Error(e.what());
 		}
 	}
 	return nullptr;
 }
 
-} // namespace
-}} // namespace JXXON::Accessor
+}}} // namespace JXXON::Accessor::
 
 #endif // JXXON_Accessor_GetProperty_shared_ptr_INCLUDED

@@ -5,8 +5,8 @@
 //
 
 
-#include <memory>
 #include "Model/Object.tcc"
+#include <memory>
 
 namespace Model {
 

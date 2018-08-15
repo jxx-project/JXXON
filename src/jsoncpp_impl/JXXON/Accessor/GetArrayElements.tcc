@@ -8,8 +8,11 @@
 #ifndef JXXON_Accessor_GetArrayElements_INCLUDED
 #define JXXON_Accessor_GetArrayElements_INCLUDED
 
-namespace JXXON { namespace Accessor {
-namespace {
+#include "JXXON/Error.h"
+#include "JXXON/Json.h"
+#include "JXXON/Json/Impl.h"
+
+namespace JXXON { namespace Accessor { namespace {
 
 template<typename T>
 void populateArray(Json::ArrayType<T>& array, const ::Json::Value& value, const std::function<T(const ::Json::Value&)>& valueAsT)
@@ -18,7 +21,7 @@ void populateArray(Json::ArrayType<T>& array, const ::Json::Value& value, const 
 		if (value.isArray()) {
 			try {
 				for (const auto& i : value) {
-					array.addElement(i.isNull() ?  T() : T(valueAsT(i)));
+					array.addElement(i.isNull() ? T() : T(valueAsT(i)));
 				}
 			} catch (std::exception& e) {
 				throw Error(e.what());
@@ -29,7 +32,6 @@ void populateArray(Json::ArrayType<T>& array, const ::Json::Value& value, const 
 	}
 }
 
-} // namespace
-}} // namespace JXXON::Accessor
+}}} // namespace JXXON::Accessor::
 
 #endif // JXXON_Accessor_GetArrayElements_INCLUDED

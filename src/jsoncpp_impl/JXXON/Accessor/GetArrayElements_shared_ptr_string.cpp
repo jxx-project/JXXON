@@ -4,9 +4,7 @@
 // SPDX-License-Identifier:	BSL-1.0
 //
 
-#include "JXXON/Error.h"
-#include "JXXON/Json.h"
-#include "JXXON/Json/Impl.h"
+
 #include "JXXON/Accessor/GetArrayElements_shared_ptr.tcc"
 #include <cstdint>
 
@@ -20,7 +18,7 @@ GetArrayElements<std::shared_ptr<std::string>>::GetArrayElements(const Json& jso
 template<>
 void GetArrayElements<std::shared_ptr<std::string>>::operator()(Json::ArrayType<std::shared_ptr<std::string>>& array) const
 {
-	populateArray<std::shared_ptr<std::string>>(array, json.pimpl->value, [](const ::Json::Value& value){return value.asString();});
+	populateArray<std::shared_ptr<std::string>>(array, json.pimpl->value, [](const ::Json::Value& value) { return value.asString(); });
 }
 
 template GetArrayElements<std::shared_ptr<std::string>>::GetArrayElements(const Json& json);

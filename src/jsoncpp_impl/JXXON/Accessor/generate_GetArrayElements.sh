@@ -12,8 +12,11 @@ cat << EOF
 #ifndef JXXON_Accessor_GetArrayElements_INCLUDED
 #define JXXON_Accessor_GetArrayElements_INCLUDED
 
-namespace JXXON { namespace Accessor {
-namespace {
+#include "JXXON/Error.h"
+#include "JXXON/Json.h"
+#include "JXXON/Json/Impl.h"
+
+namespace JXXON { namespace Accessor { namespace {
 
 template<typename T>
 void populateArray(Json::ArrayType<T>& array, const ::Json::Value& value, const std::function<T(const ::Json::Value&)>& valueAsT)
@@ -22,7 +25,7 @@ void populateArray(Json::ArrayType<T>& array, const ::Json::Value& value, const 
 		if (value.isArray()) {
 			try {
 				for (const auto& i : value) {
-					array.addElement(i.isNull() ?  T() : T(valueAsT(i)));
+					array.addElement(i.isNull() ? T() : T(valueAsT(i)));
 				}
 			} catch (std::exception& e) {
 				throw Error(e.what());
@@ -33,8 +36,7 @@ void populateArray(Json::ArrayType<T>& array, const ::Json::Value& value, const 
 	}
 }
 
-} // namespace
-}} // namespace JXXON::Accessor
+}}} // namespace JXXON::Accessor::
 
 #endif // JXXON_Accessor_GetArrayElements_INCLUDED
 EOF
@@ -54,11 +56,17 @@ cat << EOF
 #ifndef JXXON_Accessor_GetArrayElements_shared_ptr_INCLUDED
 #define JXXON_Accessor_GetArrayElements_shared_ptr_INCLUDED
 
-namespace JXXON { namespace Accessor {
-namespace {
+#include "JXXON/Error.h"
+#include "JXXON/Json.h"
+#include "JXXON/Json/Impl.h"
+
+namespace JXXON { namespace Accessor { namespace {
 
 template<typename T>
-void populateArray(Json::ArrayType<T>& array, const ::Json::Value& value, const std::function<typename T::element_type(const ::Json::Value&)>& valueAsT)
+void populateArray(
+	Json::ArrayType<T>& array,
+	const ::Json::Value& value,
+	const std::function<typename T::element_type(const ::Json::Value&)>& valueAsT)
 {
 	if (!value.isNull()) {
 		if (value.isArray()) {
@@ -75,8 +83,7 @@ void populateArray(Json::ArrayType<T>& array, const ::Json::Value& value, const 
 	}
 }
 
-} // namespace
-}} // namespace JXXON::Accessor
+}}} // namespace JXXON::Accessor::
 
 #endif // JXXON_Accessor_GetArrayElements_shared_ptr_INCLUDED
 EOF
@@ -92,9 +99,7 @@ cat << EOF | sed "s/{{INCLUDE}}/$1/g"
 // SPDX-License-Identifier:	BSL-1.0
 //
 
-#include "JXXON/Error.h"
-#include "JXXON/Json.h"
-#include "JXXON/Json/Impl.h"
+
 #include "JXXON/Accessor/{{INCLUDE}}"
 #include <cstdint>
 
@@ -113,7 +118,7 @@ GetArrayElements<{{ELEMENT_TYPE}}>::GetArrayElements(const Json& json) : json(js
 template<>
 void GetArrayElements<{{ELEMENT_TYPE}}>::operator()(Json::ArrayType<{{ELEMENT_TYPE}}>& array) const
 {
-	populateArray<{{ELEMENT_TYPE}}>(array, json.pimpl->value, [](const ::Json::Value& value){return value.{{AS_TYPE}}();});
+	populateArray<{{ELEMENT_TYPE}}>(array, json.pimpl->value, [](const ::Json::Value& value) { return value.{{AS_TYPE}}(); });
 }
 
 template GetArrayElements<{{ELEMENT_TYPE}}>::GetArrayElements(const Json& json);
@@ -131,7 +136,7 @@ GetArrayElements<std::shared_ptr<{{ELEMENT_TYPE}}>>::GetArrayElements(const Json
 template<>
 void GetArrayElements<std::shared_ptr<{{ELEMENT_TYPE}}>>::operator()(Json::ArrayType<std::shared_ptr<{{ELEMENT_TYPE}}>>& array) const
 {
-	populateArray<std::shared_ptr<{{ELEMENT_TYPE}}>>(array, json.pimpl->value, [](const ::Json::Value& value){return value.{{AS_TYPE}}();});
+	populateArray<std::shared_ptr<{{ELEMENT_TYPE}}>>(array, json.pimpl->value, [](const ::Json::Value& value) { return value.{{AS_TYPE}}(); });
 }
 
 template GetArrayElements<std::shared_ptr<{{ELEMENT_TYPE}}>>::GetArrayElements(const Json& json);
@@ -187,7 +192,9 @@ GetArrayElements_CPP std::int64_t asInt64 >> ${FILENAME}
 cat << EOF >> ${FILENAME}
 #endif
 
-#if (_SIZEOF_INTMAX_T + 0) && !((_SIZEOF_INTMAX_T + 0) == (_SIZEOF_INT8_T + 0) || (_SIZEOF_INTMAX_T + 0) == (_SIZEOF_INT16_T + 0) || (_SIZEOF_INTMAX_T + 0) == (_SIZEOF_INT32_T + 0) || (_SIZEOF_INTMAX_T + 0) == (_SIZEOF_INT64_T + 0))
+#if (_SIZEOF_INTMAX_T + 0) && \\
+	!((_SIZEOF_INTMAX_T + 0) == (_SIZEOF_INT8_T + 0) || (_SIZEOF_INTMAX_T + 0) == (_SIZEOF_INT16_T + 0) || \\
+	  (_SIZEOF_INTMAX_T + 0) == (_SIZEOF_INT32_T + 0) || (_SIZEOF_INTMAX_T + 0) == (_SIZEOF_INT64_T + 0))
 EOF
 GetArrayElements_CPP std::intmax_t asLargestInt >> ${FILENAME}
 cat << EOF >> ${FILENAME}
@@ -224,7 +231,9 @@ GetArrayElements_shared_ptr_CPP std::int64_t asInt64 >> ${FILENAME}
 cat << EOF >> ${FILENAME}
 #endif
 
-#if (_SIZEOF_INTMAX_T + 0) && !((_SIZEOF_INTMAX_T + 0) == (_SIZEOF_INT8_T + 0) || (_SIZEOF_INTMAX_T + 0) == (_SIZEOF_INT16_T + 0) || (_SIZEOF_INTMAX_T + 0) == (_SIZEOF_INT32_T + 0) || (_SIZEOF_INTMAX_T + 0) == (_SIZEOF_INT64_T + 0))
+#if (_SIZEOF_INTMAX_T + 0) && \\
+	!((_SIZEOF_INTMAX_T + 0) == (_SIZEOF_INT8_T + 0) || (_SIZEOF_INTMAX_T + 0) == (_SIZEOF_INT16_T + 0) || \\
+	  (_SIZEOF_INTMAX_T + 0) == (_SIZEOF_INT32_T + 0) || (_SIZEOF_INTMAX_T + 0) == (_SIZEOF_INT64_T + 0))
 EOF
 GetArrayElements_shared_ptr_CPP std::intmax_t asLargestInt >> ${FILENAME}
 cat << EOF >> ${FILENAME}
@@ -261,7 +270,9 @@ GetArrayElements_CPP std::uint64_t asUInt64 >> ${FILENAME}
 cat << EOF >> ${FILENAME}
 #endif
 
-#if (_SIZEOF_UINTMAX_T + 0) && !((_SIZEOF_UINTMAX_T + 0) == (_SIZEOF_UINT8_T + 0) || (_SIZEOF_UINTMAX_T + 0) == (_SIZEOF_UINT16_T + 0) || (_SIZEOF_UINTMAX_T + 0) == (_SIZEOF_UINT32_T + 0) || (_SIZEOF_UINTMAX_T + 0) == (_SIZEOF_UINT64_T + 0))
+#if (_SIZEOF_UINTMAX_T + 0) && \\
+	!((_SIZEOF_UINTMAX_T + 0) == (_SIZEOF_UINT8_T + 0) || (_SIZEOF_UINTMAX_T + 0) == (_SIZEOF_UINT16_T + 0) || \\
+	  (_SIZEOF_UINTMAX_T + 0) == (_SIZEOF_UINT32_T + 0) || (_SIZEOF_UINTMAX_T + 0) == (_SIZEOF_UINT64_T + 0))
 EOF
 GetArrayElements_CPP std::uintmax_t asLargestUInt >> ${FILENAME}
 cat << EOF >> ${FILENAME}
@@ -298,7 +309,9 @@ GetArrayElements_shared_ptr_CPP std::uint64_t asUInt64 >> ${FILENAME}
 cat << EOF >> ${FILENAME}
 #endif
 
-#if (_SIZEOF_UINTMAX_T + 0) && !((_SIZEOF_UINTMAX_T + 0) == (_SIZEOF_UINT8_T + 0) || (_SIZEOF_UINTMAX_T + 0) == (_SIZEOF_UINT16_T + 0) || (_SIZEOF_UINTMAX_T + 0) == (_SIZEOF_UINT32_T + 0) || (_SIZEOF_UINTMAX_T + 0) == (_SIZEOF_UINT64_T + 0))
+#if (_SIZEOF_UINTMAX_T + 0) && \\
+	!((_SIZEOF_UINTMAX_T + 0) == (_SIZEOF_UINT8_T + 0) || (_SIZEOF_UINTMAX_T + 0) == (_SIZEOF_UINT16_T + 0) || \\
+	  (_SIZEOF_UINTMAX_T + 0) == (_SIZEOF_UINT32_T + 0) || (_SIZEOF_UINTMAX_T + 0) == (_SIZEOF_UINT64_T + 0))
 EOF
 GetArrayElements_shared_ptr_CPP std::uintmax_t asLargestUInt >> ${FILENAME}
 cat << EOF >> ${FILENAME}

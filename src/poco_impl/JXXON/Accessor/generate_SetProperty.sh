@@ -12,16 +12,30 @@ cat << EOF
 #ifndef JXXON_Accessor_SetProperty_INCLUDED
 #define JXXON_Accessor_SetProperty_INCLUDED
 
+#include "JXXON/Error.h"
+#include "JXXON/Json.h"
+#include "JXXON/Json/Impl.h"
+
 namespace JXXON { namespace Accessor {
 
 template<typename T>
-SetProperty<T, typename std::enable_if<!std::is_base_of<Json::Serializable, T>::value && !std::is_convertible<T, std::shared_ptr<Json::Serializable>>::value>::type>::SetProperty(Json& json, const std::string& name) : json(json), name(name)
+SetProperty<
+	T,
+	typename std::enable_if<
+		!std::is_base_of<Json::Serializable, T>::value && !std::is_convertible<T, std::shared_ptr<Json::Serializable>>::value>::
+		type>::SetProperty(Json& json, const std::string& name) :
+	json(json),
+	name(name)
 {
 	json.setTypeObject();
 }
 
 template<typename T>
-void SetProperty<T, typename std::enable_if<!std::is_base_of<Json::Serializable, T>::value && !std::is_convertible<T, std::shared_ptr<Json::Serializable>>::value>::type>::operator()(const T& value)
+void SetProperty<
+	T,
+	typename std::enable_if<
+		!std::is_base_of<Json::Serializable, T>::value &&
+		!std::is_convertible<T, std::shared_ptr<Json::Serializable>>::value>::type>::operator()(const T& value)
 {
 	json.pimpl->getObject().set(name, Poco::Dynamic::Var(value));
 }
@@ -46,16 +60,30 @@ cat << EOF
 #ifndef JXXON_Accessor_SetProperty_shared_ptr_INCLUDED
 #define JXXON_Accessor_SetProperty_shared_ptr_INCLUDED
 
+#include "JXXON/Error.h"
+#include "JXXON/Json.h"
+#include "JXXON/Json/Impl.h"
+
 namespace JXXON { namespace Accessor {
 
 template<typename T>
-SetProperty<T, typename std::enable_if<!std::is_base_of<Json::Serializable, T>::value && !std::is_convertible<T, std::shared_ptr<Json::Serializable>>::value>::type>::SetProperty(Json& json, const std::string& name) : json(json), name(name)
+SetProperty<
+	T,
+	typename std::enable_if<
+		!std::is_base_of<Json::Serializable, T>::value && !std::is_convertible<T, std::shared_ptr<Json::Serializable>>::value>::
+		type>::SetProperty(Json& json, const std::string& name) :
+	json(json),
+	name(name)
 {
 	json.setTypeObject();
 }
 
 template<typename T>
-void SetProperty<T, typename std::enable_if<!std::is_base_of<Json::Serializable, T>::value && !std::is_convertible<T, std::shared_ptr<Json::Serializable>>::value>::type>::operator()(const T& value)
+void SetProperty<
+	T,
+	typename std::enable_if<
+		!std::is_base_of<Json::Serializable, T>::value &&
+		!std::is_convertible<T, std::shared_ptr<Json::Serializable>>::value>::type>::operator()(const T& value)
 {
 	if (value) {
 		json.pimpl->getObject().set(name, Poco::Dynamic::Var(*value));
@@ -78,9 +106,7 @@ cat << EOF | sed "s/{{INCLUDE}}/$1/g"
 // SPDX-License-Identifier:	BSL-1.0
 //
 
-#include "JXXON/Error.h"
-#include "JXXON/Json.h"
-#include "JXXON/Json/Impl.h"
+
 #include "JXXON/Accessor/{{INCLUDE}}"
 #include <cstdint>
 
@@ -150,7 +176,9 @@ SetProperty_CPP std::int64_t >> ${FILENAME}
 cat << EOF >> ${FILENAME}
 #endif
 
-#if (_SIZEOF_INTMAX_T + 0) && !((_SIZEOF_INTMAX_T + 0) == (_SIZEOF_INT8_T + 0) || (_SIZEOF_INTMAX_T + 0) == (_SIZEOF_INT16_T + 0) || (_SIZEOF_INTMAX_T + 0) == (_SIZEOF_INT32_T + 0) || (_SIZEOF_INTMAX_T + 0) == (_SIZEOF_INT64_T + 0))
+#if (_SIZEOF_INTMAX_T + 0) && \\
+	!((_SIZEOF_INTMAX_T + 0) == (_SIZEOF_INT8_T + 0) || (_SIZEOF_INTMAX_T + 0) == (_SIZEOF_INT16_T + 0) || \\
+	  (_SIZEOF_INTMAX_T + 0) == (_SIZEOF_INT32_T + 0) || (_SIZEOF_INTMAX_T + 0) == (_SIZEOF_INT64_T + 0))
 EOF
 SetProperty_CPP std::intmax_t >> ${FILENAME}
 cat << EOF >> ${FILENAME}
@@ -187,7 +215,9 @@ SetProperty_shared_ptr_CPP std::int64_t >> ${FILENAME}
 cat << EOF >> ${FILENAME}
 #endif
 
-#if (_SIZEOF_INTMAX_T + 0) && !((_SIZEOF_INTMAX_T + 0) == (_SIZEOF_INT8_T + 0) || (_SIZEOF_INTMAX_T + 0) == (_SIZEOF_INT16_T + 0) || (_SIZEOF_INTMAX_T + 0) == (_SIZEOF_INT32_T + 0) || (_SIZEOF_INTMAX_T + 0) == (_SIZEOF_INT64_T + 0))
+#if (_SIZEOF_INTMAX_T + 0) && \\
+	!((_SIZEOF_INTMAX_T + 0) == (_SIZEOF_INT8_T + 0) || (_SIZEOF_INTMAX_T + 0) == (_SIZEOF_INT16_T + 0) || \\
+	  (_SIZEOF_INTMAX_T + 0) == (_SIZEOF_INT32_T + 0) || (_SIZEOF_INTMAX_T + 0) == (_SIZEOF_INT64_T + 0))
 EOF
 SetProperty_shared_ptr_CPP std::intmax_t >> ${FILENAME}
 cat << EOF >> ${FILENAME}
@@ -224,7 +254,9 @@ SetProperty_CPP std::uint64_t >> ${FILENAME}
 cat << EOF >> ${FILENAME}
 #endif
 
-#if (_SIZEOF_UINTMAX_T + 0) && !((_SIZEOF_UINTMAX_T + 0) == (_SIZEOF_UINT8_T + 0) || (_SIZEOF_UINTMAX_T + 0) == (_SIZEOF_UINT16_T + 0) || (_SIZEOF_UINTMAX_T + 0) == (_SIZEOF_UINT32_T + 0) || (_SIZEOF_UINTMAX_T + 0) == (_SIZEOF_UINT64_T + 0))
+#if (_SIZEOF_UINTMAX_T + 0) && \\
+	!((_SIZEOF_UINTMAX_T + 0) == (_SIZEOF_UINT8_T + 0) || (_SIZEOF_UINTMAX_T + 0) == (_SIZEOF_UINT16_T + 0) || \\
+	  (_SIZEOF_UINTMAX_T + 0) == (_SIZEOF_UINT32_T + 0) || (_SIZEOF_UINTMAX_T + 0) == (_SIZEOF_UINT64_T + 0))
 EOF
 SetProperty_CPP std::uintmax_t >> ${FILENAME}
 cat << EOF >> ${FILENAME}
@@ -261,7 +293,9 @@ SetProperty_shared_ptr_CPP std::uint64_t >> ${FILENAME}
 cat << EOF >> ${FILENAME}
 #endif
 
-#if (_SIZEOF_UINTMAX_T + 0) && !((_SIZEOF_UINTMAX_T + 0) == (_SIZEOF_UINT8_T + 0) || (_SIZEOF_UINTMAX_T + 0) == (_SIZEOF_UINT16_T + 0) || (_SIZEOF_UINTMAX_T + 0) == (_SIZEOF_UINT32_T + 0) || (_SIZEOF_UINTMAX_T + 0) == (_SIZEOF_UINT64_T + 0))
+#if (_SIZEOF_UINTMAX_T + 0) && \\
+	!((_SIZEOF_UINTMAX_T + 0) == (_SIZEOF_UINT8_T + 0) || (_SIZEOF_UINTMAX_T + 0) == (_SIZEOF_UINT16_T + 0) || \\
+	  (_SIZEOF_UINTMAX_T + 0) == (_SIZEOF_UINT32_T + 0) || (_SIZEOF_UINTMAX_T + 0) == (_SIZEOF_UINT64_T + 0))
 EOF
 SetProperty_shared_ptr_CPP std::uintmax_t >> ${FILENAME}
 cat << EOF >> ${FILENAME}

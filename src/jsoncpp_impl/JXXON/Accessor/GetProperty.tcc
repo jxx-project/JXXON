@@ -8,8 +8,11 @@
 #ifndef JXXON_Accessor_GetProperty_INCLUDED
 #define JXXON_Accessor_GetProperty_INCLUDED
 
-namespace JXXON { namespace Accessor {
-namespace {
+#include "JXXON/Error.h"
+#include "JXXON/Json.h"
+#include "JXXON/Json/Impl.h"
+
+namespace JXXON { namespace Accessor { namespace {
 
 template<typename T>
 T getChild(const ::Json::Value& value, const std::string& name, const std::function<T(const ::Json::Value&)>& valueAsT)
@@ -20,14 +23,13 @@ T getChild(const ::Json::Value& value, const std::string& name, const std::funct
 			if (!child.isNull()) {
 				return T(valueAsT(child));
 			}
-		} catch(std::exception& e) {
+		} catch (std::exception& e) {
 			throw Error(e.what());
 		}
 	}
 	return T();
 }
 
-} // namespace
-}} // namespace JXXON::Accessor
+}}} // namespace JXXON::Accessor::
 
 #endif // JXXON_Accessor_GetProperty_INCLUDED

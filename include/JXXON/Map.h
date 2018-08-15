@@ -14,7 +14,7 @@
 namespace JXXON {
 
 /// Alias template composing std::map<std::string, T> and implementing JXXON::Serializable.
-template <class T>
+template<class T>
 using Map = Json::Map<T, Base::Map>;
 
 } // namespace JXXON

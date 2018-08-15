@@ -6,9 +6,9 @@
 
 
 #include "JXXON/Map.h"
+#include "Model/Object.tcc"
 #include <memory>
 #include <string>
-#include "Model/Object.tcc"
 
 namespace Model {
 

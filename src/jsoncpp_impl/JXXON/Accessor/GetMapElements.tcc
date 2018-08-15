@@ -8,17 +8,23 @@
 #ifndef JXXON_Accessor_GetMapElements_INCLUDED
 #define JXXON_Accessor_GetMapElements_INCLUDED
 
-namespace JXXON { namespace Accessor {
-namespace {
+#include "JXXON/Error.h"
+#include "JXXON/Json.h"
+#include "JXXON/Json/Impl.h"
+
+namespace JXXON { namespace Accessor { namespace {
 
 template<typename T>
-void populateMap(Json::MapType<T>& map, const ::Json::Value& value, const std::function<T(const ::Json::Value::const_iterator&)>& valueAsT)
+void populateMap(
+	Json::MapType<T>& map,
+	const ::Json::Value& value,
+	const std::function<T(const ::Json::Value::const_iterator&)>& valueAsT)
 {
 	if (!value.isNull()) {
 		if (value.isObject()) {
 			try {
 				for (auto i = value.begin(); i != value.end(); ++i) {
-					map.addElement(i.key().asString(), i->isNull() ?  T() : T(valueAsT(i)));
+					map.addElement(i.key().asString(), i->isNull() ? T() : T(valueAsT(i)));
 				}
 			} catch (std::exception& e) {
 				throw Error(e.what());
@@ -29,7 +35,6 @@ void populateMap(Json::MapType<T>& map, const ::Json::Value& value, const std::f
 	}
 }
 
-} // namespace
-}} // namespace JXXON::Accessor
+}}} // namespace JXXON::Accessor::
 
 #endif // JXXON_Accessor_GetMapElements_INCLUDED

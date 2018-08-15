@@ -6,8 +6,8 @@
 
 
 #include "JXXON/Vector.h"
-#include <string>
 #include "Model/Object.tcc"
+#include <string>
 
 namespace Model {
 

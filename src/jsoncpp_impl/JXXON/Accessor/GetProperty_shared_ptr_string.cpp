@@ -4,9 +4,7 @@
 // SPDX-License-Identifier:	BSL-1.0
 //
 
-#include "JXXON/Error.h"
-#include "JXXON/Json.h"
-#include "JXXON/Json/Impl.h"
+
 #include "JXXON/Accessor/GetProperty_shared_ptr.tcc"
 #include <cstdint>
 
@@ -20,7 +18,7 @@ GetProperty<std::shared_ptr<std::string>>::GetProperty(const Json& json, const s
 template<>
 std::shared_ptr<std::string> GetProperty<std::shared_ptr<std::string>>::operator()() const
 {
-	return getChild<std::shared_ptr<std::string>>(json.pimpl->value, name, [](const ::Json::Value& value){return value.asString();});
+	return getChild<std::shared_ptr<std::string>>(json.pimpl->value, name, [](const ::Json::Value& value) { return value.asString(); });
 }
 
 template GetProperty<std::shared_ptr<std::string>>::GetProperty(const Json& json, const std::string& name);

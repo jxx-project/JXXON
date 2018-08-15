@@ -4,9 +4,7 @@
 // SPDX-License-Identifier:	BSL-1.0
 //
 
-#include "JXXON/Error.h"
-#include "JXXON/Json.h"
-#include "JXXON/Json/Impl.h"
+
 #include "JXXON/Accessor/GetMapElements.tcc"
 #include <cstdint>
 
@@ -20,7 +18,7 @@ GetMapElements<float>::GetMapElements(const Json& json) : json(json)
 template<>
 void GetMapElements<float>::operator()(Json::MapType<float>& map) const
 {
-	populateMap<float>(map, json.pimpl->value, [](const ::Json::Value::const_iterator& i){return i->asFloat();});
+	populateMap<float>(map, json.pimpl->value, [](const ::Json::Value::const_iterator& i) { return i->asFloat(); });
 }
 
 template GetMapElements<float>::GetMapElements(const Json& json);
@@ -34,7 +32,7 @@ GetMapElements<double>::GetMapElements(const Json& json) : json(json)
 template<>
 void GetMapElements<double>::operator()(Json::MapType<double>& map) const
 {
-	populateMap<double>(map, json.pimpl->value, [](const ::Json::Value::const_iterator& i){return i->asDouble();});
+	populateMap<double>(map, json.pimpl->value, [](const ::Json::Value::const_iterator& i) { return i->asDouble(); });
 }
 
 template GetMapElements<double>::GetMapElements(const Json& json);

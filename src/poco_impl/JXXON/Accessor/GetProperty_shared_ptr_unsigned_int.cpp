@@ -4,9 +4,7 @@
 // SPDX-License-Identifier:	BSL-1.0
 //
 
-#include "JXXON/Error.h"
-#include "JXXON/Json.h"
-#include "JXXON/Json/Impl.h"
+
 #include "JXXON/Accessor/GetProperty_shared_ptr.tcc"
 #include <cstdint>
 
@@ -33,7 +31,9 @@ template GetProperty<std::shared_ptr<std::uint64_t>>::GetProperty(const Json& js
 template std::shared_ptr<std::uint64_t> GetProperty<std::shared_ptr<std::uint64_t>>::operator()() const;
 #endif
 
-#if (_SIZEOF_UINTMAX_T + 0) && !((_SIZEOF_UINTMAX_T + 0) == (_SIZEOF_UINT8_T + 0) || (_SIZEOF_UINTMAX_T + 0) == (_SIZEOF_UINT16_T + 0) || (_SIZEOF_UINTMAX_T + 0) == (_SIZEOF_UINT32_T + 0) || (_SIZEOF_UINTMAX_T + 0) == (_SIZEOF_UINT64_T + 0))
+#if (_SIZEOF_UINTMAX_T + 0) && \
+	!((_SIZEOF_UINTMAX_T + 0) == (_SIZEOF_UINT8_T + 0) || (_SIZEOF_UINTMAX_T + 0) == (_SIZEOF_UINT16_T + 0) || \
+	  (_SIZEOF_UINTMAX_T + 0) == (_SIZEOF_UINT32_T + 0) || (_SIZEOF_UINTMAX_T + 0) == (_SIZEOF_UINT64_T + 0))
 template GetProperty<std::shared_ptr<std::uintmax_t>>::GetProperty(const Json& json, const std::string& name);
 template std::shared_ptr<std::uintmax_t> GetProperty<std::shared_ptr<std::uintmax_t>>::operator()() const;
 #endif

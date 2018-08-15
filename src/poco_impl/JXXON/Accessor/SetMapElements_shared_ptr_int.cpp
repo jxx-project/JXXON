@@ -4,9 +4,7 @@
 // SPDX-License-Identifier:	BSL-1.0
 //
 
-#include "JXXON/Error.h"
-#include "JXXON/Json.h"
-#include "JXXON/Json/Impl.h"
+
 #include "JXXON/Accessor/SetMapElements_shared_ptr.tcc"
 #include <cstdint>
 
@@ -33,7 +31,9 @@ template SetMapElements<std::shared_ptr<std::int64_t>>::SetMapElements(Json& jso
 template void SetMapElements<std::shared_ptr<std::int64_t>>::operator()(const Json::MapType<std::shared_ptr<std::int64_t>>& map);
 #endif
 
-#if (_SIZEOF_INTMAX_T + 0) && !((_SIZEOF_INTMAX_T + 0) == (_SIZEOF_INT8_T + 0) || (_SIZEOF_INTMAX_T + 0) == (_SIZEOF_INT16_T + 0) || (_SIZEOF_INTMAX_T + 0) == (_SIZEOF_INT32_T + 0) || (_SIZEOF_INTMAX_T + 0) == (_SIZEOF_INT64_T + 0))
+#if (_SIZEOF_INTMAX_T + 0) && \
+	!((_SIZEOF_INTMAX_T + 0) == (_SIZEOF_INT8_T + 0) || (_SIZEOF_INTMAX_T + 0) == (_SIZEOF_INT16_T + 0) || \
+	  (_SIZEOF_INTMAX_T + 0) == (_SIZEOF_INT32_T + 0) || (_SIZEOF_INTMAX_T + 0) == (_SIZEOF_INT64_T + 0))
 template SetMapElements<std::shared_ptr<std::intmax_t>>::SetMapElements(Json& json);
 template void SetMapElements<std::shared_ptr<std::intmax_t>>::operator()(const Json::MapType<std::shared_ptr<std::intmax_t>>& map);
 #endif

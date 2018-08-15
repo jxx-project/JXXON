@@ -8,20 +8,34 @@
 #ifndef JXXON_Accessor_GetArrayElements_shared_ptr_INCLUDED
 #define JXXON_Accessor_GetArrayElements_shared_ptr_INCLUDED
 
+#include "JXXON/Error.h"
+#include "JXXON/Json.h"
+#include "JXXON/Json/Impl.h"
+
 namespace JXXON { namespace Accessor {
 
 template<typename T>
-GetArrayElements<T, typename std::enable_if<!std::is_base_of<Json::Serializable, T>::value && !std::is_convertible<T, std::shared_ptr<Json::Serializable>>::value>::type>::GetArrayElements(const Json& json) : json(json)
+GetArrayElements<
+	T,
+	typename std::enable_if<
+		!std::is_base_of<Json::Serializable, T>::value &&
+		!std::is_convertible<T, std::shared_ptr<Json::Serializable>>::value>::type>::GetArrayElements(const Json& json) :
+	json(json)
 {
 }
 
 template<typename T>
-void GetArrayElements<T, typename std::enable_if<!std::is_base_of<Json::Serializable, T>::value && !std::is_convertible<T, std::shared_ptr<Json::Serializable>>::value>::type>::operator()(Json::ArrayType<T>& array) const
+void GetArrayElements<
+	T,
+	typename std::enable_if<
+		!std::is_base_of<Json::Serializable, T>::value &&
+		!std::is_convertible<T, std::shared_ptr<Json::Serializable>>::value>::type>::operator()(Json::ArrayType<T>& array) const
 {
 	if (json.pimpl) {
 		try {
 			for (const auto& i : json.pimpl->getArray()) {
-				array.addElement(i.isEmpty() ? nullptr : std::make_shared<typename T::element_type>(i.convert<typename T::element_type>()));
+				array.addElement(
+					i.isEmpty() ? nullptr : std::make_shared<typename T::element_type>(i.convert<typename T::element_type>()));
 			}
 		} catch (Poco::Exception& e) {
 			throw Error(e.message());

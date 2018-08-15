@@ -111,7 +111,8 @@ std::istream& operator>>(std::istream& in, Json& json)
 	std::string document(std::istreambuf_iterator<char>(in), eos);
 	std::string errors;
 	std::unique_ptr<Json::Impl> pimpl(new Json::Impl);
-	if (CharReader::getInstance().parse(document.c_str(), document.c_str() + document.size(), &pimpl->value, &errors) && !pimpl->value.isNull()) {
+	if (CharReader::getInstance().parse(document.c_str(), document.c_str() + document.size(), &pimpl->value, &errors) &&
+		!pimpl->value.isNull()) {
 		json.pimpl = std::move(pimpl);
 	} else {
 		in.setstate(std::ios::failbit);
@@ -125,14 +126,16 @@ std::ostream& operator<<(std::ostream& out, const Json& json)
 	return out;
 }
 
-Json::Impl::Impl() {
+Json::Impl::Impl()
+{
 }
 
 Json::Impl::Impl(const ::Json::Value& value) : value(value)
 {
 }
 
-::Json::Value Json::Impl::createEmptyObject() {
+::Json::Value Json::Impl::createEmptyObject()
+{
 	::Json::Value result;
 	result["dummy"] = "dummy";
 	result.removeMember("dummy");

@@ -4,9 +4,7 @@
 // SPDX-License-Identifier:	BSL-1.0
 //
 
-#include "JXXON/Error.h"
-#include "JXXON/Json.h"
-#include "JXXON/Json/Impl.h"
+
 #include "JXXON/Accessor/GetProperty.tcc"
 #include <cstdint>
 
@@ -20,7 +18,7 @@ GetProperty<bool>::GetProperty(const Json& json, const std::string& name) : json
 template<>
 bool GetProperty<bool>::operator()() const
 {
-	return getChild<bool>(json.pimpl->value, name, [](const ::Json::Value& value){return value.asBool();});
+	return getChild<bool>(json.pimpl->value, name, [](const ::Json::Value& value) { return value.asBool(); });
 }
 
 template GetProperty<bool>::GetProperty(const Json& json, const std::string& name);

@@ -8,10 +8,10 @@
 #ifndef JXXON_Json_Impl_INCLUDED
 #define JXXON_Json_Impl_INCLUDED
 
-#include <string>
-#include <ostream>
-#include <Poco/JSON/Object.h>
 #include <Poco/JSON/Array.h>
+#include <Poco/JSON/Object.h>
+#include <ostream>
+#include <string>
 
 namespace JXXON {
 

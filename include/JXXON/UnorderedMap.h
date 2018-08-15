@@ -14,7 +14,7 @@
 namespace JXXON {
 
 /// Alias template composing std::unordered_map<std::string, T> and implementing JXXON::Serializable.
-template <class T>
+template<class T>
 using UnorderedMap = Json::Map<T, Base::UnorderedMap>;
 
 } // namespace JXXON
