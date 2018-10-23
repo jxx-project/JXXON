@@ -210,7 +210,7 @@ void Json::append(const Json& element)
 void Json::append(const std::function<void(const Json& element)>& append) const
 {
 	auto& impl = pimpl->getArray();
-	for (int i = 0; i != impl.size(); ++i) {
+	for (std::size_t i = 0; i != impl.size(); ++i) {
 		if (impl.isNull(i)) {
 			append(Json());
 		} else {
