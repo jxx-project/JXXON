@@ -23,16 +23,6 @@ public:
 	{
 	}
 
-	/// Construct unordered map of size n of default constructed elements.
-	explicit UnorderedMap(typename UnorderedMap::size_type n) : Polymorphic::UnorderedMap<std::string, T>(n)
-	{
-	}
-
-	/// Construct unordered map of size n of copy of value constructed elements.
-	UnorderedMap(typename UnorderedMap::size_type n, const T& value) : Polymorphic::UnorderedMap<std::string, T>(n, value)
-	{
-	}
-
 	/// Construct unordered map with emplace constructed elements of range [first, last).
 	template<typename InputIterator>
 	UnorderedMap(InputIterator first, InputIterator last) : Polymorphic::UnorderedMap<std::string, T>(first, last)
@@ -65,7 +55,7 @@ public:
 	}
 
 	/// Virtual destructor.
-	~UnorderedMap()
+	virtual ~UnorderedMap()
 	{
 	}
 

@@ -65,7 +65,7 @@ public:
 	}
 
 	/// Virtual destructor.
-	~Vector()
+	virtual ~Vector()
 	{
 	}
 

@@ -23,16 +23,6 @@ public:
 	{
 	}
 
-	/// Construct map of size n of default constructed elements.
-	explicit Map(typename Map::size_type n) : Polymorphic::Map<std::string, T>(n)
-	{
-	}
-
-	/// Construct map of size n of copy of value constructed elements.
-	Map(typename Map::size_type n, const T& value) : Polymorphic::Map<std::string, T>(n, value)
-	{
-	}
-
 	/// Construct map with emplace constructed elements of range [first, last).
 	template<typename InputIterator>
 	Map(InputIterator first, InputIterator last) : Polymorphic::Map<std::string, T>(first, last)
@@ -65,7 +55,7 @@ public:
 	}
 
 	/// Virtual destructor.
-	~Map()
+	virtual ~Map()
 	{
 	}
 
