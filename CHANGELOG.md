@@ -5,6 +5,9 @@
 - Support std::int8_t, std::uint8_t, std::int16_t, std::uint16_t, std::int32_t, std::uint32_t.
 - Container assignment operators.
 
+### Changed
+- Removed dead end fill constructors from Map and UnorderedMap.
+
 ## 1.1.0 — 2018-04-19
 ### Added
 - CMake target version.
