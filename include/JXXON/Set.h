@@ -15,7 +15,7 @@ namespace JXXON {
 
 /// Alias template composing std::set<T> and implementing JXXON::Serializable.
 template<typename T>
-using Set = Json::Set<T, Base::Set>;
+using Set = Json::Array<T, Base::Set>;
 
 } // namespace JXXON
 

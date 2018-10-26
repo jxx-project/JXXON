@@ -8,7 +8,7 @@
 #ifndef JXXON_EqualTo_INCLUDED
 #define JXXON_EqualTo_INCLUDED
 
-#include "JXXON/Base/IsSharedPtr.h"
+#include "JXXON/IsSharedPtr.h"
 
 namespace JXXON {
 

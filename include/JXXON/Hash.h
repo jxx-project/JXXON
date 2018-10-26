@@ -8,7 +8,7 @@
 #ifndef JXXON_Hash_INCLUDED
 #define JXXON_Hash_INCLUDED
 
-#include "JXXON/Base/IsSharedPtr.h"
+#include "JXXON/IsSharedPtr.h"
 
 namespace JXXON {
 
