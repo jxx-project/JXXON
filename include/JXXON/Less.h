@@ -8,7 +8,7 @@
 #ifndef JXXON_Less_INCLUDED
 #define JXXON_Less_INCLUDED
 
-#include "JXXON/Base/IsSharedPtr.h"
+#include "JXXON/IsSharedPtr.h"
 
 namespace JXXON {
 
