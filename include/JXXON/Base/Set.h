@@ -8,8 +8,8 @@
 #ifndef JXXON_Base_Set_INCLUDED
 #define JXXON_Base_Set_INCLUDED
 
-#include "JXXON/Compare.h"
 #include "JXXON/Json.h"
+#include "JXXON/Less.h"
 #include <Polymorphic/Set.h>
 
 namespace JXXON { namespace Base {
@@ -92,7 +92,7 @@ public:
 
 	virtual void addElement(const T& element) override
 	{
-		this->emplace_back(element);
+		this->emplace(element);
 	}
 
 	virtual void forEach(const std::function<void(const T& element)>& f) const override
