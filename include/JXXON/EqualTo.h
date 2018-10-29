@@ -9,6 +9,7 @@
 #define JXXON_EqualTo_INCLUDED
 
 #include "JXXON/IsSharedPtr.h"
+#include <functional>
 
 namespace JXXON {
 
