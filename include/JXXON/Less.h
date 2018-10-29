@@ -9,6 +9,7 @@
 #define JXXON_Less_INCLUDED
 
 #include "JXXON/IsSharedPtr.h"
+#include <functional>
 
 namespace JXXON {
 

@@ -8,6 +8,8 @@
 #ifndef JXXON_IsSharedPtr_INCLUDED
 #define JXXON_IsSharedPtr_INCLUDED
 
+#include <memory>
+
 namespace JXXON {
 
 template<typename T>
