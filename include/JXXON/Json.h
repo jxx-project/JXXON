@@ -80,7 +80,7 @@ public:
 	};
 
 	/// Interface implemented by JSON array type containers.
-	template<class T>
+	template<typename T>
 	class ArrayType
 	{
 	public:
@@ -201,7 +201,7 @@ public:
 	};
 
 	/// Interface implemented by JSON map type containers.
-	template<class T>
+	template<typename T>
 	class MapType
 	{
 	public:
