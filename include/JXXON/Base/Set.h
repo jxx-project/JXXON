@@ -14,7 +14,7 @@
 
 namespace JXXON { namespace Base {
 
-/// Extension of Polymorphic::Set<T> implementing JXXON::Json::ArrayType<T>.
+/// Extension of Polymorphic::Set<T, Compare> implementing JXXON::Json::ArrayType<T>.
 template<typename T, typename Compare = JXXON::Less<T>>
 class Set : public Polymorphic::Set<T, Compare>, public JXXON::Json::ArrayType<T>
 {
@@ -26,32 +26,32 @@ public:
 
 	/// Construct set with emplace constructed elements of range [first, last).
 	template<typename InputIterator>
-	Set(InputIterator first, InputIterator last) : Polymorphic::Set<T>(first, last)
+	Set(InputIterator first, InputIterator last) : Polymorphic::Set<T, Compare>(first, last)
 	{
 	}
 
 	/// Copy construct set.
-	Set(const Set& other) : Polymorphic::Set<T>(other)
+	Set(const Set& other) : Polymorphic::Set<T, Compare>(other)
 	{
 	}
 
 	/// Move construct set.
-	Set(Set&& other) : Polymorphic::Set<T>(std::move(other))
+	Set(Set&& other) : Polymorphic::Set<T, Compare>(std::move(other))
 	{
 	}
 
 	/// Initializer list constructor.
-	Set(std::initializer_list<T> initializerSet) : Polymorphic::Set<T>(initializerSet)
+	Set(std::initializer_list<T> initializerSet) : Polymorphic::Set<T, Compare>(initializerSet)
 	{
 	}
 
 	/// Copy construct set from delegate type.
-	Set(const typename Set::DelegateType& other) : Polymorphic::Set<T>(other)
+	Set(const typename Set::DelegateType& other) : Polymorphic::Set<T, Compare>(other)
 	{
 	}
 
 	/// Move construct set from delegate type.
-	Set(typename Set::DelegateType&& other) : Polymorphic::Set<T>(std::move(other))
+	Set(typename Set::DelegateType&& other) : Polymorphic::Set<T, Compare>(std::move(other))
 	{
 	}
 
@@ -63,31 +63,31 @@ public:
 	/// Copy assign set.
 	Set& operator=(const Set& other)
 	{
-		return static_cast<Set&>(Polymorphic::Set<T>::operator=(other));
+		return static_cast<Set&>(Polymorphic::Set<T, Compare>::operator=(other));
 	}
 
 	/// Move assign set.
 	Set& operator=(Set&& other)
 	{
-		return static_cast<Set&>(Polymorphic::Set<T>::operator=(std::move(other)));
+		return static_cast<Set&>(Polymorphic::Set<T, Compare>::operator=(std::move(other)));
 	}
 
 	/// Initializer list assignment.
 	Set& operator=(std::initializer_list<T> initializerSet)
 	{
-		return static_cast<Set&>(Polymorphic::Set<T>::operator=(initializerSet));
+		return static_cast<Set&>(Polymorphic::Set<T, Compare>::operator=(initializerSet));
 	}
 
 	/// Copy assign delegate type set.
 	Set& operator=(const typename Set::DelegateType& other)
 	{
-		return static_cast<Set&>(Polymorphic::Set<T>::operator=(other));
+		return static_cast<Set&>(Polymorphic::Set<T, Compare>::operator=(other));
 	}
 
 	/// Move assign delegate type set.
 	Set& operator=(typename Set::DelegateType&& other)
 	{
-		return static_cast<Set&>(Polymorphic::Set<T>::operator=(std::move(other)));
+		return static_cast<Set&>(Polymorphic::Set<T, Compare>::operator=(std::move(other)));
 	}
 
 	virtual void addElement(const T& element) override
