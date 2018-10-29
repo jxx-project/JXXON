@@ -13,9 +13,12 @@
 
 namespace JXXON {
 
-/// Alias template composing std::map<std::string, T> and implementing JXXON::Serializable.
-template<class T>
-using Map = Json::Map<T, Base::Map>;
+/// Alias template composing std::map<std::string, T, Compare, Allocator> and implementing JXXON::Serializable.
+template<
+	typename T,
+	typename Compare = std::less<std::string>,
+	typename Allocator = std::allocator<std::pair<const std::string, T>>>
+using Map = Json::Map<T, Base::Map, Compare, Allocator>;
 
 } // namespace JXXON
 
