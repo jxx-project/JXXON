@@ -13,9 +13,9 @@
 
 namespace JXXON { namespace Base {
 
-/// Extension of Polymorphic::List<T> implementing JXXON::Json::ArrayType<T>.
-template<class T>
-class List : public Polymorphic::List<T>, public JXXON::Json::ArrayType<T>
+/// Extension of Polymorphic::List<T, Allocator> implementing JXXON::Json::ArrayType<T>.
+template<typename T, typename Allocator = std::allocator<T>>
+class List : public Polymorphic::List<T, Allocator>, public JXXON::Json::ArrayType<T>
 {
 public:
 	/// Construct empty list.
@@ -24,43 +24,43 @@ public:
 	}
 
 	/// Construct list of size n of default constructed elements.
-	explicit List(typename List::size_type n) : Polymorphic::List<T>(n)
+	explicit List(typename List::size_type n) : Polymorphic::List<T, Allocator>(n)
 	{
 	}
 
 	/// Construct list of size n of copy of value constructed elements.
-	List(typename List::size_type n, const T& value) : Polymorphic::List<T>(n, value)
+	List(typename List::size_type n, const T& value) : Polymorphic::List<T, Allocator>(n, value)
 	{
 	}
 
 	/// Construct list with emplace constructed elements of range [first, last).
 	template<typename InputIterator>
-	List(InputIterator first, InputIterator last) : Polymorphic::List<T>(first, last)
+	List(InputIterator first, InputIterator last) : Polymorphic::List<T, Allocator>(first, last)
 	{
 	}
 
 	/// Copy construct list.
-	List(const List& other) : Polymorphic::List<T>(other)
+	List(const List& other) : Polymorphic::List<T, Allocator>(other)
 	{
 	}
 
 	/// Move construct list.
-	List(List&& other) : Polymorphic::List<T>(std::move(other))
+	List(List&& other) : Polymorphic::List<T, Allocator>(std::move(other))
 	{
 	}
 
 	/// Initializer list constructor.
-	List(std::initializer_list<T> initializerList) : Polymorphic::List<T>(initializerList)
+	List(std::initializer_list<T> initializerList) : Polymorphic::List<T, Allocator>(initializerList)
 	{
 	}
 
 	/// Copy construct list from delegate type.
-	List(const typename List::DelegateType& other) : Polymorphic::List<T>(other)
+	List(const typename List::DelegateType& other) : Polymorphic::List<T, Allocator>(other)
 	{
 	}
 
 	/// Move construct list from delegate type.
-	List(typename List::DelegateType&& other) : Polymorphic::List<T>(std::move(other))
+	List(typename List::DelegateType&& other) : Polymorphic::List<T, Allocator>(std::move(other))
 	{
 	}
 
@@ -72,31 +72,31 @@ public:
 	/// Copy assign list.
 	List& operator=(const List& other)
 	{
-		return static_cast<List&>(Polymorphic::List<T>::operator=(other));
+		return static_cast<List&>(Polymorphic::List<T, Allocator>::operator=(other));
 	}
 
 	/// Move assign list.
 	List& operator=(List&& other)
 	{
-		return static_cast<List&>(Polymorphic::List<T>::operator=(std::move(other)));
+		return static_cast<List&>(Polymorphic::List<T, Allocator>::operator=(std::move(other)));
 	}
 
 	/// Initializer list assignment.
 	List& operator=(std::initializer_list<T> initializerList)
 	{
-		return static_cast<List&>(Polymorphic::List<T>::operator=(initializerList));
+		return static_cast<List&>(Polymorphic::List<T, Allocator>::operator=(initializerList));
 	}
 
 	/// Copy assign delegate type list.
 	List& operator=(const typename List::DelegateType& other)
 	{
-		return static_cast<List&>(Polymorphic::List<T>::operator=(other));
+		return static_cast<List&>(Polymorphic::List<T, Allocator>::operator=(other));
 	}
 
 	/// Move assign delegate type list.
 	List& operator=(typename List::DelegateType&& other)
 	{
-		return static_cast<List&>(Polymorphic::List<T>::operator=(std::move(other)));
+		return static_cast<List&>(Polymorphic::List<T, Allocator>::operator=(std::move(other)));
 	}
 
 	virtual void addElement(const T& element) override

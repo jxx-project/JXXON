@@ -13,9 +13,9 @@
 
 namespace JXXON { namespace Base {
 
-/// Extension of Polymorphic::Vector<T> implementing JXXON::Json::ArrayType<T>.
-template<class T>
-class Vector : public Polymorphic::Vector<T>, public JXXON::Json::ArrayType<T>
+/// Extension of Polymorphic::Vector<T, Allocator> implementing JXXON::Json::ArrayType<T>.
+template<typename T, typename Allocator = std::allocator<T>>
+class Vector : public Polymorphic::Vector<T, Allocator>, public JXXON::Json::ArrayType<T>
 {
 public:
 	/// Construct empty vector.
@@ -24,43 +24,43 @@ public:
 	}
 
 	/// Construct vector of size n of default constructed elements.
-	explicit Vector(typename Vector::size_type n) : Polymorphic::Vector<T>(n)
+	explicit Vector(typename Vector::size_type n) : Polymorphic::Vector<T, Allocator>(n)
 	{
 	}
 
 	/// Construct vector of size n of copy of value constructed elements.
-	Vector(typename Vector::size_type n, const T& value) : Polymorphic::Vector<T>(n, value)
+	Vector(typename Vector::size_type n, const T& value) : Polymorphic::Vector<T, Allocator>(n, value)
 	{
 	}
 
 	/// Construct vector with emplace constructed elements of range [first, last).
 	template<typename InputIterator>
-	Vector(InputIterator first, InputIterator last) : Polymorphic::Vector<T>(first, last)
+	Vector(InputIterator first, InputIterator last) : Polymorphic::Vector<T, Allocator>(first, last)
 	{
 	}
 
 	/// Copy construct vector.
-	Vector(const Vector& other) : Polymorphic::Vector<T>(other)
+	Vector(const Vector& other) : Polymorphic::Vector<T, Allocator>(other)
 	{
 	}
 
 	/// Move construct vector.
-	Vector(Vector&& other) : Polymorphic::Vector<T>(std::move(other))
+	Vector(Vector&& other) : Polymorphic::Vector<T, Allocator>(std::move(other))
 	{
 	}
 
 	/// Initializer list constructor.
-	Vector(std::initializer_list<T> initializerList) : Polymorphic::Vector<T>(initializerList)
+	Vector(std::initializer_list<T> initializerList) : Polymorphic::Vector<T, Allocator>(initializerList)
 	{
 	}
 
 	/// Copy construct vector from delegate type.
-	Vector(const typename Vector::DelegateType& other) : Polymorphic::Vector<T>(other)
+	Vector(const typename Vector::DelegateType& other) : Polymorphic::Vector<T, Allocator>(other)
 	{
 	}
 
 	/// Move construct vector from delegate type.
-	Vector(typename Vector::DelegateType&& other) : Polymorphic::Vector<T>(std::move(other))
+	Vector(typename Vector::DelegateType&& other) : Polymorphic::Vector<T, Allocator>(std::move(other))
 	{
 	}
 
@@ -72,31 +72,31 @@ public:
 	/// Copy assign vector.
 	Vector& operator=(const Vector& other)
 	{
-		return static_cast<Vector&>(Polymorphic::Vector<T>::operator=(other));
+		return static_cast<Vector&>(Polymorphic::Vector<T, Allocator>::operator=(other));
 	}
 
 	/// Move assign vector.
 	Vector& operator=(Vector&& other)
 	{
-		return static_cast<Vector&>(Polymorphic::Vector<T>::operator=(std::move(other)));
+		return static_cast<Vector&>(Polymorphic::Vector<T, Allocator>::operator=(std::move(other)));
 	}
 
 	/// Initializer list assignment.
 	Vector& operator=(std::initializer_list<T> initializerList)
 	{
-		return static_cast<Vector&>(Polymorphic::Vector<T>::operator=(initializerList));
+		return static_cast<Vector&>(Polymorphic::Vector<T, Allocator>::operator=(initializerList));
 	}
 
 	/// Copy assign delegate type vector.
 	Vector& operator=(const typename Vector::DelegateType& other)
 	{
-		return static_cast<Vector&>(Polymorphic::Vector<T>::operator=(other));
+		return static_cast<Vector&>(Polymorphic::Vector<T, Allocator>::operator=(other));
 	}
 
 	/// Move assign delegate type vector.
 	Vector& operator=(typename Vector::DelegateType&& other)
 	{
-		return static_cast<Vector&>(Polymorphic::Vector<T>::operator=(std::move(other)));
+		return static_cast<Vector&>(Polymorphic::Vector<T, Allocator>::operator=(std::move(other)));
 	}
 
 	virtual void addElement(const T& element) override
