@@ -16,7 +16,7 @@ namespace JXXON {
 
 /// Alias template composing std::set<Key, Compare, Allocator> and implementing JXXON::Serializable.
 template<typename Key, typename Compare = Less<Key>, typename Allocator = std::allocator<Key>>
-using Set = Json::Array<Key, Base::Set, Compare>;
+using Set = Json::Array<Key, Base::Set, Compare, Allocator>;
 
 } // namespace JXXON
 
