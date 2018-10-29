@@ -10,12 +10,13 @@
 
 #include "JXXON/Base/Set.h"
 #include "JXXON/Json.h"
+#include "JXXON/Less.h"
 
 namespace JXXON {
 
-/// Alias template composing std::set<T> and implementing JXXON::Serializable.
-template<typename T>
-using Set = Json::Array<T, Base::Set>;
+/// Alias template composing std::set<Key, Compare, Allocator> and implementing JXXON::Serializable.
+template<typename Key, typename Compare = Less<Key>, typename Allocator = std::allocator<Key>>
+using Set = Json::Array<Key, Base::Set, Compare>;
 
 } // namespace JXXON
 
