@@ -75,6 +75,14 @@ target_link_libraries(unorderedSetTest
 	Model
 	${jxxon_impl_LIBRARIES})
 
+add_executable(unorderedMultisetTest unorderedMultisetTest.cpp)
+target_include_directories(unorderedMultisetTest PRIVATE
+	$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>)
+target_link_libraries(unorderedMultisetTest
+	${PROJECT_NAME}::ObjectMapper
+	Model
+	${jxxon_impl_LIBRARIES})
+
 add_executable(miscellaneousTest miscellaneousTest.cpp)
 target_include_directories(miscellaneousTest PRIVATE
 	$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>)

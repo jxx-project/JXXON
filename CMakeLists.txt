@@ -111,5 +111,8 @@ add_dependencies(check multisetTest)
 add_test(NAME UnorderedSetTest COMMAND unorderedSetTest)
 add_dependencies(check unorderedSetTest)
 
+add_test(NAME UnorderedMultisetTest COMMAND unorderedMultisetTest)
+add_dependencies(check unorderedMultisetTest)
+
 add_test(NAME MiscellaneousTest COMMAND miscellaneousTest)
 add_dependencies(check miscellaneousTest)
