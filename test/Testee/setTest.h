@@ -22,7 +22,7 @@ namespace Testee {
 
 /// Test Arrays.
 template<template<typename...> class ArrayType>
-int arrayTest(const std::string& arrayType)
+int setTest(const std::string& arrayType)
 {
 	bool failed = false;
 
