@@ -98,7 +98,7 @@ public:
 
 	/// Extension of Base<T, Args...> implementing JXXON::Serializable. Use alias templates JXXON::Vector, JXXON::Deque,
 	/// JXXON::List, JXXON::Set, JXXON::Multiset, JXXON::UnorderedSet, JXXON::UnorderedMultiset for referring actual instantiations.
-	template<typename T, template<class, class...> class Base, class... Args>
+	template<typename T, template<typename, typename...> class Base, typename... Args>
 	class Array : public Base<T, Args...>, public Serializable
 	{
 	public:
