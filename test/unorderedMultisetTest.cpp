@@ -10,5 +10,5 @@
 
 int main(int argc, char* argv[])
 {
-	return Testee::setTest<JXXON::UnorderedMultiset>("JXXON::UnorderedMultiset");
+	return Testee::setTest<JXXON::UnorderedMultiset, true>("JXXON::UnorderedMultiset");
 }

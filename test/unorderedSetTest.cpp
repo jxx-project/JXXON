@@ -10,5 +10,5 @@
 
 int main(int argc, char* argv[])
 {
-	return Testee::setTest<JXXON::UnorderedSet>("JXXON::UnorderedSet");
+	return Testee::setTest<JXXON::UnorderedSet, false>("JXXON::UnorderedSet");
 }

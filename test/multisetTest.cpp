@@ -10,5 +10,5 @@
 
 int main(int argc, char* argv[])
 {
-	return Testee::setTest<JXXON::Multiset>("JXXON::Multiset");
+	return Testee::setTest<JXXON::Multiset, true>("JXXON::Multiset");
 }

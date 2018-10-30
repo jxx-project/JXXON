@@ -10,5 +10,5 @@
 
 int main(int argc, char* argv[])
 {
-	return Testee::setTest<JXXON::Set>("JXXON::Set");
+	return Testee::setTest<JXXON::Set, false>("JXXON::Set");
 }
