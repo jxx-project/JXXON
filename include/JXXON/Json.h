@@ -80,7 +80,7 @@ public:
 	};
 
 	/// Interface implemented by JSON array type containers.
-	template<class T>
+	template<typename T>
 	class ArrayType
 	{
 	public:
@@ -96,10 +96,10 @@ public:
 		virtual void forEach(const std::function<void(const T& element)>& f) const = 0;
 	};
 
-	/// Extension of Base<T> implementing JXXON::Serializable. Use alias templates JXXON::Vector and JXXON::List for referring
-	/// actual instantiations.
-	template<typename T, template<typename...> class Base>
-	class Array : public Base<T>, public Serializable
+	/// Extension of Base<T, Args...> implementing JXXON::Serializable. Use alias templates JXXON::Vector, JXXON::Deque,
+	/// JXXON::List, JXXON::Set, JXXON::Multiset, JXXON::UnorderedSet, JXXON::UnorderedMultiset for referring actual instantiations.
+	template<typename T, template<typename, typename...> class Base, typename... Args>
+	class Array : public Base<T, Args...>, public Serializable
 	{
 	public:
 		/// Construct empty array.
@@ -108,43 +108,43 @@ public:
 		}
 
 		/// Construct array of size n of default constructed elements.
-		explicit Array(typename Base<T>::size_type n) : Base<T>(n)
+		explicit Array(typename Base<T, Args...>::size_type n) : Base<T, Args...>(n)
 		{
 		}
 
 		/// Construct array of size n of copy of value constructed elements.
-		Array(typename Base<T>::size_type n, const T& value) : Base<T>(n, value)
+		Array(typename Base<T, Args...>::size_type n, const T& value) : Base<T, Args...>(n, value)
 		{
 		}
 
 		/// Construct array with emplace constructed elements of range [first, last).
 		template<typename InputIterator>
-		Array(InputIterator first, InputIterator last) : Base<T>(first, last)
+		Array(InputIterator first, InputIterator last) : Base<T, Args...>(first, last)
 		{
 		}
 
 		/// Copy construct array.
-		Array(const Array& other) : Base<T>(other)
+		Array(const Array& other) : Base<T, Args...>(other)
 		{
 		}
 
 		/// Move construct array.
-		Array(Array&& other) : Base<T>(std::move(other))
+		Array(Array&& other) : Base<T, Args...>(std::move(other))
 		{
 		}
 
 		/// Initializer list constructor.
-		Array(std::initializer_list<T> initializerList) : Base<T>(initializerList)
+		Array(std::initializer_list<T> initializerList) : Base<T, Args...>(initializerList)
 		{
 		}
 
 		/// Copy construct array from delegate type.
-		Array(const typename Base<T>::DelegateType& other) : Base<T>(other)
+		Array(const typename Base<T, Args...>::DelegateType& other) : Base<T, Args...>(other)
 		{
 		}
 
 		/// Move construct array from delegate type.
-		Array(typename Base<T>::DelegateType&& other) : Base<T>(std::move(other))
+		Array(typename Base<T, Args...>::DelegateType&& other) : Base<T, Args...>(std::move(other))
 		{
 		}
 
@@ -164,31 +164,31 @@ public:
 		/// Copy assign array.
 		Array& operator=(const Array& other)
 		{
-			return static_cast<Array&>(Base<T>::operator=(other));
+			return static_cast<Array&>(Base<T, Args...>::operator=(other));
 		}
 
 		/// Move assign array.
 		Array& operator=(Array&& other)
 		{
-			return static_cast<Array&>(Base<T>::operator=(std::move(other)));
+			return static_cast<Array&>(Base<T, Args...>::operator=(std::move(other)));
 		}
 
 		/// Initializer list assignment.
 		Array& operator=(std::initializer_list<T> initializerList)
 		{
-			return static_cast<Array&>(Base<T>::operator=(initializerList));
+			return static_cast<Array&>(Base<T, Args...>::operator=(initializerList));
 		}
 
 		/// Copy assign delegate type array.
-		Array& operator=(const typename Base<T>::DelegateType& other)
+		Array& operator=(const typename Base<T, Args...>::DelegateType& other)
 		{
-			return static_cast<Array&>(Base<T>::operator=(other));
+			return static_cast<Array&>(Base<T, Args...>::operator=(other));
 		}
 
 		/// Move assign delegate type array.
-		Array& operator=(typename Base<T>::DelegateType&& other)
+		Array& operator=(typename Base<T, Args...>::DelegateType&& other)
 		{
-			return static_cast<Array&>(Base<T>::operator=(std::move(other)));
+			return static_cast<Array&>(Base<T, Args...>::operator=(std::move(other)));
 		}
 
 		virtual Json toJson() const override
@@ -201,7 +201,7 @@ public:
 	};
 
 	/// Interface implemented by JSON map type containers.
-	template<class T>
+	template<typename T>
 	class MapType
 	{
 	public:
@@ -217,10 +217,10 @@ public:
 		virtual void forEach(const std::function<void(const std::string& key, const T& value)>& f) const = 0;
 	};
 
-	/// Extension of Base<T> implementing JXXON::Serializable. Use alias templates JXXON::Map and JXXON::UnorderedMap for referring
-	/// actual instantiations.
-	template<typename T, template<typename...> class Base>
-	class Map : public Base<T>, public Serializable
+	/// Extension of Base<T, Args...> implementing JXXON::Serializable. Use alias templates JXXON::Map and JXXON::UnorderedMap for
+	/// referring actual instantiations.
+	template<typename T, template<typename, typename...> class Base, typename... Args>
+	class Map : public Base<T, Args...>, public Serializable
 	{
 	public:
 		/// Construct empty map
@@ -230,32 +230,32 @@ public:
 
 		/// Construct map with emplace constructed elements of range [first, last).
 		template<typename InputIterator>
-		Map(InputIterator first, InputIterator last) : Base<T>(first, last)
+		Map(InputIterator first, InputIterator last) : Base<T, Args...>(first, last)
 		{
 		}
 
 		/// Copy construct map.
-		Map(const Map& other) : Base<T>(other)
+		Map(const Map& other) : Base<T, Args...>(other)
 		{
 		}
 
 		/// Move construct map.
-		Map(Map&& other) : Base<T>(std::move(other))
+		Map(Map&& other) : Base<T, Args...>(std::move(other))
 		{
 		}
 
 		/// Initializer list constructor.
-		Map(std::initializer_list<std::pair<const std::string, T>> initializerList) : Base<T>(initializerList)
+		Map(std::initializer_list<std::pair<const std::string, T>> initializerList) : Base<T, Args...>(initializerList)
 		{
 		}
 
 		/// Copy construct map from delegate type.
-		Map(const typename Base<T>::DelegateType& other) : Base<T>(other)
+		Map(const typename Base<T, Args...>::DelegateType& other) : Base<T, Args...>(other)
 		{
 		}
 
 		/// Move construct map from delegate type.
-		Map(typename Base<T>::DelegateType&& other) : Base<T>(std::move(other))
+		Map(typename Base<T, Args...>::DelegateType&& other) : Base<T, Args...>(std::move(other))
 		{
 		}
 
@@ -275,31 +275,31 @@ public:
 		/// Copy assign map.
 		Map& operator=(const Map& other)
 		{
-			return static_cast<Map&>(Base<T>::operator=(other));
+			return static_cast<Map&>(Base<T, Args...>::operator=(other));
 		}
 
 		/// Move assign map.
 		Map& operator=(Map&& other)
 		{
-			return static_cast<Map&>(Base<T>::operator=(std::move(other)));
+			return static_cast<Map&>(Base<T, Args...>::operator=(std::move(other)));
 		}
 
 		/// Initializer list assignment.
 		Map& operator=(std::initializer_list<std::pair<const std::string, T>> initializerList)
 		{
-			return static_cast<Map&>(Base<T>::operator=(initializerList));
+			return static_cast<Map&>(Base<T, Args...>::operator=(initializerList));
 		}
 
 		/// Copy assign delegate type map.
-		Map& operator=(const typename Base<T>::DelegateType& other)
+		Map& operator=(const typename Base<T, Args...>::DelegateType& other)
 		{
-			return static_cast<Map&>(Base<T>::operator=(other));
+			return static_cast<Map&>(Base<T, Args...>::operator=(other));
 		}
 
 		/// Move assign delegate type map.
-		Map& operator=(typename Base<T>::DelegateType&& other)
+		Map& operator=(typename Base<T, Args...>::DelegateType&& other)
 		{
-			return static_cast<Map&>(Base<T>::operator=(std::move(other)));
+			return static_cast<Map&>(Base<T, Args...>::operator=(std::move(other)));
 		}
 
 		virtual Json toJson() const override
