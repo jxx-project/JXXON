@@ -93,6 +93,9 @@ add_dependencies(check objectTest)
 add_test(NAME VectorTest COMMAND vectorTest)
 add_dependencies(check vectorTest)
 
+add_test(NAME DequeTest COMMAND dequeTest)
+add_dependencies(check dequeTest)
+
 add_test(NAME ListTest COMMAND listTest)
 add_dependencies(check listTest)
 

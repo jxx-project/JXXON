@@ -27,6 +27,14 @@ target_link_libraries(vectorTest
 	Model
 	${jxxon_impl_LIBRARIES})
 
+add_executable(dequeTest dequeTest.cpp)
+target_include_directories(dequeTest PRIVATE
+	$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>)
+target_link_libraries(dequeTest
+	${PROJECT_NAME}::ObjectMapper
+	Model
+	${jxxon_impl_LIBRARIES})
+
 add_executable(listTest listTest.cpp)
 target_include_directories(listTest PRIVATE
 	$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>)
