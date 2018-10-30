@@ -135,12 +135,16 @@ public:
 						TestCase::assert_equal(other.size(), SizeType(1));
 					}),
 
-				TestCase("Delegate rvalue reference type conversion of " + arrayType + " of " + type, [&] {
-					ArrayType<T> array = {T()};
-					DelegateType other = static_cast<DelegateType&&>(array);
-					TestCase::assert_equal(array.size(), SizeType(0));
-					TestCase::assert_equal(other.size(), SizeType(1));
-				})})
+				TestCase(
+					"Delegate rvalue reference type conversion of " + arrayType + " of " + type,
+					[&] {
+						ArrayType<T> array = {T()};
+						DelegateType other = static_cast<DelegateType&&>(array);
+						TestCase::assert_equal(array.size(), SizeType(0));
+						TestCase::assert_equal(other.size(), SizeType(1));
+					})
+
+			})
 	{
 	}
 };

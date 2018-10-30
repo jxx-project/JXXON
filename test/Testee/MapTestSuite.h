@@ -135,12 +135,16 @@ public:
 						TestCase::assert_equal(other.size(), SizeType(1));
 					}),
 
-				TestCase("Delegate rvalue reference type conversion of " + mapType + " of " + type, [&] {
-					MapType<T> map = {std::make_pair(std::string(""), T())};
-					DelegateType other = static_cast<DelegateType&&>(map);
-					TestCase::assert_equal(map.size(), SizeType(0));
-					TestCase::assert_equal(other.size(), SizeType(1));
-				})})
+				TestCase(
+					"Delegate rvalue reference type conversion of " + mapType + " of " + type,
+					[&] {
+						MapType<T> map = {std::make_pair(std::string(""), T())};
+						DelegateType other = static_cast<DelegateType&&>(map);
+						TestCase::assert_equal(map.size(), SizeType(0));
+						TestCase::assert_equal(other.size(), SizeType(1));
+					})
+
+			})
 	{
 	}
 };
