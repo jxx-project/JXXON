@@ -1,12 +1,12 @@
 @startuml
 
 namespace std {
-	class "vector\nlist<T>" as ArrayBase
+	class "vector\ndeque\nlist\nset\nmultiset\nunordered_set\nunordered_multiset<T>" as ArrayBase
 	class "map\nunordered_map<std::string, T>" as MapBase
 }
 
 namespace Polymorphic {
-	class "Vector\nList<T>" as ArrayBase
+	class "Vector\nDeque\nList\nSet\nMultiset\nUnorderedSet\nUnorderedMultiset<T>" as ArrayBase
 	class "Map\nUnorderedMap<std::string, T>" as MapBase
 	ArrayBase *-> std.ArrayBase
 	MapBase *-> std.MapBase
@@ -40,7 +40,7 @@ namespace JXXON {
 	}
 	Json_MapType --+ Json
 	
-	class "Base::Vector\nBase::List<T>" as ArrayBase
+	class "Base::Vector\nBase::Deque\nBase::List\nBase::Set\nBase::Multiset\nBase::UnorderedSet\nBase::UnorderedMultiset<T>" as ArrayBase
 	class "Base::Map\nBase::UnorderedMap<T>" as MapBase
 	ArrayBase --|> Polymorphic.ArrayBase
 	ArrayBase --|> JXXON.Json_ArrayType
@@ -58,8 +58,23 @@ namespace JXXON {
 	class Vector<T> << typedef >>
 	Vector ..> Json_Array : <T, Base::Vector>
 	
+	class Deque<T> << typedef >>
+	Deque ..> Json_Array : <T, Base::Deque>
+	
 	class List<T> << typedef >>
 	List ..> Json_Array : <T, Base::List>
+	
+	class Set<T> << typedef >>
+	Set ..> Json_Array : <T, Base::Set>
+	
+	class Multiset<T> << typedef >>
+	Multiset ..> Json_Array : <T, Base::Multiset>
+	
+	class UnorderedSet<T> << typedef >>
+	UnorderedSet ..> Json_Array : <T, Base::UnorderedSet>
+	
+	class UnorderedMultiset<T> << typedef >>
+	UnorderedMultiset ..> Json_Array : <T, Base::UnorderedMultiset>
 	
 	class "Json::Map" as Json_Map<T, Base> {
 		+Json::Map::Map(Json)
