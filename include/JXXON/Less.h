@@ -16,6 +16,7 @@ namespace JXXON {
 template<typename T, typename Enable = void>
 struct Less;
 
+/// Functional forwarding to std::less for non-nullable elements.
 template<typename T>
 struct Less<T, typename std::enable_if<!IsSharedPtr<T>::value>::type>
 {
@@ -25,6 +26,7 @@ struct Less<T, typename std::enable_if<!IsSharedPtr<T>::value>::type>
 	}
 };
 
+/// Functional forwarding to std::less for nullable element targets. Null elements are considered equal to each other.
 template<typename T>
 struct Less<T, typename std::enable_if<IsSharedPtr<T>::value>::type>
 {

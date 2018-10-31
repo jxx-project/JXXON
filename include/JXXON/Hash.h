@@ -16,6 +16,7 @@ namespace JXXON {
 template<typename T, typename Enable = void>
 struct Hash;
 
+/// Functional forwarding to std::hash for non-nullable elements.
 template<typename T>
 struct Hash<T, typename std::enable_if<!IsSharedPtr<T>::value>::type>
 {
@@ -25,6 +26,7 @@ struct Hash<T, typename std::enable_if<!IsSharedPtr<T>::value>::type>
 	}
 };
 
+/// Functional forwarding to std::hash for nullable element targets.
 template<typename T>
 struct Hash<T, typename std::enable_if<IsSharedPtr<T>::value>::type>
 {
