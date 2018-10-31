@@ -1,0 +1,4 @@
+var structJXXON_1_1Less_3_01T_00_01typename_01std_1_1enable__if_3_9IsSharedPtr_3_01T_01_4_1_1value_01_4_1_1type_01_4 =
+[
+    [ "operator()", "structJXXON_1_1Less_3_01T_00_01typename_01std_1_1enable__if_3_9IsSharedPtr_3_01T_01_4_1_1value_01_4_1_1type_01_4.html#ac44fda1090a8e9a4d15f98fc9f5308ae", null ]
+];

@@ -1,4 +1,7 @@
 var searchData=
 [
-  ['foreach',['forEach',['../classJXXON_1_1Json_1_1ArrayType.html#abfe9654c78b6985ec21870d60c580e09',1,'JXXON::Json::ArrayType::forEach()'],['../classJXXON_1_1Json_1_1MapType.html#af90a3d744f118b5fcc83a66f6e6ace00',1,'JXXON::Json::MapType::forEach()']]]
+  ['equalto',['EqualTo',['../structJXXON_1_1EqualTo.html',1,'JXXON']]],
+  ['equalto_3c_20t_2c_20typename_20std_3a_3aenable_5fif_3c_20issharedptr_3c_20t_20_3e_3a_3avalue_20_3e_3a_3atype_20_3e',['EqualTo&lt; T, typename std::enable_if&lt; IsSharedPtr&lt; T &gt;::value &gt;::type &gt;',['../structJXXON_1_1EqualTo_3_01T_00_01typename_01std_1_1enable__if_3_01IsSharedPtr_3_01T_01_4_1_1value_01_4_1_1type_01_4.html',1,'JXXON']]],
+  ['equalto_3c_20t_2c_20typename_20std_3a_3aenable_5fif_3c_21issharedptr_3c_20t_20_3e_3a_3avalue_20_3e_3a_3atype_20_3e',['EqualTo&lt; T, typename std::enable_if&lt;!IsSharedPtr&lt; T &gt;::value &gt;::type &gt;',['../structJXXON_1_1EqualTo_3_01T_00_01typename_01std_1_1enable__if_3_9IsSharedPtr_3_01T_01_4_1_1value_01_4_1_1type_01_4.html',1,'JXXON']]],
+  ['error',['Error',['../classJXXON_1_1Error.html',1,'JXXON::Error'],['../classJXXON_1_1Error.html#ab77a94b4a1266549f0b7637dab8f4627',1,'JXXON::Error::Error()']]]
 ];

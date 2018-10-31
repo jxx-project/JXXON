@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['list',['List',['../namespaceJXXON.html#ac3db30413f877e9e3f8b288c349cb6a2',1,'JXXON']]]
+  ['deque',['Deque',['../namespaceJXXON.html#a25ac00dedb2f233c062c2b7bf0c40f4f',1,'JXXON']]]
 ];

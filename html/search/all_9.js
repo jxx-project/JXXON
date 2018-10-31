@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['serializable',['Serializable',['../classJXXON_1_1Json_1_1Serializable.html',1,'JXXON::Json']]],
-  ['serializable',['Serializable',['../namespaceJXXON.html#a36c6fb970503bc728d050a58c542a7de',1,'JXXON']]],
-  ['set',['set',['../classJXXON_1_1Json.html#a31c284ee52ada53bde00ce75bcdc3562',1,'JXXON::Json']]]
+  ['map',['Map',['../classJXXON_1_1Json_1_1Map.html',1,'JXXON::Json::Map&lt; T, Base, Args &gt;'],['../classJXXON_1_1Json_1_1Map.html#afeedc62ab2914f8dc10b340e50d5d577',1,'JXXON::Json::Map::Map()'],['../classJXXON_1_1Json_1_1Map.html#a1d4d9272fb84b11c4713fb89e5ce5b8b',1,'JXXON::Json::Map::Map(InputIterator first, InputIterator last)'],['../classJXXON_1_1Json_1_1Map.html#a40e1b7985a6ecd26e19e71acf802ff76',1,'JXXON::Json::Map::Map(const Map &amp;other)'],['../classJXXON_1_1Json_1_1Map.html#ace8c481741552c2f7cef133529365e6f',1,'JXXON::Json::Map::Map(Map &amp;&amp;other)'],['../classJXXON_1_1Json_1_1Map.html#a408fcc9de6cce247627394c3332cf34b',1,'JXXON::Json::Map::Map(std::initializer_list&lt; std::pair&lt; const std::string, T &gt;&gt; initializerList)'],['../classJXXON_1_1Json_1_1Map.html#a0aa3970f01d9bc49a47085e29907fd53',1,'JXXON::Json::Map::Map(const typename Base&lt; T, Args... &gt;::DelegateType &amp;other)'],['../classJXXON_1_1Json_1_1Map.html#a194cc3163a6d634168a64acb6c27b99f',1,'JXXON::Json::Map::Map(typename Base&lt; T, Args... &gt;::DelegateType &amp;&amp;other)'],['../classJXXON_1_1Json_1_1Map.html#afafbe4eac29d9818f607d54c637307c6',1,'JXXON::Json::Map::Map(const Json &amp;json)'],['../namespaceJXXON.html#a320ac0386edfa5d9ab379a30f37396d0',1,'JXXON::Map()']]],
+  ['maptype',['MapType',['../classJXXON_1_1Json_1_1MapType.html',1,'JXXON::Json']]],
+  ['multiset',['Multiset',['../namespaceJXXON.html#ac53f8499ebb730a642991cbb020cd8d4',1,'JXXON']]]
 ];

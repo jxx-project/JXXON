@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['serializable',['Serializable',['../namespaceJXXON.html#a36c6fb970503bc728d050a58c542a7de',1,'JXXON']]]
+  ['map',['Map',['../namespaceJXXON.html#a320ac0386edfa5d9ab379a30f37396d0',1,'JXXON']]],
+  ['multiset',['Multiset',['../namespaceJXXON.html#ac53f8499ebb730a642991cbb020cd8d4',1,'JXXON']]]
 ];

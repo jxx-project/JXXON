@@ -1,13 +1,18 @@
 var classJXXON_1_1Json_1_1Map =
 [
-    [ "Map", "classJXXON_1_1Json_1_1Map.html#aa65495482c8628a5873254e98e302300", null ],
-    [ "Map", "classJXXON_1_1Json_1_1Map.html#a4893a0b6b4816770bbebec6ac13e06a0", null ],
-    [ "Map", "classJXXON_1_1Json_1_1Map.html#a25d486026259a05b74c2a0c28a3f165c", null ],
-    [ "Map", "classJXXON_1_1Json_1_1Map.html#a1aebd1284607de3197a8374d3f97d21b", null ],
-    [ "Map", "classJXXON_1_1Json_1_1Map.html#aef39c673468e1bb42fe4bfdf66d475e3", null ],
-    [ "Map", "classJXXON_1_1Json_1_1Map.html#adf9ffbe63f466bba212da014b1bcbe4f", null ],
-    [ "Map", "classJXXON_1_1Json_1_1Map.html#a29728d99e99b7b2efb747b1b6be8131b", null ],
-    [ "Map", "classJXXON_1_1Json_1_1Map.html#aab4eb3e86d9a740c19b4750111e74b55", null ],
-    [ "~Map", "classJXXON_1_1Json_1_1Map.html#ae799a22041d93a454194ef21fcd961d3", null ],
-    [ "toJson", "classJXXON_1_1Json_1_1Map.html#a891607c9012e2adc23061c09860cd319", null ]
+    [ "Map", "classJXXON_1_1Json_1_1Map.html#afeedc62ab2914f8dc10b340e50d5d577", null ],
+    [ "Map", "classJXXON_1_1Json_1_1Map.html#a1d4d9272fb84b11c4713fb89e5ce5b8b", null ],
+    [ "Map", "classJXXON_1_1Json_1_1Map.html#a40e1b7985a6ecd26e19e71acf802ff76", null ],
+    [ "Map", "classJXXON_1_1Json_1_1Map.html#ace8c481741552c2f7cef133529365e6f", null ],
+    [ "Map", "classJXXON_1_1Json_1_1Map.html#a408fcc9de6cce247627394c3332cf34b", null ],
+    [ "Map", "classJXXON_1_1Json_1_1Map.html#a0aa3970f01d9bc49a47085e29907fd53", null ],
+    [ "Map", "classJXXON_1_1Json_1_1Map.html#a194cc3163a6d634168a64acb6c27b99f", null ],
+    [ "Map", "classJXXON_1_1Json_1_1Map.html#afafbe4eac29d9818f607d54c637307c6", null ],
+    [ "~Map", "classJXXON_1_1Json_1_1Map.html#a904a240a3eca4a6d2d3a91e2dff37ce3", null ],
+    [ "operator=", "classJXXON_1_1Json_1_1Map.html#af2484b5f9c8b0dd4056a5931a9db97e9", null ],
+    [ "operator=", "classJXXON_1_1Json_1_1Map.html#a0f0a62abd89c131614b975e7adc4c5c4", null ],
+    [ "operator=", "classJXXON_1_1Json_1_1Map.html#a95477a5cce27180b4eb83288bb5b482a", null ],
+    [ "operator=", "classJXXON_1_1Json_1_1Map.html#a9ed632e2b4e8abd6b0028cdd957bf19d", null ],
+    [ "operator=", "classJXXON_1_1Json_1_1Map.html#a936bc2b23cc3d16d36007f1d5aa279b0", null ],
+    [ "toJson", "classJXXON_1_1Json_1_1Map.html#aec8db2efd6f3ebb83f059f13fc09db58", null ]
 ];

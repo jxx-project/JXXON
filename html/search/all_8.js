@@ -1,6 +1,7 @@
 var searchData=
 [
-  ['operator_3c_3c',['operator&lt;&lt;',['../classJXXON_1_1Json.html#a4a588d36c2bf13a283f09f24bbf598dc',1,'JXXON::Json']]],
-  ['operator_3d',['operator=',['../classJXXON_1_1Json.html#a04eea3da0e4fb821eeb63f71289c6a06',1,'JXXON::Json']]],
-  ['operator_3e_3e',['operator&gt;&gt;',['../classJXXON_1_1Json.html#ac808426e551176909f4d3df3f0609d79',1,'JXXON::Json']]]
+  ['less',['Less',['../structJXXON_1_1Less.html',1,'JXXON']]],
+  ['less_3c_20t_2c_20typename_20std_3a_3aenable_5fif_3c_20issharedptr_3c_20t_20_3e_3a_3avalue_20_3e_3a_3atype_20_3e',['Less&lt; T, typename std::enable_if&lt; IsSharedPtr&lt; T &gt;::value &gt;::type &gt;',['../structJXXON_1_1Less_3_01T_00_01typename_01std_1_1enable__if_3_01IsSharedPtr_3_01T_01_4_1_1value_01_4_1_1type_01_4.html',1,'JXXON']]],
+  ['less_3c_20t_2c_20typename_20std_3a_3aenable_5fif_3c_21issharedptr_3c_20t_20_3e_3a_3avalue_20_3e_3a_3atype_20_3e',['Less&lt; T, typename std::enable_if&lt;!IsSharedPtr&lt; T &gt;::value &gt;::type &gt;',['../structJXXON_1_1Less_3_01T_00_01typename_01std_1_1enable__if_3_9IsSharedPtr_3_01T_01_4_1_1value_01_4_1_1type_01_4.html',1,'JXXON']]],
+  ['list',['List',['../namespaceJXXON.html#a6461fb8c575f885baca41797afb1ca61',1,'JXXON']]]
 ];
