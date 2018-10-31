@@ -26,7 +26,7 @@ int arrayTest(const std::string& arrayType)
 {
 	bool failed = false;
 
-	failed = !Testee::ArrayTestSuite<ArrayType, std::string>(
+	failed = !Testee::ArrayTestSuite<ArrayType<std::string>>(
 				  arrayType,
 				  "std::string",
 				  "[\"a\",\"b\"]",
@@ -37,7 +37,7 @@ int arrayTest(const std::string& arrayType)
 				  .run() ||
 			 failed;
 
-	failed = !Testee::ArrayTestSuite<ArrayType, std::shared_ptr<std::string>>(
+	failed = !Testee::ArrayTestSuite<ArrayType<std::shared_ptr<std::string>>>(
 				  arrayType,
 				  "std::shared_ptr<std::string>",
 				  "[\"a\",\"b\"]",
@@ -48,7 +48,7 @@ int arrayTest(const std::string& arrayType)
 				  .run() ||
 			 failed;
 
-	failed = !Testee::ArrayTestSuite<ArrayType, int>(
+	failed = !Testee::ArrayTestSuite<ArrayType<int>>(
 				  arrayType,
 				  "int",
 				  "[-4711,-4712]",
@@ -59,7 +59,7 @@ int arrayTest(const std::string& arrayType)
 				  .run() ||
 			 failed;
 
-	failed = !Testee::ArrayTestSuite<ArrayType, std::shared_ptr<int>>(
+	failed = !Testee::ArrayTestSuite<ArrayType<std::shared_ptr<int>>>(
 				  arrayType,
 				  "std::shared_ptr<int>",
 				  "[-4711,-4712]",
@@ -70,7 +70,7 @@ int arrayTest(const std::string& arrayType)
 				  .run() ||
 			 failed;
 
-	failed = !Testee::ArrayTestSuite<ArrayType, unsigned int>(
+	failed = !Testee::ArrayTestSuite<ArrayType<unsigned int>>(
 				  arrayType,
 				  "unsigned int",
 				  "[4711,4712]",
@@ -81,7 +81,7 @@ int arrayTest(const std::string& arrayType)
 				  .run() ||
 			 failed;
 
-	failed = !Testee::ArrayTestSuite<ArrayType, std::shared_ptr<unsigned int>>(
+	failed = !Testee::ArrayTestSuite<ArrayType<std::shared_ptr<unsigned int>>>(
 				  arrayType,
 				  "std::shared_ptr<unsigned int>",
 				  "[4711,4712]",
@@ -93,7 +93,7 @@ int arrayTest(const std::string& arrayType)
 			 failed;
 
 #if (_SIZEOF_INT8_T + 0)
-	failed = !Testee::ArrayTestSuite<ArrayType, std::int8_t>(
+	failed = !Testee::ArrayTestSuite<ArrayType<std::int8_t>>(
 				  arrayType,
 				  "std::int8_t",
 				  "[-47,-48]",
@@ -104,7 +104,7 @@ int arrayTest(const std::string& arrayType)
 				  .run() ||
 			 failed;
 
-	failed = !Testee::ArrayTestSuite<ArrayType, std::shared_ptr<std::int8_t>>(
+	failed = !Testee::ArrayTestSuite<ArrayType<std::shared_ptr<std::int8_t>>>(
 				  arrayType,
 				  "std::shared_ptr<std::int8_t>",
 				  "[-47,-48]",
@@ -117,7 +117,7 @@ int arrayTest(const std::string& arrayType)
 #endif
 
 #if (_SIZEOF_UINT8_T + 0)
-	failed = !Testee::ArrayTestSuite<ArrayType, std::uint8_t>(
+	failed = !Testee::ArrayTestSuite<ArrayType<std::uint8_t>>(
 				  arrayType,
 				  "std::uint8_t",
 				  "[47,48]",
@@ -128,7 +128,7 @@ int arrayTest(const std::string& arrayType)
 				  .run() ||
 			 failed;
 
-	failed = !Testee::ArrayTestSuite<ArrayType, std::shared_ptr<std::uint8_t>>(
+	failed = !Testee::ArrayTestSuite<ArrayType<std::shared_ptr<std::uint8_t>>>(
 				  arrayType,
 				  "std::shared_ptr<std::uint8_t>",
 				  "[47,48]",
@@ -141,7 +141,7 @@ int arrayTest(const std::string& arrayType)
 #endif
 
 #if (_SIZEOF_INT16_T + 0)
-	failed = !Testee::ArrayTestSuite<ArrayType, std::int16_t>(
+	failed = !Testee::ArrayTestSuite<ArrayType<std::int16_t>>(
 				  arrayType,
 				  "std::int16_t",
 				  "[-4711,-4712]",
@@ -152,7 +152,7 @@ int arrayTest(const std::string& arrayType)
 				  .run() ||
 			 failed;
 
-	failed = !Testee::ArrayTestSuite<ArrayType, std::shared_ptr<std::int16_t>>(
+	failed = !Testee::ArrayTestSuite<ArrayType<std::shared_ptr<std::int16_t>>>(
 				  arrayType,
 				  "std::shared_ptr<std::int16_t>",
 				  "[-4711,-4712]",
@@ -165,7 +165,7 @@ int arrayTest(const std::string& arrayType)
 #endif
 
 #if (_SIZEOF_UINT16_T + 0)
-	failed = !Testee::ArrayTestSuite<ArrayType, std::uint16_t>(
+	failed = !Testee::ArrayTestSuite<ArrayType<std::uint16_t>>(
 				  arrayType,
 				  "std::uint16_t",
 				  "[4711,4712]",
@@ -176,7 +176,7 @@ int arrayTest(const std::string& arrayType)
 				  .run() ||
 			 failed;
 
-	failed = !Testee::ArrayTestSuite<ArrayType, std::shared_ptr<std::uint16_t>>(
+	failed = !Testee::ArrayTestSuite<ArrayType<std::shared_ptr<std::uint16_t>>>(
 				  arrayType,
 				  "std::shared_ptr<std::uint16_t>",
 				  "[4711,4712]",
@@ -189,7 +189,7 @@ int arrayTest(const std::string& arrayType)
 #endif
 
 #if (_SIZEOF_INT32_T + 0)
-	failed = !Testee::ArrayTestSuite<ArrayType, std::int32_t>(
+	failed = !Testee::ArrayTestSuite<ArrayType<std::int32_t>>(
 				  arrayType,
 				  "std::int32_t",
 				  "[-47114711,-47124712]",
@@ -200,7 +200,7 @@ int arrayTest(const std::string& arrayType)
 				  .run() ||
 			 failed;
 
-	failed = !Testee::ArrayTestSuite<ArrayType, std::shared_ptr<std::int32_t>>(
+	failed = !Testee::ArrayTestSuite<ArrayType<std::shared_ptr<std::int32_t>>>(
 				  arrayType,
 				  "std::shared_ptr<std::int32_t>",
 				  "[-47114711,-47124712]",
@@ -213,7 +213,7 @@ int arrayTest(const std::string& arrayType)
 #endif
 
 #if (_SIZEOF_UINT32_T + 0)
-	failed = !Testee::ArrayTestSuite<ArrayType, std::uint32_t>(
+	failed = !Testee::ArrayTestSuite<ArrayType<std::uint32_t>>(
 				  arrayType,
 				  "std::uint32_t",
 				  "[47114711,47124712]",
@@ -224,7 +224,7 @@ int arrayTest(const std::string& arrayType)
 				  .run() ||
 			 failed;
 
-	failed = !Testee::ArrayTestSuite<ArrayType, std::shared_ptr<std::uint32_t>>(
+	failed = !Testee::ArrayTestSuite<ArrayType<std::shared_ptr<std::uint32_t>>>(
 				  arrayType,
 				  "std::shared_ptr<std::uint32_t>",
 				  "[47114711,47124712]",
@@ -237,7 +237,7 @@ int arrayTest(const std::string& arrayType)
 #endif
 
 #if (_SIZEOF_INT64_T + 0)
-	failed = !Testee::ArrayTestSuite<ArrayType, std::int64_t>(
+	failed = !Testee::ArrayTestSuite<ArrayType<std::int64_t>>(
 				  arrayType,
 				  "std::int64_t",
 				  "[-4711471147114711,-4712471247124712]",
@@ -248,7 +248,7 @@ int arrayTest(const std::string& arrayType)
 				  .run() ||
 			 failed;
 
-	failed = !Testee::ArrayTestSuite<ArrayType, std::shared_ptr<std::int64_t>>(
+	failed = !Testee::ArrayTestSuite<ArrayType<std::shared_ptr<std::int64_t>>>(
 				  arrayType,
 				  "std::shared_ptr<std::int64_t>",
 				  "[-4711471147114711,-4712471247124712]",
@@ -261,7 +261,7 @@ int arrayTest(const std::string& arrayType)
 #endif
 
 #if (_SIZEOF_UINT64_T + 0)
-	failed = !Testee::ArrayTestSuite<ArrayType, std::uint64_t>(
+	failed = !Testee::ArrayTestSuite<ArrayType<std::uint64_t>>(
 				  arrayType,
 				  "std::uint64_t",
 				  "[4711471147114711,4712471247124712]",
@@ -272,7 +272,7 @@ int arrayTest(const std::string& arrayType)
 				  .run() ||
 			 failed;
 
-	failed = !Testee::ArrayTestSuite<ArrayType, std::shared_ptr<std::uint64_t>>(
+	failed = !Testee::ArrayTestSuite<ArrayType<std::shared_ptr<std::uint64_t>>>(
 				  arrayType,
 				  "std::shared_ptr<std::uint64_t>",
 				  "[4711471147114711,4712471247124712]",
@@ -284,7 +284,7 @@ int arrayTest(const std::string& arrayType)
 			 failed;
 #endif
 
-	failed = !Testee::ArrayTestSuite<ArrayType, std::intmax_t>(
+	failed = !Testee::ArrayTestSuite<ArrayType<std::intmax_t>>(
 				  arrayType,
 				  "std::intmax_t",
 				  "[-4711471147114711,-4712471247124712]",
@@ -295,7 +295,7 @@ int arrayTest(const std::string& arrayType)
 				  .run() ||
 			 failed;
 
-	failed = !Testee::ArrayTestSuite<ArrayType, std::shared_ptr<std::intmax_t>>(
+	failed = !Testee::ArrayTestSuite<ArrayType<std::shared_ptr<std::intmax_t>>>(
 				  arrayType,
 				  "std::shared_ptr<std::intmax_t>",
 				  "[-4711471147114711,-4712471247124712]",
@@ -306,7 +306,7 @@ int arrayTest(const std::string& arrayType)
 				  .run() ||
 			 failed;
 
-	failed = !Testee::ArrayTestSuite<ArrayType, std::uintmax_t>(
+	failed = !Testee::ArrayTestSuite<ArrayType<std::uintmax_t>>(
 				  arrayType,
 				  "std::uintmax_t",
 				  "[4711471147114711,4712471247124712]",
@@ -317,7 +317,7 @@ int arrayTest(const std::string& arrayType)
 				  .run() ||
 			 failed;
 
-	failed = !Testee::ArrayTestSuite<ArrayType, std::shared_ptr<std::uintmax_t>>(
+	failed = !Testee::ArrayTestSuite<ArrayType<std::shared_ptr<std::uintmax_t>>>(
 				  arrayType,
 				  "std::shared_ptr<std::uintmax_t>",
 				  "[4711471147114711,4712471247124712]",
@@ -328,7 +328,7 @@ int arrayTest(const std::string& arrayType)
 				  .run() ||
 			 failed;
 
-	failed = !Testee::ArrayTestSuite<ArrayType, float>(
+	failed = !Testee::ArrayTestSuite<ArrayType<float>>(
 				  arrayType,
 				  "float",
 				  "[3.25,6.75]",
@@ -340,7 +340,7 @@ int arrayTest(const std::string& arrayType)
 				  .run() ||
 			 failed;
 
-	failed = !Testee::ArrayTestSuite<ArrayType, std::shared_ptr<float>>(
+	failed = !Testee::ArrayTestSuite<ArrayType<std::shared_ptr<float>>>(
 				  arrayType,
 				  "std::shared_ptr<float>",
 				  "[3.25,6.75]",
@@ -351,7 +351,7 @@ int arrayTest(const std::string& arrayType)
 				  .run() ||
 			 failed;
 
-	failed = !Testee::ArrayTestSuite<ArrayType, double>(
+	failed = !Testee::ArrayTestSuite<ArrayType<double>>(
 				  arrayType,
 				  "double",
 				  "[3.25,6.75]",
@@ -363,7 +363,7 @@ int arrayTest(const std::string& arrayType)
 				  .run() ||
 			 failed;
 
-	failed = !Testee::ArrayTestSuite<ArrayType, std::shared_ptr<double>>(
+	failed = !Testee::ArrayTestSuite<ArrayType<std::shared_ptr<double>>>(
 				  arrayType,
 				  "std::shared_ptr<double>",
 				  "[3.25,6.75]",
@@ -374,7 +374,7 @@ int arrayTest(const std::string& arrayType)
 				  .run() ||
 			 failed;
 
-	failed = !Testee::ArrayTestSuite<ArrayType, bool>(
+	failed = !Testee::ArrayTestSuite<ArrayType<bool>>(
 				  arrayType,
 				  "bool",
 				  "[true,false]",
@@ -385,7 +385,7 @@ int arrayTest(const std::string& arrayType)
 				  .run() ||
 			 failed;
 
-	failed = !Testee::ArrayTestSuite<ArrayType, std::shared_ptr<bool>>(
+	failed = !Testee::ArrayTestSuite<ArrayType<std::shared_ptr<bool>>>(
 				  arrayType,
 				  "std::shared_ptr<bool>",
 				  "[true,false]",
@@ -396,7 +396,7 @@ int arrayTest(const std::string& arrayType)
 				  .run() ||
 			 failed;
 
-	failed = !Testee::ArrayTestSuite<ArrayType, Model::Object<std::string>>(
+	failed = !Testee::ArrayTestSuite<ArrayType<Model::Object<std::string>>>(
 				  arrayType,
 				  "Model::Object<std::string>",
 				  "[{\"value\":\"a\"},{\"value\":\"b\"}]",
@@ -407,7 +407,7 @@ int arrayTest(const std::string& arrayType)
 				  .run() ||
 			 failed;
 
-	failed = !Testee::ArrayTestSuite<ArrayType, std::shared_ptr<Model::Object<std::string>>>(
+	failed = !Testee::ArrayTestSuite<ArrayType<std::shared_ptr<Model::Object<std::string>>>>(
 				  arrayType,
 				  "std::shared_ptr<Model::Object<std::string>>",
 				  "[{\"value\":\"a\"},{\"value\":\"b\"}]",
@@ -418,7 +418,7 @@ int arrayTest(const std::string& arrayType)
 				  .run() ||
 			 failed;
 
-	failed = !Testee::ArrayTestSuite<ArrayType, JXXON::Vector<std::string>>(
+	failed = !Testee::ArrayTestSuite<ArrayType<JXXON::Vector<std::string>>>(
 				  arrayType,
 				  "JXXON::Vector<std::string>",
 				  "[[\"a\",\"b\"],[\"c\",\"d\"]]",
@@ -429,7 +429,7 @@ int arrayTest(const std::string& arrayType)
 				  .run() ||
 			 failed;
 
-	failed = !Testee::ArrayTestSuite<ArrayType, std::shared_ptr<JXXON::Vector<std::string>>>(
+	failed = !Testee::ArrayTestSuite<ArrayType<std::shared_ptr<JXXON::Vector<std::string>>>>(
 				  arrayType,
 				  "std::shared_ptr<JXXON::Vector<std::string>>",
 				  "[[\"a\",\"b\"],[\"c\",\"d\"]]",
@@ -440,7 +440,7 @@ int arrayTest(const std::string& arrayType)
 				  .run() ||
 			 failed;
 
-	failed = !Testee::ArrayTestSuite<ArrayType, JXXON::List<std::string>>(
+	failed = !Testee::ArrayTestSuite<ArrayType<JXXON::List<std::string>>>(
 				  arrayType,
 				  "JXXON::List<std::string>",
 				  "[[\"a\",\"b\"],[\"c\",\"d\"]]",
@@ -451,7 +451,7 @@ int arrayTest(const std::string& arrayType)
 				  .run() ||
 			 failed;
 
-	failed = !Testee::ArrayTestSuite<ArrayType, std::shared_ptr<JXXON::List<std::string>>>(
+	failed = !Testee::ArrayTestSuite<ArrayType<std::shared_ptr<JXXON::List<std::string>>>>(
 				  arrayType,
 				  "std::shared_ptr<JXXON::List<std::string>>",
 				  "[[\"a\",\"b\"],[\"c\",\"d\"]]",
@@ -462,7 +462,7 @@ int arrayTest(const std::string& arrayType)
 				  .run() ||
 			 failed;
 
-	failed = !Testee::ArrayTestSuite<ArrayType, JXXON::Map<std::string>>(
+	failed = !Testee::ArrayTestSuite<ArrayType<JXXON::Map<std::string>>>(
 				  arrayType,
 				  "JXXON::Map<std::string>",
 				  "[{\"value\":\"a\"},{\"value\":\"b\"}]",
@@ -473,7 +473,7 @@ int arrayTest(const std::string& arrayType)
 				  .run() ||
 			 failed;
 
-	failed = !Testee::ArrayTestSuite<ArrayType, std::shared_ptr<JXXON::Map<std::string>>>(
+	failed = !Testee::ArrayTestSuite<ArrayType<std::shared_ptr<JXXON::Map<std::string>>>>(
 				  arrayType,
 				  "std::shared_ptr<JXXON::Map<std::string>>",
 				  "[{\"value\":\"a\"},{\"value\":\"b\"}]",
@@ -484,7 +484,7 @@ int arrayTest(const std::string& arrayType)
 				  .run() ||
 			 failed;
 
-	failed = !Testee::ArrayTestSuite<ArrayType, JXXON::UnorderedMap<std::string>>(
+	failed = !Testee::ArrayTestSuite<ArrayType<JXXON::UnorderedMap<std::string>>>(
 				  arrayType,
 				  "JXXON::UnorderedMap<std::string>",
 				  "[{\"value\":\"a\"},{\"value\":\"b\"}]",
@@ -495,7 +495,7 @@ int arrayTest(const std::string& arrayType)
 				  .run() ||
 			 failed;
 
-	failed = !Testee::ArrayTestSuite<ArrayType, std::shared_ptr<JXXON::UnorderedMap<std::string>>>(
+	failed = !Testee::ArrayTestSuite<ArrayType<std::shared_ptr<JXXON::UnorderedMap<std::string>>>>(
 				  arrayType,
 				  "std::shared_ptr<JXXON::UnorderedMap<std::string>>",
 				  "[{\"value\":\"a\"},{\"value\":\"b\"}]",

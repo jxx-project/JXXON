@@ -13,13 +13,13 @@
 
 namespace Testee {
 
-/// Test Sets of type T.
-template<template<typename...> class SetType, bool isMultiset, typename T, typename... Args>
+/// Test Sets.
+template<typename SetType, bool isMultiset>
 class SetTestSuite : public TestSuite
 {
 public:
-	typedef typename SetType<T, Args...>::DelegateType::size_type SizeType;
-	typedef typename SetType<T, Args...>::DelegateType DelegateType;
+	typedef typename SetType::DelegateType::size_type SizeType;
+	typedef typename SetType::DelegateType DelegateType;
 
 	SetTestSuite(
 		const std::string& setType,
@@ -34,7 +34,7 @@ public:
 					"[A] " + setType + " of " + type,
 					[&] {
 						const JXXON::Json json("[" + jsonObject1 + "]");
-						SetType<T, Args...> set(json);
+						SetType set(json);
 						TestCase::assert_equal(set.size(), SizeType(1));
 					}),
 
@@ -42,7 +42,7 @@ public:
 					"[A,B] " + setType + " of " + type,
 					[&] {
 						const JXXON::Json json("[" + jsonObject1 + "," + jsonObject2 + "]");
-						SetType<T, Args...> set(json);
+						SetType set(json);
 						TestCase::assert_equal(set.size(), SizeType(2));
 					}),
 
@@ -50,7 +50,7 @@ public:
 					"[A,B,B] " + setType + " of " + type,
 					[&] {
 						const JXXON::Json json("[" + jsonObject1 + "," + jsonObject2 + "," + jsonObject2 + "]");
-						SetType<T, Args...> set(json);
+						SetType set(json);
 						TestCase::assert_equal(set.size(), SizeType(isMultiset ? 3 : 2));
 					}),
 
@@ -58,7 +58,7 @@ public:
 					"[A,B,B,null] " + setType + " of " + type,
 					[&] {
 						const JXXON::Json json("[" + jsonObject1 + "," + jsonObject2 + "," + jsonObject2 + ",null]");
-						SetType<T, Args...> set(json);
+						SetType set(json);
 						TestCase::assert_equal(set.size(), SizeType(isMultiset ? 4 : 3));
 					}),
 
@@ -66,7 +66,7 @@ public:
 					"[A,B,B,null,null] " + setType + " of " + type,
 					[&] {
 						const JXXON::Json json("[" + jsonObject1 + "," + jsonObject2 + "," + jsonObject2 + ",null,null]");
-						SetType<T, Args...> set(json);
+						SetType set(json);
 						TestCase::assert_equal(set.size(), SizeType(isMultiset ? 5 : 3));
 					})
 

@@ -15,11 +15,13 @@ namespace Model {
 template<typename T>
 struct Object : public JXXON::Serializable
 {
+	typedef T ValueType;
+
 	Object();
 	Object(const JXXON::Json& json);
 	virtual JXXON::Json toJson() const override;
 
-	T value;
+	ValueType value;
 };
 
 } // namespace Model
