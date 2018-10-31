@@ -5,8 +5,8 @@
 //
 
 
-#ifndef JXXON_Set_INCLUDED
-#define JXXON_Set_INCLUDED
+#ifndef JXXON_UnorderedSet_INCLUDED
+#define JXXON_UnorderedSet_INCLUDED
 
 #include "JXXON/Base/UnorderedSet.h"
 #include "JXXON/EqualTo.h"
@@ -21,4 +21,4 @@ using UnorderedSet = Json::Array<Key, Base::UnorderedSet, Hash, Predicate, Alloc
 
 } // namespace JXXON
 
-#endif // JXXON_Set_INCLUDED
+#endif // JXXON_UnorderedSet_INCLUDED

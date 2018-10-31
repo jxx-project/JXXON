@@ -5,8 +5,8 @@
 //
 
 
-#ifndef JXXON_Set_INCLUDED
-#define JXXON_Set_INCLUDED
+#ifndef JXXON_UnorderedMultiset_INCLUDED
+#define JXXON_UnorderedMultiset_INCLUDED
 
 #include "JXXON/Base/UnorderedMultiset.h"
 #include "JXXON/EqualTo.h"
@@ -21,4 +21,4 @@ using UnorderedMultiset = Json::Array<Key, Base::UnorderedMultiset, Hash, Predic
 
 } // namespace JXXON
 
-#endif // JXXON_Set_INCLUDED
+#endif // JXXON_UnorderedMultiset_INCLUDED

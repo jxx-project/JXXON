@@ -5,8 +5,8 @@
 //
 
 
-#ifndef JXXON_Base_Set_INCLUDED
-#define JXXON_Base_Set_INCLUDED
+#ifndef JXXON_Base_UnorderedMultiset_INCLUDED
+#define JXXON_Base_UnorderedMultiset_INCLUDED
 
 #include "JXXON/EqualTo.h"
 #include "JXXON/Hash.h"
@@ -117,4 +117,4 @@ public:
 
 }} // namespace JXXON::Base
 
-#endif // JXXON_Base_Set_INCLUDED
+#endif // JXXON_Base_UnorderedMultiset_INCLUDED
