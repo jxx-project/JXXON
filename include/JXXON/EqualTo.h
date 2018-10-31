@@ -9,12 +9,14 @@
 #define JXXON_EqualTo_INCLUDED
 
 #include "JXXON/IsSharedPtr.h"
+#include <functional>
 
 namespace JXXON {
 
 template<typename T, typename Enable = void>
 struct EqualTo;
 
+/// Functional forwarding to std::equal_to for non-nullable elements.
 template<typename T>
 struct EqualTo<T, typename std::enable_if<!IsSharedPtr<T>::value>::type>
 {
@@ -24,6 +26,7 @@ struct EqualTo<T, typename std::enable_if<!IsSharedPtr<T>::value>::type>
 	}
 };
 
+/// Functional forwarding to std::equal_to for nullable element targets. Null elements are considered equal to each other.
 template<typename T>
 struct EqualTo<T, typename std::enable_if<IsSharedPtr<T>::value>::type>
 {

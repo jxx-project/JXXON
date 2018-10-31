@@ -13,13 +13,13 @@
 
 namespace Testee {
 
-/// Test Maps of type T.
-template<template<typename...> class MapType, typename T>
+/// Test Maps.
+template<typename MapType>
 class MapTestSuite : public TestSuite
 {
 public:
-	typedef typename MapType<T>::DelegateType::size_type SizeType;
-	typedef typename MapType<T>::DelegateType DelegateType;
+	typedef typename MapType::DelegateType::size_type SizeType;
+	typedef typename MapType::DelegateType DelegateType;
 
 	MapTestSuite(
 		const std::string& mapType,
@@ -31,14 +31,14 @@ public:
 		const std::string& expectJSONWithNull,
 		const std::string& altExpectJSONWithNull = "") :
 		TestSuite(
-			mapType + "< " + type + " >",
+			"MapTestSuite<" + mapType + "<" + type + ">>",
 			{
 
 				TestCase(
 					"Valid " + mapType + " of " + type,
 					[&] {
 						JXXON::Json json(validJSON);
-						MapType<T> map(json);
+						MapType map(json);
 						TestCase::assert_equal(map.toJson().toString(), validJSON);
 					}),
 
@@ -47,7 +47,7 @@ public:
 					[&] {
 						static const std::string emptyJSON("{}");
 						JXXON::Json json(emptyJSON);
-						MapType<T> map(json);
+						MapType map(json);
 						TestCase::assert_equal(map.toJson().toString(), emptyJSON);
 					}),
 
@@ -55,7 +55,7 @@ public:
 					"Valid " + mapType + " of " + type + " with null",
 					[&] {
 						JXXON::Json json(validJSONWithNull);
-						MapType<T> map(json);
+						MapType map(json);
 						if (altExpectJSONWithNull.empty()) {
 							TestCase::assert_equal(map.toJson().toString(), expectJSONWithNull);
 						} else {
@@ -67,21 +67,21 @@ public:
 					"Valid " + mapType + " of invalid " + type,
 					[&] {
 						JXXON::Json json(validJSONOfInvalid);
-						TestCase::assert_throw<JXXON::Error>([&] { MapType<T> map(json); });
+						TestCase::assert_throw<JXXON::Error>([&] { MapType map(json); });
 					}),
 
 				TestCase(
 					"Invalid " + mapType + " of " + type,
 					[&] {
 						JXXON::Json json(invalidJSON);
-						TestCase::assert_throw<JXXON::Error>([&] { MapType<T> map(json); });
+						TestCase::assert_throw<JXXON::Error>([&] { MapType map(json); });
 					}),
 
 				TestCase(
 					"Copy assignment of " + mapType + " of " + type,
 					[&] {
-						const MapType<T> map = {std::make_pair(std::string(""), T())};
-						MapType<T> other;
+						const MapType map = {std::make_pair(std::string(""), typename MapType::mapped_type())};
+						MapType other;
 						other = map;
 						TestCase::assert_equal(map.size(), SizeType(1));
 						TestCase::assert_equal(other.size(), SizeType(1));
@@ -90,8 +90,8 @@ public:
 				TestCase(
 					"Move assignment of " + mapType + " of " + type,
 					[&] {
-						MapType<T> map = {std::make_pair(std::string(""), T())};
-						MapType<T> other;
+						MapType map = {std::make_pair(std::string(""), typename MapType::mapped_type())};
+						MapType other;
 						other = std::move(map);
 						TestCase::assert_equal(map.size(), SizeType(0));
 						TestCase::assert_equal(other.size(), SizeType(1));
@@ -100,8 +100,8 @@ public:
 				TestCase(
 					"Delegate type copy assignment of " + mapType + " of " + type,
 					[&] {
-						const DelegateType map = {std::make_pair(std::string(""), T())};
-						MapType<T> other;
+						const DelegateType map = {std::make_pair(std::string(""), typename MapType::mapped_type())};
+						MapType other;
 						other = map;
 						TestCase::assert_equal(map.size(), SizeType(1));
 						TestCase::assert_equal(other.size(), SizeType(1));
@@ -110,8 +110,8 @@ public:
 				TestCase(
 					"Delegate type move assignment of " + mapType + " of " + type,
 					[&] {
-						DelegateType map = {std::make_pair(std::string(""), T())};
-						MapType<T> other;
+						DelegateType map = {std::make_pair(std::string(""), typename MapType::mapped_type())};
+						MapType other;
 						other = std::move(map);
 						TestCase::assert_equal(map.size(), SizeType(0));
 						TestCase::assert_equal(other.size(), SizeType(1));
@@ -120,7 +120,7 @@ public:
 				TestCase(
 					"Delegate reference type conversion of " + mapType + " of " + type,
 					[&] {
-						MapType<T> map = {std::make_pair(std::string(""), T())};
+						MapType map = {std::make_pair(std::string(""), typename MapType::mapped_type())};
 						DelegateType& other = map;
 						TestCase::assert_equal(map.size(), SizeType(1));
 						TestCase::assert_equal(other.size(), SizeType(1));
@@ -129,18 +129,22 @@ public:
 				TestCase(
 					"Delegate const reference type conversion of " + mapType + " of " + type,
 					[&] {
-						const MapType<T> map = {std::make_pair(std::string(""), T())};
+						const MapType map = {std::make_pair(std::string(""), typename MapType::mapped_type())};
 						const DelegateType& other = map;
 						TestCase::assert_equal(map.size(), SizeType(1));
 						TestCase::assert_equal(other.size(), SizeType(1));
 					}),
 
-				TestCase("Delegate rvalue reference type conversion of " + mapType + " of " + type, [&] {
-					MapType<T> map = {std::make_pair(std::string(""), T())};
-					DelegateType other = static_cast<DelegateType&&>(map);
-					TestCase::assert_equal(map.size(), SizeType(0));
-					TestCase::assert_equal(other.size(), SizeType(1));
-				})})
+				TestCase(
+					"Delegate rvalue reference type conversion of " + mapType + " of " + type,
+					[&] {
+						MapType map = {std::make_pair(std::string(""), typename MapType::mapped_type())};
+						DelegateType other = static_cast<DelegateType&&>(map);
+						TestCase::assert_equal(map.size(), SizeType(0));
+						TestCase::assert_equal(other.size(), SizeType(1));
+					})
+
+			})
 	{
 	}
 };

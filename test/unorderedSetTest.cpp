@@ -5,10 +5,10 @@
 //
 
 
-#include "JXXON/Set.h"
+#include "JXXON/UnorderedSet.h"
 #include "Testee/setTest.h"
 
 int main(int argc, char* argv[])
 {
-	return Testee::setTest<JXXON::Set, false, false>("JXXON::Set");
+	return Testee::setTest<JXXON::UnorderedSet, true, false>("JXXON::UnorderedSet");
 }

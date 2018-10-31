@@ -108,5 +108,14 @@ add_dependencies(check unorderedMapTest)
 add_test(NAME SetTest COMMAND setTest)
 add_dependencies(check setTest)
 
+add_test(NAME MultisetTest COMMAND multisetTest)
+add_dependencies(check multisetTest)
+
+add_test(NAME UnorderedSetTest COMMAND unorderedSetTest)
+add_dependencies(check unorderedSetTest)
+
+add_test(NAME UnorderedMultisetTest COMMAND unorderedMultisetTest)
+add_dependencies(check unorderedMultisetTest)
+
 add_test(NAME MiscellaneousTest COMMAND miscellaneousTest)
 add_dependencies(check miscellaneousTest)

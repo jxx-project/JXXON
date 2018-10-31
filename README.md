@@ -4,7 +4,7 @@ Serialize C++ object hierarchies into JSON documents and vice versa almost as co
 
 ## Design goals
 
-### Focus on one thing and try to do that well
+### Focus on one thing and do that well
 
 Mapping C++ object hierarchies and containers to JSON documents. There are a couple of C++ JSON parsers/generators out there, mature and proven. I will not attempt to write a better one. Instead, JXXON relies on existing ones.
 
@@ -72,7 +72,7 @@ struct SampleObject : public JXXON::Serializable
 
 ## Dependencies
 
-JXXON is using [Polymorphic decorators](https://github.com/jxx-project/Polymorphic) >= 1.0.0 to extend C++11 standard containers and to add serializability.
+JXXON is using [Polymorphic decorators](https://github.com/jxx-project/Polymorphic) >= 1.2.0 to extend C++11 standard containers and to add serializability.
 
 Processing of JSON documents is delegated to **either** [JsonCpp](https://github.com/open-source-parsers/jsoncpp) >= 1.6.0 **or** [Poco](https://pocoproject.org) >= 1.7.4, depending on your choice when building the JXXON library.
 

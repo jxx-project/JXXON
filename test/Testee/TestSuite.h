@@ -26,7 +26,7 @@ public:
 	{
 		unsigned int passed = 0;
 		unsigned int failed = 0;
-		std::cout << "Testing " << subject << " ..." << std::endl;
+		std::cout << "Running " << subject << " ..." << std::endl;
 		for (auto& testCase : testCases) {
 			try {
 				testCase.run();

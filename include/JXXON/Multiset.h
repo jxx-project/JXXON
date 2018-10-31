@@ -5,10 +5,10 @@
 //
 
 
-#ifndef JXXON_Set_INCLUDED
-#define JXXON_Set_INCLUDED
+#ifndef JXXON_Multiset_INCLUDED
+#define JXXON_Multiset_INCLUDED
 
-#include "JXXON/Base/Set.h"
+#include "JXXON/Base/Multiset.h"
 #include "JXXON/Json.h"
 #include "JXXON/Less.h"
 
@@ -16,8 +16,8 @@ namespace JXXON {
 
 /// Alias template composing std::set<Key, Compare, Allocator> and implementing JXXON::Serializable.
 template<typename Key, typename Compare = Less<Key>, typename Allocator = std::allocator<Key>>
-using Set = Json::Array<Key, Base::Set, Compare, Allocator>;
+using Multiset = Json::Array<Key, Base::Multiset, Compare, Allocator>;
 
 } // namespace JXXON
 
-#endif // JXXON_Set_INCLUDED
+#endif // JXXON_Multiset_INCLUDED
