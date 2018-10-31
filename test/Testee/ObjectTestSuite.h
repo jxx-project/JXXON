@@ -26,7 +26,7 @@ public:
 		const std::string& expectEmptyJSON = "{}",
 		const std::string& altExpectEmptyJSON = "") :
 		TestSuite(
-			type + " objects",
+			"ObjectTestSuite<" + type + ">",
 			{
 
 				TestCase(
