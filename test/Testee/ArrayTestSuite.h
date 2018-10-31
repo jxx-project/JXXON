@@ -31,7 +31,7 @@ public:
 		const std::string& expectJSONWithNull,
 		const std::string& altExpectJSONWithNull = "") :
 		TestSuite(
-			arrayType + "< " + type + " >",
+			"ArrayTestSuite<" + arrayType + "<" + type + ">>",
 			{
 
 				TestCase(

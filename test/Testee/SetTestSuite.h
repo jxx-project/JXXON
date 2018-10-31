@@ -27,11 +27,11 @@ public:
 		const std::string& jsonObject1,
 		const std::string& jsonObject2) :
 		TestSuite(
-			setType + "< " + type + " >",
+			"SetTestSuite<" + setType + "<" + type + ">>",
 			{
 
 				TestCase(
-					"[a] " + setType + " of " + type,
+					"[A] " + setType + " of " + type,
 					[&] {
 						const JXXON::Json json("[" + jsonObject1 + "]");
 						SetType<T, Args...> set(json);
@@ -39,7 +39,7 @@ public:
 					}),
 
 				TestCase(
-					"[a,b] " + setType + " of " + type,
+					"[A,B] " + setType + " of " + type,
 					[&] {
 						const JXXON::Json json("[" + jsonObject1 + "," + jsonObject2 + "]");
 						SetType<T, Args...> set(json);
@@ -47,7 +47,7 @@ public:
 					}),
 
 				TestCase(
-					"[a,b,b] " + setType + " of " + type,
+					"[A,B,B] " + setType + " of " + type,
 					[&] {
 						const JXXON::Json json("[" + jsonObject1 + "," + jsonObject2 + "," + jsonObject2 + "]");
 						SetType<T, Args...> set(json);
@@ -55,7 +55,7 @@ public:
 					}),
 
 				TestCase(
-					"[a,b,b,null] " + setType + " of " + type,
+					"[A,B,B,null] " + setType + " of " + type,
 					[&] {
 						const JXXON::Json json("[" + jsonObject1 + "," + jsonObject2 + "," + jsonObject2 + ",null]");
 						SetType<T, Args...> set(json);
@@ -63,7 +63,7 @@ public:
 					}),
 
 				TestCase(
-					"[a,b,b,null,null] " + setType + " of " + type,
+					"[A,B,B,null,null] " + setType + " of " + type,
 					[&] {
 						const JXXON::Json json("[" + jsonObject1 + "," + jsonObject2 + "," + jsonObject2 + ",null,null]");
 						SetType<T, Args...> set(json);
