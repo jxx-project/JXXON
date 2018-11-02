@@ -1,6 +1,5 @@
 var namespaceJXXON =
 [
-    [ "Allocator", "structJXXON_1_1Allocator.html", "structJXXON_1_1Allocator" ],
     [ "EqualTo", "structJXXON_1_1EqualTo.html", null ],
     [ "EqualTo< T, typename std::enable_if< IsSharedPtr< T >::value >::type >", "structJXXON_1_1EqualTo_3_01T_00_01typename_01std_1_1enable__if_3_01IsSharedPtr_3_01T_01_4_1_1value_01_4_1_1type_01_4.html", "structJXXON_1_1EqualTo_3_01T_00_01typename_01std_1_1enable__if_3_01IsSharedPtr_3_01T_01_4_1_1value_01_4_1_1type_01_4" ],
     [ "EqualTo< T, typename std::enable_if<!IsSharedPtr< T >::value >::type >", "structJXXON_1_1EqualTo_3_01T_00_01typename_01std_1_1enable__if_3_9IsSharedPtr_3_01T_01_4_1_1value_01_4_1_1type_01_4.html", "structJXXON_1_1EqualTo_3_01T_00_01typename_01std_1_1enable__if_3_9IsSharedPtr_3_01T_01_4_1_1value_01_4_1_1type_01_4" ],

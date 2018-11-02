@@ -1,6 +1,5 @@
 var hierarchy =
 [
-    [ "JXXON::Allocator< T >", "structJXXON_1_1Allocator.html", null ],
     [ "JXXON::Json::ArrayType< T >", "classJXXON_1_1Json_1_1ArrayType.html", null ],
     [ "Base", null, [
       [ "JXXON::Json::Array< T, Base, Args >", "classJXXON_1_1Json_1_1Array.html", null ],

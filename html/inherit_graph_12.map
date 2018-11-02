@@ -1,3 +1,5 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$classJXXON_1_1Json_1_1MapType.html" title="Interface implemented by JSON map type containers. " alt="" coords="5,5,203,32"/>
+<area shape="rect" id="node2" href="$classJXXON_1_1Json_1_1Array.html" title="JXXON::Json::Array\l\&lt; T, Base, Args \&gt;" alt="" coords="241,5,383,47"/>
+<area shape="rect" id="node3" href="$classJXXON_1_1Json_1_1Map.html" title="JXXON::Json::Map\&lt; T,\l Base, Args \&gt;" alt="" coords="232,71,392,112"/>
+<area shape="rect" id="node4" href="$classJXXON_1_1Json_1_1Serializable.html" title="Interface implemented by (de)serializable classes. Preferrably use the type alias JXXON::Serializable..." alt="" coords="5,71,184,98"/>
 </map>
