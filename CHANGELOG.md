@@ -1,9 +1,12 @@
 # Changelog
 
 ## Unreleased
+
+## 1.2.0 - 2019-01-13
 ### Added
 - Support std::int8_t, std::uint8_t, std::int16_t, std::uint16_t, std::int32_t, std::uint32_t.
 - Container assignment operators.
+- Container types Set, Multiset, UnorderedSet, UnorderedMultiset.
 
 ### Changed
 - Removed dead end fill constructors from Map and UnorderedMap.
